@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Symbolic Modified Nodal Analysis - 4&nbsp; test_1</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./test_2.html" rel="next">
+<link href="./Verification.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Verification.html">Verification</a></li><li class="breadcrumb-item"><a href="./test_1.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">test_1</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Symbolic Modified Nodal Analysis</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About this book</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Preface.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Theory.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Theory</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./SMNA_example.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Symbolic modified nodal analysis example</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./Verification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Verification</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_1.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">test_1</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">test_2</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./Problems.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Problems</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Two amplifier RIAA Phono Preamp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Two amplifier RIAA phono preamp</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Chapter-D.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Chapter D</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Chapter-E.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Chapter E</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./Appendices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Acknowledgments.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Acknowledgments</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bibliography.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Bibliography</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#symbolic-solution" id="toc-symbolic-solution" class="nav-link active" data-scroll-target="#symbolic-solution"><span class="header-section-number">4.1</span> Symbolic solution</a></li>
+  <li><a href="#numeric-solution" id="toc-numeric-solution" class="nav-link" data-scroll-target="#numeric-solution"><span class="header-section-number">4.2</span> Numeric solution</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">test_1</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>Test circuit 1, shown below, contains resistors, independent and dependent current and voltage sources. This circuit is from [1], page 69, figure 4.8. The circuit was drawn in LTSpice [2] and the circuit nodes are labeled. For no particular reason, the reference note was chosen to be the center node of the circuit and is connected to the ground symbol.</p>
+<p><img src="test_1.png" width="700"></p>
+<p>The net list for the circuit was generated by LTSpice and show below:<br>
+~~~ * test_1.asc R2 1 2 1 R3 4 3 1 R4 2 5 2 V1 1 0 2 I1 4 0 9 V2 0 5 0 E1 3 0 1 4 2 F1 2 3 V2 2 R1 1 4 2 .op .backanno .end ~~~</p>
+<p>This netlist is read into the Symbolic Modified Nodal Analysis [3] Jupyter notebook and the following circuit equations were generated.<br>
+~~~ ⎛1 1 ⎞ v₂ v₄<br>
+I_V1 + v₁⋅⎜── + ──⎟ - ── - ── = 0 (1) ⎝R₂ R₁⎠ R₂ R₁<br>
+⎛1 1 ⎞ v₅ v₁<br>
+I_F1 + v₂⋅⎜── + ──⎟ - ── - ── = 0 (2) ⎝R₄ R₂⎠ R₄ R₂<br>
+v₃ v₄<br>
+I_Ea1 - I_F1 + ── - ── = 0 (3) R₃ R₃<br>
+⎛1 1 ⎞ v₃ v₁<br>
+v₄⋅⎜── + ──⎟ - ── - ── = -I₁ (4) ⎝R₃ R₁⎠ R₃ R₁<br>
+v₂ v₅<br>
+-I_V2 - ── + ── = 0 (5) R₄ R₄<br>
+v₁ = V₁ (6) -v₅ = V₂ (7) -ea₁⋅v₁ + ea₁⋅v₄ + v₃ = 0 (8) I_F1 - I_V2⋅f₁ = 0 (9) ~~~<br>
+The equations represent the currents flowing into the nodes and voltage across V2 and the voltage at node 3. The notebook also generates text strings for SymPy [3] variable, matrices and component values, which are used below.</p>
+<p>References:<br>
+1. D. E. Johnson, J. L. Hilburn, and J. R. Johnson, Basic Electric Circuit Analysis, Prentice-Hall, Inc.&nbsp;1978 2. <a href="https://www.analog.com/en/design-center/design-tools-and-calculators/ltspice-simulator.html">LTSpice</a> 3. <a href="https://github.com/Tiburonboy/Symbolic-modified-nodal-analysis">Symbolic Modified Nodal Analysis Jupyter notebook</a> 4. <a href="https://www.sympy.org/en/index.html">Sympy</a></p>
+<div class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sympy <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>init_printing()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Copy the text strings generated by the Symbolic Modified Nodal Analysis [3] Jupyter notebook to the cell below.</p>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>I_V1, R2, V2, I1, I_F1, v1, I_Ea1, v2, I_V2, ea1, v5, v3, R3, f1, R4, V1, v4, R1 <span class="op">=</span> symbols(<span class="st">' I_V1  R2  V2  I1  I_F1  v1  I_Ea1  v2  I_V2  ea1  v5  v3  R3  f1  R4  V1  v4  R1 '</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> Matrix([[<span class="dv">1</span><span class="op">/</span>R2 <span class="op">+</span> <span class="dv">1</span><span class="op">/</span>R1, <span class="op">-</span><span class="dv">1</span><span class="op">/</span>R2, <span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span><span class="op">/</span>R1, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>], [<span class="op">-</span><span class="dv">1</span><span class="op">/</span>R2, <span class="dv">1</span><span class="op">/</span>R4 <span class="op">+</span> <span class="dv">1</span><span class="op">/</span>R2, <span class="dv">0</span>, <span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span><span class="op">/</span>R4, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>], [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span><span class="op">/</span>R3, <span class="op">-</span><span class="dv">1</span><span class="op">/</span>R3, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>],</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    [<span class="op">-</span><span class="dv">1</span><span class="op">/</span>R1, <span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span><span class="op">/</span>R3, <span class="dv">1</span><span class="op">/</span>R3 <span class="op">+</span> <span class="dv">1</span><span class="op">/</span>R1, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span><span class="op">/</span>R4, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span><span class="op">/</span>R4, <span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>], [<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>],</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    [<span class="op">-</span>ea1, <span class="dv">0</span>, <span class="dv">1</span>, ea1, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="op">-</span>f1, <span class="dv">0</span>, <span class="dv">1</span>]])</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> Matrix( [v1, v2, v3, v4, v5, I_V1, I_V2, I_Ea1, I_F1] )</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>Z <span class="op">=</span> Matrix( [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="op">-</span>I1, <span class="dv">0</span>, V1, V2, <span class="dv">0</span>, <span class="dv">0</span>] )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Put the matrices in equation form and replace the component reference designators with element values.</p>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a> equ <span class="op">=</span> Eq(A<span class="op">*</span>X,Z)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="symbolic-solution" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="symbolic-solution"><span class="header-section-number">4.1</span> Symbolic solution</h2>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>symbolic_solution <span class="op">=</span> solve(equ,X)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>symbolic_solution</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<p><span class="math inline">\(\displaystyle \left\{ I_{Ea1} : \frac{- I_{1} R_{1} R_{2} ea_{1} f_{1} + I_{1} R_{1} R_{2} ea_{1} - I_{1} R_{1} R_{2} f_{1} + I_{1} R_{1} R_{2} + I_{1} R_{1} R_{4} ea_{1} + I_{1} R_{1} R_{4} + R_{1} V_{1} ea_{1} f_{1} + R_{1} V_{1} f_{1} + R_{1} V_{2} ea_{1} f_{1} + R_{1} V_{2} f_{1} + R_{2} V_{1} f_{1} - R_{2} V_{1} + R_{3} V_{1} f_{1} + R_{3} V_{2} f_{1} - R_{4} V_{1}}{R_{1} R_{2} ea_{1} f_{1} - R_{1} R_{2} ea_{1} + R_{1} R_{2} f_{1} - R_{1} R_{2} - R_{1} R_{4} ea_{1} - R_{1} R_{4} + R_{2} R_{3} f_{1} - R_{2} R_{3} - R_{3} R_{4}}, \  I_{F1} : \frac{V_{1} f_{1} + V_{2} f_{1}}{R_{2} f_{1} - R_{2} - R_{4}}, \  I_{V1} : \frac{- I_{1} R_{2} R_{3} f_{1} + I_{1} R_{2} R_{3} + I_{1} R_{3} R_{4} - R_{1} V_{1} ea_{1} f_{1} + R_{1} V_{1} ea_{1} - R_{1} V_{1} f_{1} + R_{1} V_{1} - R_{1} V_{2} ea_{1} f_{1} + R_{1} V_{2} ea_{1} - R_{1} V_{2} f_{1} + R_{1} V_{2} - R_{2} V_{1} f_{1} + R_{2} V_{1} - R_{3} V_{1} f_{1} + R_{3} V_{1} - R_{3} V_{2} f_{1} + R_{3} V_{2} + R_{4} V_{1}}{R_{1} R_{2} ea_{1} f_{1} - R_{1} R_{2} ea_{1} + R_{1} R_{2} f_{1} - R_{1} R_{2} - R_{1} R_{4} ea_{1} - R_{1} R_{4} + R_{2} R_{3} f_{1} - R_{2} R_{3} - R_{3} R_{4}}, \  I_{V2} : \frac{V_{1} + V_{2}}{R_{2} f_{1} - R_{2} - R_{4}}, \  v_{1} : V_{1}, \  v_{2} : \frac{- R_{2} V_{2} f_{1} + R_{2} V_{2} - R_{4} V_{1}}{R_{2} f_{1} - R_{2} - R_{4}}, \  v_{3} : \frac{I_{1} R_{1} R_{3} ea_{1} + R_{1} V_{1} ea_{1}}{R_{1} ea_{1} + R_{1} + R_{3}}, \  v_{4} : \frac{- I_{1} R_{1} R_{3} + R_{1} V_{1} ea_{1} + R_{3} V_{1}}{R_{1} ea_{1} + R_{1} + R_{3}}, \  v_{5} : - V_{2}\right\}\)</span></p>
+</div>
+</div>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>left_side <span class="op">=</span> <span class="bu">list</span>(symbolic_solution.keys())</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>right_side <span class="op">=</span> <span class="bu">list</span>(symbolic_solution.values())</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(symbolic_solution)):</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    pprint(Eq(left_side[i],right_side[i]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>v₁ = V₁
+     -R₂⋅V₂⋅f₁ + R₂⋅V₂ - R₄⋅V₁
+v₂ = ─────────────────────────
+          R₂⋅f₁ - R₂ - R₄     
+     I₁⋅R₁⋅R₃⋅ea₁ + R₁⋅V₁⋅ea₁
+v₃ = ────────────────────────
+         R₁⋅ea₁ + R₁ + R₃    
+     -I₁⋅R₁⋅R₃ + R₁⋅V₁⋅ea₁ + R₃⋅V₁
+v₄ = ─────────────────────────────
+            R₁⋅ea₁ + R₁ + R₃      
+v₅ = -V₂
+       -I₁⋅R₂⋅R₃⋅f₁ + I₁⋅R₂⋅R₃ + I₁⋅R₃⋅R₄ - R₁⋅V₁⋅ea₁⋅f₁ + R₁⋅V₁⋅ea₁ - R₁⋅V₁⋅f
+I_V1 = ───────────────────────────────────────────────────────────────────────
+                                                          R₁⋅R₂⋅ea₁⋅f₁ - R₁⋅R₂
+
+₁ + R₁⋅V₁ - R₁⋅V₂⋅ea₁⋅f₁ + R₁⋅V₂⋅ea₁ - R₁⋅V₂⋅f₁ + R₁⋅V₂ - R₂⋅V₁⋅f₁ + R₂⋅V₁ - R
+──────────────────────────────────────────────────────────────────────────────
+⋅ea₁ + R₁⋅R₂⋅f₁ - R₁⋅R₂ - R₁⋅R₄⋅ea₁ - R₁⋅R₄ + R₂⋅R₃⋅f₁ - R₂⋅R₃ - R₃⋅R₄        
+
+₃⋅V₁⋅f₁ + R₃⋅V₁ - R₃⋅V₂⋅f₁ + R₃⋅V₂ + R₄⋅V₁
+──────────────────────────────────────────
+                                          
+           V₁ + V₂    
+I_V2 = ───────────────
+       R₂⋅f₁ - R₂ - R₄
+        -I₁⋅R₁⋅R₂⋅ea₁⋅f₁ + I₁⋅R₁⋅R₂⋅ea₁ - I₁⋅R₁⋅R₂⋅f₁ + I₁⋅R₁⋅R₂ + I₁⋅R₁⋅R₄⋅ea
+I_Ea1 = ──────────────────────────────────────────────────────────────────────
+                                                       R₁⋅R₂⋅ea₁⋅f₁ - R₁⋅R₂⋅ea
+
+₁ + I₁⋅R₁⋅R₄ + R₁⋅V₁⋅ea₁⋅f₁ + R₁⋅V₁⋅f₁ + R₁⋅V₂⋅ea₁⋅f₁ + R₁⋅V₂⋅f₁ + R₂⋅V₁⋅f₁ - 
+──────────────────────────────────────────────────────────────────────────────
+₁ + R₁⋅R₂⋅f₁ - R₁⋅R₂ - R₁⋅R₄⋅ea₁ - R₁⋅R₄ + R₂⋅R₃⋅f₁ - R₂⋅R₃ - R₃⋅R₄           
+
+R₂⋅V₁ + R₃⋅V₁⋅f₁ + R₃⋅V₂⋅f₁ - R₄⋅V₁
+───────────────────────────────────
+                                   
+        V₁⋅f₁ + V₂⋅f₁ 
+I_F1 = ───────────────
+       R₂⋅f₁ - R₂ - R₄</code></pre>
+</div>
+</div>
+</section>
+<section id="numeric-solution" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="numeric-solution"><span class="header-section-number">4.2</span> Numeric solution</h2>
+<p>Substitue the element values into the equations and solve for unknown node voltages and currents.</p>
+<div class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># enter the element values</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>element_values <span class="op">=</span> {R1:<span class="dv">2</span>,R2:<span class="dv">1</span>,R3:<span class="dv">1</span>,R4:<span class="dv">2</span>,V1:<span class="dv">2</span>,V2:<span class="dv">0</span>,I1:<span class="dv">9</span>,f1:<span class="dv">2</span>,ea1:<span class="dv">2</span>}</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>equ1a <span class="op">=</span> equ.subs(element_values)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>equ1a  <span class="co"># display the equations</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
+<p><span class="math inline">\(\displaystyle \left[\begin{matrix}I_{V1} + \frac{3 v_{1}}{2} - v_{2} - \frac{v_{4}}{2}\\I_{F1} - v_{1} + \frac{3 v_{2}}{2} - \frac{v_{5}}{2}\\I_{Ea1} - I_{F1} + v_{3} - v_{4}\\- \frac{v_{1}}{2} - v_{3} + \frac{3 v_{4}}{2}\\- I_{V2} - \frac{v_{2}}{2} + \frac{v_{5}}{2}\\v_{1}\\- v_{5}\\- 2 v_{1} + v_{3} + 2 v_{4}\\I_{F1} - 2 I_{V2}\end{matrix}\right] = \left[\begin{matrix}0\\0\\0\\-9\\0\\2\\0\\0\\0\end{matrix}\right]\)</span></p>
+</div>
+</div>
+<p>Solve the equations for voltages and currents.</p>
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>ans <span class="op">=</span> solve(equ1a,X)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>ans</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="17">
+<p><span class="math inline">\(\displaystyle \left\{ I_{Ea1} : - \frac{80}{7}, \  I_{F1} : -4, \  I_{V1} : \frac{3}{7}, \  I_{V2} : -2, \  v_{1} : 2, \  v_{2} : 4, \  v_{3} : \frac{44}{7}, \  v_{4} : - \frac{8}{7}, \  v_{5} : 0\right\}\)</span></p>
+</div>
+</div>
+<div class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, value <span class="kw">in</span> ans.items():</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'</span><span class="sc">{:s}</span><span class="st">: </span><span class="sc">{:f}</span><span class="st">'</span>.<span class="bu">format</span>(<span class="bu">str</span>(name),<span class="bu">float</span>(value)))</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">#print(name,value)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>v1: 2.000000
+v2: 4.000000
+v3: 6.285714
+v4: -1.142857
+v5: 0.000000
+I_V1: 0.428571
+I_V2: -2.000000
+I_Ea1: -11.428571
+I_F1: -4.000000</code></pre>
+</div>
+</div>
+<p>The node voltages and current through the sources are solved for. The Sympy generated solution matches the LTSpice results: ~~~ — Operating Point —</p>
+<p>V(1): 2 voltage V(2): 4 voltage V(4): -1.14286 voltage V(3): 6.28571 voltage V(5): 0 voltage I(F1): -4 device_current I(I1): 9 device_current I(R2): -2 device_current I(R3): -7.42857 device_current I(R4): 2 device_current I(R1): 1.57143 device_current I(E1): -11.4286 device_current I(V1): 0.428571 device_current I(V2): -2 device_current ~~~ The results from LTSpice agree with the SymPy results.</p>
+<p>Currents through the resistors must be calculated by hand. For example:</p>
+<div class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'I(R1): </span><span class="sc">{:f}</span><span class="st">'</span>.<span class="bu">format</span>(<span class="bu">float</span>((ans[v1]<span class="op">-</span>ans[v4])<span class="op">/</span>element_values[R1])))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>I(R1): 1.571429</code></pre>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./Verification.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Verification</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./test_2.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">test_2</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>
