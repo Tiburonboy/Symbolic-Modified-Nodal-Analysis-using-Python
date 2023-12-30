@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Symbolic Modified Nodal Analysis - Appendices</title>
+<title>Symbolic Modified Nodal Analysis - 12&nbsp; test_9</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -30,8 +64,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./Acknowledgments.html" rel="next">
-<link href="./Chapter-E.html" rel="prev">
+<link href="./test_10.html" rel="next">
+<link href="./test_8.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -62,6 +96,8 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -74,7 +110,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Appendices.html">Appendices</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Verification.html">Verification</a></li><li class="breadcrumb-item"><a href="./test_9.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">test_9</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -188,7 +224,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./test_9.html" class="sidebar-item-text sidebar-link">
+  <a href="./test_9.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">test_9</span></span></a>
   </div>
 </li>
@@ -249,7 +285,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./Appendices.html" class="sidebar-item-text sidebar-link active">
+            <a href="./Appendices.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Appendices</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -276,14 +312,21 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#symbolic-solution" id="toc-symbolic-solution" class="nav-link active" data-scroll-target="#symbolic-solution"><span class="header-section-number">12.1</span> Symbolic solution</a></li>
+  <li><a href="#numeric-solution" id="toc-numeric-solution" class="nav-link" data-scroll-target="#numeric-solution"><span class="header-section-number">12.2</span> Numeric solution</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-Appendices" class="quarto-section-identifier">Appendices</span></h1>
+<h1 class="title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">test_9</span></h1>
 </div>
 
 
@@ -298,11 +341,127 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<ul>
-<li>Appendices: In the creative arts and scientific literature, an acknowledgement (also spelled acknowledgment in American and Canadian English[1]) is an expression of gratitude for assistance in creating an original work.</li>
-</ul>
+<p>Test circuit 9, shown below, contains only current sources. The circuit is from [1], problem 20: fig 2-39, page 61. Find the power absorbed by each source in the circuit. Add R1 to keep LTSpice happy.</p>
+<p><img src="test_9.png" width="700"></p>
+<p>The net list for the circuit was generated by LTSpice and show below:</p>
+<pre><code>* test_9.asc
+G1 0 1 1 0 0.6
+I1 0 1 10
+G2 1 0 1 0 0.8
+R1 1 0 100Meg
+.op
+.backanno
+.end</code></pre>
+<p>This netlist is read into the Symbolic Modified Nodal Analysis Jupyter notebook and the following circuit equations were generated with R1 commented out</p>
+<pre><code>* test_9.asc
+G1 0 1 1 0 0.6
+I1 0 1 10
+G2 1 0 1 0 0.8
+*R1 1 0 100e6
+.op
+.backanno
+.end</code></pre>
+<p>The equations represent the currents flowing into the nodes and voltage across V2 and the voltage at node 3. The notebook also generates text strings for SymPy [3] variable, matrices and component values, which are used below.</p>
+<pre><code>v₁⋅(-g₁ + g₂) = I₁</code></pre>
+<p><strong>Reference:</strong><br>
+[1] William Hayt and Jack Kemmerly, Engineering Circuit Analysis, 3th Edition, McGraw-Hill Higher Education, 1978</p>
+<div class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sympy <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>init_printing()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Copy the text strings generated by the Symbolic Modified Nodal Analysis [3] Jupyter notebook to the cell below.</p>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>I1, g2, v1, g1 <span class="op">=</span> symbols(<span class="st">' I1  g2  v1  g1 '</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> Matrix([[<span class="op">-</span>g1 <span class="op">+</span> g2]])</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> Matrix( [v1] )</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>Z <span class="op">=</span> Matrix( [I1] )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Put the matrices in equation form and replace the component reference designators with element values.</p>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a> equ <span class="op">=</span> Eq(A<span class="op">*</span>X,Z)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="symbolic-solution" class="level2" data-number="12.1">
+<h2 data-number="12.1" class="anchored" data-anchor-id="symbolic-solution"><span class="header-section-number">12.1</span> Symbolic solution</h2>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>symbolic_solution <span class="op">=</span> solve(equ,X)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>symbolic_solution</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<p><span class="math inline">\(\displaystyle \left\{ v_{1} : - \frac{I_{1}}{g_{1} - g_{2}}\right\}\)</span></p>
+</div>
+</div>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>left_side <span class="op">=</span> <span class="bu">list</span>(symbolic_solution.keys())</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>right_side <span class="op">=</span> <span class="bu">list</span>(symbolic_solution.values())</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(symbolic_solution)):</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    pprint(Eq(left_side[i],right_side[i]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       -I₁  
+v₁ = ───────
+     g₁ - g₂</code></pre>
+</div>
+</div>
+</section>
+<section id="numeric-solution" class="level2" data-number="12.2">
+<h2 data-number="12.2" class="anchored" data-anchor-id="numeric-solution"><span class="header-section-number">12.2</span> Numeric solution</h2>
+<p>Substitue the element values into the equations and solve for unknown node voltages and currents.</p>
+<div class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># enter the element values</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>element_values <span class="op">=</span> {g1:<span class="fl">0.600000</span>,I1:<span class="fl">1.0000e+01</span>,g2:<span class="fl">0.800000</span>}</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>equ1a <span class="op">=</span> equ.subs(element_values)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>equ1a  <span class="co"># display the equations</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<p><span class="math inline">\(\displaystyle \left[\begin{matrix}0.2 v_{1}\end{matrix}\right] = \left[\begin{matrix}10.0\end{matrix}\right]\)</span></p>
+</div>
+</div>
+<p>Solve the equations for voltages and currents.</p>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>ans <span class="op">=</span> solve(equ1a,X)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>ans</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<p><span class="math inline">\(\displaystyle \left\{ v_{1} : 50.0\right\}\)</span></p>
+</div>
+</div>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, value <span class="kw">in</span> ans.items():</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'</span><span class="sc">{:s}</span><span class="st">: </span><span class="sc">{:f}</span><span class="st">'</span>.<span class="bu">format</span>(<span class="bu">str</span>(name),<span class="bu">float</span>(value)))</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">#print(name,value)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>v1: 50.000000</code></pre>
+</div>
+</div>
+<p>The node voltages and current through the sources are solved for. The Sympy generated solution matches the LTSpice results:</p>
+<pre><code>      --- Operating Point ---
+
+V(1):    50  voltage
+I(I1):   10  device_current
+I(R1):   5e-07   device_current
+I(G1):   30  device_current
+I(G2):   40  device_current</code></pre>
+<p>The results from LTSpice agree with the SymPy results.</p>
+<p>Find the power absorbed by each source in the circuit.</p>
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>element_values[g1]<span class="op">*</span>ans[v1]<span class="op">**</span><span class="dv">2</span> <span class="co"># power through G1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="17">
+<p><span class="math inline">\(\displaystyle 1500.0\)</span></p>
+</div>
+</div>
+<div class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>element_values[g2]<span class="op">*</span>ans[v1]<span class="op">**</span><span class="dv">2</span> <span class="co"># power through G2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="18">
+<p><span class="math inline">\(\displaystyle 2000.0\)</span></p>
+</div>
+</div>
+<div class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>element_values[I1]<span class="op">*</span>ans[v1] <span class="co"># power through I1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="20">
+<p><span class="math inline">\(\displaystyle 500.0\)</span></p>
+</div>
+</div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -540,13 +699,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./Chapter-E.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Chapter E</span></span>
+      <a href="./test_8.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">test_8</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./Acknowledgments.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Acknowledgments</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./test_10.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">test_10</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

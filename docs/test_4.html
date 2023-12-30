@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Symbolic Modified Nodal Analysis - 7&nbsp; test_4</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./test_5.html" rel="next">
+<link href="./test_3.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Verification.html">Verification</a></li><li class="breadcrumb-item"><a href="./test_4.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">test_4</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Symbolic Modified Nodal Analysis</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About this book</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Preface.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Theory.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Theory</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./SMNA_example.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Symbolic modified nodal analysis example</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./Verification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Verification</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">test_1</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">test_2</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">test_3</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_4.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">test_4</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">test_5</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">test_6</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_7.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">test_7</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_8.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">test_8</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_9.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">test_9</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_10.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">test_10</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_11.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">test_11</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_12.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">test_12</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_13.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">test_13</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./Problems.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Problems</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Two amplifier RIAA Phono Preamp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Two amplifier RIAA phono preamp</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Chapter-D.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Chapter D</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Chapter-E.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Chapter E</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./Appendices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Acknowledgments.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Acknowledgments</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bibliography.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Bibliography</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#symbolic-solution" id="toc-symbolic-solution" class="nav-link active" data-scroll-target="#symbolic-solution"><span class="header-section-number">7.1</span> Symbolic solution</a></li>
+  <li><a href="#numeric-solution" id="toc-numeric-solution" class="nav-link" data-scroll-target="#numeric-solution"><span class="header-section-number">7.2</span> Numeric solution</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">test_4</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>Test circuit number 4 has 26 branches, 13 nodes, 18 resistors, 4 independent sources and 4 dependednt sources.</p>
+<p><img src="test_4.png" width="900"></p>
+<p>The net list generated by LTSpice.</p>
+<pre><code>* test_4.asc
+V4 1 2 10
+I2 3 4 5
+F1 5 9 V1 5
+E1 12 3 10 1 3
+G1 7 10 9 4 2
+H1 2 12 V2 2
+R3 5 1 10
+R4 3 7 1
+R5 4 8 5
+R9 1 9 9
+R1 1 5 3
+R10 8 0 10
+R13 9 11 7
+R14 10 9 10
+R15 0 11 3
+R2 3 5 5
+R6 7 1 2
+R7 8 7 6
+R11 10 9 5
+R12 0 10 9
+R16 12 11 10
+R8 3 8 5
+R17 2 6 8
+V1 6 3 0
+V2 13 5 0
+R18 12 13 4
+.op
+.backanno
+.end</code></pre>
+<p>This netlist is read into the Symbolic Modified Nodal Analysis Jupyter notebook and the following circuit equations were generated.</p>
+<pre><code>          ⎛1    1    1    1 ⎞      ⎛  1    1 ⎞   v₉   v₇    
+I_V4 + v₁⋅⎜── + ── + ── + ──⎟ + v₅⋅⎜- ── - ──⎟ - ── - ── = 0
+          ⎝R₉   R₆   R₃   R₁⎠      ⎝  R₃   R₁⎠   R₉   R₆    
+               v₂    v₆    
+I_H1 - I_V4 + ─── - ─── = 0
+              R₁₇   R₁₇    
+                   ⎛1    1    1 ⎞   v₈   v₇   v₅      
+-I_Ea1 - I_V1 + v₃⋅⎜── + ── + ──⎟ - ── - ── - ── = -I₂
+                   ⎝R₈   R₄   R₂⎠   R₈   R₄   R₂      
+v₄   v₈     
+── - ── = I₂
+R₅   R₅     
+                 ⎛  1    1 ⎞      ⎛1    1    1 ⎞   v₃    
+I_F1 - I_V2 + v₁⋅⎜- ── - ──⎟ + v₅⋅⎜── + ── + ──⎟ - ── = 0
+                 ⎝  R₃   R₁⎠      ⎝R₃   R₂   R₁⎠   R₂    
+        v₂    v₆    
+I_V1 - ─── + ─── = 0
+       R₁₇   R₁₇    
+                    ⎛1    1    1 ⎞   v₈   v₁   v₃    
+-g₁⋅v₄ + g₁⋅v₉ + v₇⋅⎜── + ── + ──⎟ - ── - ── - ── = 0
+                    ⎝R₇   R₆   R₄⎠   R₇   R₆   R₄    
+   ⎛1    1    1     1 ⎞   v₃   v₇   v₄    
+v₈⋅⎜── + ── + ── + ───⎟ - ── - ── - ── = 0
+   ⎝R₈   R₇   R₅   R₁₀⎠   R₈   R₇   R₅    
+            ⎛   1     1 ⎞      ⎛1     1     1     1 ⎞   v₁   v₁₁    
+-I_F1 + v₁₀⋅⎜- ─── - ───⎟ + v₉⋅⎜── + ─── + ─── + ───⎟ - ── - ─── = 0
+            ⎝  R₁₄   R₁₁⎠      ⎝R₉   R₁₄   R₁₃   R₁₁⎠   R₉   R₁₃    
+            ⎛ 1     1     1 ⎞      ⎛       1     1 ⎞    
+g₁⋅v₄ + v₁₀⋅⎜─── + ─── + ───⎟ + v₉⋅⎜-g₁ - ─── - ───⎟ = 0
+            ⎝R₁₄   R₁₂   R₁₁⎠      ⎝      R₁₄   R₁₁⎠    
+    ⎛ 1     1     1 ⎞   v₁₂    v₉    
+v₁₁⋅⎜─── + ─── + ───⎟ - ─── - ─── = 0
+    ⎝R₁₆   R₁₅   R₁₃⎠   R₁₆   R₁₃    
+                   ⎛ 1     1 ⎞   v₁₃   v₁₁    
+I_Ea1 - I_H1 + v₁₂⋅⎜─── + ───⎟ - ─── - ─── = 0
+                   ⎝R₁₈   R₁₆⎠   R₁₈   R₁₆    
+       v₁₂   v₁₃    
+I_V2 - ─── + ─── = 0
+       R₁₈   R₁₈    
+v₁ - v₂ = V₄
+I_F1 - I_V1⋅f₁ = V₁
+ea₁⋅v₁ - ea₁⋅v₁₀ + v₁₂ - v₃ = V₂
+-I_V2⋅h₁ - v₁₂ + v₂ = 0
+-v₃ + v₆ = 0
+v₁₃ - v₅ = 0</code></pre>
+<div class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sympy <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>init_printing()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Copy the text strings generated by the Symbolic Modified Nodal Analysis Jupyter notebook to the cell below. used in nodal analysis</p>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>ea1, R5, R10, g1, f1, v13, R8, v1, v7, v5, v12, I_Ea1, I_V2, I_V1, v9, R11, R16, h1, R9, R15, v3, I_V4, I_H1, V1, R12, R7, I2, R13, v11, V4, R1, v6, I_F1, R2, R18, R6, v8, R3, v10, V2, R14, R4, v2, R17, v4 <span class="op">=</span> symbols(<span class="st">' ea1  R5  R10  g1  f1  v13  R8  v1  v7  v5  v12  I_Ea1  I_V2  I_V1  v9  R11  R16  h1  R9  R15  v3  I_V4  I_H1  V1  R12  R7  I2  R13  v11  V4  R1  v6  I_F1  R2  R18  R6  v8  R3  v10  V2  R14  R4  v2  R17  v4 '</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> Matrix([[<span class="dv">1</span><span class="op">/</span>R9 <span class="op">+</span> <span class="dv">1</span><span class="op">/</span>R6 <span class="op">+</span> <span class="dv">1</span><span class="op">/</span>R3 <span class="op">+</span> <span class="dv">1</span><span class="op">/</span>R1, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span><span class="op">/</span>R3 <span class="op">-</span> <span class="dv">1</span><span class="op">/</span>R1, <span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span><span class="op">/</span>R6, <span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span><span class="op">/</span>R9, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">1</span><span class="op">/</span>R17, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span><span class="op">/</span>R17, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span><span class="op">/</span>R8 <span class="op">+</span> <span class="dv">1</span><span class="op">/</span>R4 <span class="op">+</span> <span class="dv">1</span><span class="op">/</span>R2, <span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span><span class="op">/</span>R2, <span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span><span class="op">/</span>R4, <span class="op">-</span><span class="dv">1</span><span class="op">/</span>R8, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span><span class="op">/</span>R5, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span><span class="op">/</span>R5, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>], [<span class="op">-</span><span class="dv">1</span><span class="op">/</span>R3 <span class="op">-</span> <span class="dv">1</span><span class="op">/</span>R1, <span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span><span class="op">/</span>R2, <span class="dv">0</span>, <span class="dv">1</span><span class="op">/</span>R3 <span class="op">+</span> <span class="dv">1</span><span class="op">/</span>R2 <span class="op">+</span> <span class="dv">1</span><span class="op">/</span>R1, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span>], [<span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span><span class="op">/</span>R17, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span><span class="op">/</span>R17, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>], [<span class="op">-</span><span class="dv">1</span><span class="op">/</span>R6, <span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span><span class="op">/</span>R4, <span class="op">-</span>g1, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span><span class="op">/</span>R7 <span class="op">+</span> <span class="dv">1</span><span class="op">/</span>R6 <span class="op">+</span> <span class="dv">1</span><span class="op">/</span>R4, <span class="op">-</span><span class="dv">1</span><span class="op">/</span>R7, g1, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span><span class="op">/</span>R8, <span class="op">-</span><span class="dv">1</span><span class="op">/</span>R5, <span class="dv">0</span>, <span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span><span class="op">/</span>R7, <span class="dv">1</span><span class="op">/</span>R8 <span class="op">+</span> <span class="dv">1</span><span class="op">/</span>R7 <span class="op">+</span> <span class="dv">1</span><span class="op">/</span>R5 <span class="op">+</span> <span class="dv">1</span><span class="op">/</span>R10, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>], [<span class="op">-</span><span class="dv">1</span><span class="op">/</span>R9, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span><span class="op">/</span>R9 <span class="op">+</span> <span class="dv">1</span><span class="op">/</span>R14 <span class="op">+</span> <span class="dv">1</span><span class="op">/</span>R13 <span class="op">+</span> <span class="dv">1</span><span class="op">/</span>R11, <span class="op">-</span><span class="dv">1</span><span class="op">/</span>R14 <span class="op">-</span> <span class="dv">1</span><span class="op">/</span>R11, <span class="op">-</span><span class="dv">1</span><span class="op">/</span>R13, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, g1, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="op">-</span>g1 <span class="op">-</span> <span class="dv">1</span><span class="op">/</span>R14 <span class="op">-</span> <span class="dv">1</span><span class="op">/</span>R11, <span class="dv">1</span><span class="op">/</span>R14 <span class="op">+</span> <span class="dv">1</span><span class="op">/</span>R12 <span class="op">+</span> <span class="dv">1</span><span class="op">/</span>R11, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span><span class="op">/</span>R13, <span class="dv">0</span>, <span class="dv">1</span><span class="op">/</span>R16 <span class="op">+</span> <span class="dv">1</span><span class="op">/</span>R15 <span class="op">+</span> <span class="dv">1</span><span class="op">/</span>R13, <span class="op">-</span><span class="dv">1</span><span class="op">/</span>R16, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span><span class="op">/</span>R16, <span class="dv">1</span><span class="op">/</span>R18 <span class="op">+</span> <span class="dv">1</span><span class="op">/</span>R16, <span class="op">-</span><span class="dv">1</span><span class="op">/</span>R18, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span><span class="op">/</span>R18, <span class="dv">1</span><span class="op">/</span>R18, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>], [<span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="op">-</span>f1, <span class="dv">0</span>], [ea1, <span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="op">-</span>ea1, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="op">-</span>h1], [<span class="dv">0</span>, <span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>]])</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> Matrix( [v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, I_V4, I_F1, I_Ea1, I_H1, I_V1, I_V2] )</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>Z <span class="op">=</span> Matrix( [<span class="dv">0</span>, <span class="dv">0</span>, <span class="op">-</span>I2, I2, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, V4, V1, V2, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>] )</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>equ <span class="op">=</span> Eq(A<span class="op">*</span>X,Z)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>equ</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<p><span class="math inline">\(\displaystyle \left[\begin{matrix}I_{V4} + v_{1} \cdot \left(\frac{1}{R_{9}} + \frac{1}{R_{6}} + \frac{1}{R_{3}} + \frac{1}{R_{1}}\right) + v_{5} \left(- \frac{1}{R_{3}} - \frac{1}{R_{1}}\right) - \frac{v_{9}}{R_{9}} - \frac{v_{7}}{R_{6}}\\I_{H1} - I_{V4} + \frac{v_{2}}{R_{17}} - \frac{v_{6}}{R_{17}}\\- I_{Ea1} - I_{V1} + v_{3} \cdot \left(\frac{1}{R_{8}} + \frac{1}{R_{4}} + \frac{1}{R_{2}}\right) - \frac{v_{8}}{R_{8}} - \frac{v_{7}}{R_{4}} - \frac{v_{5}}{R_{2}}\\\frac{v_{4}}{R_{5}} - \frac{v_{8}}{R_{5}}\\I_{F1} - I_{V2} + v_{1} \left(- \frac{1}{R_{3}} - \frac{1}{R_{1}}\right) + v_{5} \cdot \left(\frac{1}{R_{3}} + \frac{1}{R_{2}} + \frac{1}{R_{1}}\right) - \frac{v_{3}}{R_{2}}\\I_{V1} - \frac{v_{2}}{R_{17}} + \frac{v_{6}}{R_{17}}\\- g_{1} v_{4} + g_{1} v_{9} + v_{7} \cdot \left(\frac{1}{R_{7}} + \frac{1}{R_{6}} + \frac{1}{R_{4}}\right) - \frac{v_{8}}{R_{7}} - \frac{v_{1}}{R_{6}} - \frac{v_{3}}{R_{4}}\\v_{8} \cdot \left(\frac{1}{R_{8}} + \frac{1}{R_{7}} + \frac{1}{R_{5}} + \frac{1}{R_{10}}\right) - \frac{v_{3}}{R_{8}} - \frac{v_{7}}{R_{7}} - \frac{v_{4}}{R_{5}}\\- I_{F1} + v_{10} \left(- \frac{1}{R_{14}} - \frac{1}{R_{11}}\right) + v_{9} \cdot \left(\frac{1}{R_{9}} + \frac{1}{R_{14}} + \frac{1}{R_{13}} + \frac{1}{R_{11}}\right) - \frac{v_{1}}{R_{9}} - \frac{v_{11}}{R_{13}}\\g_{1} v_{4} + v_{10} \cdot \left(\frac{1}{R_{14}} + \frac{1}{R_{12}} + \frac{1}{R_{11}}\right) + v_{9} \left(- g_{1} - \frac{1}{R_{14}} - \frac{1}{R_{11}}\right)\\v_{11} \cdot \left(\frac{1}{R_{16}} + \frac{1}{R_{15}} + \frac{1}{R_{13}}\right) - \frac{v_{12}}{R_{16}} - \frac{v_{9}}{R_{13}}\\I_{Ea1} - I_{H1} + v_{12} \cdot \left(\frac{1}{R_{18}} + \frac{1}{R_{16}}\right) - \frac{v_{13}}{R_{18}} - \frac{v_{11}}{R_{16}}\\I_{V2} - \frac{v_{12}}{R_{18}} + \frac{v_{13}}{R_{18}}\\v_{1} - v_{2}\\I_{F1} - I_{V1} f_{1}\\ea_{1} v_{1} - ea_{1} v_{10} + v_{12} - v_{3}\\- I_{V2} h_{1} - v_{12} + v_{2}\\- v_{3} + v_{6}\\v_{13} - v_{5}\end{matrix}\right] = \left[\begin{matrix}0\\0\\- I_{2}\\I_{2}\\0\\0\\0\\0\\0\\0\\0\\0\\0\\V_{4}\\V_{1}\\V_{2}\\0\\0\\0\end{matrix}\right]\)</span></p>
+</div>
+</div>
+<section id="symbolic-solution" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="symbolic-solution"><span class="header-section-number">7.1</span> Symbolic solution</h2>
+<p>Takes too long, cells converted to raw.</p>
+<p>ans = solve(equ,X) ans</p>
+<p>left_side = list(ans.keys()) right_side = list(ans.values())</p>
+<p>for i in range(len(ans)): pprint(Eq(left_side[i],right_side[i]))</p>
+</section>
+<section id="numeric-solution" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="numeric-solution"><span class="header-section-number">7.2</span> Numeric solution</h2>
+<p>Substitue the element values into the equations and solve for unknown node voltages and currents.</p>
+<div class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># enter the element values</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>equ1a <span class="op">=</span> equ.subs({</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    V4:<span class="fl">10.000000</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    I2:<span class="fl">5.000000</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    f1:<span class="fl">5.000000</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    ea1:<span class="fl">3.000000</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    g1:<span class="fl">2.000000</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    h1:<span class="fl">2.000000</span>,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    R3:<span class="fl">10.000000</span>,</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    R4:<span class="fl">1.000000</span>,</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    R5:<span class="fl">5.000000</span>,</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    R9:<span class="fl">9.000000</span>,</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    R1:<span class="fl">3.000000</span>,</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    R10:<span class="fl">10.000000</span>,</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    R13:<span class="fl">7.000000</span>,</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    R14:<span class="fl">10.000000</span>,</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    R15:<span class="fl">3.000000</span>,</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    R2:<span class="fl">5.000000</span>,</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    R6:<span class="fl">2.000000</span>,</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    R7:<span class="fl">6.000000</span>,</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    R11:<span class="fl">5.000000</span>,</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    R12:<span class="fl">9.000000</span>,</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>    R16:<span class="fl">10.000000</span>,</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>    R8:<span class="fl">5.000000</span>,</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>    R17:<span class="fl">8.000000</span>,</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>    V1:<span class="fl">0.000000</span>,</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>    V2:<span class="fl">0.000000</span>,</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>    R18:<span class="fl">4.000000</span>})    </span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>equ1a  <span class="co"># display the equations</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<p><span class="math inline">\(\displaystyle \left[\begin{matrix}I_{V4} + 1.04444444444444 v_{1} - 0.433333333333333 v_{5} - 0.5 v_{7} - 0.111111111111111 v_{9}\\I_{H1} - I_{V4} + 0.125 v_{2} - 0.125 v_{6}\\- I_{Ea1} - I_{V1} + 1.4 v_{3} - 0.2 v_{5} - 1.0 v_{7} - 0.2 v_{8}\\0.2 v_{4} - 0.2 v_{8}\\I_{F1} - I_{V2} - 0.433333333333333 v_{1} - 0.2 v_{3} + 0.633333333333333 v_{5}\\I_{V1} - 0.125 v_{2} + 0.125 v_{6}\\- 0.5 v_{1} - 1.0 v_{3} - 2.0 v_{4} + 1.66666666666667 v_{7} - 0.166666666666667 v_{8} + 2.0 v_{9}\\- 0.2 v_{3} - 0.2 v_{4} - 0.166666666666667 v_{7} + 0.666666666666667 v_{8}\\- I_{F1} - 0.111111111111111 v_{1} - 0.3 v_{10} - 0.142857142857143 v_{11} + 0.553968253968254 v_{9}\\0.411111111111111 v_{10} + 2.0 v_{4} - 2.3 v_{9}\\0.576190476190476 v_{11} - 0.1 v_{12} - 0.142857142857143 v_{9}\\I_{Ea1} - I_{H1} - 0.1 v_{11} + 0.35 v_{12} - 0.25 v_{13}\\I_{V2} - 0.25 v_{12} + 0.25 v_{13}\\v_{1} - v_{2}\\I_{F1} - 5.0 I_{V1}\\3.0 v_{1} - 3.0 v_{10} + v_{12} - v_{3}\\- 2.0 I_{V2} - v_{12} + v_{2}\\- v_{3} + v_{6}\\v_{13} - v_{5}\end{matrix}\right] = \left[\begin{matrix}0\\0\\-5.0\\5.0\\0\\0\\0\\0\\0\\0\\0\\0\\0\\10.0\\0\\0\\0\\0\\0\end{matrix}\right]\)</span></p>
+</div>
+</div>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>ans <span class="op">=</span> solve(equ1a,X)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>ans</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<p><span class="math inline">\(\displaystyle \left\{ I_{Ea1} : -14.0210168779779, \  I_{F1} : 8.95375840852359, \  I_{H1} : -14.1681115305374, \  I_{V1} : 1.79075168170472, \  I_{V2} : 1.55950578456621, \  I_{V4} : -12.3773598488327, \  v_{1} : -2.52814763743623, \  v_{10} : 1.20751965739888, \  v_{11} : 1.41884516468896, \  v_{12} : -15.6471592065687, \  v_{13} : -21.8851823448335, \  v_{2} : -12.5281476374362, \  v_{3} : -26.854161091074, \  v_{4} : 18.9288276094825, \  v_{5} : -21.8851823448335, \  v_{6} : -26.854161091074, \  v_{7} : -14.7742893841602, \  v_{8} : -6.0711723905175, \  v_{9} : 16.6756869421768\right\}\)</span></p>
+</div>
+</div>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, value <span class="kw">in</span> ans.items():</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'</span><span class="sc">{:5s}</span><span class="st">: </span><span class="sc">{:11.5f}</span><span class="st">'</span>.<span class="bu">format</span>(<span class="bu">str</span>(name),<span class="bu">float</span>(value)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>v1   :    -2.52815
+v2   :   -12.52815
+v3   :   -26.85416
+v4   :    18.92883
+v5   :   -21.88518
+v6   :   -26.85416
+v7   :   -14.77429
+v8   :    -6.07117
+v9   :    16.67569
+v10  :     1.20752
+v11  :     1.41885
+v12  :   -15.64716
+v13  :   -21.88518
+I_V4 :   -12.37736
+I_F1 :     8.95376
+I_Ea1:   -14.02102
+I_H1 :   -14.16811
+I_V1 :     1.79075
+I_V2 :     1.55951</code></pre>
+</div>
+</div>
+<p>The results agree with the LTSpice answers.</p>
+<pre><code>       --- Operating Point ---
+
+V(1):    -2.52815    voltage
+V(2):    -12.5281    voltage
+V(3):    -26.8542    voltage
+V(4):    18.9288     voltage
+V(5):    -21.8852    voltage
+V(9):    16.6757     voltage
+V(12):   -15.6472    voltage
+V(10):   1.20752     voltage
+V(7):    -14.7743    voltage
+V(8):    -6.07117    voltage
+V(11):   1.41885     voltage
+V(6):    -26.8542    voltage
+V(13):   -21.8852    voltage
+I(F1):   8.95376     device_current
+I(H1):   -14.1681    device_current
+I(I2):   5   device_current
+I(R3):   -1.9357     device_current
+I(R4):   -12.0799    device_current
+I(R5):   5   device_current
+I(R9):   -2.13376    device_current
+I(R1):   6.45234     device_current
+I(R10):  -0.607117   device_current
+I(R13):  2.17955     device_current
+I(R14):  -1.54682    device_current
+I(R15):  -0.472948   device_current
+I(R2):   -0.993796   device_current
+I(R6):   -6.12307    device_current
+I(R7):   1.45052     device_current
+I(R11):  -3.09363    device_current
+I(R12):  -0.134169   device_current
+I(R16):  -1.7066     device_current
+I(R8):   -4.1566     device_current
+I(R17):  1.79075     device_current
+I(R18):  1.55951     device_current
+I(G1):   -4.50628    device_current
+I(E1):   -14.021     device_current
+I(V4):   -12.3774    device_current
+I(V1):   1.79075     device_current
+I(V2):   1.55951     device_current</code></pre>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./test_3.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">test_3</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./test_5.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">test_5</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>
