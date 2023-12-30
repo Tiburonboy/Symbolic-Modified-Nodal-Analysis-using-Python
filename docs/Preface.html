@@ -131,8 +131,8 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./Verification.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Verification</span></a>
+            <a href="./Code-validation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Code validation</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -220,8 +220,8 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./Problems.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Problems</span></a>
+            <a href="./Example-problems.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Example problems</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -258,8 +258,8 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Acknowledgments.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Acknowledgments</span></span></a>
+  <a href="./Appendix_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Appendix 1</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -311,14 +311,14 @@ ul.task-list li input[type="checkbox"] {
 <li>background required</li>
 <li>what does the book cover</li>
 </ul>
-<p>The nodal analysis code started as a translation from some C code to generate a nodal admittance matrix that I had written in 1988. I wrote this code for two reasons. Free versions of Spice for the PC didn’t exist at the time and I wanted to use some of the code from the <a href="https://www.amazon.com/Numerical-Recipes-Art-Scientific-Computing/dp/B000P6EEEC">Numerical Recipes in C</a> Book. The original C code worked well and calculated numeric solutions. I then started writing some C code to generate the matrices with symbolic values and then intended to use LISP to symbolically solve the equations. I didn’t get too far with this effort. The LISP code would generate huge symbolic strings with no simplification. The output was a big pile of trash that was not in the least bit useful or decipherable.</p>
+<p>The nodal analysis code started as a translation from some C code to generate a nodal admittance matrix that I had written in 1988. I wrote this code for two reasons. Free versions of Spice for the PC didn’t exist at the time and I wanted to use some of the code from the book, <a href="https://www.amazon.com/Numerical-Recipes-Art-Scientific-Computing/dp/B000P6EEEC">Numerical Recipes in C</a>. The original C code worked well and calculated numeric solutions. I then started writing some C code to generate the matrices with symbolic values and then intended to use LISP to symbolically solve the equations. I didn’t get too far with this effort. The LISP code would generate huge symbolic strings with no simplification. The output was a big pile of trash that was not in the least bit useful or decipherable.</p>
 <p>In 2014, I started to use python for my little coding projects and engineering calculations. There are some nice python libraries for numeric and symbolic calculations (such as numpy and sympy), so I decided to try writing a python script to generate the node equations based on the old C code I had written many years before. Part way into this project I discovered that there is a new nodal analysis technique being taught today in engineering school called <a href="https://spinningnumbers.org/assets/MNA75.pdf">The modified nodal approach to network analysis</a>. My motivation for reviving this coding project is my continued interest in circuit analysis and synthesis.</p>
 <p>The modified nodal analysis provides an algorithmic method for generating systems of independent equations for linear circuit analysis. Some of my younger colleagues at work were taught this method, but I never heard of it until a short time ago. These days, I never really analyze a circuit by hand, unless it’s so simple that you can almost do it by inspection. Most problems that an electrical engineer encounters on the job are complex enough that they use computers to analyze the circuits. <a href="https://www.analog.com/en/design-center/design-tools-and-calculators/ltspice-simulator.html">LTSpice</a> is the version of spice that I use, since it’s free and does a good job converging when analyzing switching circuits.</p>
-<p>My code started initially by following Erik Cheever’s <a href="http://www.swarthmore.edu/NatSci/echeeve1/Ref/mna/MNA1.html">Analysis of Resistive Circuits</a> <a href="https://www.mathworks.com/products/matlab.html">MATLAB</a> code, to generate modified nodal equations. I somewhat followed his MATLAB file for resistors, capacitors, opamps and independent sources. The naming of the matrices follows his convention. The preprocessor and parser code was converted from my old C code. The use of Pandas for a data frame is new and SymPy is used to do the math and the use of element stamps is from <a href="http://www2.engr.arizona.edu/~ece570/session3.pdf">ECE 570 Session 3, Computer Aided Engineering for Integrated Circuits</a> .</p>
+<p>My code started initially by following Erik Cheever’s <a href="http://www.swarthmore.edu/NatSci/echeeve1/Ref/mna/MNA1.html">Analysis of Resistive Circuits</a>, which used <a href="https://www.mathworks.com/products/matlab.html">MATLAB</a> to generate modified nodal equations. I somewhat followed his MATLAB code for resistors, capacitors, opamps and independent sources. The naming of the matrices follows his convention. The preprocessor and parser code was converted from my old C code. The use of Pandas for a data frame is new and SymPy is used to do the math and the use of element stamps is from <a href="http://www2.engr.arizona.edu/~ece570/session3.pdf">ECE 570 Session 3, Computer Aided Engineering for Integrated Circuits</a> .</p>
 <p>Inductors are being addressed in the D matrix, which is different than the way Erik Cheever’s code works. Erik’s code puts inductors into the G matrix as 1/s/L. My code puts the inductor contribution into the D matrix. Coupled inductors also affect the D matrix, so it makes sense to allow the inductors to be in the D matrix rather than the G matrix.</p>
 <section id="survey-of-other-symbolic-circuit-analysis-code" class="level2">
 <h2 class="anchored" data-anchor-id="survey-of-other-symbolic-circuit-analysis-code">Survey of other symbolic circuit analysis code</h2>
-<p>The python code presented in this notebook is somewhat unique since python is open source, free and runs on a variety of platforms, the code presented in this ipython notebook is portable. As described below, this code is made available under a public domain licence and archived in a github repository.</p>
+<p>The python code presented in this notebook is somewhat unique since python is open source, free and runs on a variety of platforms, the code presented in this ipython notebook is portable. As described in the About this book, this code is made available under a public domain licence and archived in a github <a href="https://github.com/Tiburonboy/Symbolic-modified-nodal-analysis">repository</a>.</p>
 <p>There are other symbolic circuit analysis codes available and some of these are described here. Some of these codes are based on commercial software such as MATLAB, <a href="https://www.tina.com/">TINA</a> and <a href="https://www.maplesoft.com/">Maple</a>.</p>
 <p><a href="https://www.analog-electronics.eu/slicap/slicap.html">SLiCAP</a> is a symbolic linear analysis tool. SLiCAP runs in MATLAB.</p>
 <p>TINA is an acronym of Toolkit for Interactive Network Analysis. The TINA design suite is a circuit simulator and PCB design software package for analyzing, designing, and real time testing of analog, digital, HDL, MCU, and mixed electronic circuits and their PCB layouts. TINA has some <a href="https://www.tina.com/symbolic-analysis">symbolic analysis capability</a>.</p>

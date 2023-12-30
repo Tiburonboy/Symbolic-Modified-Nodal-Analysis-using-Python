@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Symbolic Modified Nodal Analysis - 1&nbsp; Introduction</title>
+<title>Symbolic Modified Nodal Analysis - Example problems</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./Theory.html" rel="next">
-<link href="./Preface.html" rel="prev">
+<link href="./Two amplifier RIAA Phono Preamp.html" rel="next">
+<link href="./test_13.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -74,7 +74,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Introduction.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Example-problems.html">Example problems</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -113,7 +113,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Introduction.html" class="sidebar-item-text sidebar-link active">
+  <a href="./Introduction.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
   </div>
 </li>
@@ -220,7 +220,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./Example-problems.html" class="sidebar-item-text sidebar-link">
+            <a href="./Example-problems.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Example problems</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -283,7 +283,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-Introduction" class="quarto-section-identifier"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></h1>
+<h1 class="title"><span id="sec-Problems" class="quarto-section-identifier">Example problems</span></h1>
 </div>
 
 
@@ -298,15 +298,85 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<ul>
-<li>What this book is about</li>
-<li>How this book is organized</li>
-<li>Python</li>
-<li>Python modules</li>
-<li>Prerequisites</li>
-<li>JupyterLab</li>
-<li>practical network size for symbolic solutions</li>
-</ul>
+<p>In the Jupyter notebooks, don’t manually number headings, since these are auto numbered in a quarto book. Copy abstract to notes column</p>
+<table class="table">
+<caption>Completed example problems</caption>
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Circuit Description</th>
+<th style="text-align: left;">notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Two amplifier RIAA Phone Preamp</td>
+<td style="text-align: left;">This paper analyizes the circuit for the RIAA preamp. The preamplifier transfer function was used to calculate the Bode, impuse and step response plots. The Python results were compared to those from LTSpice. Deviation from the RIAA response curve was also examined. The sensitivity, Monte Carlo and worst case analysis for the preamplifier circuit was performed.</td>
+</tr>
+</tbody>
+</table>
+<table class="table">
+<caption>Future example problems</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Circuit Description</th>
+<th style="text-align: left;">notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">State variable filter: LP, HP, BP</td>
+<td style="text-align: left;">See filter handbook, <br>design a filter with normalized values, <br>do the analysis <br>and then scale the values <br>and re-analyze.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Active filters</td>
+<td style="text-align: left;">Several of these started <a href="https://en.wikipedia.org/wiki/Sallen%E2%80%93Key_topology">Sallen–Key topology</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Active inductor Nullors, Gyrators, NICs, Current Conveyor</td>
+<td style="text-align: left;">Where are these used? <br>Controlled Sources, Nullors, Active Gain Devices, Impedance Converters and Inverters (Gyrators, NICs, Current Conveyors) <br>See Op Amp circuit #2 or #2HP See Haydak Chapter 13, for RC-NIC and RC gyrator filters</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Wien bridge oscillator</td>
+<td style="text-align: left;">https://en.wikipedia.org/wiki/Wien_bridge_oscillator <br>Simple circuit <br>not so easy to make osc in LTSpice. Notebook started</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Chua’s circuit</td>
+<td style="text-align: left;">See circuit analysis folder under jupyterlab <br>https://en.wikipedia.org/wiki/Chua’s_circuit</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Switched mode power supply</td>
+<td style="text-align: left;">Do the LED driver fly back circuit, <br>see Analog Devices power management tools, <br>https://www.analog.com/en/design-center/design-tools-and-calculators/power-management-tools.html</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Pi filter transfer function</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Bridge-T network analysis</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">T-coil circuit</td>
+<td style="text-align: left;">See papers in download folder</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Diode circuit</td>
+<td style="text-align: left;">Get network equations with R in place of diode and then substitute equations for diode in python</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Transistor circuit</td>
+<td style="text-align: left;">Get network equations with R’s in place of transistor and then substitute equations in python <br>Or look at an Op Amp model that can have C in the feed back loop</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Tone control circuit of link</td>
+<td style="text-align: left;">https://sound-au.com/project27.htm</td>
+</tr>
+</tbody>
+</table>
 
 
 
@@ -546,13 +616,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./Preface.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Preface</span>
+      <a href="./test_13.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">test_13</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./Theory.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Theory</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./Two amplifier RIAA Phono Preamp.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Two amplifier RIAA phono preamp</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

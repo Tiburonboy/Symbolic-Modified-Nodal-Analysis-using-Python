@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Symbolic Modified Nodal Analysis - 1&nbsp; Introduction</title>
+<title>Symbolic Modified Nodal Analysis - Code validation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./Theory.html" rel="next">
-<link href="./Preface.html" rel="prev">
+<link href="./test_1.html" rel="next">
+<link href="./SMNA_example.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -74,7 +74,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Introduction.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Code-validation.html">Code validation</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -113,7 +113,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Introduction.html" class="sidebar-item-text sidebar-link active">
+  <a href="./Introduction.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
   </div>
 </li>
@@ -131,7 +131,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./Code-validation.html" class="sidebar-item-text sidebar-link">
+            <a href="./Code-validation.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Code validation</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -276,14 +276,20 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#test-circuits" id="toc-test-circuits" class="nav-link active" data-scroll-target="#test-circuits">Test Circuits</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-Introduction" class="quarto-section-identifier"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></h1>
+<h1 class="title"><span id="sec-Validation" class="quarto-section-identifier">Code validation</span></h1>
 </div>
 
 
@@ -298,17 +304,144 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<ul>
-<li>What this book is about</li>
-<li>How this book is organized</li>
-<li>Python</li>
-<li>Python modules</li>
-<li>Prerequisites</li>
-<li>JupyterLab</li>
-<li>practical network size for symbolic solutions</li>
-</ul>
+<p>Basic validation of the code consisted of analyzing simple networks and examining the results. A more comprehensive evaluation of the code was performed by solving test circuits and comparing the results to LTSpice. See the circuits in the following chapters that were used for validation. The validation circuits range from simple to large and complex. The largest validation circuit consist of 32 nodes, 59 branches and multiple instances all of the element types. For this large test circuit, there are small numerical differences between the Python modified nodal analysis (MNA) code results and the LTSpice solution, which are describe in the test report. Additionally, various interesting problem circuits have been solved using the MNA code and comparing the results to LTSpice. These problem circuits can also be found in the github repository. Code verification often looks at requirements or specifications versus what was implemented. This project didn’t have a formal set of requirements, only a general goal of implementing symbolic MNA using the Python libraries. No formal software or code verification is included.</p>
+<section id="test-circuits" class="level2">
+<h2 class="anchored" data-anchor-id="test-circuits">Test Circuits</h2>
+<p>This folder contains the test circuits used to validate the network analysis code. The code was validated under the following enviroment:</p>
+<p>might want new names rather than test_1</p>
+<p>The table below lists the test circuits used to validate and test the code. The test circuits are a collection of problems from text books or large and complex circuits that I made up that include various elements or unique combinations of elements or topologies. In LTSpice the series resistance for inductors defaults to 1e-3 Ohms unless set to zero. Leaving the default series inductance at 1e-3 Ohms will cause small numerical differences in the solution obtained by LTSpice.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Spelling and grammer of the jupyter notebooks has not been completed</p>
+</div>
+</div>
+<table class="table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Test file</th>
+<th style="text-align: left;">Circuit Description</th>
+<th style="text-align: left;">notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">test_1</td>
+<td style="text-align: left;">Resistors, independent and dependent sources</td>
+<td style="text-align: left;">DC analysis</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">test_2</td>
+<td style="text-align: left;">Resistors and independent sources</td>
+<td style="text-align: left;">DC analysis</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">test_3</td>
+<td style="text-align: left;">Same circuit as test_1, but with R2 replaced with C2 and R3 replaced with L1.</td>
+<td style="text-align: left;">AC analysis</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">test_4</td>
+<td style="text-align: left;">Resistors and one of each type of source</td>
+<td style="text-align: left;">AC analysis</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">test_5</td>
+<td style="text-align: left;">RLC and one of each type of source</td>
+<td style="text-align: left;">AC analysis</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">test_6</td>
+<td style="text-align: left;">RLC, coupled inductors and one of each type of source</td>
+<td style="text-align: left;">AC analysis</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">test_7</td>
+<td style="text-align: left;">Large circuit and two or more of each element type w/o Op Amps</td>
+<td style="text-align: left;">AC analysis</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">test_8</td>
+<td style="text-align: left;">Test_7 w/ op amps included</td>
+<td style="text-align: left;">AC analysis</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">test_9</td>
+<td style="text-align: left;">Current sources only dependent and independent</td>
+<td style="text-align: left;">DC analysis</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">test_10</td>
+<td style="text-align: left;">Current and voltage sources only, no LRCs</td>
+<td style="text-align: left;">DC analysis</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">test_11</td>
+<td style="text-align: left;">Three coupled inductors</td>
+<td style="text-align: left;">AC analysis</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">test_12</td>
+<td style="text-align: left;">LC ladder low pass filter</td>
+<td style="text-align: left;">AC analysis</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">test_13</td>
+<td style="text-align: left;">Ring of current sources and inductors</td>
+<td style="text-align: left;">AC analysis</td>
+</tr>
+</tbody>
+</table>
+<p>The following file types are in each github folder located <a href="https://github.com/Tiburonboy/Symbolic-modified-nodal-analysis/tree/master/test%20circuits">here</a>:</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">file name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">test_*.asc</td>
+<td>LTSpice circuit schematic</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">readme.md</td>
+<td>a description of the circuit</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">test_*.ipynb</td>
+<td>test report Jupyter notebook</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">test_*.net</td>
+<td>Spice net list</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">test_*.png</td>
+<td>image of the schematic for display in the notebook</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">test_*.csv</td>
+<td>csv data exported from LTSpice</td>
+</tr>
+</tbody>
+</table>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -546,13 +679,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./Preface.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Preface</span>
+      <a href="./SMNA_example.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Symbolic modified nodal analysis example</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./Theory.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Theory</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./test_1.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">test_1</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
