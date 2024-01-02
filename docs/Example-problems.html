@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Symbolic Modified Nodal Analysis - Example problems</title>
+<title>Symbolic Modified Nodal Analysisusing Python - Example problems</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -89,7 +89,7 @@ ul.task-list li input[type="checkbox"] {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Symbolic Modified Nodal Analysis</a> 
+      <a href="./">Symbolic Modified Nodal Analysis<br>using Python</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -120,7 +120,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Theory.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Theory</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Modified Nodal Analysis Theory</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -235,14 +235,26 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./Two port parameters.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Two port parameters</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Thevenin equivalent circuit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Thevenin equivalent circuit</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./Chapter-D.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Chapter D</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Chapter D</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Chapter-E.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Chapter E</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Chapter E</span></span></a>
   </div>
 </li>
       </ul>
@@ -259,13 +271,13 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Appendix_1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Appendix 1</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Appendix 1</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Bibliography.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Bibliography</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Bibliography</span></span></a>
   </div>
 </li>
       </ul>
@@ -301,10 +313,6 @@ ul.task-list li input[type="checkbox"] {
 <p>In the Jupyter notebooks, don’t manually number headings, since these are auto numbered in a quarto book. Copy abstract to notes column</p>
 <table class="table">
 <caption>Completed example problems</caption>
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Circuit Description</th>
@@ -315,6 +323,14 @@ ul.task-list li input[type="checkbox"] {
 <tr class="odd">
 <td style="text-align: left;">Two amplifier RIAA Phone Preamp</td>
 <td style="text-align: left;">This paper analyizes the circuit for the RIAA preamp. The preamplifier transfer function was used to calculate the Bode, impuse and step response plots. The Python results were compared to those from LTSpice. Deviation from the RIAA response curve was also examined. The sensitivity, Monte Carlo and worst case analysis for the preamplifier circuit was performed.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Two port parameters</td>
+<td style="text-align: left;">This notebook describes the calculation of two port parameters derived from the circuit’s netlist.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Thevenin equivalent circuit</td>
+<td style="text-align: left;">The Thevenin equivalent circuit is the reduction of a linear one port circuit to a single source and impedance and is based on <a href="https://en.wikipedia.org/wiki/Th%C3%A9venin%27s_theorem">Thevenin’s Theorem</a>.</td>
 </tr>
 </tbody>
 </table>

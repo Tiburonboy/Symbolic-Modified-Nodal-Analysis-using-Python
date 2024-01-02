@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Symbolic Modified Nodal Analysis - Preface</title>
+<title>Symbolic Modified Nodal Analysisusing Python - Preface</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -89,7 +89,7 @@ ul.task-list li input[type="checkbox"] {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Symbolic Modified Nodal Analysis</a> 
+      <a href="./">Symbolic Modified Nodal Analysis<br>using Python</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -120,7 +120,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Theory.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Theory</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Modified Nodal Analysis Theory</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -235,14 +235,26 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./Two port parameters.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Two port parameters</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Thevenin equivalent circuit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Thevenin equivalent circuit</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./Chapter-D.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Chapter D</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Chapter D</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Chapter-E.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Chapter E</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Chapter E</span></span></a>
   </div>
 </li>
       </ul>
@@ -259,13 +271,13 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Appendix_1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Appendix 1</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Appendix 1</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Bibliography.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Bibliography</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Bibliography</span></span></a>
   </div>
 </li>
       </ul>
@@ -281,6 +293,7 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#survey-of-other-symbolic-circuit-analysis-code" id="toc-survey-of-other-symbolic-circuit-analysis-code" class="nav-link active" data-scroll-target="#survey-of-other-symbolic-circuit-analysis-code">Survey of other symbolic circuit analysis code</a></li>
+  <li><a href="#chapter-contents" id="toc-chapter-contents" class="nav-link" data-scroll-target="#chapter-contents">Chapter contents</a></li>
   </ul>
 </nav>
     </div>
@@ -304,13 +317,7 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<ul>
-<li>modern computer codes</li>
-<li>computer algebra</li>
-<li>objectives, purpose and what is being acomplished</li>
-<li>background required</li>
-<li>what does the book cover</li>
-</ul>
+<p>This book describes a Python coding project that I started a few years ago. Over the years I’ve put the code on <a href="https://github.com/">Github</a> along with some test circuits and documentation. I think I have enough interesting content that I’m able to turn the effort into an online book.</p>
 <p>The nodal analysis code started as a translation from some C code to generate a nodal admittance matrix that I had written in 1988. I wrote this code for two reasons. Free versions of Spice for the PC didn’t exist at the time and I wanted to use some of the code from the book, <a href="https://www.amazon.com/Numerical-Recipes-Art-Scientific-Computing/dp/B000P6EEEC">Numerical Recipes in C</a>. The original C code worked well and calculated numeric solutions. I then started writing some C code to generate the matrices with symbolic values and then intended to use LISP to symbolically solve the equations. I didn’t get too far with this effort. The LISP code would generate huge symbolic strings with no simplification. The output was a big pile of trash that was not in the least bit useful or decipherable.</p>
 <p>In 2014, I started to use python for my little coding projects and engineering calculations. There are some nice python libraries for numeric and symbolic calculations (such as numpy and sympy), so I decided to try writing a python script to generate the node equations based on the old C code I had written many years before. Part way into this project I discovered that there is a new nodal analysis technique being taught today in engineering school called <a href="https://spinningnumbers.org/assets/MNA75.pdf">The modified nodal approach to network analysis</a>. My motivation for reviving this coding project is my continued interest in circuit analysis and synthesis.</p>
 <p>The modified nodal analysis provides an algorithmic method for generating systems of independent equations for linear circuit analysis. Some of my younger colleagues at work were taught this method, but I never heard of it until a short time ago. These days, I never really analyze a circuit by hand, unless it’s so simple that you can almost do it by inspection. Most problems that an electrical engineer encounters on the job are complex enough that they use computers to analyze the circuits. <a href="https://www.analog.com/en/design-center/design-tools-and-calculators/ltspice-simulator.html">LTSpice</a> is the version of spice that I use, since it’s free and does a good job converging when analyzing switching circuits.</p>
@@ -326,6 +333,10 @@ ul.task-list li input[type="checkbox"] {
 <p><a href="https://rodanski.net/ben/work/symbolic/index.htm">Symbolic Circuit Analysis</a> is a web page devoted to symbolic circuit analysis.</p>
 <p><a href="http://www.ewh.ieee.org/soc/es/May2001/12/Begin.htm">SAPWIN</a> is a windows program package for symbolic and numerical simulation of analog circuits.</p>
 <p><a href="https://github.com/mph-/lcapy">Lcapy</a> is an experimental Python package for teaching linear circuit analysis. It uses SymPy for symbolic mathematics.</p>
+</section>
+<section id="chapter-contents" class="level2">
+<h2 class="anchored" data-anchor-id="chapter-contents">Chapter contents</h2>
+<p>After the introduction, this book is organized into several parts. Chapter 2 describes the theory behind Modified Nodal Analysis. Chapter 3 walks through a circuit analysis problem from net list generation to AC analysis and generation of a Bode plot of the frequency response of the circuit. There are 13 circuits that were used to validate the Python code. These circuits range from simple circuits that you would find in text books, to complex circuits that would be very difficult to analysis if not for computers. There are also a couple of test circuits designed to generate matrices of all zeros during the solution. The last part of the book is a collection of interesting circuits (at least to me) that showcase the power and ease which the Python code and solve circuit analysis problems.</p>
 
 
 </section>
