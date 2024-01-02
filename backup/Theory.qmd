@@ -1,0 +1,148 @@
+# Modified Nodal Analysis Theory {#sec-Theory}
+In 1975, Chung-Wen Ho, A. Ruehli and P. Brennan, published a paper titled, [The Modified Nodal Approach to Network Analysis](https://ieeexplore.ieee.org/document/1084079), in the IEEE Transactions on Circuits and Systems. This was the original scholarly paper on on the subject. The analysis method they presented allows for the ability to process voltage sources and current-dependent circuit elements in a simple and efficient manner. The paper describes the formulation of the matrices, the use of stamps and a pivot ordering strategy. The authors compare their algorithm to the tableau method, a circuit analysis technique, which was an analysis technique being described in scholarly papers at the time.
+
+The modified nodal analysis provides an algorithmic method for generating systems of independent equations for linear circuit analysis. A Wikipedia description of the analysis technique is available [here](https://en.wikipedia.org/wiki/Network_analysis_(electrical_circuits)). In electrical engineering and electronics, a circuit is a collection of interconnected components. Circuit analysis is the process of finding the voltages across, and the currents through, all network components. Typically a set of equations is developed that describes the circuit interconnections and are usually based on node voltages as unknowns or loop currents as unknowns. The equations that describe the circuit are called network equations.
+
+##Network equations
+The network equations are a set of independent equations expressed in this code in matrix form.  There is an equation for each node based on [Kirchhoff's current law](https://en.wikipedia.org/wiki/Kirchhoff%27s_circuit_laws) and an equation for each current unknown.  The current unknowns are the currents from the voltages sources, op amps, voltage controlled voltage sources, current controlled voltage sources, current controlled current sources and inductors.
+
+Equation 1 is the form of the network equations in matrix form.  
+
+$A\cdot X = Z$
+
+The A matrix describes the connectivity of the resistors, capacitors and G type (VCCS) circuit elements.  The column vector X are the unknown node voltages and unknown currents terms from the voltage sources and inductors.  The column vector Z is made of the known voltages and currents.  The A is formed by four sub matrices, G, B, C and D, which are described below.
+
+$A = \begin{bmatrix}G B\\C D\end{bmatrix}$
+
+The matrix G is formed from the coefficients representing the KCL equations for each node.
+The positive diagonal of $G_{k,k}$ are the conductance terms of the resistor and capacitor elements connected to node k.  The off diagonal terms of $G_{k,j}$ are the resistors and capacitor conductances connecting node k to node j.  G type elements (VCCS) have input to the G matrix at the connection and controlling node positions.
+
+The B matrix describes the connectivity of the unknown branch currents.  Independent voltage sources, opamps, H, F and E type elements as well as inductors have inputs to the B matrix.
+
+The C matrix describes the connectivity of the unknown branch currents and is mainly the transpose of B matrix, with the exception of the F type elements (CCCS) and includes the E type value. 
+
+The D matrix describes also connectivity of the unknown currents.  The D matrix is composed of zeros unless there are controlled sources and inductors in the network.
+
+The X vector is comprised of the V and J vectors as shown below.   
+
+$X = \begin{bmatrix}V\\J\end{bmatrix}$
+
+The V vector contains the node voltages which are the voltage unknowns to be solved for.  The J vector contains the unknown currents from each voltage source.
+
+The Z vector is comprised of the I and Ev vectors as shown below.  
+
+$Z = \begin{bmatrix}I\\Ev\end{bmatrix}$
+
+The I vector contains the known currents and the Ev vector contains the known voltages.  Ev is used because sympy uses e and E sometimes for the constant 2.71, sometimes called Euler's number [[9]](#ref9). The use of E or e as a symbol was causing some errors when the code was run.  
+
+Putting all the parts together:
+
+$\begin{bmatrix}G B\\C D\end{bmatrix} \cdot \begin{bmatrix}V\\J\end{bmatrix} = \begin{bmatrix}I\\Ev\end{bmatrix}$
+
+### Stamps
+Stamps are templates for modifying the B, C and D matrices and facilitate the construction of the matrices. The stamps used in this implementation of the MNA allow the circuit connections of the components to be used to directly populate the various matrices.  
+
+##Code description
+The code is divided in the following sections.  
+
+Preprocessor: The preprocessor reads in the netlist text file and removes comments, extra spaces and blank lines.  The first letter of the element type is capitalized to make subsequent parsing of the file easier.  The number of lines are counted and the number of entries on each line are checked to make sure the count is consistent with the element type.
+
+Parser: The parser code loads the preprocessed netlist into a data frame.  A report is generated which consists of a count of the element types in the netlist. 
+
+Matrix formulation: Each of the matrices and vectors are generated.  
+
+Circuit equation generation: The circuit equations are generated in a for loop. Sympy automatically does some simplification according to its default settings. Two for loops perform the matrix multiplication on the equation.  
+$A\cdot X = Z$
+
+## Netlist file format
+The input file which describs the circuit is a text file called the net list. A netlist consists of a statements defining each circuit element and its connection to circuit nodes.  A node is a any point on a circuit where two or more circuit elements meet.  The nodes are numbered from 1 to N in any order and node 0 is the ground node or circuit common.  A ground node is required.  Choose a ground or reference node, which usually is taken to be at a potential of zero volts. All other node voltages constitute n unknowns.  The nodes should be numbered in consecutive order.  Each line in the netlist are either comments, spice directives or circuit elements.  
+
+Spice directives are commands to spice and the first character on the line is a period.  Comment lines start with a * or ;.  The default file extension is ‘.net’.  The python code does some preprocessing of the netlist to check the basic formatting of the netlist is correct.  
+
+The preprocessor performs the following steps:
+
+- remove blank lines and comments  
+- convert first letter of element name to uppercase  
+- removes extra spaces between entries  
+- counts number of entries on each line to make sure the count is correct and counts each element type  
+
+The element types that are supported are resistors, capacitors, inductors, independent sources and controlled sources. Each line in the netlist file contains a circuit element.
+
+The format for the element description is   
+letterXXX n1 n2 value  
+Where   
+letter signifies the element type, i.e. R, L, C, V, I, O, E, F, G, H or K   
+XXX is a string of letters or numbers that uniquely identify the element.  
+
+The element types are described in the following sections.   
+
+### Resistors, capacitors and inductors
+The resistors, capacitors and inductors are described by the following line:   
+R/L/CXXXXXXX N1 N2 value   
+Where:    
+XXX = the name of the component, can be any length    
+N1 = the first terminal    
+N2 = the second terminal    
+Value = component value in ohms, Farads or Henrys.    
+For example, a resistor named R1 connected between nodes 1 and 2 with a value of 3000 ohms.    
+R1 2 4 3000    
+Spice supports other parameters, but these are not allowed in this python implementation.   
+
+### Coupled inductors
+Two coupled inductors are described by the following line.    
+KXX LYY LZZ VALUE    
+The parameters are:    
+LYY = the name of the first coupled inductor    
+LZZ = the name of the second coupled inductor    
+VALUE = the coefficient of coupling, K, where 0 < K    
+The orientation of the inductors is determined by the first node, which is considered to be the dotted node.  When LTspice generates a net list the phasing dot gets assocated with the negative node.  This does not seem to affect the equations generated by the python code.  LTspice uses the coupling coefficient, k.  The symbolic equations use the mutual inductance, M.    
+
+$M = k\sqrt{L_1L_2}$
+
+### Independent sources
+A voltage source is described by the following line.    
+VXX N+ N- VALUE    
+The parameters are:    
+N+ = the name of the positive terminal    
+N- = the name of the negative terminal    
+VALUE = the value of the DC voltage    
+
+A current source is described by the following line.   
+IXX N+ N- VALUE   
+The parameters are:    
+N+= the name of the positive terminal, current leaves this terminal (pointy end of the arrow)    
+N- = the name of the negative terminal  
+VALUE = the value of the DC current  
+
+### Controlled sources
+The voltage-controlled dependent sources are defined using statements of the form    
+G/EXX nout+ nout- nc+ nc- gain    
+where E is a voltage-controlled voltage source, G is a voltage-controlled current source, the output voltage is connected between nodes nout+ and nout-, and the control voltage is measured at node nc+ with respect to node nc-.    
+Examples:    
+E1 5 1 4 3 10 defines a voltage source that makes node 5 a voltage 10 times (v4 − v3) above the voltage at node 1.   
+G1 2 1 5 8 50 defines a current source connected between node 2 (the + node) and node 1 and supplying a current 50 times (v5 − v8).  
+
+The current-controlled dependent sources are defined by statements of the form    
+F/HXX nout+ nout- vcontrol gain     
+where F is a current-controlled current source, H is a current-controlled voltage source, and the output current source is connected between nodes nout+ and nout-, with positive current flowing through the source from node nout+ to nout-. The control current flows from the positive node of the source vcontrol through the source and out the negative node.    
+Examples:    
+Fds 11 9 Vsens 1.25 defines a current source connected from node 11 to node 9 that generates a current 1.25 times the current flowing through the source Vsens.  
+H1 30 20 V5 100 defines a voltage source connected from node 30 to node 20 and supplying a voltage 100 times the current through the source V5. It is frequently necessary to add a voltage source with value 0 V to the circuit to sense the control current for these sources.  
+
+The direction of positive controlling current flow is from the positive node, through the source, to the negative node of VNAM. VALUE is the current gain.   
+
+### Op Amps
+An opamp component is described by the following line.    
+OXX N+ N- Vout  
+The output of the opamp is a voltage source. Two input terminals are at the same potential.    
+
+The op amp element is assumed to be an ideal op amp and use of this component is valid only when used in circuits with a DC path (a short or a resistor) from the output terminal to the negative input terminal of the op amp. No error checking is provided and if the condition is violated, the results will be likely erroneous. Need to work on implementing a better opamp model.    
+
+Example procedure:    
+1. Draw the circuit to be analyzed in LTSpice or some other schematic capture program. Label the nodes. The Symbolic Modified Network Analysis code will provide warnings for netlist formatting errors and non consecutive node numbering, but will still generate nodal equations which may be erroneous. Users should verify the results.  
+2. Export the netlist of the circuit and convert component values to units of Ohms, Farads and Henrys. Use scientific notation, for example, replace component values such as 2k with 2e3 and 2u with 2e-6.  
+3. Change Op Amp reference designators, for example U1 to O1 (capitol letter O, not zero).   
+4. Voltage sources and current sources need to be set to zero in some cases. See test circuits and problem circuits for examples.  
+5. Modify the nodal analysis Jupyter notebook code to read the net list. Run all the cells in the notebook.  
+6. Copy the symbol list, the A, X and Z matrices, and the element values in dictionary format to a new notebook. See end of the nodal analysis Jupyter notebook where these items are displayed.  
+7. Follow the test and problem circuits for examples on how to do additional circuit analysis.  

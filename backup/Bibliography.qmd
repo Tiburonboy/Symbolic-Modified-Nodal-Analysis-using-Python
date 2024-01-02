@@ -1,0 +1,6 @@
+# Bibliography {#sec-Bibliography}
+
+References to sources are provided as hyperlinks. A traditional bibliography is not included since this book is not intended to be a scholarly work. 
+
+## References  
+1. Basic Electric Circuit Analysis, D. E. Johnson, J. L. Hilburn, and J. R. Johnson, Prentice-Hall, 1978   

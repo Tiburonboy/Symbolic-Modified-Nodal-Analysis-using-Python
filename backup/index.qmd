@@ -1,0 +1,45 @@
+## About this book {.unnumbered}
+
+:::{.callout-note}  
+Last update: 28 Nov 2023  
+This book is a work in progress and is a working draft. Spelling and grammer checks are needed. This book is for testing only.  
+:::  
+
+This is the website is an online version of my book - *Symbolic Modified Nodal Analysis using Python*. Symbolic circuit analysis is a circuit analysis method that derives network equations with the circuit elements represented by symbols. 
+
+This book was written in [R Mark Down](https://rmarkdown.rstudio.com/) using plain text files and [JupyterLab](https://jupyter.org/) notebooks. The source files were rendered into a book using [Quarto](https://quarto.org/).
+
+Source code is available [here](https://github.com/Tiburonboy/Symbolic-modified-nodal-analysis).
+
+### Python module verions
+The following verions were used in this book.
+
+| Package | version |
+|:---|:---|
+| [python](https://www.python.org/) | 3.10.9 |
+| [JupyterLab notebook](https://jupyterlab.readthedocs.io/en/latest/) |3.5.3 |
+| [NumPy](https://numpy.org/) | 1.23.5 |
+| [SymPy](https://www.sympy.org/) | 1.11.1 |
+| [SciPy](https://scipy.org/) | 1.10.0 |
+| [Pandas](https://pandas.pydata.org/) | 1.5.3 |
+| [matplotlib](https://matplotlib.org/) | 3.7.0 |
+| [LTSpice](https://www.analog.com/en/design-center/design-tools-and-calculators/ltspice-simulator.html) | 17.1.8 |
+
+### Update History
+This book will be updated occasionally to fix typos, spelling and grammer mistakes. Additionally, new content will be added as new chapters are written. 
+
+| date | description |
+|:---------|:------------|
+| 29 Dec 2023 | test version | 
+| 30 Dec 2023 | another test update | 
+
+### Links to other projects
+[Solving Engineering Problems using Python](https://tiburonboy.github.io/Solving-Engineering-Problems-using-Python/)
+
+### License
+This work (includes python code, documentation, test circuits, etc.) is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.  
+Share — copy and redistribute the material in any medium or format  
+Adapt — remix, transform, and build upon the material for any purpose, even commercially.  
+https://creativecommons.org/licenses/by-sa/4.0/  
+
+<img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" />
