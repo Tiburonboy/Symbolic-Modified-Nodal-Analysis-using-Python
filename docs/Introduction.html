@@ -156,13 +156,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Theory.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Modified Nodal Analysis Theory</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Theory</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./SMNA_example.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Symbolic modified nodal analysis example</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Example</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -283,14 +283,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Chapter-D.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Chapter D</span></span></a>
+  <a href="./State-variable-filter.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">State Variable Filter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Chapter-E.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Chapter E</span></span></a>
+  <a href="./Chua’s circuit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Chua’s circuit</span></span></a>
   </div>
 </li>
       </ul>
@@ -306,14 +306,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./2nd_order_BRF.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">2nd Order BRF</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Elliptic function VCVS LPF.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Elliptic Function VCVS Filter</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./Appendix_1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Appendix 1</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Appendix 1</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Bibliography.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Bibliography</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Bibliography</span></span></a>
   </div>
 </li>
       </ul>
@@ -329,7 +341,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#jupyterlab" id="toc-jupyterlab" class="nav-link active" data-scroll-target="#jupyterlab"><span class="header-section-number">1.1</span> JupyterLab</a></li>
-  <li><a href="#practical-network-size-for-symbolic-solution" id="toc-practical-network-size-for-symbolic-solution" class="nav-link" data-scroll-target="#practical-network-size-for-symbolic-solution"><span class="header-section-number">1.2</span> Practical network size for symbolic solution</a></li>
+  <li><a href="#practical-network-size-for-symbolic-solutions" id="toc-practical-network-size-for-symbolic-solutions" class="nav-link" data-scroll-target="#practical-network-size-for-symbolic-solutions"><span class="header-section-number">1.2</span> Practical network size for symbolic solutions</a></li>
   </ul>
 </nav>
     </div>
@@ -361,53 +373,63 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="math inline">\(v_{3} = V_{1}\)</span></p>
 <p>can be entered into Python to get the equations in matrix form:</p>
 <div class="cell" data-execution_count="1">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sympy <span class="im">import</span> <span class="op">*</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>init_printing()</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>R2, C2, v1, C1, s, v3, v2, V1, R3, I_V1 <span class="op">=</span> symbols(<span class="st">' R2  C2  v1  C1  s  v3  v2  V1  R3  I_V1 '</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>R2, C2, v1, C1, s, v3, v2, V1, R3, I_V1 <span class="op">=</span> symbols(<span class="st">'R2 C2 v1 C1 s v3 v2 V1 R3 I_V1'</span>)</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> Matrix([[C1<span class="op">*</span>s <span class="op">+</span> C2<span class="op">*</span>s <span class="op">+</span> <span class="dv">1</span><span class="op">/</span>R3, <span class="op">-</span>C1<span class="op">*</span>s, <span class="dv">0</span>, <span class="dv">0</span>], [<span class="op">-</span>C1<span class="op">*</span>s, C1<span class="op">*</span>s <span class="op">+</span> <span class="dv">1</span><span class="op">/</span>R2, <span class="op">-</span><span class="dv">1</span><span class="op">/</span>R2, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span><span class="op">/</span>R2, <span class="dv">1</span><span class="op">/</span>R2, <span class="dv">1</span>], [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>]])</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> Matrix( [v1, v2, v3, I_V1] )</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>Z <span class="op">=</span> Matrix( [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, V1] )</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> Matrix([v1, v2, v3, I_V1])</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>Z <span class="op">=</span> Matrix([<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, V1])</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>equ <span class="op">=</span> Eq(A<span class="op">*</span>X,Z)</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>equ</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-display" data-execution_count="1">
 <p><span class="math inline">\(\displaystyle \left[\begin{matrix}- C_{1} s v_{2} + v_{1} \left(C_{1} s + C_{2} s + \frac{1}{R_{3}}\right)\\- C_{1} s v_{1} + v_{2} \left(C_{1} s + \frac{1}{R_{2}}\right) - \frac{v_{3}}{R_{2}}\\I_{V1} - \frac{v_{2}}{R_{2}} + \frac{v_{3}}{R_{2}}\\v_{3}\end{matrix}\right] = \left[\begin{matrix}0\\0\\0\\V_{1}\end{matrix}\right]\)</span></p>
 </div>
 </div>
 <p>The matrix can be easily solved to obtain a solution in symbolic form:</p>
 <div class="cell" data-execution_count="2">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>solve(equ,X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-display" data-execution_count="2">
 <p><span class="math inline">\(\displaystyle \left\{ I_{V1} : \frac{- C_{1} C_{2} R_{3} V_{1} s^{2} - C_{1} V_{1} s}{C_{1} C_{2} R_{2} R_{3} s^{2} + C_{1} R_{2} s + C_{1} R_{3} s + C_{2} R_{3} s + 1}, \  v_{1} : \frac{C_{1} R_{3} V_{1} s}{C_{1} C_{2} R_{2} R_{3} s^{2} + C_{1} R_{2} s + C_{1} R_{3} s + C_{2} R_{3} s + 1}, \  v_{2} : \frac{C_{1} R_{3} V_{1} s + C_{2} R_{3} V_{1} s + V_{1}}{C_{1} C_{2} R_{2} R_{3} s^{2} + C_{1} R_{2} s + C_{1} R_{3} s + C_{2} R_{3} s + 1}, \  v_{3} : V_{1}\right\}\)</span></p>
 </div>
 </div>
 <p>The numeric values for the components can be substituted for the symbols (reference designators) and the following solution is obtained, where s is the Laplace variable:</p>
 <div class="cell" data-execution_count="3">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Values <span class="op">=</span> {R2:<span class="dv">1000</span>, R3:<span class="dv">1000</span>, C1:<span class="fl">1e-6</span>, C2:<span class="fl">10e-6</span>, V1:<span class="dv">1</span>}</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>equ1a <span class="op">=</span> equ.subs(Values)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>solve(equ1a,X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>u1 <span class="op">=</span> solve(equ1a,X)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>u1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <p><span class="math inline">\(\displaystyle \left\{ I_{V1} : \frac{- s^{2} - 100.0 s}{1000.0 s^{2} + 1200000.0 s + 100000000.0}, \  v_{1} : \frac{100.0 s}{s^{2} + 1200.0 s + 100000.0}, \  v_{2} : \frac{1100.0 s + 100000.0}{s^{2} + 1200.0 s + 100000.0}, \  v_{3} : 1.0\right\}\)</span></p>
 </div>
 </div>
+<p>The voltage at node #2 can be obtained:</p>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>H <span class="op">=</span> u1[v2]</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>H</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<p><span class="math inline">\(\displaystyle \frac{1100.0 s + 100000.0}{s^{2} + 1200.0 s + 100000.0}\)</span></p>
+</div>
+</div>
+<p>Now we can solve for the roots of the denominator.</p>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>num, denom <span class="op">=</span> fraction(H) <span class="co">#returns numerator and denominator</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>solve(denom)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<p><span class="math inline">\(\displaystyle \left[ -1109.90195135928, \  -90.0980486407215\right]\)</span></p>
+</div>
+</div>
+<p>As you can see the matrix and polynomial math can be easily solved with hardly any effort.</p>
 <section id="jupyterlab" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="jupyterlab"><span class="header-section-number">1.1</span> JupyterLab</h2>
 <p>All the Python code is presented in JupyterLab notebooks.</p>
 </section>
-<section id="practical-network-size-for-symbolic-solution" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="practical-network-size-for-symbolic-solution"><span class="header-section-number">1.2</span> Practical network size for symbolic solution</h2>
-<p>Test circuit 4 has 26 branches, 13 nodes, 18 resistors, 4 independent sources and 4 dependent sources. A symbolic solution for this problem was taking too long on my i3 computer, so I interrupted the kernel, and proceeded with a numerical solution, which can be solved quite quickly. Another circuit, shown below, that needed to be interrupted during the symbolic solution was the 100 Hz low pass elliptic function VCVS filter which contains zeros and poles.</p>
+<section id="practical-network-size-for-symbolic-solutions" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="practical-network-size-for-symbolic-solutions"><span class="header-section-number">1.2</span> Practical network size for symbolic solutions</h2>
+<p>Test circuit 4 has 26 branches, 13 nodes, 18 resistors, 4 independent sources and 4 dependent sources. A symbolic solution for this problem was taking too long on my i3 computer, so I interrupted the kernel, and proceeded with a numerical solution, which can be solved quite quickly.</p>
+<p>Another circuit, shown below, that needed to be interrupted during the symbolic solution was the 100 Hz low pass elliptic function VCVS filter which contains zeros and poles. See the appendix for this circuit’s notebook.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="Elliptic-function-VCVS-LPF.png" class="img-fluid figure-img"></p>
@@ -440,8 +462,11 @@ R6 7 6 44.2e3</code></pre>
 <span class="math inline">\(- C_{3} s v_{4} + I_{O} + v_{7} \left(C_{3} s + \frac{1}{R_{7}} + \frac{1}{R_{6}}\right) - \frac{v_{2}}{R_{7}} - \frac{v_{6}}{R_{6}} = 0\)</span><br>
 <span class="math inline">\(v_{1} = V_{1}\)</span><br>
 <span class="math inline">\(- v_{5} + v_{6} = 0\)</span></p>
-<p>After substituting numerical values for the components, the following solution for the voltage at node 2 was obtained.</p>
+<p>After about two hours running on an i3 machine a symbolic solution was obtained, but it’s too long to display and doesn’t offer too much insight into the function of the circuit.</p>
+<p>After substituting numerical values for the components, the following solution for the voltage at node 2 was obtained in less than one second.</p>
 <p><span class="math inline">\(\frac{4.30028181226968 \cdot \left(1.0784981875 \cdot 10^{-10} s^{3} + 2.263375 \cdot 10^{-7} s^{2} + 0.000474999999999999 s + 1.0\right)}{1.50943922351291 \cdot 10^{-12} s^{4} + 4.7350839034956 \cdot 10^{-9} s^{3} + 4.53071325287237 \cdot 10^{-6} s^{2} + 0.00311443743767615 s + 1.0}\)</span></p>
+<p>See the appendix (2nd Order BRF) for a reduced complexity version of the schematic above, for which a symbolic solution was obtained in less than one second.</p>
+<p>Python together with SymPy has enabled the ability to explore circuit analysis problems without having to resort to pages and pages of hand calculations and then to display the results with good looking graphics and equations.</p>
 
 
 </section>
@@ -688,7 +713,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
   <div class="nav-page nav-page-next">
       <a href="./Theory.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Modified Nodal Analysis Theory</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Theory</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

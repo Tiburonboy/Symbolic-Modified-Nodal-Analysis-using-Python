@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Symbolic Modified Nodal Analysisusing Python - 17&nbsp; test_14</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./test_15.html" rel="next">
+<link href="./test_13.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Validation-tests.html">Validation tests</a></li><li class="breadcrumb-item"><a href="./test_14.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">test_14</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Symbolic Modified Nodal Analysis<br>using Python</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About this book</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Preface.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Theory.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Theory</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./SMNA_example.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Example</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./Validation-tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Validation tests</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">test_1</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">test_2</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">test_3</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">test_4</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">test_5</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">test_6</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_7.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">test_7</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_8.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">test_8</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_9.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">test_9</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_10.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">test_10</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_11.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">test_11</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_12.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">test_12</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_13.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">test_13</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_14.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">test_14</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_15.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">test_15</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./Example-problems.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Example problems</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Two amplifier RIAA Phono Preamp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Two amplifier RIAA phono preamp</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Two port parameters.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Two port parameters</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Thevenin equivalent circuit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Thevenin equivalent circuit</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./State-variable-filter.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">State Variable Filter</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Chua’s circuit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Chua’s circuit</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./Appendices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./2nd_order_BRF.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">2nd Order BRF</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Elliptic function VCVS LPF.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Elliptic Function VCVS Filter</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Change-log.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Change Log</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bibliography.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Bibliography</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#symbolic-solution" id="toc-symbolic-solution" class="nav-link active" data-scroll-target="#symbolic-solution"><span class="header-section-number">17.1</span> Symbolic solution</a></li>
+  <li><a href="#numeric-solution" id="toc-numeric-solution" class="nav-link" data-scroll-target="#numeric-solution"><span class="header-section-number">17.2</span> Numeric solution</a></li>
+  <li><a href="#ac-analysis" id="toc-ac-analysis" class="nav-link" data-scroll-target="#ac-analysis"><span class="header-section-number">17.3</span> AC analysis</a></li>
+  <li><a href="#ac-sweep" id="toc-ac-sweep" class="nav-link" data-scroll-target="#ac-sweep"><span class="header-section-number">17.4</span> AC Sweep</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">test_14</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>This test circuit has one unknown current source.</p>
+<p>This circuit has</p>
+<pre><code>Net list report
+number of lines in netlist: 4
+number of branches: 4
+number of nodes: 2
+number of unknown currents: 1
+number of RLC (passive components): 8
+number of inductors: 1
+number of independent voltage sources: 0
+number of independent current sources: 2
+number of op amps: 0
+number of E - VCVS: 0
+number of G - VCCS: 0
+number of F - CCCS: 0
+number of H - CCVS: 0
+number of K - Coupled inductors: 0
+</code></pre>
+<p><img src="test_14.png" width="900"></p>
+<pre><code>* test_14.asc
+I1 1 0 1 
+R1 1 0 0.05
+L1 1 2 0.025
+C1 2 0 0.25
+
+</code></pre>
+<p>This netlist is read into the Symbolic Modified Nodal Analysis Jupyter notebook and the following circuit equations were generated.</p>
+<p><span class="math inline">\(I_{L1} + \frac{v_{1}}{R_{1}} = - I_{1}\)</span><br>
+<span class="math inline">\(C_{1} s v_{2} - I_{L1} = 0\)</span><br>
+<span class="math inline">\(- I_{L1} L_{1} s + v_{1} - v_{2} = 0\)</span></p>
+<div class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="69">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sympy <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> signal</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>init_printing()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Copy the text strings generated by the Symbolic Modified Nodal Analysis Jupyter notebook to the cell below. used in nodal analysis</p>
+<div class="cell" data-execution_count="70">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>I_L1, v1, v2, I1, R1, L1, C1, s <span class="op">=</span> symbols(<span class="st">' I_L1  v1  v2  I1  R1  L1  C1  s '</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> Matrix([[<span class="dv">1</span><span class="op">/</span>R1, <span class="dv">0</span>, <span class="dv">1</span>], [<span class="dv">0</span>, C1<span class="op">*</span>s, <span class="op">-</span><span class="dv">1</span>], [<span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>, <span class="op">-</span>L1<span class="op">*</span>s]])</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> Matrix( [v1, v2, I_L1] )</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>Z <span class="op">=</span> Matrix( [<span class="op">-</span>I1, <span class="dv">0</span>, <span class="dv">0</span>] )</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>equ <span class="op">=</span> Eq(A<span class="op">*</span>X,Z)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>equ</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="70">
+<p><span class="math inline">\(\displaystyle \left[\begin{matrix}I_{L1} + \frac{v_{1}}{R_{1}}\\C_{1} s v_{2} - I_{L1}\\- I_{L1} L_{1} s + v_{1} - v_{2}\end{matrix}\right] = \left[\begin{matrix}- I_{1}\\0\\0\end{matrix}\right]\)</span></p>
+</div>
+</div>
+<section id="symbolic-solution" class="level2" data-number="17.1">
+<h2 data-number="17.1" class="anchored" data-anchor-id="symbolic-solution"><span class="header-section-number">17.1</span> Symbolic solution</h2>
+<div class="cell" data-execution_count="71">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>symbolic_solution <span class="op">=</span> solve(equ,X)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>symbolic_solution</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="71">
+<p><span class="math inline">\(\displaystyle \left\{ I_{L1} : - \frac{C_{1} I_{1} R_{1} s}{C_{1} L_{1} s^{2} + C_{1} R_{1} s + 1}, \  v_{1} : \frac{- C_{1} I_{1} L_{1} R_{1} s^{2} - I_{1} R_{1}}{C_{1} L_{1} s^{2} + C_{1} R_{1} s + 1}, \  v_{2} : - \frac{I_{1} R_{1}}{C_{1} L_{1} s^{2} + C_{1} R_{1} s + 1}\right\}\)</span></p>
+</div>
+</div>
+</section>
+<section id="numeric-solution" class="level2" data-number="17.2">
+<h2 data-number="17.2" class="anchored" data-anchor-id="numeric-solution"><span class="header-section-number">17.2</span> Numeric solution</h2>
+<div class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="72">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># enter the element values, set I2=0</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>equ1a <span class="op">=</span> equ.subs({</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>I1:<span class="fl">1.0000e+00</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>R1:<span class="fl">5.0000e-02</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>L1:<span class="fl">2.5000e-02</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>C1:<span class="fl">2.5000e-01</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>})    </span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>equ1a  <span class="co"># display the equations</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="72">
+<p><span class="math inline">\(\displaystyle \left[\begin{matrix}I_{L1} + 20.0 v_{1}\\- I_{L1} + 0.25 s v_{2}\\- 0.025 I_{L1} s + v_{1} - v_{2}\end{matrix}\right] = \left[\begin{matrix}-1.0\\0\\0\end{matrix}\right]\)</span></p>
+</div>
+</div>
+<div class="cell" data-execution_count="73">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>u1 <span class="op">=</span> solve(equ1a,X)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>u1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="73">
+<p><span class="math inline">\(\displaystyle \left\{ I_{L1} : - \frac{2.0 s}{s^{2} + 2.0 s + 160.0}, \  v_{1} : \frac{- s^{2} - 160.0}{20.0 s^{2} + 40.0 s + 3200.0}, \  v_{2} : - \frac{8.0}{s^{2} + 2.0 s + 160.0}\right\}\)</span></p>
+</div>
+</div>
+</section>
+<section id="ac-analysis" class="level2" data-number="17.3">
+<h2 data-number="17.3" class="anchored" data-anchor-id="ac-analysis"><span class="header-section-number">17.3</span> AC analysis</h2>
+<p>Solve equations for <span class="math inline">\(\omega\)</span> equal to 1 radian per second, s = 1j.</p>
+<div class="cell" data-execution_count="74">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="op">/</span>(<span class="dv">2</span><span class="op">*</span>np.pi)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="74">
+<p><span class="math inline">\(\displaystyle 0.159154943091895\)</span></p>
+</div>
+</div>
+<div class="cell" data-execution_count="75">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>equ1a_1rad_per_s <span class="op">=</span> equ1a.subs({s:<span class="ot">1j</span>})</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>equ1a_1rad_per_s  <span class="co"># display the equations</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="75">
+<p><span class="math inline">\(\displaystyle \left[\begin{matrix}I_{L1} + 20.0 v_{1}\\- I_{L1} + 0.25 i v_{2}\\- 0.025 i I_{L1} + v_{1} - v_{2}\end{matrix}\right] = \left[\begin{matrix}-1.0\\0\\0\end{matrix}\right]\)</span></p>
+</div>
+</div>
+<div class="cell" data-execution_count="76">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>ans1 <span class="op">=</span> solve(equ1a_1rad_per_s,X)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>ans1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="76">
+<p><span class="math inline">\(\displaystyle \left\{ I_{L1} : -0.000158196559224837 - 0.0125766264583745 i, \  v_{1} : -0.0499920901720388 + 0.000628831322918727 i, \  v_{2} : -0.0503065058334981 + 0.000632786236899347 i\right\}\)</span></p>
+</div>
+</div>
+<div class="cell" data-execution_count="77">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, value <span class="kw">in</span> ans1.items():</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'</span><span class="sc">{:5s}</span><span class="st">: mag: </span><span class="sc">{:10.6f}</span><span class="st"> phase: </span><span class="sc">{:11.5f}</span><span class="st"> deg'</span>.<span class="bu">format</span>(<span class="bu">str</span>(name),<span class="bu">float</span>(<span class="bu">abs</span>(value)),<span class="bu">float</span>(arg(value)<span class="op">*</span><span class="dv">180</span><span class="op">/</span>np.pi)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>v1   : mag:   0.049996 phase:   179.27934 deg
+v2   : mag:   0.050310 phase:   179.27934 deg
+I_L1 : mag:   0.012578 phase:   -90.72066 deg</code></pre>
+</div>
+</div>
+<p>The following results were obtained from LTSpice.</p>
+<pre><code>       --- AC Analysis ---
+
+frequency:  0.159155    Hz
+V(1):   mag:  0.0499959 phase:    179.279°  voltage
+V(2):   mag:  0.0503103 phase:    179.265°  voltage
+I(C1):  mag:  0.0125776 phase:   -90.7351°  device_current
+I(L1):  mag:  0.0125776 phase:   -90.7351°  device_current
+I(I1):  mag:          1 phase:          0°  device_current
+I(R1):  mag:   0.999918 phase:    179.279°  device_current
+</code></pre>
+<p>The LTSpice results are the same.</p>
+</section>
+<section id="ac-sweep" class="level2" data-number="17.4">
+<h2 data-number="17.4" class="anchored" data-anchor-id="ac-sweep"><span class="header-section-number">17.4</span> AC Sweep</h2>
+<p>Looking at node 5 voltage and comparing the results with those obtained from LTSpice. Thr frequency sweep is from 0.01 Hz to 1 Hz.</p>
+<p>Load the csv file of node 5 voltage over the sweep range and plot along with the results obtained from SymPy.</p>
+<div class="cell" data-execution_count="93">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>os.chdir(<span class="st">'/home/jeff32/Documents/Solving Electrical Engineering Problems with Python Blog/MNA Test Circuits/test_14/'</span>) <span class="co"># change directory to net list location</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>fn <span class="op">=</span> <span class="st">'test_14.csv'</span> <span class="co"># data from LTSpice</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co">#LTSpice_data = np.loadtxt(fn, delimiter='\t',skiprows=1)</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>LTSpice_data <span class="op">=</span> np.genfromtxt(fn, delimiter<span class="op">=</span><span class="st">','</span>,skip_header<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co"># change the working director back to the Jupyter folder</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>os.chdir(<span class="st">'/home/jeff32/Documents/JupyterLab/Node Analysis/'</span>)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="94">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># initaliaze some empty arrays</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>frequency <span class="op">=</span> np.zeros(<span class="bu">len</span>(LTSpice_data))</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>V_1 <span class="op">=</span> np.zeros(<span class="bu">len</span>(LTSpice_data)).astype(<span class="bu">complex</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>V_2 <span class="op">=</span> np.zeros(<span class="bu">len</span>(LTSpice_data)).astype(<span class="bu">complex</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="95">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># convert the csv data to complex numbers and store in the array</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(LTSpice_data)):</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    frequency[i] <span class="op">=</span> LTSpice_data[i][<span class="dv">0</span>]</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    V_1[i] <span class="op">=</span> LTSpice_data[i][<span class="dv">1</span>] <span class="op">+</span> LTSpice_data[i][<span class="dv">2</span>]<span class="op">*</span><span class="ot">1j</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    V_2[i] <span class="op">=</span> LTSpice_data[i][<span class="dv">3</span>] <span class="op">+</span> LTSpice_data[i][<span class="dv">4</span>]<span class="op">*</span><span class="ot">1j</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Load the Laplace polyinominal for node 5</p>
+<div class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="96">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>H <span class="op">=</span> u1[v2]</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>H</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="96">
+<p><span class="math inline">\(\displaystyle - \frac{8.0}{s^{2} + 2.0 s + 160.0}\)</span></p>
+</div>
+</div>
+<div class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="97">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>num, denom <span class="op">=</span> fraction(H) <span class="co">#returns numerator and denominator</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co"># convert symbolic to numpy polynomial</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> np.array(Poly(num, s).all_coeffs(), dtype<span class="op">=</span><span class="bu">float</span>)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> np.array(Poly(denom, s).all_coeffs(), dtype<span class="op">=</span><span class="bu">float</span>)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>system_v2 <span class="op">=</span> (a, b) <span class="co"># system for circuit 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="98">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#x = np.linspace(0.01*2*np.pi, 1*2*np.pi, 10000, endpoint=True)</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.logspace(<span class="op">-</span><span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">400</span>, endpoint<span class="op">=</span><span class="va">False</span>)<span class="op">*</span><span class="dv">2</span><span class="op">*</span>np.pi</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>w, mag_v2, phase_v2 <span class="op">=</span> signal.bode(system_v2, w<span class="op">=</span>x) <span class="co"># returns: rad/s, mag in dB, phase in deg</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Plot the results.</p>
+<div class="cell" data-execution_count="99">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>fig, ax1 <span class="op">=</span> plt.subplots()</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>ax1.set_ylabel(<span class="st">'magnitude, dB'</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>ax1.set_xlabel(<span class="st">'frequency, Hz'</span>)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>plt.semilogx(frequency, <span class="dv">20</span><span class="op">*</span>np.log10(np.<span class="bu">abs</span>(V_2)),<span class="st">'-k'</span>)    <span class="co"># Bode magnitude plot</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>plt.semilogx(w<span class="op">/</span>(<span class="dv">2</span><span class="op">*</span>np.pi), mag_v2,<span class="st">'-b'</span>)    <span class="co"># Bode magnitude plot</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>ax1.tick_params(axis<span class="op">=</span><span class="st">'y'</span>)</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="co">#ax1.set_ylim((-30,20))</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>plt.grid()</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="co"># instantiate a second y-axes that shares the same x-axis</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>ax2 <span class="op">=</span> ax1.twinx()</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>color <span class="op">=</span> <span class="st">'tab:blue'</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>plt.semilogx(frequency, np.angle(V_2)<span class="op">*</span><span class="dv">180</span><span class="op">/</span>np.pi,<span class="st">':'</span>,color<span class="op">=</span>color)  <span class="co"># Bode phase plot</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>plt.semilogx(w<span class="op">/</span>(<span class="dv">2</span><span class="op">*</span>np.pi), phase_v2,<span class="st">':'</span>,color<span class="op">=</span><span class="st">'tab:red'</span>)  <span class="co"># Bode phase plot</span></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>ax2.set_ylabel(<span class="st">'phase, deg'</span>,color<span class="op">=</span>color)</span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>ax2.tick_params(axis<span class="op">=</span><span class="st">'y'</span>, labelcolor<span class="op">=</span>color)</span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a><span class="co">#ax2.set_ylim((-5,25))</span></span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Bode plot'</span>)</span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="test_14_files/figure-html/cell-18-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="101">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>fig, ax1 <span class="op">=</span> plt.subplots()</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>ax1.set_ylabel(<span class="st">'magnitude, dB'</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>ax1.set_xlabel(<span class="st">'frequency, Hz'</span>)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>plt.semilogx(frequency[<span class="dv">0</span>:<span class="op">-</span><span class="dv">1</span>], <span class="dv">20</span><span class="op">*</span>np.log10(np.<span class="bu">abs</span>(V_2[<span class="dv">0</span>:<span class="op">-</span><span class="dv">1</span>]))<span class="op">-</span>mag_v2,<span class="st">'-k'</span>)    <span class="co"># Bode magnitude plot</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.semilogx(w/(2*np.pi), mag_v3,'-b')    # Bode magnitude plot</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>ax1.tick_params(axis<span class="op">=</span><span class="st">'y'</span>)</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="co">#ax1.set_ylim((-30,20))</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>plt.grid()</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="co"># instantiate a second y-axes that shares the same x-axis</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>ax2 <span class="op">=</span> ax1.twinx()</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>color <span class="op">=</span> <span class="st">'tab:blue'</span></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>plt.semilogx(frequency[<span class="dv">0</span>:<span class="op">-</span><span class="dv">1</span>], np.angle(V_2[<span class="dv">0</span>:<span class="op">-</span><span class="dv">1</span>])<span class="op">*</span><span class="dv">180</span><span class="op">/</span>np.pi<span class="op">-</span>phase_v2,<span class="st">':'</span>,color<span class="op">=</span>color,label<span class="op">=</span><span class="st">'phase'</span>)  <span class="co"># Bode phase plot</span></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.semilogx(w/(2*np.pi), phase_v3,':',color='tab:red')  # Bode phase plot</span></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>ax2.set_ylabel(<span class="st">'phase, deg'</span>,color<span class="op">=</span>color)</span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>ax2.tick_params(axis<span class="op">=</span><span class="st">'y'</span>, labelcolor<span class="op">=</span>color)</span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a><span class="co">#ax2.set_ylim((-5,25))</span></span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>ax2.plot(np.NaN, np.NaN, color<span class="op">=</span><span class="st">'k'</span>, label<span class="op">=</span><span class="st">'magnitude'</span>)</span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Mag and Phase difference'</span>)</span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="test_14_files/figure-html/cell-19-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>The SymPy and LTSpice results overlay each other.</p>
+<div class="cell" data-execution_count="103">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>frequency[<span class="dv">0</span>:<span class="op">-</span><span class="dv">1</span>]<span class="op">-</span>w<span class="op">/</span>(<span class="dv">2</span><span class="op">*</span>np.pi)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="103">
+<pre><code>array([ 0.00000000e+00, -3.98986399e-17,  3.46944695e-18,  3.46944695e-17,
+       -5.03069808e-17, -3.46944695e-17, -2.94902991e-17,  1.73472348e-18,
+       -3.12250226e-17, -1.90819582e-17,  2.42861287e-17, -3.98986399e-17,
+        2.60208521e-17, -3.12250226e-17, -5.03069808e-17, -3.98986399e-17,
+        2.77555756e-17,  2.94902991e-17,  2.08166817e-17, -1.04083409e-17,
+       -3.46944695e-17,  0.00000000e+00, -6.93889390e-18, -4.16333634e-17,
+       -5.55111512e-17, -2.77555756e-17, -3.46944695e-17,  2.42861287e-17,
+        2.77555756e-17, -5.55111512e-17,  0.00000000e+00,  6.93889390e-18,
+        0.00000000e+00, -2.42861287e-17, -3.12250226e-17,  0.00000000e+00,
+       -2.77555756e-17, -2.77555756e-17,  3.46944695e-18, -1.04083409e-17,
+        3.46944695e-18, -4.16333634e-17, -1.73472348e-17, -5.20417043e-17,
+       -5.89805982e-17, -3.12250226e-17, -5.89805982e-17, -5.20417043e-17,
+       -5.89805982e-17, -3.46944695e-18, -9.02056208e-17, -2.77555756e-17,
+       -1.38777878e-17, -5.55111512e-17, -6.24500451e-17, -4.85722573e-17,
+       -4.16333634e-17, -6.24500451e-17, -2.77555756e-17, -4.85722573e-17,
+       -3.46944695e-17, -6.24500451e-17, -4.16333634e-17, -5.55111512e-17,
+       -1.11022302e-16, -9.71445147e-17, -1.11022302e-16, -1.11022302e-16,
+       -1.52655666e-16, -1.17961196e-16, -1.45716772e-16, -8.32667268e-17,
+       -1.59594560e-16, -6.93889390e-17, -1.52655666e-16, -1.11022302e-16,
+       -9.71445147e-17, -9.71445147e-17, -1.80411242e-16, -1.17961196e-16,
+       -1.24900090e-16, -1.66533454e-16, -2.08166817e-16, -1.80411242e-16,
+       -1.24900090e-16, -2.08166817e-16, -1.80411242e-16, -1.80411242e-16,
+       -1.52655666e-16, -1.94289029e-16, -2.35922393e-16, -2.35922393e-16,
+       -1.80411242e-16, -2.77555756e-16, -2.35922393e-16, -2.91433544e-16,
+       -2.63677968e-16, -2.91433544e-16, -2.91433544e-16, -2.63677968e-16,
+       -3.05311332e-16, -4.16333634e-16,  4.16333634e-17, -6.52256027e-16,
+       -5.13478149e-16, -3.60822483e-16, -2.91433544e-16,  2.77555756e-17,
+       -3.19189120e-16, -1.66533454e-16, -7.49400542e-16, -4.16333634e-16,
+       -7.21644966e-16, -3.88578059e-16, -5.27355937e-16, -4.71844785e-16,
+       -7.21644966e-16, -7.21644966e-16, -8.04911693e-16, -1.11022302e-16,
+       -3.33066907e-16, -9.71445147e-16, -1.02695630e-15, -4.16333634e-16,
+       -5.55111512e-16, -3.05311332e-16, -3.60822483e-16, -7.49400542e-16,
+       -7.49400542e-16, -5.82867088e-16, -9.99200722e-16, -9.43689571e-16,
+       -9.71445147e-16, -1.24900090e-15, -1.27675648e-15, -9.71445147e-16,
+       -1.36002321e-15, -1.30451205e-15, -1.11022302e-15, -1.11022302e-15,
+       -1.05471187e-15, -1.33226763e-15, -1.16573418e-15, -1.55431223e-15,
+       -1.60982339e-15, -1.38777878e-15, -1.55431223e-15, -1.55431223e-15,
+       -1.60982339e-15, -1.05471187e-15, -1.94289029e-15, -1.22124533e-15,
+       -1.11022302e-15, -1.55431223e-15, -1.66533454e-15, -1.49880108e-15,
+       -1.38777878e-15, -1.55431223e-15, -2.27595720e-15, -1.66533454e-15,
+       -2.33146835e-15, -1.83186799e-15, -2.55351296e-15, -1.77635684e-15,
+       -2.16493490e-15, -2.27595720e-15, -2.16493490e-15, -2.05391260e-15,
+       -2.27595720e-15, -2.22044605e-15, -2.22044605e-15, -2.77555756e-15,
+       -2.55351296e-15, -2.66453526e-15, -2.55351296e-15, -3.10862447e-15,
+       -2.88657986e-15, -2.99760217e-15, -2.77555756e-15, -3.21964677e-15,
+       -3.33066907e-15, -3.66373598e-15, -4.10782519e-15, -3.88578059e-15,
+       -3.66373598e-15, -3.99680289e-15, -4.32986980e-15, -4.77395901e-15,
+       -4.99600361e-15, -4.99600361e-15, -4.66293670e-15, -4.55191440e-15,
+       -4.88498131e-15, -4.32986980e-15, -4.44089210e-15, -5.44009282e-15,
+       -5.66213743e-15, -4.99600361e-15, -5.88418203e-15, -5.66213743e-15,
+       -5.99520433e-15, -4.66293670e-15, -9.54791801e-15, -7.10542736e-15,
+       -5.10702591e-15, -2.88657986e-15, -2.88657986e-15, -9.10382880e-15,
+       -3.10862447e-15, -1.11022302e-14, -7.54951657e-15, -3.77475828e-15,
+       -7.32747196e-15, -3.33066907e-15, -5.10702591e-15, -4.21884749e-15,
+       -7.99360578e-15, -7.32747196e-15, -8.65973959e-15, -1.13242749e-14,
+       -1.42108547e-14, -9.54791801e-15, -1.13242749e-14, -1.44328993e-14,
+       -1.62092562e-14, -1.26565425e-14, -1.42108547e-14, -7.54951657e-15,
+       -1.84297022e-14, -1.55431223e-14, -1.06581410e-14, -9.76996262e-15,
+       -1.86517468e-14, -1.24344979e-14, -1.15463195e-14, -1.99840144e-14,
+       -1.24344979e-14, -2.30926389e-14, -1.99840144e-14, -2.08721929e-14,
+       -1.95399252e-14, -2.48689958e-14, -2.13162821e-14, -1.68753900e-14,
+       -1.64313008e-14, -2.48689958e-14, -2.53130850e-14, -2.70894418e-14,
+       -2.66453526e-14, -2.17603713e-14, -2.93098879e-14, -2.39808173e-14,
+       -3.10862447e-14, -2.75335310e-14, -2.62012634e-14, -2.66453526e-14,
+       -3.41948692e-14, -2.35367281e-14, -3.28626015e-14, -2.48689958e-14,
+       -3.33066907e-14, -3.64153152e-14, -3.46389584e-14, -3.55271368e-14,
+       -4.08562073e-14, -3.99680289e-14, -4.17443857e-14, -4.08562073e-14,
+       -4.52970994e-14, -4.17443857e-14, -4.44089210e-14, -3.81916720e-14,
+       -4.88498131e-14, -4.70734562e-14, -4.88498131e-14, -5.15143483e-14,
+       -5.24025268e-14, -4.97379915e-14, -5.15143483e-14, -5.24025268e-14,
+       -5.68434189e-14, -5.59552404e-14, -5.68434189e-14, -5.95079541e-14,
+       -5.32907052e-14, -6.03961325e-14, -5.95079541e-14, -6.75015599e-14,
+       -6.57252031e-14, -6.92779167e-14, -6.39488462e-14, -7.46069873e-14,
+       -6.92779167e-14, -7.81597009e-14, -7.46069873e-14, -7.99360578e-14,
+       -7.63833441e-14, -8.34887715e-14, -8.88178420e-14, -9.23705556e-14,
+       -9.05941988e-14, -4.44089210e-14, -9.59232693e-14, -7.10542736e-14,
+       -5.15143483e-14, -1.42108547e-13, -1.27897692e-13, -1.03028697e-13,
+       -1.31450406e-13, -1.10134124e-13, -7.46069873e-14, -1.35003120e-13,
+       -1.74082970e-13, -1.33226763e-13, -1.52766688e-13, -1.40332190e-13,
+       -1.81188398e-13, -1.72306613e-13, -1.84741111e-13, -1.11910481e-13,
+       -1.42108547e-13, -1.98951966e-13, -2.13162821e-13, -1.45661261e-13,
+       -1.63424829e-13, -1.27897692e-13, -1.45661261e-13, -1.77635684e-13,
+       -1.84741111e-13, -1.52766688e-13, -2.09610107e-13, -1.95399252e-13,
+       -2.02504680e-13, -2.20268248e-13, -2.23820962e-13, -1.98951966e-13,
+       -2.23820962e-13, -2.23820962e-13, -2.02504680e-13, -2.09610107e-13,
+       -2.94875235e-13, -2.48689958e-13, -2.13162821e-13, -2.66453526e-13,
+       -2.62900812e-13, -3.51718654e-13, -2.55795385e-13, -2.70006240e-13,
+       -2.59348099e-13, -3.19744231e-13, -2.87769808e-13, -3.48165941e-13,
+       -3.12638804e-13, -3.76587650e-13, -3.62376795e-13, -3.69482223e-13,
+       -3.41060513e-13, -3.83693077e-13, -4.26325641e-13, -4.47641924e-13,
+       -4.33431069e-13, -4.54747351e-13, -4.54747351e-13, -4.54747351e-13,
+       -5.11590770e-13, -5.04485342e-13, -5.11590770e-13, -5.04485342e-13,
+       -5.47117907e-13, -5.18696197e-13, -5.54223334e-13, -5.82645043e-13,
+       -5.82645043e-13, -5.75539616e-13, -6.82121026e-13, -6.11066753e-13,
+       -7.24753590e-13, -6.96331881e-13, -7.10542736e-13, -7.31859018e-13,
+       -7.67386155e-13, -7.53175300e-13, -7.38964445e-13, -7.95807864e-13,
+       -7.24753590e-13, -8.10018719e-13, -7.81597009e-13, -8.66862138e-13,
+       -8.66862138e-13, -9.09494702e-13, -9.37916411e-13, -9.52127266e-13,
+       -9.80548975e-13, -1.06581410e-12, -1.05160325e-12, -1.10844667e-12,
+       -1.06581410e-12, -1.16529009e-12, -1.08002496e-12, -1.20792265e-12])</code></pre>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./test_13.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">test_13</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./test_15.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">test_15</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>
