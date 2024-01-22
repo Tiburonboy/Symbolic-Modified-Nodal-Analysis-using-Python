@@ -134,7 +134,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./SMNA_example.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Example</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">SMNA Example</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -297,9 +297,15 @@ ul.task-list li input[type="checkbox"] {
 </li>
       </ul>
   </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./References.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./Appendices.html" class="sidebar-item-text sidebar-link">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
  <span class="menu-text">Appendices</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -309,19 +315,13 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./SymMNA_py.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">SymMNA.py</span></span></a>
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">SymMNA.py</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Change-log.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Change Log</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./References.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">References</span></a>
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Change Log</span></span></a>
   </div>
 </li>
       </ul>
@@ -454,7 +454,7 @@ Table&nbsp;1: Python packages
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a href="https://pypi.org/project/tabulate/">Tabulate</a></td>
-<td style="text-align: left;">0.9.0</td>
+<td style="text-align: left;">0.8.10</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a href="https://matplotlib.org/">matplotlib</a></td>
@@ -498,10 +498,11 @@ Table&nbsp;1: Python packages
 <ul>
 <li><label><input type="checkbox">finish comments in SymMNA.py code</label></li>
 <li><label><input type="checkbox">fix spelling of netlist</label></li>
+<li><label><input type="checkbox">change usage of spice to SPICE and define</label></li>
 <li><label><input type="checkbox" checked="">finish chapter 4</label></li>
-<li><label><input type="checkbox">add summary to end of example notebook</label></li>
+<li><label><input type="checkbox" checked="">add summary to end of example notebook</label></li>
 <li><label><input type="checkbox" checked="">have SymMNA return the netlist report</label></li>
-<li><label><input type="checkbox">use U for network equations and H for system functions</label></li>
+<li><label><input type="checkbox">use N for network equations (N_sym, N), U for solved equations and H for system functions</label></li>
 <li><label><input type="checkbox">In chapter 3, include the schematic capture procedure to generate the netlist</label></li>
 <li><label><input type="checkbox">think about removing netlist file load, just embed the netlist</label></li>
 <li>update status in /Quarto_projects/Symbolic-Modified-Nodal-Analysis-using-Python/draft_docs/To Do List.odt</li>
@@ -513,7 +514,7 @@ Table&nbsp;1: Python packages
 </label></li>
 <li><label><input type="checkbox">test 14 and 15 need writeups</label></li>
 </ul></li>
-<li><label><input type="checkbox">remove double spaces at end of sentences</label></li>
+<li><label><input type="checkbox">remove double spaces at end of sentences, except for md lists</label></li>
 <li><label><input type="checkbox">rewrite Two amplifier RIAA phono preamp</label></li>
 <li><label><input type="checkbox">update two port notebook</label></li>
 <li><label><input type="checkbox">update Thevenin notebook</label></li>
@@ -522,10 +523,11 @@ Table&nbsp;1: Python packages
 <li><label><input type="checkbox">Superposition, polyphase and phasors</label></li>
 <li><label><input type="checkbox">Laplace transforms</label></li>
 <li><label><input type="checkbox">Transient circuit</label></li>
+<li><label><input type="checkbox">non linear circuits, see YouTube <a href="https://www.youtube.com/watch?v=BPapfxzwsmI&amp;list=PLlsTHbFeR7v0QG8Q4l6oc7d---eKKSKTz">MNA Introduction</a></label></li>
 </ul></li>
 <li><label><input type="checkbox">finish Summary in state variable notebook</label></li>
-<li><label><input type="checkbox">add narritave to Appendices chapter</label></li>
-<li><label><input type="checkbox">why is 2nd order BRF in appendix?</label></li>
+<li><label><input type="checkbox" checked="">add narritave to Appendices chapter</label></li>
+<li><label><input type="checkbox" checked="">why is 2nd order BRF in appendix?</label></li>
 <li><label><input type="checkbox" checked="">make change log a table</label></li>
 <li><label><input type="checkbox">spell and grammer check all files</label></li>
 </ul>

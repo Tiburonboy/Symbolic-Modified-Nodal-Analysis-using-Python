@@ -196,7 +196,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./SMNA_example.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Example</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">SMNA Example</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -359,9 +359,15 @@ window.Quarto = {
 </li>
       </ul>
   </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./References.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./Appendices.html" class="sidebar-item-text sidebar-link">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
  <span class="menu-text">Appendices</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -371,19 +377,13 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./SymMNA_py.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">SymMNA.py</span></span></a>
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">SymMNA.py</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Change-log.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Change Log</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./References.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">References</span></a>
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Change Log</span></span></a>
   </div>
 </li>
       </ul>
@@ -432,7 +432,7 @@ window.Quarto = {
 <span class="math inline">\(I_{V1} - \frac{v_{2}}{R_{2}} + \frac{v_{3}}{R_{2}} = 0\)</span><br>
 <span class="math inline">\(v_{3} = V_{1}\)</span></p>
 <p>can be entered into Python to get the equations in matrix form:</p>
-<div id="0f5a1e9b" class="cell" data-execution_count="2">
+<div id="3f9e6132" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>R2, C2, v1, C1, s, v3, v2, V1, R3, I_V1 <span class="op">=</span> symbols(<span class="st">'R2 C2 v1 C1 s v3 v2 V1 R3 I_V1'</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> Matrix([[C1<span class="op">*</span>s <span class="op">+</span> C2<span class="op">*</span>s <span class="op">+</span> <span class="dv">1</span><span class="op">/</span>R3, <span class="op">-</span>C1<span class="op">*</span>s, <span class="dv">0</span>, <span class="dv">0</span>], [<span class="op">-</span>C1<span class="op">*</span>s, C1<span class="op">*</span>s <span class="op">+</span> <span class="dv">1</span><span class="op">/</span>R2, <span class="op">-</span><span class="dv">1</span><span class="op">/</span>R2, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span><span class="op">/</span>R2, <span class="dv">1</span><span class="op">/</span>R2, <span class="dv">1</span>], [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>]])</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> Matrix([v1, v2, v3, I_V1])</span>
@@ -445,47 +445,47 @@ window.Quarto = {
 </div>
 </div>
 <p>The system of equations can be easily solved to obtain a solution in symbolic form:</p>
-<div id="83768d46" class="cell" data-execution_count="3">
+<div id="257fed62" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>U_sym <span class="op">=</span> solve(equ,X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The keys are</p>
-<div id="bf2aa9e4" class="cell" data-execution_count="4">
+<div id="546e125a" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>dict_keys([v1, v2, v3, I_V1])</code></pre>
 </div>
 </div>
 <p><span class="math inline">\(v_1\)</span> is</p>
-<div id="5c0ab245" class="cell" data-execution_count="5">
+<div id="5181bb70" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="5">
 <p><span class="math inline">\(\displaystyle \frac{C_{1} R_{3} V_{1} s}{C_{1} C_{2} R_{2} R_{3} s^{2} + C_{1} R_{2} s + C_{1} R_{3} s + C_{2} R_{3} s + 1}\)</span></p>
 </div>
 </div>
 <p><span class="math inline">\(v_2\)</span> is</p>
-<div id="d84de0a9" class="cell" data-execution_count="6">
+<div id="ca3e76cb" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="6">
 <p><span class="math inline">\(\displaystyle \frac{C_{1} R_{3} V_{1} s + C_{2} R_{3} V_{1} s + V_{1}}{C_{1} C_{2} R_{2} R_{3} s^{2} + C_{1} R_{2} s + C_{1} R_{3} s + C_{2} R_{3} s + 1}\)</span></p>
 </div>
 </div>
 <p><span class="math inline">\(v_3\)</span> is</p>
-<div id="4f905b8c" class="cell" data-execution_count="7">
+<div id="5345e730" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="7">
 <p><span class="math inline">\(\displaystyle V_{1}\)</span></p>
 </div>
 </div>
 <p><span class="math inline">\(I_{V1}\)</span> is</p>
-<div id="e2d2cfd5" class="cell" data-execution_count="8">
+<div id="fe7764f5" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="8">
 <p><span class="math inline">\(\displaystyle \frac{- C_{1} C_{2} R_{3} V_{1} s^{2} - C_{1} V_{1} s}{C_{1} C_{2} R_{2} R_{3} s^{2} + C_{1} R_{2} s + C_{1} R_{3} s + C_{2} R_{3} s + 1}\)</span></p>
 </div>
 </div>
 <p>The numeric values for the components can be substituted for the symbols (reference designators) and the following solution is obtained, where s is the Laplace variable:</p>
-<div id="8cb41ca6" class="cell" data-execution_count="9">
+<div id="460a9b6d" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>Values <span class="op">=</span> {R2:<span class="dv">1000</span>, R3:<span class="dv">1000</span>, C1:<span class="fl">1e-6</span>, C2:<span class="fl">10e-6</span>, V1:<span class="dv">1</span>}</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>equ1a <span class="op">=</span> equ.subs(Values)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>U <span class="op">=</span> solve(equ1a,X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The voltage at node #2 can be obtained:</p>
-<div id="1ece31aa" class="cell" data-execution_count="10">
+<div id="8d630818" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>H <span class="op">=</span> U[v2]</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>H</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="10">
@@ -493,7 +493,7 @@ window.Quarto = {
 </div>
 </div>
 <p>Now we can solve for the roots of the denominator.</p>
-<div id="75a79f8e" class="cell" data-execution_count="11">
+<div id="6fcbcb95" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>num, denom <span class="op">=</span> fraction(H) <span class="co">#returns numerator and denominator</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>solve(denom)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="11">
@@ -507,18 +507,18 @@ window.Quarto = {
 </section>
 <section id="practical-network-size-for-symbolic-solutions" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="practical-network-size-for-symbolic-solutions"><span class="header-section-number">1.2</span> Practical network size for symbolic solutions</h2>
-<p>Test circuit number 4 has 26 branches, 13 nodes, 18 resistors, 4 independent sources and 4 dependent sources. A symbolic solution for this problem was taking too long on my i3 computer, so I interrupted the kernel, and proceeded with a numerical solution, which can be solved quite quickly.</p>
+<p>Test circuit number 4, <a href="test_4.html" class="quarto-xref"><span>Chapter 8</span></a>, has 26 branches, 13 nodes, 18 resistors, 4 independent sources and 4 dependent sources. A symbolic solution for this problem was taking too long on my i3 computer, so I interrupted the kernel, and proceeded with a numerical solution, which can be solved quite quickly.</p>
 <p><strong>other comments to add</strong></p>
 <ul>
 <li>why symbolic vs spice? because you want the network equations.</li>
 <li>if circuit is too large can still put in element values and get Laplace circuit equations</li>
 <li>other reasons</li>
 </ul>
-<p>Another circuit, shown below, that needed to be interrupted during the symbolic solution was the 100 Hz low pass elliptic function VCVS filter which contains zeros and poles, see <a href="Elliptic-function-LPF.html" class="quarto-xref"><span>Chapter 26</span></a> for this circuit’s notebook.</p>
+<p>Another circuit, shown below, that needed to be interrupted during the symbolic solution was the 100 Hz low pass elliptic function filter which contains zeros and poles, see <a href="Elliptic-function-LPF.html" class="quarto-xref"><span>Chapter 26</span></a> for this circuit’s notebook.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="Elliptic-function-VCVS-LPF.png" class="img-fluid figure-img"></p>
-<figcaption>Elliptic function VCVS LPF</figcaption>
+<figcaption>Elliptic function low pass filter</figcaption>
 </figure>
 </div>
 <p>The net list for this circuit is:</p>
