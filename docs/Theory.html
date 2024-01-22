@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.537">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -20,7 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -47,7 +67,13 @@ ul.task-list li input[type="checkbox"] {
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -56,6 +82,7 @@ ul.task-list li input[type="checkbox"] {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -65,6 +92,33 @@ ul.task-list li input[type="checkbox"] {
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
 </head>
 
 <body class="nav-sidebar floating">
@@ -73,12 +127,12 @@ ul.task-list li input[type="checkbox"] {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Theory.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Theory</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Theory.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Theory</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
@@ -88,7 +142,7 @@ ul.task-list li input[type="checkbox"] {
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Symbolic Modified Nodal Analysis<br>using Python</a> 
@@ -131,6 +185,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Example</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./SMNA-function.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">SMNA function</span></span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="./Validation-tests.html" class="sidebar-item-text sidebar-link">
@@ -143,91 +203,91 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./test_1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">test_1</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">test_1</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./test_2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">test_2</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">test_2</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./test_3.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">test_3</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">test_3</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./test_4.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">test_4</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">test_4</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./test_5.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">test_5</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">test_5</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./test_6.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">test_6</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">test_6</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./test_7.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">test_7</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">test_7</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./test_8.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">test_8</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">test_8</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./test_9.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">test_9</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">test_9</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./test_10.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">test_10</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">test_10</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./test_11.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">test_11</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">test_11</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./test_12.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">test_12</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">test_12</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./test_13.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">test_13</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">test_13</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./test_14.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">test_14</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">test_14</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./test_15.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">test_15</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">test_15</span></span></a>
   </div>
 </li>
       </ul>
@@ -244,31 +304,43 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Two amplifier RIAA Phono Preamp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Two amplifier RIAA phono preamp</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Two amplifier RIAA phono preamp</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Two port parameters.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Two port parameters</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Two port parameters</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Thevenin equivalent circuit.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Thevenin equivalent circuit</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Thevenin equivalent circuit</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./State-variable-filter.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">State Variable Filter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">State Variable Filter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Chua’s circuit.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Chua’s circuit</span></span></a>
+  <a href="./Superposition_and_polyphase_circuit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">A polyphase circuit</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./2nd_order_BRF.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">2nd Order BRF</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Elliptic-function-LPF.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Elliptic Function LPF</span></span></a>
   </div>
 </li>
       </ul>
@@ -284,26 +356,20 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./2nd_order_BRF.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">2nd Order BRF</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./Elliptic function VCVS LPF.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Elliptic Function VCVS Filter</span></span></a>
+  <a href="./SymMNA_py.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">SymMNA.py</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Change-log.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Change Log</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Change Log</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Bibliography.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Bibliography</span></span></a>
+  <a href="./References.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
   </div>
 </li>
       </ul>
@@ -311,21 +377,25 @@ ul.task-list li input[type="checkbox"] {
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#stamps" id="toc-stamps" class="nav-link active" data-scroll-target="#stamps"><span class="header-section-number">2.0.1</span> Stamps</a></li>
-  <li><a href="#netlist-file-format" id="toc-netlist-file-format" class="nav-link" data-scroll-target="#netlist-file-format"><span class="header-section-number">2.1</span> Netlist file format</a>
+  <li><a href="#network-equations" id="toc-network-equations" class="nav-link active" data-scroll-target="#network-equations"><span class="header-section-number">2.1</span> Network equations</a>
   <ul class="collapse">
-  <li><a href="#resistors-capacitors-and-inductors" id="toc-resistors-capacitors-and-inductors" class="nav-link" data-scroll-target="#resistors-capacitors-and-inductors"><span class="header-section-number">2.1.1</span> Resistors, capacitors and inductors</a></li>
-  <li><a href="#coupled-inductors" id="toc-coupled-inductors" class="nav-link" data-scroll-target="#coupled-inductors"><span class="header-section-number">2.1.2</span> Coupled inductors</a></li>
-  <li><a href="#independent-sources" id="toc-independent-sources" class="nav-link" data-scroll-target="#independent-sources"><span class="header-section-number">2.1.3</span> Independent sources</a></li>
-  <li><a href="#controlled-sources" id="toc-controlled-sources" class="nav-link" data-scroll-target="#controlled-sources"><span class="header-section-number">2.1.4</span> Controlled sources</a></li>
-  <li><a href="#op-amps" id="toc-op-amps" class="nav-link" data-scroll-target="#op-amps"><span class="header-section-number">2.1.5</span> Op Amps</a></li>
+  <li><a href="#stamps" id="toc-stamps" class="nav-link" data-scroll-target="#stamps"><span class="header-section-number">2.1.1</span> Stamps</a></li>
+  </ul></li>
+  <li><a href="#code-description" id="toc-code-description" class="nav-link" data-scroll-target="#code-description"><span class="header-section-number">2.2</span> Code description</a></li>
+  <li><a href="#netlist-file-format" id="toc-netlist-file-format" class="nav-link" data-scroll-target="#netlist-file-format"><span class="header-section-number">2.3</span> Netlist file format</a>
+  <ul class="collapse">
+  <li><a href="#resistors-capacitors-and-inductors" id="toc-resistors-capacitors-and-inductors" class="nav-link" data-scroll-target="#resistors-capacitors-and-inductors"><span class="header-section-number">2.3.1</span> Resistors, capacitors and inductors</a></li>
+  <li><a href="#coupled-inductors" id="toc-coupled-inductors" class="nav-link" data-scroll-target="#coupled-inductors"><span class="header-section-number">2.3.2</span> Coupled inductors</a></li>
+  <li><a href="#independent-sources" id="toc-independent-sources" class="nav-link" data-scroll-target="#independent-sources"><span class="header-section-number">2.3.3</span> Independent sources</a></li>
+  <li><a href="#controlled-sources" id="toc-controlled-sources" class="nav-link" data-scroll-target="#controlled-sources"><span class="header-section-number">2.3.4</span> Controlled sources</a></li>
+  <li><a href="#op-amps" id="toc-op-amps" class="nav-link" data-scroll-target="#op-amps"><span class="header-section-number">2.3.5</span> Op Amps</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -348,39 +418,46 @@ ul.task-list li input[type="checkbox"] {
   </div>
   
 
+
 </header>
 
-<p>In 1975, Chung-Wen Ho, A. Ruehli and P. Brennan, published a paper titled, <a href="https://ieeexplore.ieee.org/document/1084079">The Modified Nodal Approach to Network Analysis</a>, in the IEEE Transactions on Circuits and Systems. This was the original scholarly paper on on the subject. The analysis method they presented allows for the ability to process voltage sources and current-dependent circuit elements in a simple and efficient manner. The paper describes the formulation of the matrices, the use of stamps and a pivot ordering strategy. The authors compare their algorithm to the tableau method, a circuit analysis technique, which was an analysis technique being described in scholarly papers at the time.</p>
-<p>The modified nodal analysis provides an algorithmic method for generating systems of independent equations for linear circuit analysis. A Wikipedia description of the analysis technique is available <a href="https://en.wikipedia.org/wiki/Network_analysis_(electrical_circuits)">here</a>. In electrical engineering and electronics, a circuit is a collection of interconnected components. Circuit analysis is the process of finding the voltages across, and the currents through, all network components. Typically a set of equations is developed that describes the circuit interconnections and are usually based on node voltages as unknowns or loop currents as unknowns. The equations that describe the circuit are called network equations.</p>
-<p>##Network equations The network equations are a set of independent equations expressed in this code in matrix form. There is an equation for each node based on <a href="https://en.wikipedia.org/wiki/Kirchhoff%27s_circuit_laws">Kirchhoff’s current law</a> and an equation for each current unknown. The current unknowns are the currents from the voltages sources, op amps, voltage controlled voltage sources, current controlled voltage sources, current controlled current sources and inductors.</p>
-<p>Equation 1 is the form of the network equations in matrix form.</p>
-<p><span class="math inline">\(A\cdot X = Z\)</span></p>
-<p>The A matrix describes the connectivity of the resistors, capacitors and G type (VCCS) circuit elements. The column vector X are the unknown node voltages and unknown currents terms from the voltage sources and inductors. The column vector Z is made of the known voltages and currents. The A is formed by four sub matrices, G, B, C and D, which are described below.</p>
-<p><span class="math inline">\(A = \begin{bmatrix}G B\\C D\end{bmatrix}\)</span></p>
-<p>The matrix G is formed from the coefficients representing the KCL equations for each node. The positive diagonal of <span class="math inline">\(G_{k,k}\)</span> are the conductance terms of the resistor and capacitor elements connected to node k. The off diagonal terms of <span class="math inline">\(G_{k,j}\)</span> are the resistors and capacitor conductances connecting node k to node j. G type elements (VCCS) have input to the G matrix at the connection and controlling node positions.</p>
-<p>The B matrix describes the connectivity of the unknown branch currents. Independent voltage sources, opamps, H, F and E type elements as well as inductors have inputs to the B matrix.</p>
-<p>The C matrix describes the connectivity of the unknown branch currents and is mainly the transpose of B matrix, with the exception of the F type elements (CCCS) and includes the E type value.</p>
-<p>The D matrix describes also connectivity of the unknown currents. The D matrix is composed of zeros unless there are controlled sources and inductors in the network.</p>
-<p>The X vector is comprised of the V and J vectors as shown below.</p>
-<p><span class="math inline">\(X = \begin{bmatrix}V\\J\end{bmatrix}\)</span></p>
-<p>The V vector contains the node voltages which are the voltage unknowns to be solved for. The J vector contains the unknown currents from each voltage source.</p>
-<p>The Z vector is comprised of the I and Ev vectors as shown below.</p>
-<p><span class="math inline">\(Z = \begin{bmatrix}I\\Ev\end{bmatrix}\)</span></p>
-<p>The I vector contains the known currents and the Ev vector contains the known voltages. Ev is used because sympy uses e and E sometimes for the constant 2.71, sometimes called Euler’s number <a href="#ref9">[9]</a>. The use of E or e as a symbol was causing some errors when the code was run.</p>
+
+<p>In 1975, <span class="citation" data-cites="Ho1975">Ho, Ruehli, and Brennan (<a href="References.html#ref-Ho1975" role="doc-biblioref">1975</a>)</span> published a paper titled, <em>The Modified Nodal Approach to Network Analysis</em>. This was the original scholarly paper on on the subject. The analysis method they presented allows for the ability to process voltage sources and current-dependent circuit elements in a simple and efficient manner. The paper describes the formulation of the matrices, the use of stamps and a pivot ordering strategy. The authors compare their algorithm to the tableau method, a circuit analysis technique, which was an analysis technique being described in scholarly papers at the time.</p>
+<p>The modified nodal analysis provides an algorithmic method for generating systems of independent equations for linear circuit analysis. A Wikipedia description of the analysis technique is available <a href="https://en.wikipedia.org/wiki/Modified_nodal_analysis">here</a>. In electrical engineering and electronics, a circuit is a collection of interconnected components. Circuit analysis is the process of finding the voltages across, and the currents through, all network components. Typically a set of equations is developed that describes the circuit interconnections and are usually based on node voltages as unknowns or loop currents as unknowns. The equations that describe the circuit are called network equations.</p>
+<section id="network-equations" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="network-equations"><span class="header-section-number">2.1</span> Network equations</h2>
+<p>The network equations are a set of independent equations expressed in this code in matrix form. There is an equation for each node based on <a href="https://en.wikipedia.org/wiki/Kirchhoff%27s_circuit_laws">Kirchhoff’s current law</a> and an equation for each current unknown. The current unknowns are the currents from the voltages sources, op amps, voltage controlled voltage sources, current controlled voltage sources, current controlled current sources and inductors.</p>
+<p><a href="#eq-AX_Z" class="quarto-xref">Equation&nbsp;<span>2.1</span></a> are the network equations in matrix form.</p>
+<p><span id="eq-AX_Z"><span class="math display">\[A\cdot X = Z \tag{2.1}\]</span></span></p>
+<p>Matrix <span class="math inline">\(A\)</span> describes the connectivity of the resistors, capacitors and G type (VCCS) circuit elements. The column vector <span class="math inline">\(X\)</span> are the unknown node voltages and unknown currents terms from the voltage sources and inductors. The column vector <span class="math inline">\(Z\)</span> is made of the known voltages and currents. The <span class="math inline">\(A\)</span> matrix is formed by four sub matrices, <span class="math inline">\(G\)</span>, <span class="math inline">\(B\)</span>, <span class="math inline">\(C\)</span> and <span class="math inline">\(D\)</span>, which are described below.</p>
+<p><span id="eq-net_equ"><span class="math display">\[A = \begin{bmatrix}G B\\C D\end{bmatrix} \tag{2.2}\]</span></span></p>
+<p>The matrix <span class="math inline">\(G\)</span> is formed from the coefficients representing the KCL equations for each node. The positive diagonal of <span class="math inline">\(G_{k,k}\)</span> are the conductance terms of the resistor and capacitor elements connected to node k. The off diagonal terms of <span class="math inline">\(G_{k,j}\)</span> are the resistors and capacitor conductances connecting node k to node j. G type elements (VCCS) have input to the G matrix at the connection and controlling node positions.</p>
+<p>The <span class="math inline">\(B\)</span> matrix describes the connectivity of the unknown branch currents. Independent voltage sources, opamps, H, F and E type elements as well as inductors have inputs to the B matrix.</p>
+<p>The <span class="math inline">\(C\)</span> matrix describes the connectivity of the unknown branch currents and is mainly the transpose of <span class="math inline">\(B\)</span> matrix, with the exception of the F type elements (CCCS) and includes the E type value.</p>
+<p>The <span class="math inline">\(D\)</span> matrix describes also connectivity of the unknown currents. The <span class="math inline">\(D\)</span> matrix is composed of zeros unless there are controlled sources and inductors in the network.</p>
+<p>The <span class="math inline">\(X\)</span> vector is comprised of the <span class="math inline">\(V\)</span> and <span class="math inline">\(J\)</span> vectors as shown in <a href="#eq-net_X" class="quarto-xref">Equation&nbsp;<span>2.3</span></a>.</p>
+<p><span id="eq-net_X"><span class="math display">\[X = \begin{bmatrix}V\\J\end{bmatrix} \tag{2.3}\]</span></span></p>
+<p>The <span class="math inline">\(V\)</span> vector contains the node voltages which are the voltage unknowns to be solved for. The <span class="math inline">\(J\)</span> vector contains the unknown currents from each voltage source.</p>
+<p>The <span class="math inline">\(Z\)</span> vector is comprised of the I and Ev vectors as shown <a href="#eq-net_Z" class="quarto-xref">Equation&nbsp;<span>2.4</span></a>.</p>
+<p><span id="eq-net_Z"><span class="math display">\[Z = \begin{bmatrix}I\\Ev\end{bmatrix} \tag{2.4}\]</span></span></p>
+<p>The I vector contains the known currents and the Ev vector contains the known voltages. The name Ev is used because sympy uses e and E sometimes for the constant 2.71, sometimes called <a href="https://en.wikipedia.org/wiki/E_(mathematical_constant)">Euler’s number</a>. The use of E or e as a symbol was causing some errors when the code was run.</p>
 <p>Putting all the parts together:</p>
-<p><span class="math inline">\(\begin{bmatrix}G B\\C D\end{bmatrix} \cdot \begin{bmatrix}V\\J\end{bmatrix} = \begin{bmatrix}I\\Ev\end{bmatrix}\)</span></p>
-<section id="stamps" class="level3" data-number="2.0.1">
-<h3 data-number="2.0.1" class="anchored" data-anchor-id="stamps"><span class="header-section-number">2.0.1</span> Stamps</h3>
-<p>Stamps are templates for modifying the B, C and D matrices and facilitate the construction of the matrices. The stamps used in this implementation of the MNA allow the circuit connections of the components to be used to directly populate the various matrices.</p>
-<p>##Code description The code is divided in the following sections.</p>
+<p><span id="eq-net_all"><span class="math display">\[\begin{bmatrix}G B\\C D\end{bmatrix} \cdot \begin{bmatrix}V\\J\end{bmatrix} = \begin{bmatrix}I\\Ev\end{bmatrix} \tag{2.5}\]</span></span></p>
+<section id="stamps" class="level3" data-number="2.1.1">
+<h3 data-number="2.1.1" class="anchored" data-anchor-id="stamps"><span class="header-section-number">2.1.1</span> Stamps</h3>
+<p>Stamps are templates for modifying the <span class="math inline">\(B\)</span>, <span class="math inline">\(C\)</span> and <span class="math inline">\(D\)</span> matrices and facilitate the construction of the matrices. The stamps used in this implementation of the MNA allow the circuit connections of the components to be used to directly populate the various matrices.</p>
+</section>
+</section>
+<section id="code-description" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="code-description"><span class="header-section-number">2.2</span> Code description</h2>
+<p>The code is divided in the following sections.</p>
 <p>Preprocessor: The preprocessor reads in the netlist text file and removes comments, extra spaces and blank lines. The first letter of the element type is capitalized to make subsequent parsing of the file easier. The number of lines are counted and the number of entries on each line are checked to make sure the count is consistent with the element type.</p>
 <p>Parser: The parser code loads the preprocessed netlist into a data frame. A report is generated which consists of a count of the element types in the netlist.</p>
 <p>Matrix formulation: Each of the matrices and vectors are generated.</p>
-<p>Circuit equation generation: The circuit equations are generated in a for loop. Sympy automatically does some simplification according to its default settings. Two for loops perform the matrix multiplication on the equation.<br>
-<span class="math inline">\(A\cdot X = Z\)</span></p>
+<p>Circuit equation generation: The circuit equations are generated in a loop. Sympy automatically does some simplification according to its default settings. Two for loops perform the matrix multiplication on the equation: <span class="math inline">\(A\cdot X = Z\)</span></p>
 </section>
-<section id="netlist-file-format" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="netlist-file-format"><span class="header-section-number">2.1</span> Netlist file format</h2>
+<section id="netlist-file-format" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="netlist-file-format"><span class="header-section-number">2.3</span> Netlist file format</h2>
 <p>The input file which describs the circuit is a text file called the net list. A netlist consists of a statements defining each circuit element and its connection to circuit nodes. A node is a any point on a circuit where two or more circuit elements meet. The nodes are numbered from 1 to N in any order and node 0 is the ground node or circuit common. A ground node is required. Choose a ground or reference node, which usually is taken to be at a potential of zero volts. All other node voltages constitute n unknowns. The nodes should be numbered in consecutive order. Each line in the netlist are either comments, spice directives or circuit elements.</p>
 <p>Spice directives are commands to spice and the first character on the line is a period. Comment lines start with a * or ;. The default file extension is ‘.net’. The python code does some preprocessing of the netlist to check the basic formatting of the netlist is correct.</p>
 <p>The preprocessor performs the following steps:</p>
@@ -400,8 +477,8 @@ Where<br>
 letter signifies the element type, i.e.&nbsp;R, L, C, V, I, O, E, F, G, H or K<br>
 XXX is a string of letters or numbers that uniquely identify the element.</p>
 <p>The element types are described in the following sections.</p>
-<section id="resistors-capacitors-and-inductors" class="level3" data-number="2.1.1">
-<h3 data-number="2.1.1" class="anchored" data-anchor-id="resistors-capacitors-and-inductors"><span class="header-section-number">2.1.1</span> Resistors, capacitors and inductors</h3>
+<section id="resistors-capacitors-and-inductors" class="level3" data-number="2.3.1">
+<h3 data-number="2.3.1" class="anchored" data-anchor-id="resistors-capacitors-and-inductors"><span class="header-section-number">2.3.1</span> Resistors, capacitors and inductors</h3>
 <p>The resistors, capacitors and inductors are described by the following line:<br>
 R/L/CXXXXXXX N1 N2 value<br>
 Where:<br>
@@ -410,22 +487,22 @@ N1 = the first terminal<br>
 N2 = the second terminal<br>
 Value = component value in ohms, Farads or Henrys.<br>
 For example, a resistor named R1 connected between nodes 1 and 2 with a value of 3000 ohms.<br>
-R1 2 4 3000<br>
+<code>R1 2 4 3000</code><br>
 Spice supports other parameters, but these are not allowed in this python implementation.</p>
 </section>
-<section id="coupled-inductors" class="level3" data-number="2.1.2">
-<h3 data-number="2.1.2" class="anchored" data-anchor-id="coupled-inductors"><span class="header-section-number">2.1.2</span> Coupled inductors</h3>
+<section id="coupled-inductors" class="level3" data-number="2.3.2">
+<h3 data-number="2.3.2" class="anchored" data-anchor-id="coupled-inductors"><span class="header-section-number">2.3.2</span> Coupled inductors</h3>
 <p>Two coupled inductors are described by the following line.<br>
 KXX LYY LZZ VALUE<br>
 The parameters are:<br>
 LYY = the name of the first coupled inductor<br>
 LZZ = the name of the second coupled inductor<br>
 VALUE = the coefficient of coupling, K, where 0 &lt; K<br>
-The orientation of the inductors is determined by the first node, which is considered to be the dotted node. When LTspice generates a net list the phasing dot gets assocated with the negative node. This does not seem to affect the equations generated by the python code. LTspice uses the coupling coefficient, k. The symbolic equations use the mutual inductance, M.</p>
-<p><span class="math inline">\(M = k\sqrt{L_1L_2}\)</span></p>
+The orientation of the inductors is determined by the first node, which is considered to be the dotted node. When LTspice generates a net list the phasing dot gets assocated with the negative node. This does not seem to affect the equations generated by the python code. LTspice uses the coupling coefficient, k. The symbolic equations use the mutual inductance, M as shown in <a href="#eq-net_M" class="quarto-xref">Equation&nbsp;<span>2.6</span></a>.</p>
+<p><span id="eq-net_M"><span class="math display">\[M = k\sqrt{L_1L_2} \tag{2.6}\]</span></span></p>
 </section>
-<section id="independent-sources" class="level3" data-number="2.1.3">
-<h3 data-number="2.1.3" class="anchored" data-anchor-id="independent-sources"><span class="header-section-number">2.1.3</span> Independent sources</h3>
+<section id="independent-sources" class="level3" data-number="2.3.3">
+<h3 data-number="2.3.3" class="anchored" data-anchor-id="independent-sources"><span class="header-section-number">2.3.3</span> Independent sources</h3>
 <p>A voltage source is described by the following line.<br>
 VXX N+ N- VALUE<br>
 The parameters are:<br>
@@ -439,24 +516,24 @@ N+= the name of the positive terminal, current leaves this terminal (pointy end 
 N- = the name of the negative terminal<br>
 VALUE = the value of the DC current</p>
 </section>
-<section id="controlled-sources" class="level3" data-number="2.1.4">
-<h3 data-number="2.1.4" class="anchored" data-anchor-id="controlled-sources"><span class="header-section-number">2.1.4</span> Controlled sources</h3>
+<section id="controlled-sources" class="level3" data-number="2.3.4">
+<h3 data-number="2.3.4" class="anchored" data-anchor-id="controlled-sources"><span class="header-section-number">2.3.4</span> Controlled sources</h3>
 <p>The voltage-controlled dependent sources are defined using statements of the form<br>
 G/EXX nout+ nout- nc+ nc- gain<br>
 where E is a voltage-controlled voltage source, G is a voltage-controlled current source, the output voltage is connected between nodes nout+ and nout-, and the control voltage is measured at node nc+ with respect to node nc-.<br>
 Examples:<br>
-E1 5 1 4 3 10 defines a voltage source that makes node 5 a voltage 10 times (v4 − v3) above the voltage at node 1.<br>
-G1 2 1 5 8 50 defines a current source connected between node 2 (the + node) and node 1 and supplying a current 50 times (v5 − v8).</p>
+<code>E1 5 1 4 3 10</code> defines a voltage source that makes node 5 a voltage 10 times (v4 − v3) above the voltage at node 1.<br>
+<code>G1 2 1 5 8 50</code> defines a current source connected between node 2 (the + node) and node 1 and supplying a current 50 times (v5 − v8).</p>
 <p>The current-controlled dependent sources are defined by statements of the form<br>
 F/HXX nout+ nout- vcontrol gain<br>
 where F is a current-controlled current source, H is a current-controlled voltage source, and the output current source is connected between nodes nout+ and nout-, with positive current flowing through the source from node nout+ to nout-. The control current flows from the positive node of the source vcontrol through the source and out the negative node.<br>
 Examples:<br>
-Fds 11 9 Vsens 1.25 defines a current source connected from node 11 to node 9 that generates a current 1.25 times the current flowing through the source Vsens.<br>
-H1 30 20 V5 100 defines a voltage source connected from node 30 to node 20 and supplying a voltage 100 times the current through the source V5. It is frequently necessary to add a voltage source with value 0 V to the circuit to sense the control current for these sources.</p>
+<code>Fds 11 9 Vsens 1.25</code> defines a current source connected from node 11 to node 9 that generates a current 1.25 times the current flowing through the source Vsens.<br>
+<code>H1 30 20 V5 100</code> defines a voltage source connected from node 30 to node 20 and supplying a voltage 100 times the current through the source V5. It is frequently necessary to add a voltage source with value 0 V to the circuit to sense the control current for these sources.</p>
 <p>The direction of positive controlling current flow is from the positive node, through the source, to the negative node of VNAM. VALUE is the current gain.</p>
 </section>
-<section id="op-amps" class="level3" data-number="2.1.5">
-<h3 data-number="2.1.5" class="anchored" data-anchor-id="op-amps"><span class="header-section-number">2.1.5</span> Op Amps</h3>
+<section id="op-amps" class="level3" data-number="2.3.5">
+<h3 data-number="2.3.5" class="anchored" data-anchor-id="op-amps"><span class="header-section-number">2.3.5</span> Op Amps</h3>
 <p>An opamp component is described by the following line.<br>
 OXX N+ N- Vout<br>
 The output of the opamp is a voltage source. Two input terminals are at the same potential.</p>
@@ -471,6 +548,11 @@ The output of the opamp is a voltage source. Two input terminals are at the same
 7. Follow the test and problem circuits for examples on how to do additional circuit analysis.</p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-Ho1975" class="csl-entry" role="listitem">
+Ho, C., A. Ruehli, and P. Brennan. 1975. <span>“The Modified Nodal Approach to Network Analysis.”</span> <em>IEEE Transactions on Circuits and Systems</em> 22 (6): 504–9. <a href="https://doi.org/10.1109/TCS.1975.1084079">https://doi.org/10.1109/TCS.1975.1084079</a>.
+</div>
+</div>
 </section>
 </section>
 
@@ -554,10 +636,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -567,8 +648,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -581,6 +671,120 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -624,6 +828,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -649,6 +854,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -710,17 +941,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./Introduction.html" class="pagination-link">
+      <a href="./Introduction.html" class="pagination-link  aria-label=" &lt;span="">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./SMNA_example.html" class="pagination-link">
+      <a href="./SMNA_example.html" class="pagination-link" aria-label="<span class='chapter-number'>3</span>&nbsp; <span class='chapter-title'>Example</span>">
         <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Example</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
+
 
 
 
