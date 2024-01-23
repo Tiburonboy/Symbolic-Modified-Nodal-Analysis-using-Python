@@ -13,7 +13,8 @@ book:
     - Introduction.qmd
     - Theory.qmd
     - SMNA_example.ipynb
-    - part: Code-validation.qmd
+    - SMNA-function.qmd
+    - part: Validation-tests.qmd
       chapters:
         - test_1.ipynb
         - test_2.ipynb   
@@ -27,23 +28,27 @@ book:
         - test_10.ipynb  
         - test_11.ipynb  
         - test_12.ipynb  
-        - test_13.ipynb  
-
+        - test_13.ipynb
+        - test_14.ipynb
+        - test_15.ipynb
     - part: Example-problems.qmd
       chapters:
         - Two amplifier RIAA Phono Preamp.ipynb
         - Two port parameters.ipynb
         - Thevenin equivalent circuit.ipynb
-        - Chapter-D.qmd
-        - Chapter-E.qmd
-
-    - part: Appendices.qmd
-      chapters:
-        - Appendix_1.qmd
-        - Bibliography.qmd
+        - State-variable-filter.ipynb
+        - Superposition_and_polyphase_circuit.ipynb
+        - 2nd_order_BRF.ipynb
+        - Elliptic-function-LPF.ipynb
+    - References.qmd
+  appendices:
+    - SymMNA_py.qmd
+    - Change-log.qmd
 
 format:
   html:
     theme:
       - cosmo
+
+bibliography: references.bib
 

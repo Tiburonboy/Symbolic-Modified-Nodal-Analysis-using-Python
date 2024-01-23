@@ -1,11 +1,9 @@
 # Code validation {#sec-Validation .unnumbered}
-Basic validation of the code consisted of analyzing simple networks and examining the results. A more comprehensive evaluation of the code was performed by solving test circuits and comparing the results to LTSpice. See the circuits in the following chapters that were used for validation. The validation circuits range from simple to large and complex. The largest validation circuit consist of 32 nodes, 59 branches and multiple instances all of the element types. For this large test circuit, there are small numerical differences between the Python modified nodal analysis (MNA) code results and the LTSpice solution, which are describe in the test report. Additionally, various interesting problem circuits have been solved using the MNA code and comparing the results to LTSpice. These problem circuits can also be found in the github repository. Code verification often looks at requirements or specifications versus what was implemented. This project didn't have a formal set of requirements, only a general goal of implementing symbolic MNA using the Python libraries. No formal software or code verification is included.
+Basic validation of the Python code consisted of analyzing simple networks and examining the results. A more comprehensive evaluation of the code was performed by solving test circuits and comparing the results to LTSpice. See the circuits in the following chapters that were used for validation. The validation circuits range from simple to large and complex. The largest validation circuit consist of 32 nodes, 59 branches and multiple instances all of the element types. For this large test circuit, there are small numerical differences between the Python modified nodal analysis (MNA) code results and the LTSpice solution, which are describe in the test report. Additionally, various interesting problem circuits have been solved using the MNA code and comparing the results to LTSpice. These problem circuits can also be found in the github repository. Code verification often looks at requirements or specifications versus what was implemented. This project didn't have a formal set of requirements, only a general goal of implementing symbolic MNA using the Python libraries. No formal software or code verification is included.
 
 ## Test Circuits  
 
 This folder contains the test circuits used to validate the network analysis code. The code was validated under the following enviroment:  
-
-might want new names rather than test_1
 
 The table below lists the test circuits used to validate and test the code. The test circuits are a collection of problems from text books or large and complex circuits that I made up that include various elements or unique combinations of elements or topologies. In LTSpice the series resistance for inductors defaults to 1e-3 Ohms unless set to zero. Leaving the default series inductance at 1e-3 Ohms will cause small numerical differences in the solution obtained by LTSpice.
 
@@ -13,11 +11,13 @@ The table below lists the test circuits used to validate and test the code. The 
 Spelling and grammer of the jupyter notebooks has not been completed
 :::
 
+: {tbl-colwidths="[10,75,15]"}
+
 | Test file | Circuit Description | notes |
 |:---|:---|:---|
 | test_1 | Resistors, independent and dependent sources | DC analysis |
 | test_2 | Resistors and independent sources | DC analysis |
-| test_3 | Same circuit as test_1, but with R2 replaced with C2 and R3 replaced with L1. | AC analysis |
+| test_3 | Same as test_1, with R2 replaced with C2 and R3 replaced with L1 | AC analysis |
 | test_4 | Resistors and one of each type of source | AC analysis |
 | test_5 | RLC and one of each type of source | AC analysis |
 | test_6 | RLC, coupled inductors and one of each type of source | AC analysis |
@@ -28,8 +28,14 @@ Spelling and grammer of the jupyter notebooks has not been completed
 | test_11 | Three coupled inductors | AC analysis |
 | test_12 | LC ladder low pass filter | AC analysis |
 | test_13 | Ring of current sources and inductors | AC analysis |
+| test_14 | A circuit with one unknown currents | AC analysis |
+| test_15 | A circuit with no unknown currents | AC analysis |
+<br>
+<br>
 
 The following file types are in each github folder located [here](https://github.com/Tiburonboy/Symbolic-modified-nodal-analysis/tree/master/test%20circuits):
+
+: {tbl-colwidths="[20,80]"}
 
 | file name | Description |
 |:---------------|-------------|

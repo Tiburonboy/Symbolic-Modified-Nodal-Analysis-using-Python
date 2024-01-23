@@ -1,0 +1,52 @@
+---
+title: ""
+format:
+  html:
+    number-sections: true
+---
+# Validation tests {#sec-Validation}
+Basic validation of the Python code consisted of analyzing simple networks and examining the results. A more comprehensive evaluation of the code was performed by solving test circuits and comparing the results to LTSpice. It is assumed, without offering any mathematical proof, that if the numerical solution agrees with the LTSpice solution, the symbolic solution is also correct. 
+
+Table 1 lists the circuits that were used for validation. The validation circuits are a collection of problems from textbooks or large and complex circuits that I made up that include various elements or unique combinations of elements or topologies. The circuits range from simple to large and complex. The largest circuit consists of 32 nodes, 59 branches and multiple instances of all of the supported element types.
+
+In LTSpice the series resistance for inductors defaults to 1e-3 Ohms unless set to zero. Leaving the default series inductance at 1e-3 Ohms will cause small numerical differences in the solution obtained by LTSpice.
+
+Code verification often looks at requirements or specifications versus what was implemented. This project didn't have a formal set of requirements, only a general goal of implementing symbolic MNA using the Python libraries. No formal software or code verification is included.
+
+See Table 2 for a list of the types of supporting files.
+
+: Validation circuits {#tbl-test_circuits} {tbl-colwidths="[10,75,15]"}
+
+| Test file | Circuit Description | notes |
+|:---|:---|:---|
+| test_1 | Resistors, independent and dependent sources | DC analysis |
+| test_2 | Resistors and independent sources | DC analysis |
+| test_3 | Same as test_1, with R2 replaced with C2 and R3 replaced with L1 | AC analysis |
+| test_4 | Resistors and one of each type of source | AC analysis |
+| test_5 | RLC and one of each type of source | AC analysis |
+| test_6 | RLC, coupled inductors and one of each type of source | AC analysis |
+| test_7 | Large circuit and two or more of each element type w/o Op Amps | AC analysis |
+| test_8 | Test_7 w/ op amps included | AC analysis |
+| test_9 | Current sources only dependent and independent | DC analysis |
+| test_10 | Current and voltage sources only, no LRCs | DC analysis |
+| test_11 | Three coupled inductors | AC analysis |
+| test_12 | LC ladder low pass filter | AC analysis |
+| test_13 | Ring of current sources and inductors | AC analysis |
+| test_14 | A circuit with one unknown current | AC analysis |
+| test_15 | A circuit with no unknown currents | AC analysis |
+<br>
+<br>
+
+The following file types are in each github folder located [here](https://github.com/Tiburonboy/Symbolic-modified-nodal-analysis/tree/master/test%20circuits):
+
+: Test circuit files {#tbl-test-files} {tbl-colwidths="[20,80]"}
+
+| file name | Description |
+|:---------------|-------------|
+| test_*.asc | LTSpice circuit schematic |
+| readme.md | a description of the circuit |
+| test_*.ipynb | test report Jupyter notebook |
+| test_*.net | Spice net list |    
+| test_*.png | image of the schematic for display in the notebook |
+| test_*.csv | csv data exported from LTSpice |
+

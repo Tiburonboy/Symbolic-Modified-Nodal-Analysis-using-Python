@@ -1,37 +1,77 @@
+:::{.callout-warning}  
+Last update: 21 Jan 2024
+
+- This book is a draft copy and only half baked.
+- Many sections are still under construction.
+- Only preliminary files have been posted to github.
+- Spelling and grammar checks have not been completed.
+- This book is posted for testing only.  
+:::    
+
 ## About this book {.unnumbered}
+This is the website is an online version of my book - *Symbolic Modified Nodal Analysis using Python*. Symbolic circuit analysis is a circuit analysis method that derives network equations with the circuit elements represented by symbols and the topology of the circuit described by a netlist.
 
-:::{.callout-note}  
-Last update: 28 Nov 2023  
-This book is a work in progress and is a working draft. Spelling and grammer checks are needed. This book is for testing only.  
-:::  
-
-This is the website is an online version of my book - *Symbolic Modified Nodal Analysis using Python*. Symbolic circuit analysis is a circuit analysis method that derives network equations with the circuit elements represented by symbols. 
-
-This book was written in [R Mark Down](https://rmarkdown.rstudio.com/) using plain text files and [JupyterLab](https://jupyter.org/) notebooks. The source files were rendered into a book using [Quarto](https://quarto.org/).
+This book was written in [R MarkDown](https://rmarkdown.rstudio.com/) using plain text files and [JupyterLab](https://jupyter.org/) notebooks. The source files were rendered into a book using [Quarto](https://quarto.org/).
 
 Source code is available [here](https://github.com/Tiburonboy/Symbolic-modified-nodal-analysis).
 
-### Python module verions
-The following verions were used in this book.
+### Python module version
+The following versions were used in this book.
 
 | Package | version |
 |:---|:---|
-| [python](https://www.python.org/) | 3.10.9 |
-| [JupyterLab notebook](https://jupyterlab.readthedocs.io/en/latest/) |3.5.3 |
+| [Python](https://www.python.org/) | 3.10.9 |
+| [JupyterLab](https://jupyterlab.readthedocs.io/en/latest/) |3.5.3 |
+| [IPython](https://ipython.org/) | 8.10.0 |
 | [NumPy](https://numpy.org/) | 1.23.5 |
 | [SymPy](https://www.sympy.org/) | 1.11.1 |
 | [SciPy](https://scipy.org/) | 1.10.0 |
 | [Pandas](https://pandas.pydata.org/) | 1.5.3 |
+| [Tabulate](https://pypi.org/project/tabulate/) | 0.8.10 |
 | [matplotlib](https://matplotlib.org/) | 3.7.0 |
 | [LTSpice](https://www.analog.com/en/design-center/design-tools-and-calculators/ltspice-simulator.html) | 17.1.8 |
+: Python packages {#tbl-python-packages} {tbl-colwidths="[20,20]"}
 
 ### Update History
-This book will be updated occasionally to fix typos, spelling and grammer mistakes. Additionally, new content will be added as new chapters are written. 
+This book will be updated occasionally to fix typos, spelling and grammer mistakes. Additionally, new content will be added as new chapters are written.
 
 | date | description |
 |:---------|:------------|
-| 29 Dec 2023 | test version | 
-| 30 Dec 2023 | another test update | 
+| 29 Dec 2023 | test version |
+| 30 Dec 2023 | another test update |
+
+### Project ToDo List
+Since this project is still under construction, I have a list of to dos.
+
+- [ ] finish comments in SymMNA.py code
+- [ ] fix spelling of netlist
+- [ ] change usage of spice to SPICE and define
+- [x] finish chapter 4
+- [x] add summary to end of example notebook
+- [x] have SymMNA return the netlist report
+- [ ] use N for network equations (N_sym, N), U for solved equations and H for system functions
+- [ ] In chapter 3, include the schematic capture procedure to generate the netlist
+- [ ] think about removing netlist file load, just embed the netlist
+- update status in /Quarto_projects/Symbolic-Modified-Nodal-Analysis-using-Python/draft_docs/To Do List.odt
+- rewrite tests and problems using smna()
+  - [ ] clean up narrative on all the tests
+  - [ ] add comment to each test about generating a symbolic solution
+  - [ ] review each schematic and remove spice directives  
+  - [ ] test 14 and 15 need writeups
+- [ ] remove double spaces at end of sentences, except for md lists
+- [ ] rewrite Two amplifier RIAA phono preamp
+- [ ] update two port notebook
+- [ ] update Thevenin notebook
+- Create new example problems
+  - [ ] Superposition, polyphase and phasors
+  - [ ] Laplace transforms
+  - [ ] Transient circuit
+  - [ ] non linear circuits, see YouTube [MNA Introduction](https://www.youtube.com/watch?v=BPapfxzwsmI&list=PLlsTHbFeR7v0QG8Q4l6oc7d---eKKSKTz)
+- [ ] finish Summary in state variable notebook
+- [x] add narritave to Appendices chapter
+- [x] why is 2nd order BRF in the appendix?
+- [x] make change log a table
+- [ ] spell and grammar check all files
 
 ### Links to other projects
 [Solving Engineering Problems using Python](https://tiburonboy.github.io/Solving-Engineering-Problems-using-Python/)
@@ -43,3 +83,5 @@ Adapt — remix, transform, and build upon the material for any purpose, even co
 https://creativecommons.org/licenses/by-sa/4.0/  
 
 <img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" />
+
+

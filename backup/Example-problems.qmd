@@ -1,29 +1,46 @@
 # Example problems {#sec-Problems .unnumbered}
 
-In the Jupyter notebooks, don't manually number headings, since these are auto numbered in a quarto book. Copy abstract to notes column
+<!--
+Update this section to include typical topics in circuit analysis
 
-: Completed example problems
- 
+Can MNA equations be turned into state variable equations? See page Haykin page 59
+-->
+
+## Example problems
+The table below lists the example problems completed so far.
+
+: {tbl-colwidths="[30,70]"}
+
 | Circuit Description | notes |
 |:---|:---|
-| Two amplifier RIAA Phone Preamp | This paper analyizes the circuit for the RIAA preamp. The preamplifier transfer function was used to calculate the Bode, impuse and step response plots. The Python results were compared to those from LTSpice. Deviation from the RIAA response curve was also examined. The sensitivity, Monte Carlo and worst case analysis for the preamplifier circuit was performed. |
-| Two port parameters | This notebook describes the calculation of two port parameters derived from the circuit's netlist. |
-| Thevenin equivalent circuit | The Thevenin equivalent circuit is the reduction of a linear one port circuit to a single source and impedance and is based on [Thevenin’s Theorem](https://en.wikipedia.org/wiki/Th%C3%A9venin%27s_theorem). |
+| Two amplifier RIAA Phono Preamp | A circuit for a phono preamp is analyzed. |
+| Two port parameters | Two port parameters are derived from the circuit's netlist. |
+| Thevenin equivalent circuit | The Thevenin equivalent circuit is obtained from a netlist. |
+| State variable filter | Network equations for a [state variable filter](https://en.wikipedia.org/wiki/State_variable_filter) are obtained from the netlist which are solved in symbolic form. |
+| A polyphase circuit | A circuit to illustrate superposition and polyphase circuit analysis. |
+<!--
+| Laplace transforms | |
+| Transient circuit | initial conditions |
+-->
+<br>
+<br>
 
-: Future example problems
+<!--
+## Future example problems
+
+: table caption {tbl-colwidths="[30,70]"}  
 
 | Circuit Description | notes |
 |:---|:---|
-| State variable filter:  LP, HP, BP | See filter handbook, <br>design a filter with normalized values, <br>do the analysis <br>and then scale the values <br>and re-analyze. |
 | Active filters | Several of these started [Sallen–Key topology](https://en.wikipedia.org/wiki/Sallen%E2%80%93Key_topology) |
-| Active inductor Nullors, Gyrators, NICs, Current Conveyor | Where are these used? <br>Controlled Sources, Nullors, Active Gain Devices, Impedance Converters and Inverters (Gyrators, NICs, Current Conveyors)  <br>See Op Amp circuit #2 or #2HP  See Haydak Chapter 13, for RC-NIC and RC gyrator filters  |
-| Wien bridge oscillator | https://en.wikipedia.org/wiki/Wien_bridge_oscillator <br>Simple circuit  <br>not so easy to make osc in LTSpice. Notebook started |
-| Chua's circuit | See circuit analysis folder under jupyterlab <br>https://en.wikipedia.org/wiki/Chua's_circuit |
+| Active inductor, Nullors, Gyrators, NICs, Current Conveyor | Where are these used?<br>Controlled Sources, Nullors, Active Gain Devices, Impedance Converters and Inverters (Gyrators, NICs, Current Conveyors)<br>See Op Amp circuit #2 or #2HP  See Haydak Chapter 13, for RC-NIC and RC gyrator filters  |
+| Wien bridge oscillator | https://en.wikipedia.org/wiki/Wien_bridge_oscillator <br>Simple circuit <br>not so easy to make osc in LTSpice. Notebook started |
 | Switched mode power supply | Do the LED driver fly back circuit, <br>see Analog Devices power management tools, <br>https://www.analog.com/en/design-center/design-tools-and-calculators/power-management-tools.html |
 | Pi filter transfer function |  |
 | Bridge-T network analysis |  |
 | T-coil circuit | See papers in download folder |
 | Diode circuit | Get network equations with R in place of diode and then substitute equations for diode in python |
-| Transistor circuit | Get network equations with R’s in place of transistor and then substitute equations in python  <br>Or look at an Op Amp model that can have C in the feed back loop |
+| Transistor circuit | Get network equations with R’s in place of transistor and then substitute equations in python<br>Or look at an Op Amp model that can have C in the feedback loop |
 | Tone control circuit of link | https://sound-au.com/project27.htm |
-
+| Chua's circuit | work in progress<br>See circuit analysis folder under jupyterlab<br>https://en.wikipedia.org/wiki/Chua's_circuit |
+-->
