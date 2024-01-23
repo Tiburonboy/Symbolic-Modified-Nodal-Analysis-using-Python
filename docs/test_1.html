@@ -433,8 +433,8 @@ window.Quarto = {
   <li><a href="#build-the-network-equation-matrix" id="toc-build-the-network-equation-matrix" class="nav-link" data-scroll-target="#build-the-network-equation-matrix"><span class="header-section-number">5.2.7</span> Build the network equation matrix</a></li>
   </ul></li>
   <li><a href="#symbolic-solution" id="toc-symbolic-solution" class="nav-link" data-scroll-target="#symbolic-solution"><span class="header-section-number">5.3</span> Symbolic solution</a></li>
-  <li><a href="#built-a-dictionary-of-element-values" id="toc-built-a-dictionary-of-element-values" class="nav-link" data-scroll-target="#built-a-dictionary-of-element-values"><span class="header-section-number">5.4</span> Built a dictionary of element values</a></li>
-  <li><a href="#numeric-solution" id="toc-numeric-solution" class="nav-link" data-scroll-target="#numeric-solution"><span class="header-section-number">5.5</span> Numeric solution</a></li>
+  <li><a href="#construct-a-dictionary-of-element-values" id="toc-construct-a-dictionary-of-element-values" class="nav-link" data-scroll-target="#construct-a-dictionary-of-element-values"><span class="header-section-number">5.4</span> Construct a dictionary of element values</a></li>
+  <li><a href="#numerical-solution" id="toc-numerical-solution" class="nav-link" data-scroll-target="#numerical-solution"><span class="header-section-number">5.5</span> Numerical solution</a></li>
   </ul>
 </nav>
     </div>
@@ -820,8 +820,8 @@ number of K - Coupled inductors: 0
 </div>
 </div>
 </section>
-<section id="built-a-dictionary-of-element-values" class="level2" data-number="5.4">
-<h2 data-number="5.4" class="anchored" data-anchor-id="built-a-dictionary-of-element-values"><span class="header-section-number">5.4</span> Built a dictionary of element values</h2>
+<section id="construct-a-dictionary-of-element-values" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="construct-a-dictionary-of-element-values"><span class="header-section-number">5.4</span> Construct a dictionary of element values</h2>
 <div id="cell-29" class="cell" data-execution_count="93">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>element_value_keys <span class="op">=</span> []</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>element_value_values <span class="op">=</span> []</span>
@@ -842,8 +842,8 @@ number of K - Coupled inductors: 0
 </div>
 </div>
 </section>
-<section id="numeric-solution" class="level2" data-number="5.5">
-<h2 data-number="5.5" class="anchored" data-anchor-id="numeric-solution"><span class="header-section-number">5.5</span> Numeric solution</h2>
+<section id="numerical-solution" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="numerical-solution"><span class="header-section-number">5.5</span> Numerical solution</h2>
 <div id="cell-31" class="cell" data-execution_count="94">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>NE <span class="op">=</span> NE_sym.subs(element_values)</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>NE</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -854,7 +854,8 @@ number of K - Coupled inductors: 0
 <div id="cell-32" class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="95">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>U <span class="op">=</span> solve(NE,X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Display the numeric solution</p>
+<p>Display the numerical solution</p>
+<p>Six significat digits are displayed so that results can be compared to LTSpice.</p>
 <div id="cell-34" class="cell" data-execution_count="96">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>table_header <span class="op">=</span> [<span class="st">'unknown'</span>, <span class="st">'mag'</span>]</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>table_row <span class="op">=</span> []</span>
