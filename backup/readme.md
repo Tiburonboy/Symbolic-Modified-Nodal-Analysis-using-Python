@@ -1,1 +1,1 @@
-A place for the book's source code
+A folder for the book's source code.
