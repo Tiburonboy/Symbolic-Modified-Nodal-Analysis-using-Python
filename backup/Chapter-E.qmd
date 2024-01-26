@@ -1,3 +1,0 @@
-# Chapter E {#sec-Chapter-E}
-
-This file is a place holder for State variable filters
