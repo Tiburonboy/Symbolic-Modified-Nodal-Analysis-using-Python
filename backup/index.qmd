@@ -9,7 +9,9 @@ Last update: 21 Jan 2024
 :::    
 
 ## About this book {.unnumbered}
-This is the website is an online version of my book - *Symbolic Modified Nodal Analysis using Python*. Symbolic circuit analysis is a circuit analysis method that derives network equations with the circuit elements represented by symbols and the topology of the circuit described by a netlist.
+This is the website is my online book - *Symbolic Modified Nodal Analysis using Python*. Symbolic circuit analysis is a circuit analysis method that derives network equations with the circuit elements represented by symbols and the topology of the circuit described by a netlist.
+
+The circuit analysis technique presented in this book covers circuits driven with sinusoidal sources where the DC or AC steady state response is obtained. The inductors and capacitors in the circuit are replace by their transformed values. Inductors are replace by their steady state Laplace value, $Ls$, where L is the value of the inductor with units of henrys (named after [Joseph Henery](https://en.wikipedia.org/wiki/Joseph_Henry)) and $s$ is the Laplace variable equal to $j \omega$ where $\omega$ is the radian frequency. Capacitors in the circuit are replace by their steady state Laplace value, $1/(Cs)$, where C is the value of the capacitor with units in farads (named after [Micheal Faraday](https://en.wikipedia.org/wiki/Michael_Faraday)). 
 
 This book was written in [R MarkDown](https://rmarkdown.rstudio.com/) using plain text files and [JupyterLab](https://jupyter.org/) notebooks. The source files were rendered into a book using [Quarto](https://quarto.org/).
 
@@ -49,7 +51,7 @@ Since this project is still under construction, I have a list of to dos.
 - [x] finish chapter 4
 - [x] add summary to end of example notebook
 - [x] have SymMNA return the netlist report
-- [ ] use N for network equations (N_sym, N), U for solved equations and H for system functions
+- [ ] use N for network equations (N_sym, N), U for solved system of equations and H for system functions
 - [ ] In chapter 3, include the schematic capture procedure to generate the netlist
 - [ ] think about removing netlist file load, just embed the netlist
 - update status in /Quarto_projects/Symbolic-Modified-Nodal-Analysis-using-Python/draft_docs/To Do List.odt
@@ -65,6 +67,7 @@ Since this project is still under construction, I have a list of to dos.
 - Create new example problems
   - [ ] Superposition, polyphase and phasors
   - [ ] Laplace transforms
+  - [ ] initial conditions
   - [ ] Transient circuit
   - [ ] non linear circuits, see YouTube [MNA Introduction](https://www.youtube.com/watch?v=BPapfxzwsmI&list=PLlsTHbFeR7v0QG8Q4l6oc7d---eKKSKTz)
 - [ ] finish Summary in state variable notebook

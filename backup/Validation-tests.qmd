@@ -23,15 +23,15 @@ See Table 2 for a list of the types of supporting files.
 | test_2 | Resistors and independent sources | DC analysis |
 | test_3 | Same as test_1, with R2 replaced with C2 and R3 replaced with L1 | AC analysis |
 | test_4 | Resistors and one of each type of source | AC analysis |
-| test_5 | RLC and one of each type of source | AC analysis |
-| test_6 | RLC, coupled inductors and one of each type of source | AC analysis |
-| test_7 | Large circuit and two or more of each element type w/o Op Amps | AC analysis |
+| test_5 | Test 4 w/ L & C's and one of each type of source | AC analysis |
+| test_6 | Test 4 w/ L & C's, coupled L's and one of each type of source | AC analysis |
+| test_7 | Large circuit and two or more of each element type w/o op amps | AC analysis |
 | test_8 | Test_7 w/ op amps included | AC analysis |
 | test_9 | Current sources only dependent and independent | DC analysis |
 | test_10 | Current and voltage sources only, no LRCs | DC analysis |
 | test_11 | Three coupled inductors | AC analysis |
 | test_12 | LC ladder low pass filter | AC analysis |
-| test_13 | Ring of current sources and inductors | AC analysis |
+| test_13 | Ring of current sources and inductors<br>a pathological case | AC analysis |
 | test_14 | A circuit with one unknown current | AC analysis |
 | test_15 | A circuit with no unknown currents | AC analysis |
 <br>

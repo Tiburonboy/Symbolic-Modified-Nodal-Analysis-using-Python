@@ -32,11 +32,11 @@ The table below lists the example problems completed so far.
 
 | Circuit Description | notes |
 |:---|:---|
-| Active filters | Several of these started [Sallen–Key topology](https://en.wikipedia.org/wiki/Sallen%E2%80%93Key_topology) |
+| Active filters | move to other blog, Several of these started [Sallen–Key topology](https://en.wikipedia.org/wiki/Sallen%E2%80%93Key_topology) |
 | Active inductor, Nullors, Gyrators, NICs, Current Conveyor | Where are these used?<br>Controlled Sources, Nullors, Active Gain Devices, Impedance Converters and Inverters (Gyrators, NICs, Current Conveyors)<br>See Op Amp circuit #2 or #2HP  See Haydak Chapter 13, for RC-NIC and RC gyrator filters  |
 | Wien bridge oscillator | https://en.wikipedia.org/wiki/Wien_bridge_oscillator <br>Simple circuit <br>not so easy to make osc in LTSpice. Notebook started |
 | Switched mode power supply | Do the LED driver fly back circuit, <br>see Analog Devices power management tools, <br>https://www.analog.com/en/design-center/design-tools-and-calculators/power-management-tools.html |
-| Pi filter transfer function |  |
+| Pi filter transfer function | move to other blog |
 | Bridge-T network analysis |  |
 | T-coil circuit | See papers in download folder |
 | Diode circuit | Get network equations with R in place of diode and then substitute equations for diode in python |
