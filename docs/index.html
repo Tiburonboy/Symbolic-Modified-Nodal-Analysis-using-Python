@@ -70,6 +70,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -161,85 +190,85 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./test_2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">test_2</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Test 2</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./test_3.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">test_3</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Test 3</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./test_4.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">test_4</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Test 4</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./test_5.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">test_5</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Test 5</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./test_6.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">test_6</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Test 6</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./test_7.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">test_7</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Test 7</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./test_8.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">test_8</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Test 8</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./test_9.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">test_9</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Test 9</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./test_10.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">test_10</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Test 10</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./test_11.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">test_11</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Test 11</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./test_12.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">test_12</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Test 12</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./test_13.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">test_13</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Test 13</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./test_14.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">test_14</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Test 14</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./test_15.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">test_15</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Test 15</span></span></a>
   </div>
 </li>
       </ul>
@@ -404,7 +433,8 @@ Warning
 </div>
 <section id="about-this-book" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="about-this-book">About this book</h2>
-<p>This is the website is an online version of my book - <em>Symbolic Modified Nodal Analysis using Python</em>. Symbolic circuit analysis is a circuit analysis method that derives network equations with the circuit elements represented by symbols and the topology of the circuit described by a netlist.</p>
+<p>This is the website is my online book - <em>Symbolic Modified Nodal Analysis using Python</em>. Symbolic circuit analysis is a circuit analysis method that derives network equations with the circuit elements represented by symbols and the topology of the circuit described by a netlist.</p>
+<p>The circuit analysis technique presented in this book covers circuits driven with sinusoidal sources where the DC or AC steady state response is obtained. The inductors and capacitors in the circuit are replace by their transformed values. Inductors are replace by their steady state Laplace value, <span class="math inline">\(Ls\)</span>, where L is the value of the inductor with units of henrys (named after <a href="https://en.wikipedia.org/wiki/Joseph_Henry">Joseph Henery</a>) and <span class="math inline">\(s\)</span> is the Laplace variable equal to <span class="math inline">\(j \omega\)</span> where <span class="math inline">\(\omega\)</span> is the radian frequency. Capacitors in the circuit are replace by their steady state Laplace value, <span class="math inline">\(1/(Cs)\)</span>, where C is the value of the capacitor with units in farads (named after <a href="https://en.wikipedia.org/wiki/Michael_Faraday">Micheal Faraday</a>).</p>
 <p>This book was written in <a href="https://rmarkdown.rstudio.com/">R MarkDown</a> using plain text files and <a href="https://jupyter.org/">JupyterLab</a> notebooks. The source files were rendered into a book using <a href="https://quarto.org/">Quarto</a>.</p>
 <p>Source code is available <a href="https://github.com/Tiburonboy/Symbolic-modified-nodal-analysis">here</a>.</p>
 <section id="python-module-version" class="level3">
@@ -506,7 +536,7 @@ Table&nbsp;1: Python packages
 <li><label><input type="checkbox" checked="">finish chapter 4</label></li>
 <li><label><input type="checkbox" checked="">add summary to end of example notebook</label></li>
 <li><label><input type="checkbox" checked="">have SymMNA return the netlist report</label></li>
-<li><label><input type="checkbox">use N for network equations (N_sym, N), U for solved equations and H for system functions</label></li>
+<li><label><input type="checkbox">use N for network equations (N_sym, N), U for solved system of equations and H for system functions</label></li>
 <li><label><input type="checkbox">In chapter 3, include the schematic capture procedure to generate the netlist</label></li>
 <li><label><input type="checkbox">think about removing netlist file load, just embed the netlist</label></li>
 <li>update status in /Quarto_projects/Symbolic-Modified-Nodal-Analysis-using-Python/draft_docs/To Do List.odt</li>
@@ -526,6 +556,7 @@ Table&nbsp;1: Python packages
 <ul class="task-list">
 <li><label><input type="checkbox">Superposition, polyphase and phasors</label></li>
 <li><label><input type="checkbox">Laplace transforms</label></li>
+<li><label><input type="checkbox">initial conditions</label></li>
 <li><label><input type="checkbox">Transient circuit</label></li>
 <li><label><input type="checkbox">non linear circuits, see YouTube <a href="https://www.youtube.com/watch?v=BPapfxzwsmI&amp;list=PLlsTHbFeR7v0QG8Q4l6oc7d---eKKSKTz">MNA Introduction</a></label></li>
 </ul></li>
