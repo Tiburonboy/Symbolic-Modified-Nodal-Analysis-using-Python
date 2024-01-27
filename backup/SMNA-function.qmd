@@ -55,6 +55,7 @@ from tabulate import tabulate
 #import matplotlib.pyplot as plt
 import pandas as pd
 import SymMNA
+from IPython.display import display, Markdown, Math, Latex
 init_printing()
 ```
 The edited circuit netlist shown below:
@@ -161,6 +162,18 @@ There are three unknown node voltages, $v_1$ is just the controlled source V1.
 
 ```{python}
 #| echo: false
+temp = ''
+for i in U_sym.keys():
+    temp += '${:s} = {:s}$<br>'.format(latex(i),latex(U_sym[i]))
+
+Markdown(temp)
+```
+<!--
+
+Edit was made here!
+
+```{python}
+#| echo: false
 U_sym[v1]
 ```
 The voltage on node number 2 is:
@@ -190,6 +203,7 @@ The current in $L_1$ is:
 #| echo: false
 U_sym[I_L1]
 ```
+-->
 
 The symbolic transfer function of $\frac {v_3} {v_1}$ can be obtained by:
 
@@ -231,6 +245,18 @@ The network equations with actual values can then be solved by using SymPy’s s
 U = solve(equ_values,X)
 ```
 
+The solution equations:
+
+```{python}
+#| echo: false
+temp = ''
+for i in U.keys():
+    temp += '${:s} = {:s}$<br>'.format(latex(i),latex(U[i]))
+
+Markdown(temp)
+```
+<!--
+
 The voltage on node number 1 is:
 
 ```{python}
@@ -256,12 +282,14 @@ current  V1
 #| echo: false
 U[I_V1]
 ```
-The current in $L-1$ is:
+The current in $L_1$ is:
 
 ```{python}
 #| echo: false
 U[I_L1]
 ```
+-->
+
 The transfer function from node 1 to node 3 is:
 
 ```{python}

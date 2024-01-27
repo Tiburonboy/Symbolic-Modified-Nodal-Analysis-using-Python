@@ -35,6 +35,10 @@ See Table 2 for a list of the types of supporting files.
 | test_14 | A circuit with one unknown current | AC analysis |
 | test_15 | A circuit with no unknown currents | AC analysis |
 <br>
+
+## Summary of test results
+
+<br>
 <br>
 
 The following file types are in each github folder located [here](https://github.com/Tiburonboy/Symbolic-modified-nodal-analysis/tree/master/test%20circuits):
@@ -49,4 +53,5 @@ The following file types are in each github folder located [here](https://github
 | test_*.net | Spice net list |    
 | test_*.png | image of the schematic for display in the notebook |
 | test_*.csv | csv data exported from LTSpice |
+
 

@@ -19,6 +19,8 @@ can be entered into Python to get the equations in matrix form:
 
 ```{python}
 #| echo: false
+import sys
+from IPython.display import display, Markdown, Math, Latex
 from sympy import *
 import numpy as np
 init_printing()
@@ -41,39 +43,14 @@ The system of equations can be easily solved to obtain a solution in symbolic fo
 #| echo: true
 U_sym = solve(equ,X)
 ```
-The keys are
 
 ```{python}
 #| echo: false
-U_sym.keys()
-```
+temp = ''
+for i in U_sym.keys():
+    temp += '${:s} = {:s}$<br>'.format(latex(i),latex(U_sym[i]))
 
-$v_1$ is 
-
-```{python}
-#| echo: false
-U_sym[v1] 
-```
-
-$v_2$ is 
-
-```{python}
-#| echo: false
-U_sym[v2] 
-```
-
-$v_3$ is 
-
-```{python}
-#| echo: false
-U_sym[v3] 
-```
-
-$I_{V1}$ is 
-
-```{python}
-#| echo: false
-U_sym[I_V1] 
+Markdown(temp)
 ```
 
 The numeric values for the components can be substituted for the symbols (reference designators) and the following solution is obtained, where s is the Laplace variable:
@@ -97,7 +74,53 @@ solve(denom)
 As you can see, matrix and polynomial math can be easily performed with hardly any effort.
 
 ## JupyterLab
-All the validation problem circuits are presented in JupyterLab notebooks and rendered into chapters by Quarto. 
+All the validation and problem circuits are presented in JupyterLab notebooks and rendered into chapters by Quarto. 
+
+**Variable names**  
+I've tried to be consistent with the use of variable names throughout the Jupyter notebooks. Resistors, capacitors and inductors use R, L and C as reference designators. The names chosen for the other variables are listed in @tbl-variable-names
+
+| Variable name | definition |
+|---|---|
+| NE_sym | Network equations, symbolic |
+| NE | Network equations with component values  |
+| NE_dc | Network equations with $s=0$  |
+| NE_w1 | Network equations with $s=j \omega$ and $\omega$ equal to a numeric value |
+| U_sym | The solution to the symbolic network equations |
+| U | The solution to network equations with component values |
+| U_ac | The solution to network equations at some frequency |
+| H_sym | system transfer function, symbolic |
+| H | System transfer function with component values |
+| $V1, V2, etc.$ | Capital  letter V for independent voltage sources |
+| $v_1, v_2, etc$ | Small letter v for the node voltages |
+| $I1, I2, etc$ | Capital letter I for independent current sources  |
+| E | Voltage controlled voltage source (VCVS) |
+| F | Current controlled current source (CCCS) |
+| G | Voltage controlled current source (VCCS) |
+| H | Current controlled voltage source (CCVS) |
+| K | Inductor coupling coefficient |
+| M | Mutual inductance |
+| O | Op Amp component |
+| A | Connectivity matrix |
+| X | Unknown voltages and currents vector |
+| Z | Known voltages and currents vector |
+: Variable names {#tbl-variable-names} {tbl-colwidths="[20,80]"}
+
+**Large exponents**  
+The values of the exponents can be very large in the numerical solution to the network equations when using real component values. Often you will see in engineering text books that the author uses normalized component values, where the values have been frequency and impedance scaled to a frequency of $\omega = 1$ and one of the resistors or other components normalized to a value of one. This keeps the numerical values obtained in the solution to the network equations from getting very large or small. 
+
+Almost all platforms map Python floats to the IEEE754 double precision - 64 total bits. Using the sys package, the float information is reported as follows:
+
+```{python}
+#| echo: false
+temp = str(sys.float_info)
+temp = temp[temp.find("(")+1:temp.find(")")]
+sys_float_info = temp.split(',')
+
+for i in sys_float_info:
+    print(i)
+```
+
+The maximum exponent that Python can use is 308. In this book, I'm going to let Python do the math and not worry about the size of the exponents. I suppose that large exponents don't become a problem as long as they remain under two digits.
 
 ## Practical network size for symbolic solutions
 Test circuit number 4, @sec-test_4, has 26 branches, 13 nodes, 18 resistors, 4 independent sources and 4 dependent sources. A symbolic solution for this problem was taking too long on my i3 computer, so I interrupted the kernel, and proceeded with a numerical solution, which can be solved quite quickly. The complexity of a circuit can be reduced by letting some components have the same value, for example $R_1 = R_2 = R_3 = R$, which would reduce the number of symbols that are being manipulated. 
@@ -137,7 +160,7 @@ $v_{1} = V_{1}$
 $- v_{5} + v_{6} = 0$  
 
 After about two hours running on an i3 machine a symbolic solution was obtained, but it's too long to display and doesn't offer too much insight into the function of the circuit.
-                                                                           
+
 After substituting numerical values for the components, the following solution for the voltage at node 2 was obtained in less than one second.
 
 $\frac{4.30028181226968 \cdot \left(1.0784981875 \cdot 10^{-10} s^{3} + 2.263375 \cdot 10^{-7} s^{2} + 0.000474999999999999 s + 1.0\right)}{1.50943922351291 \cdot 10^{-12} s^{4} + 4.7350839034956 \cdot 10^{-9} s^{3} + 4.53071325287237 \cdot 10^{-6} s^{2} + 0.00311443743767615 s + 1.0}$  
