@@ -686,7 +686,7 @@ number of K - Coupled inductors: 0
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># turn the free symbols into SymPy variables</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>var(<span class="bu">str</span>(NE_sym.free_symbols).replace(<span class="st">'{'</span>,<span class="st">''</span>).replace(<span class="st">'}'</span>,<span class="st">''</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="12">
-<p><span class="math inline">\(\displaystyle \left( v_{1}, \  g_{2}, \  I_{1}, \  g_{1}\right)\)</span></p>
+<p><span class="math inline">\(\displaystyle \left( g_{2}, \  I_{1}, \  v_{1}, \  g_{1}\right)\)</span></p>
 </div>
 </div>
 </section>
@@ -766,17 +766,23 @@ v1         50.000000</code></pre>
 
 Find the power absorbed by each source in the circuit.  </code></pre>
 <p>The results from LTSpice agree with the SymPy results.</p>
-<div id="cell-36" class="cell" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>element_values[g1]<span class="op">*</span>ans[v1]<span class="op">**</span><span class="dv">2</span> <span class="co"># power through G1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>NameError: name 'ans' is not defined</code></pre>
+<div id="cell-36" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>element_values[g1]<span class="op">*</span>U[v1]<span class="op">**</span><span class="dv">2</span> <span class="co"># power through G1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="20">
+<p><span class="math inline">\(\displaystyle 1500.0\)</span></p>
 </div>
 </div>
-<div id="cell-37" class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>element_values[g2]<span class="op">*</span>ans[v1]<span class="op">**</span><span class="dv">2</span> <span class="co"># power through G2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-37" class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>element_values[g2]<span class="op">*</span>U[v1]<span class="op">**</span><span class="dv">2</span> <span class="co"># power through G2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="22">
+<p><span class="math inline">\(\displaystyle 2000.0\)</span></p>
 </div>
-<div id="cell-38" class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>element_values[I1]<span class="op">*</span>ans[v1] <span class="co"># power through I1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-38" class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>element_values[I1]<span class="op">*</span>U[v1] <span class="co"># power through I1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="23">
+<p><span class="math inline">\(\displaystyle 500.0\)</span></p>
+</div>
 </div>
 
 

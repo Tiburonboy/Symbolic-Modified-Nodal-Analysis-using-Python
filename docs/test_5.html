@@ -1062,7 +1062,7 @@ number of K - Coupled inductors: 0
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># turn the free symbols into SymPy variables</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>var(<span class="bu">str</span>(NE_sym.free_symbols).replace(<span class="st">'{'</span>,<span class="st">''</span>).replace(<span class="st">'}'</span>,<span class="st">''</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="12">
-<p><span class="math inline">\(\displaystyle \left( v_{5}, \  C_{1}, \  R_{4}, \  R_{14}, \  R_{3}, \  h_{1}, \  R_{2}, \  I_{V4}, \  R_{13}, \  R_{16}, \  s, \  I_{2}, \  R_{9}, \  V_{1}, \  V_{2}, \  I_{L2}, \  I_{L1}, \  v_{9}, \  v_{13}, \  I_{Ea1}, \  v_{6}, \  I_{V2}, \  I_{H1}, \  I_{F1}, \  v_{3}, \  R_{7}, \  v_{10}, \  R_{8}, \  g_{1}, \  V_{4}, \  L_{1}, \  I_{V1}, \  v_{2}, \  R_{11}, \  R_{10}, \  ea_{1}, \  v_{7}, \  v_{4}, \  v_{11}, \  R_{12}, \  R_{18}, \  v_{1}, \  L_{2}, \  v_{12}, \  C_{2}, \  f_{1}, \  R_{17}, \  v_{8}\right)\)</span></p>
+<p><span class="math inline">\(\displaystyle \left( I_{F1}, \  v_{12}, \  R_{2}, \  I_{Ea1}, \  R_{17}, \  v_{2}, \  ea_{1}, \  C_{1}, \  v_{5}, \  I_{V2}, \  g_{1}, \  R_{14}, \  R_{13}, \  f_{1}, \  R_{9}, \  v_{7}, \  s, \  v_{3}, \  R_{3}, \  R_{7}, \  R_{10}, \  v_{4}, \  I_{H1}, \  I_{2}, \  I_{L1}, \  I_{V4}, \  V_{4}, \  V_{1}, \  v_{6}, \  v_{9}, \  R_{12}, \  I_{V1}, \  v_{8}, \  v_{1}, \  v_{10}, \  R_{16}, \  v_{11}, \  I_{L2}, \  h_{1}, \  L_{2}, \  R_{18}, \  C_{2}, \  v_{13}, \  R_{11}, \  V_{2}, \  R_{8}, \  R_{4}, \  L_{1}\right)\)</span></p>
 </div>
 </div>
 </section>
@@ -1319,17 +1319,17 @@ I(V2):  mag:    5.10203 phase:   -154.058°  device_current
 <span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> np.array(Poly(denom, s).all_coeffs(), dtype<span class="op">=</span><span class="bu">float</span>)</span>
 <span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>system <span class="op">=</span> (a, b)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-47" class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="31">
+<div id="cell-47" class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">#x = np.linspace(0.01*2*np.pi, 1*2*np.pi, 200, endpoint=True)</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.logspace(<span class="op">-</span><span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">200</span>, endpoint<span class="op">=</span><span class="va">False</span>)<span class="op">*</span><span class="dv">2</span><span class="op">*</span>np.pi</span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>w, mag, phase <span class="op">=</span> signal.bode(system, w<span class="op">=</span>x) <span class="co"># returns: rad/s, mag in dB, phase in deg</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Load the csv file of node 5 voltage over the sweep range and plot along with the results obtained from SymPy.</p>
-<div id="cell-49" class="cell" data-execution_count="32">
+<div id="cell-49" class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>fn <span class="op">=</span> <span class="st">'test_5.csv'</span> <span class="co"># data from LTSpice</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>LTSpice_data <span class="op">=</span> np.genfromtxt(fn, delimiter<span class="op">=</span><span class="st">','</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-50" class="cell" data-execution_count="33">
+<div id="cell-50" class="cell" data-execution_count="28">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># initaliaze some empty arrays</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>frequency <span class="op">=</span> np.zeros(<span class="bu">len</span>(LTSpice_data))</span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>voltage <span class="op">=</span> np.zeros(<span class="bu">len</span>(LTSpice_data)).astype(<span class="bu">complex</span>)</span>
@@ -1339,7 +1339,7 @@ I(V2):  mag:    5.10203 phase:   -154.058°  device_current
 <span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>    frequency[i] <span class="op">=</span> LTSpice_data[i][<span class="dv">0</span>]</span>
 <span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>    voltage[i] <span class="op">=</span> LTSpice_data[i][<span class="dv">1</span>] <span class="op">+</span> LTSpice_data[i][<span class="dv">2</span>]<span class="op">*</span><span class="ot">1j</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-51" class="cell" data-execution_count="36">
+<div id="cell-51" class="cell" data-execution_count="29">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>fig, ax1 <span class="op">=</span> plt.subplots()</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>ax1.set_ylabel(<span class="st">'magnitude, dB'</span>)</span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>ax1.set_xlabel(<span class="st">'frequency, Hz'</span>)</span>
@@ -1372,7 +1372,7 @@ I(V2):  mag:    5.10203 phase:   -154.058°  device_current
 </div>
 </div>
 </div>
-<div id="cell-52" class="cell" data-execution_count="35">
+<div id="cell-52" class="cell" data-execution_count="30">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>fig, ax1 <span class="op">=</span> plt.subplots()</span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>ax1.set_ylabel(<span class="st">'magnitude difference'</span>)</span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>ax1.set_xlabel(<span class="st">'frequency, Hz'</span>)</span>

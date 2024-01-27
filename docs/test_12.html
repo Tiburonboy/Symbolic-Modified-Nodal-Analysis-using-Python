@@ -498,7 +498,7 @@ C1 1 0 1.5948
 * ;.ac dec 100 0.01 1
 .backanno
 .end</code></pre>
-<div id="cell-2" class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="69">
+<div id="cell-2" class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#import os</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sympy <span class="im">import</span> <span class="op">*</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -512,7 +512,7 @@ C1 1 0 1.5948
 </div>
 <section id="load-the-net-list" class="level2" data-number="16.1">
 <h2 data-number="16.1" class="anchored" data-anchor-id="load-the-net-list"><span class="header-section-number">16.1</span> Load the net list</h2>
-<div id="cell-4" class="cell" data-execution_count="70">
+<div id="cell-4" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>net_list <span class="op">=</span> <span class="st">'''</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="st">C3 2 0 3.7642</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="st">I1 0 1 1</span></span>
@@ -530,11 +530,11 @@ C1 1 0 1.5948
 </section>
 <section id="call-the-symbolic-modified-nodal-analysis-function" class="level2" data-number="16.2">
 <h2 data-number="16.2" class="anchored" data-anchor-id="call-the-symbolic-modified-nodal-analysis-function"><span class="header-section-number">16.2</span> Call the symbolic modified nodal analysis function</h2>
-<div id="cell-6" class="cell" data-execution_count="71">
+<div id="cell-6" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>report, network_df, i_unk_df, A, X, Z <span class="op">=</span> SymMNA.smna(net_list)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Display the equations</p>
-<div id="cell-8" class="cell" data-execution_count="72">
+<div id="cell-8" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># reform X and Z into Matrix type for printing</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>Xp <span class="op">=</span> Matrix(X)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>Zp <span class="op">=</span> Matrix(Z)</span>
@@ -543,13 +543,13 @@ C1 1 0 1.5948
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(Eq((A<span class="op">*</span>Xp)[i:i<span class="op">+</span><span class="dv">1</span>][<span class="dv">0</span>],Zp[i])))</span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="72">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="4">
 <p><span class="math inline">\(I_{L2} + v_{1} \left(C_{1} s + \frac{1}{Rs}\right) = I_{1}\)</span><br><span class="math inline">\(C_{3} s v_{2} - I_{L2} + I_{L4} = 0\)</span><br><span class="math inline">\(C_{5} s v_{3} - I_{L4} + I_{L6} = 0\)</span><br><span class="math inline">\(- I_{L6} + v_{4} \left(C_{7} s + \frac{1}{Rl}\right) = 0\)</span><br><span class="math inline">\(- I_{L2} L_{2} s + v_{1} - v_{2} = 0\)</span><br><span class="math inline">\(- I_{L4} L_{4} s + v_{2} - v_{3} = 0\)</span><br><span class="math inline">\(- I_{L6} L_{6} s + v_{3} - v_{4} = 0\)</span><br></p>
 </div>
 </div>
 <section id="netlist-statistics" class="level3" data-number="16.2.1">
 <h3 data-number="16.2.1" class="anchored" data-anchor-id="netlist-statistics"><span class="header-section-number">16.2.1</span> Netlist statistics</h3>
-<div id="cell-10" class="cell" data-execution_count="73">
+<div id="cell-10" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(report)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Net list report
@@ -573,36 +573,36 @@ number of K - Coupled inductors: 0
 </section>
 <section id="connectivity-matrix" class="level3" data-number="16.2.2">
 <h3 data-number="16.2.2" class="anchored" data-anchor-id="connectivity-matrix"><span class="header-section-number">16.2.2</span> Connectivity Matrix</h3>
-<div id="cell-12" class="cell" data-execution_count="74">
+<div id="cell-12" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>A</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="74">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="6">
 <p><span class="math inline">\(\displaystyle \left[\begin{matrix}C_{1} s + \frac{1}{Rs} &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0\\0 &amp; C_{3} s &amp; 0 &amp; 0 &amp; -1 &amp; 1 &amp; 0\\0 &amp; 0 &amp; C_{5} s &amp; 0 &amp; 0 &amp; -1 &amp; 1\\0 &amp; 0 &amp; 0 &amp; C_{7} s + \frac{1}{Rl} &amp; 0 &amp; 0 &amp; -1\\1 &amp; -1 &amp; 0 &amp; 0 &amp; - L_{2} s &amp; 0 &amp; 0\\0 &amp; 1 &amp; -1 &amp; 0 &amp; 0 &amp; - L_{4} s &amp; 0\\0 &amp; 0 &amp; 1 &amp; -1 &amp; 0 &amp; 0 &amp; - L_{6} s\end{matrix}\right]\)</span></p>
 </div>
 </div>
 </section>
 <section id="unknown-voltages-and-currents" class="level3" data-number="16.2.3">
 <h3 data-number="16.2.3" class="anchored" data-anchor-id="unknown-voltages-and-currents"><span class="header-section-number">16.2.3</span> Unknown voltages and currents</h3>
-<div id="cell-14" class="cell" data-execution_count="75">
+<div id="cell-14" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>X</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="75">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="7">
 <p><span class="math inline">\(\displaystyle \left[ v_{1}, \  v_{2}, \  v_{3}, \  v_{4}, \  I_{L2}, \  I_{L4}, \  I_{L6}\right]\)</span></p>
 </div>
 </div>
 </section>
 <section id="known-voltages-and-currents" class="level3" data-number="16.2.4">
 <h3 data-number="16.2.4" class="anchored" data-anchor-id="known-voltages-and-currents"><span class="header-section-number">16.2.4</span> Known voltages and currents</h3>
-<div id="cell-16" class="cell" data-execution_count="76">
+<div id="cell-16" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>Z</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="76">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="8">
 <p><span class="math inline">\(\displaystyle \left[ I_{1}, \  0, \  0, \  0, \  0, \  0, \  0\right]\)</span></p>
 </div>
 </div>
 </section>
 <section id="network-dataframe" class="level3" data-number="16.2.5">
 <h3 data-number="16.2.5" class="anchored" data-anchor-id="network-dataframe"><span class="header-section-number">16.2.5</span> Network dataframe</h3>
-<div id="cell-18" class="cell" data-execution_count="77">
+<div id="cell-18" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>network_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="77">
+<div class="cell-output cell-output-display" data-execution_count="9">
 <div>
 
 
@@ -762,9 +762,9 @@ number of K - Coupled inductors: 0
 </section>
 <section id="unknown-current-dataframe" class="level3" data-number="16.2.6">
 <h3 data-number="16.2.6" class="anchored" data-anchor-id="unknown-current-dataframe"><span class="header-section-number">16.2.6</span> Unknown current dataframe</h3>
-<div id="cell-20" class="cell" data-execution_count="78">
+<div id="cell-20" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>i_unk_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="78">
+<div class="cell-output cell-output-display" data-execution_count="10">
 <div>
 
 
@@ -805,46 +805,46 @@ number of K - Coupled inductors: 0
 </section>
 <section id="build-the-network-equation-matrix" class="level3" data-number="16.2.7">
 <h3 data-number="16.2.7" class="anchored" data-anchor-id="build-the-network-equation-matrix"><span class="header-section-number">16.2.7</span> Build the network equation matrix</h3>
-<div id="cell-22" class="cell" data-execution_count="79">
+<div id="cell-22" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Put matrices into SymPy </span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> Matrix(X)</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>Z <span class="op">=</span> Matrix(Z)</span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>NE_sym <span class="op">=</span> Eq(A<span class="op">*</span>X,Z)</span>
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>NE_sym</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="79">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="11">
 <p><span class="math inline">\(\displaystyle \left[\begin{matrix}I_{L2} + v_{1} \left(C_{1} s + \frac{1}{Rs}\right)\\C_{3} s v_{2} - I_{L2} + I_{L4}\\C_{5} s v_{3} - I_{L4} + I_{L6}\\- I_{L6} + v_{4} \left(C_{7} s + \frac{1}{Rl}\right)\\- I_{L2} L_{2} s + v_{1} - v_{2}\\- I_{L4} L_{4} s + v_{2} - v_{3}\\- I_{L6} L_{6} s + v_{3} - v_{4}\end{matrix}\right] = \left[\begin{matrix}I_{1}\\0\\0\\0\\0\\0\\0\end{matrix}\right]\)</span></p>
 </div>
 </div>
-<div id="cell-23" class="cell" data-execution_count="80">
+<div id="cell-23" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># turn the free symbols into SymPy variables</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>var(<span class="bu">str</span>(NE_sym.free_symbols).replace(<span class="st">'{'</span>,<span class="st">''</span>).replace(<span class="st">'}'</span>,<span class="st">''</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="80">
-<p><span class="math inline">\(\displaystyle \left( I_{L6}, \  L_{6}, \  C_{3}, \  C_{7}, \  C_{1}, \  v_{4}, \  C_{5}, \  I_{L4}, \  L_{4}, \  I_{1}, \  v_{2}, \  v_{1}, \  v_{3}, \  L_{2}, \  Rl, \  s, \  Rs, \  I_{L2}\right)\)</span></p>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="12">
+<p><span class="math inline">\(\displaystyle \left( Rs, \  v_{2}, \  I_{L4}, \  I_{1}, \  v_{4}, \  C_{5}, \  C_{7}, \  L_{2}, \  C_{1}, \  Rl, \  v_{1}, \  v_{3}, \  C_{3}, \  I_{L2}, \  s, \  L_{6}, \  L_{4}, \  I_{L6}\right)\)</span></p>
 </div>
 </div>
 </section>
 </section>
 <section id="symbolic-solution" class="level2" data-number="16.3">
 <h2 data-number="16.3" class="anchored" data-anchor-id="symbolic-solution"><span class="header-section-number">16.3</span> Symbolic solution</h2>
-<div id="cell-25" class="cell" data-execution_count="81">
+<div id="cell-25" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>U_sym <span class="op">=</span> solve(NE_sym,X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Display the symbolic solution</p>
-<div id="cell-27" class="cell" data-execution_count="82">
+<div id="cell-27" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> U_sym.keys():</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st"> = </span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(i),latex(U_sym[i]))</span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="82">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="14">
 <p><span class="math inline">\(v_{1} = \frac{C_{3} C_{5} C_{7} I_{1} L_{2} L_{4} L_{6} Rl Rs s^{6} + C_{3} C_{5} I_{1} L_{2} L_{4} L_{6} Rs s^{5} + C_{3} C_{5} I_{1} L_{2} L_{4} Rl Rs s^{4} + C_{3} C_{7} I_{1} L_{2} L_{4} Rl Rs s^{4} + C_{3} C_{7} I_{1} L_{2} L_{6} Rl Rs s^{4} + C_{3} I_{1} L_{2} L_{4} Rs s^{3} + C_{3} I_{1} L_{2} L_{6} Rs s^{3} + C_{3} I_{1} L_{2} Rl Rs s^{2} + C_{5} C_{7} I_{1} L_{2} L_{6} Rl Rs s^{4} + C_{5} C_{7} I_{1} L_{4} L_{6} Rl Rs s^{4} + C_{5} I_{1} L_{2} L_{6} Rs s^{3} + C_{5} I_{1} L_{2} Rl Rs s^{2} + C_{5} I_{1} L_{4} L_{6} Rs s^{3} + C_{5} I_{1} L_{4} Rl Rs s^{2} + C_{7} I_{1} L_{2} Rl Rs s^{2} + C_{7} I_{1} L_{4} Rl Rs s^{2} + C_{7} I_{1} L_{6} Rl Rs s^{2} + I_{1} L_{2} Rs s + I_{1} L_{4} Rs s + I_{1} L_{6} Rs s + I_{1} Rl Rs}{C_{1} C_{3} C_{5} C_{7} L_{2} L_{4} L_{6} Rl Rs s^{7} + C_{1} C_{3} C_{5} L_{2} L_{4} L_{6} Rs s^{6} + C_{1} C_{3} C_{5} L_{2} L_{4} Rl Rs s^{5} + C_{1} C_{3} C_{7} L_{2} L_{4} Rl Rs s^{5} + C_{1} C_{3} C_{7} L_{2} L_{6} Rl Rs s^{5} + C_{1} C_{3} L_{2} L_{4} Rs s^{4} + C_{1} C_{3} L_{2} L_{6} Rs s^{4} + C_{1} C_{3} L_{2} Rl Rs s^{3} + C_{1} C_{5} C_{7} L_{2} L_{6} Rl Rs s^{5} + C_{1} C_{5} C_{7} L_{4} L_{6} Rl Rs s^{5} + C_{1} C_{5} L_{2} L_{6} Rs s^{4} + C_{1} C_{5} L_{2} Rl Rs s^{3} + C_{1} C_{5} L_{4} L_{6} Rs s^{4} + C_{1} C_{5} L_{4} Rl Rs s^{3} + C_{1} C_{7} L_{2} Rl Rs s^{3} + C_{1} C_{7} L_{4} Rl Rs s^{3} + C_{1} C_{7} L_{6} Rl Rs s^{3} + C_{1} L_{2} Rs s^{2} + C_{1} L_{4} Rs s^{2} + C_{1} L_{6} Rs s^{2} + C_{1} Rl Rs s + C_{3} C_{5} C_{7} L_{2} L_{4} L_{6} Rl s^{6} + C_{3} C_{5} C_{7} L_{4} L_{6} Rl Rs s^{5} + C_{3} C_{5} L_{2} L_{4} L_{6} s^{5} + C_{3} C_{5} L_{2} L_{4} Rl s^{4} + C_{3} C_{5} L_{4} L_{6} Rs s^{4} + C_{3} C_{5} L_{4} Rl Rs s^{3} + C_{3} C_{7} L_{2} L_{4} Rl s^{4} + C_{3} C_{7} L_{2} L_{6} Rl s^{4} + C_{3} C_{7} L_{4} Rl Rs s^{3} + C_{3} C_{7} L_{6} Rl Rs s^{3} + C_{3} L_{2} L_{4} s^{3} + C_{3} L_{2} L_{6} s^{3} + C_{3} L_{2} Rl s^{2} + C_{3} L_{4} Rs s^{2} + C_{3} L_{6} Rs s^{2} + C_{3} Rl Rs s + C_{5} C_{7} L_{2} L_{6} Rl s^{4} + C_{5} C_{7} L_{4} L_{6} Rl s^{4} + C_{5} C_{7} L_{6} Rl Rs s^{3} + C_{5} L_{2} L_{6} s^{3} + C_{5} L_{2} Rl s^{2} + C_{5} L_{4} L_{6} s^{3} + C_{5} L_{4} Rl s^{2} + C_{5} L_{6} Rs s^{2} + C_{5} Rl Rs s + C_{7} L_{2} Rl s^{2} + C_{7} L_{4} Rl s^{2} + C_{7} L_{6} Rl s^{2} + C_{7} Rl Rs s + L_{2} s + L_{4} s + L_{6} s + Rl + Rs}\)</span><br><span class="math inline">\(v_{2} = \frac{C_{5} C_{7} I_{1} L_{4} L_{6} Rl Rs s^{4} + C_{5} I_{1} L_{4} L_{6} Rs s^{3} + C_{5} I_{1} L_{4} Rl Rs s^{2} + C_{7} I_{1} L_{4} Rl Rs s^{2} + C_{7} I_{1} L_{6} Rl Rs s^{2} + I_{1} L_{4} Rs s + I_{1} L_{6} Rs s + I_{1} Rl Rs}{C_{1} C_{3} C_{5} C_{7} L_{2} L_{4} L_{6} Rl Rs s^{7} + C_{1} C_{3} C_{5} L_{2} L_{4} L_{6} Rs s^{6} + C_{1} C_{3} C_{5} L_{2} L_{4} Rl Rs s^{5} + C_{1} C_{3} C_{7} L_{2} L_{4} Rl Rs s^{5} + C_{1} C_{3} C_{7} L_{2} L_{6} Rl Rs s^{5} + C_{1} C_{3} L_{2} L_{4} Rs s^{4} + C_{1} C_{3} L_{2} L_{6} Rs s^{4} + C_{1} C_{3} L_{2} Rl Rs s^{3} + C_{1} C_{5} C_{7} L_{2} L_{6} Rl Rs s^{5} + C_{1} C_{5} C_{7} L_{4} L_{6} Rl Rs s^{5} + C_{1} C_{5} L_{2} L_{6} Rs s^{4} + C_{1} C_{5} L_{2} Rl Rs s^{3} + C_{1} C_{5} L_{4} L_{6} Rs s^{4} + C_{1} C_{5} L_{4} Rl Rs s^{3} + C_{1} C_{7} L_{2} Rl Rs s^{3} + C_{1} C_{7} L_{4} Rl Rs s^{3} + C_{1} C_{7} L_{6} Rl Rs s^{3} + C_{1} L_{2} Rs s^{2} + C_{1} L_{4} Rs s^{2} + C_{1} L_{6} Rs s^{2} + C_{1} Rl Rs s + C_{3} C_{5} C_{7} L_{2} L_{4} L_{6} Rl s^{6} + C_{3} C_{5} C_{7} L_{4} L_{6} Rl Rs s^{5} + C_{3} C_{5} L_{2} L_{4} L_{6} s^{5} + C_{3} C_{5} L_{2} L_{4} Rl s^{4} + C_{3} C_{5} L_{4} L_{6} Rs s^{4} + C_{3} C_{5} L_{4} Rl Rs s^{3} + C_{3} C_{7} L_{2} L_{4} Rl s^{4} + C_{3} C_{7} L_{2} L_{6} Rl s^{4} + C_{3} C_{7} L_{4} Rl Rs s^{3} + C_{3} C_{7} L_{6} Rl Rs s^{3} + C_{3} L_{2} L_{4} s^{3} + C_{3} L_{2} L_{6} s^{3} + C_{3} L_{2} Rl s^{2} + C_{3} L_{4} Rs s^{2} + C_{3} L_{6} Rs s^{2} + C_{3} Rl Rs s + C_{5} C_{7} L_{2} L_{6} Rl s^{4} + C_{5} C_{7} L_{4} L_{6} Rl s^{4} + C_{5} C_{7} L_{6} Rl Rs s^{3} + C_{5} L_{2} L_{6} s^{3} + C_{5} L_{2} Rl s^{2} + C_{5} L_{4} L_{6} s^{3} + C_{5} L_{4} Rl s^{2} + C_{5} L_{6} Rs s^{2} + C_{5} Rl Rs s + C_{7} L_{2} Rl s^{2} + C_{7} L_{4} Rl s^{2} + C_{7} L_{6} Rl s^{2} + C_{7} Rl Rs s + L_{2} s + L_{4} s + L_{6} s + Rl + Rs}\)</span><br><span class="math inline">\(v_{3} = \frac{C_{7} I_{1} L_{6} Rl Rs s^{2} + I_{1} L_{6} Rs s + I_{1} Rl Rs}{C_{1} C_{3} C_{5} C_{7} L_{2} L_{4} L_{6} Rl Rs s^{7} + C_{1} C_{3} C_{5} L_{2} L_{4} L_{6} Rs s^{6} + C_{1} C_{3} C_{5} L_{2} L_{4} Rl Rs s^{5} + C_{1} C_{3} C_{7} L_{2} L_{4} Rl Rs s^{5} + C_{1} C_{3} C_{7} L_{2} L_{6} Rl Rs s^{5} + C_{1} C_{3} L_{2} L_{4} Rs s^{4} + C_{1} C_{3} L_{2} L_{6} Rs s^{4} + C_{1} C_{3} L_{2} Rl Rs s^{3} + C_{1} C_{5} C_{7} L_{2} L_{6} Rl Rs s^{5} + C_{1} C_{5} C_{7} L_{4} L_{6} Rl Rs s^{5} + C_{1} C_{5} L_{2} L_{6} Rs s^{4} + C_{1} C_{5} L_{2} Rl Rs s^{3} + C_{1} C_{5} L_{4} L_{6} Rs s^{4} + C_{1} C_{5} L_{4} Rl Rs s^{3} + C_{1} C_{7} L_{2} Rl Rs s^{3} + C_{1} C_{7} L_{4} Rl Rs s^{3} + C_{1} C_{7} L_{6} Rl Rs s^{3} + C_{1} L_{2} Rs s^{2} + C_{1} L_{4} Rs s^{2} + C_{1} L_{6} Rs s^{2} + C_{1} Rl Rs s + C_{3} C_{5} C_{7} L_{2} L_{4} L_{6} Rl s^{6} + C_{3} C_{5} C_{7} L_{4} L_{6} Rl Rs s^{5} + C_{3} C_{5} L_{2} L_{4} L_{6} s^{5} + C_{3} C_{5} L_{2} L_{4} Rl s^{4} + C_{3} C_{5} L_{4} L_{6} Rs s^{4} + C_{3} C_{5} L_{4} Rl Rs s^{3} + C_{3} C_{7} L_{2} L_{4} Rl s^{4} + C_{3} C_{7} L_{2} L_{6} Rl s^{4} + C_{3} C_{7} L_{4} Rl Rs s^{3} + C_{3} C_{7} L_{6} Rl Rs s^{3} + C_{3} L_{2} L_{4} s^{3} + C_{3} L_{2} L_{6} s^{3} + C_{3} L_{2} Rl s^{2} + C_{3} L_{4} Rs s^{2} + C_{3} L_{6} Rs s^{2} + C_{3} Rl Rs s + C_{5} C_{7} L_{2} L_{6} Rl s^{4} + C_{5} C_{7} L_{4} L_{6} Rl s^{4} + C_{5} C_{7} L_{6} Rl Rs s^{3} + C_{5} L_{2} L_{6} s^{3} + C_{5} L_{2} Rl s^{2} + C_{5} L_{4} L_{6} s^{3} + C_{5} L_{4} Rl s^{2} + C_{5} L_{6} Rs s^{2} + C_{5} Rl Rs s + C_{7} L_{2} Rl s^{2} + C_{7} L_{4} Rl s^{2} + C_{7} L_{6} Rl s^{2} + C_{7} Rl Rs s + L_{2} s + L_{4} s + L_{6} s + Rl + Rs}\)</span><br><span class="math inline">\(v_{4} = \frac{I_{1} Rl Rs}{C_{1} C_{3} C_{5} C_{7} L_{2} L_{4} L_{6} Rl Rs s^{7} + C_{1} C_{3} C_{5} L_{2} L_{4} L_{6} Rs s^{6} + C_{1} C_{3} C_{5} L_{2} L_{4} Rl Rs s^{5} + C_{1} C_{3} C_{7} L_{2} L_{4} Rl Rs s^{5} + C_{1} C_{3} C_{7} L_{2} L_{6} Rl Rs s^{5} + C_{1} C_{3} L_{2} L_{4} Rs s^{4} + C_{1} C_{3} L_{2} L_{6} Rs s^{4} + C_{1} C_{3} L_{2} Rl Rs s^{3} + C_{1} C_{5} C_{7} L_{2} L_{6} Rl Rs s^{5} + C_{1} C_{5} C_{7} L_{4} L_{6} Rl Rs s^{5} + C_{1} C_{5} L_{2} L_{6} Rs s^{4} + C_{1} C_{5} L_{2} Rl Rs s^{3} + C_{1} C_{5} L_{4} L_{6} Rs s^{4} + C_{1} C_{5} L_{4} Rl Rs s^{3} + C_{1} C_{7} L_{2} Rl Rs s^{3} + C_{1} C_{7} L_{4} Rl Rs s^{3} + C_{1} C_{7} L_{6} Rl Rs s^{3} + C_{1} L_{2} Rs s^{2} + C_{1} L_{4} Rs s^{2} + C_{1} L_{6} Rs s^{2} + C_{1} Rl Rs s + C_{3} C_{5} C_{7} L_{2} L_{4} L_{6} Rl s^{6} + C_{3} C_{5} C_{7} L_{4} L_{6} Rl Rs s^{5} + C_{3} C_{5} L_{2} L_{4} L_{6} s^{5} + C_{3} C_{5} L_{2} L_{4} Rl s^{4} + C_{3} C_{5} L_{4} L_{6} Rs s^{4} + C_{3} C_{5} L_{4} Rl Rs s^{3} + C_{3} C_{7} L_{2} L_{4} Rl s^{4} + C_{3} C_{7} L_{2} L_{6} Rl s^{4} + C_{3} C_{7} L_{4} Rl Rs s^{3} + C_{3} C_{7} L_{6} Rl Rs s^{3} + C_{3} L_{2} L_{4} s^{3} + C_{3} L_{2} L_{6} s^{3} + C_{3} L_{2} Rl s^{2} + C_{3} L_{4} Rs s^{2} + C_{3} L_{6} Rs s^{2} + C_{3} Rl Rs s + C_{5} C_{7} L_{2} L_{6} Rl s^{4} + C_{5} C_{7} L_{4} L_{6} Rl s^{4} + C_{5} C_{7} L_{6} Rl Rs s^{3} + C_{5} L_{2} L_{6} s^{3} + C_{5} L_{2} Rl s^{2} + C_{5} L_{4} L_{6} s^{3} + C_{5} L_{4} Rl s^{2} + C_{5} L_{6} Rs s^{2} + C_{5} Rl Rs s + C_{7} L_{2} Rl s^{2} + C_{7} L_{4} Rl s^{2} + C_{7} L_{6} Rl s^{2} + C_{7} Rl Rs s + L_{2} s + L_{4} s + L_{6} s + Rl + Rs}\)</span><br><span class="math inline">\(I_{L2} = \frac{C_{3} C_{5} C_{7} I_{1} L_{4} L_{6} Rl Rs s^{5} + C_{3} C_{5} I_{1} L_{4} L_{6} Rs s^{4} + C_{3} C_{5} I_{1} L_{4} Rl Rs s^{3} + C_{3} C_{7} I_{1} L_{4} Rl Rs s^{3} + C_{3} C_{7} I_{1} L_{6} Rl Rs s^{3} + C_{3} I_{1} L_{4} Rs s^{2} + C_{3} I_{1} L_{6} Rs s^{2} + C_{3} I_{1} Rl Rs s + C_{5} C_{7} I_{1} L_{6} Rl Rs s^{3} + C_{5} I_{1} L_{6} Rs s^{2} + C_{5} I_{1} Rl Rs s + C_{7} I_{1} Rl Rs s + I_{1} Rs}{C_{1} C_{3} C_{5} C_{7} L_{2} L_{4} L_{6} Rl Rs s^{7} + C_{1} C_{3} C_{5} L_{2} L_{4} L_{6} Rs s^{6} + C_{1} C_{3} C_{5} L_{2} L_{4} Rl Rs s^{5} + C_{1} C_{3} C_{7} L_{2} L_{4} Rl Rs s^{5} + C_{1} C_{3} C_{7} L_{2} L_{6} Rl Rs s^{5} + C_{1} C_{3} L_{2} L_{4} Rs s^{4} + C_{1} C_{3} L_{2} L_{6} Rs s^{4} + C_{1} C_{3} L_{2} Rl Rs s^{3} + C_{1} C_{5} C_{7} L_{2} L_{6} Rl Rs s^{5} + C_{1} C_{5} C_{7} L_{4} L_{6} Rl Rs s^{5} + C_{1} C_{5} L_{2} L_{6} Rs s^{4} + C_{1} C_{5} L_{2} Rl Rs s^{3} + C_{1} C_{5} L_{4} L_{6} Rs s^{4} + C_{1} C_{5} L_{4} Rl Rs s^{3} + C_{1} C_{7} L_{2} Rl Rs s^{3} + C_{1} C_{7} L_{4} Rl Rs s^{3} + C_{1} C_{7} L_{6} Rl Rs s^{3} + C_{1} L_{2} Rs s^{2} + C_{1} L_{4} Rs s^{2} + C_{1} L_{6} Rs s^{2} + C_{1} Rl Rs s + C_{3} C_{5} C_{7} L_{2} L_{4} L_{6} Rl s^{6} + C_{3} C_{5} C_{7} L_{4} L_{6} Rl Rs s^{5} + C_{3} C_{5} L_{2} L_{4} L_{6} s^{5} + C_{3} C_{5} L_{2} L_{4} Rl s^{4} + C_{3} C_{5} L_{4} L_{6} Rs s^{4} + C_{3} C_{5} L_{4} Rl Rs s^{3} + C_{3} C_{7} L_{2} L_{4} Rl s^{4} + C_{3} C_{7} L_{2} L_{6} Rl s^{4} + C_{3} C_{7} L_{4} Rl Rs s^{3} + C_{3} C_{7} L_{6} Rl Rs s^{3} + C_{3} L_{2} L_{4} s^{3} + C_{3} L_{2} L_{6} s^{3} + C_{3} L_{2} Rl s^{2} + C_{3} L_{4} Rs s^{2} + C_{3} L_{6} Rs s^{2} + C_{3} Rl Rs s + C_{5} C_{7} L_{2} L_{6} Rl s^{4} + C_{5} C_{7} L_{4} L_{6} Rl s^{4} + C_{5} C_{7} L_{6} Rl Rs s^{3} + C_{5} L_{2} L_{6} s^{3} + C_{5} L_{2} Rl s^{2} + C_{5} L_{4} L_{6} s^{3} + C_{5} L_{4} Rl s^{2} + C_{5} L_{6} Rs s^{2} + C_{5} Rl Rs s + C_{7} L_{2} Rl s^{2} + C_{7} L_{4} Rl s^{2} + C_{7} L_{6} Rl s^{2} + C_{7} Rl Rs s + L_{2} s + L_{4} s + L_{6} s + Rl + Rs}\)</span><br><span class="math inline">\(I_{L4} = \frac{C_{5} C_{7} I_{1} L_{6} Rl Rs s^{3} + C_{5} I_{1} L_{6} Rs s^{2} + C_{5} I_{1} Rl Rs s + C_{7} I_{1} Rl Rs s + I_{1} Rs}{C_{1} C_{3} C_{5} C_{7} L_{2} L_{4} L_{6} Rl Rs s^{7} + C_{1} C_{3} C_{5} L_{2} L_{4} L_{6} Rs s^{6} + C_{1} C_{3} C_{5} L_{2} L_{4} Rl Rs s^{5} + C_{1} C_{3} C_{7} L_{2} L_{4} Rl Rs s^{5} + C_{1} C_{3} C_{7} L_{2} L_{6} Rl Rs s^{5} + C_{1} C_{3} L_{2} L_{4} Rs s^{4} + C_{1} C_{3} L_{2} L_{6} Rs s^{4} + C_{1} C_{3} L_{2} Rl Rs s^{3} + C_{1} C_{5} C_{7} L_{2} L_{6} Rl Rs s^{5} + C_{1} C_{5} C_{7} L_{4} L_{6} Rl Rs s^{5} + C_{1} C_{5} L_{2} L_{6} Rs s^{4} + C_{1} C_{5} L_{2} Rl Rs s^{3} + C_{1} C_{5} L_{4} L_{6} Rs s^{4} + C_{1} C_{5} L_{4} Rl Rs s^{3} + C_{1} C_{7} L_{2} Rl Rs s^{3} + C_{1} C_{7} L_{4} Rl Rs s^{3} + C_{1} C_{7} L_{6} Rl Rs s^{3} + C_{1} L_{2} Rs s^{2} + C_{1} L_{4} Rs s^{2} + C_{1} L_{6} Rs s^{2} + C_{1} Rl Rs s + C_{3} C_{5} C_{7} L_{2} L_{4} L_{6} Rl s^{6} + C_{3} C_{5} C_{7} L_{4} L_{6} Rl Rs s^{5} + C_{3} C_{5} L_{2} L_{4} L_{6} s^{5} + C_{3} C_{5} L_{2} L_{4} Rl s^{4} + C_{3} C_{5} L_{4} L_{6} Rs s^{4} + C_{3} C_{5} L_{4} Rl Rs s^{3} + C_{3} C_{7} L_{2} L_{4} Rl s^{4} + C_{3} C_{7} L_{2} L_{6} Rl s^{4} + C_{3} C_{7} L_{4} Rl Rs s^{3} + C_{3} C_{7} L_{6} Rl Rs s^{3} + C_{3} L_{2} L_{4} s^{3} + C_{3} L_{2} L_{6} s^{3} + C_{3} L_{2} Rl s^{2} + C_{3} L_{4} Rs s^{2} + C_{3} L_{6} Rs s^{2} + C_{3} Rl Rs s + C_{5} C_{7} L_{2} L_{6} Rl s^{4} + C_{5} C_{7} L_{4} L_{6} Rl s^{4} + C_{5} C_{7} L_{6} Rl Rs s^{3} + C_{5} L_{2} L_{6} s^{3} + C_{5} L_{2} Rl s^{2} + C_{5} L_{4} L_{6} s^{3} + C_{5} L_{4} Rl s^{2} + C_{5} L_{6} Rs s^{2} + C_{5} Rl Rs s + C_{7} L_{2} Rl s^{2} + C_{7} L_{4} Rl s^{2} + C_{7} L_{6} Rl s^{2} + C_{7} Rl Rs s + L_{2} s + L_{4} s + L_{6} s + Rl + Rs}\)</span><br><span class="math inline">\(I_{L6} = \frac{C_{7} I_{1} Rl Rs s + I_{1} Rs}{C_{1} C_{3} C_{5} C_{7} L_{2} L_{4} L_{6} Rl Rs s^{7} + C_{1} C_{3} C_{5} L_{2} L_{4} L_{6} Rs s^{6} + C_{1} C_{3} C_{5} L_{2} L_{4} Rl Rs s^{5} + C_{1} C_{3} C_{7} L_{2} L_{4} Rl Rs s^{5} + C_{1} C_{3} C_{7} L_{2} L_{6} Rl Rs s^{5} + C_{1} C_{3} L_{2} L_{4} Rs s^{4} + C_{1} C_{3} L_{2} L_{6} Rs s^{4} + C_{1} C_{3} L_{2} Rl Rs s^{3} + C_{1} C_{5} C_{7} L_{2} L_{6} Rl Rs s^{5} + C_{1} C_{5} C_{7} L_{4} L_{6} Rl Rs s^{5} + C_{1} C_{5} L_{2} L_{6} Rs s^{4} + C_{1} C_{5} L_{2} Rl Rs s^{3} + C_{1} C_{5} L_{4} L_{6} Rs s^{4} + C_{1} C_{5} L_{4} Rl Rs s^{3} + C_{1} C_{7} L_{2} Rl Rs s^{3} + C_{1} C_{7} L_{4} Rl Rs s^{3} + C_{1} C_{7} L_{6} Rl Rs s^{3} + C_{1} L_{2} Rs s^{2} + C_{1} L_{4} Rs s^{2} + C_{1} L_{6} Rs s^{2} + C_{1} Rl Rs s + C_{3} C_{5} C_{7} L_{2} L_{4} L_{6} Rl s^{6} + C_{3} C_{5} C_{7} L_{4} L_{6} Rl Rs s^{5} + C_{3} C_{5} L_{2} L_{4} L_{6} s^{5} + C_{3} C_{5} L_{2} L_{4} Rl s^{4} + C_{3} C_{5} L_{4} L_{6} Rs s^{4} + C_{3} C_{5} L_{4} Rl Rs s^{3} + C_{3} C_{7} L_{2} L_{4} Rl s^{4} + C_{3} C_{7} L_{2} L_{6} Rl s^{4} + C_{3} C_{7} L_{4} Rl Rs s^{3} + C_{3} C_{7} L_{6} Rl Rs s^{3} + C_{3} L_{2} L_{4} s^{3} + C_{3} L_{2} L_{6} s^{3} + C_{3} L_{2} Rl s^{2} + C_{3} L_{4} Rs s^{2} + C_{3} L_{6} Rs s^{2} + C_{3} Rl Rs s + C_{5} C_{7} L_{2} L_{6} Rl s^{4} + C_{5} C_{7} L_{4} L_{6} Rl s^{4} + C_{5} C_{7} L_{6} Rl Rs s^{3} + C_{5} L_{2} L_{6} s^{3} + C_{5} L_{2} Rl s^{2} + C_{5} L_{4} L_{6} s^{3} + C_{5} L_{4} Rl s^{2} + C_{5} L_{6} Rs s^{2} + C_{5} Rl Rs s + C_{7} L_{2} Rl s^{2} + C_{7} L_{4} Rl s^{2} + C_{7} L_{6} Rl s^{2} + C_{7} Rl Rs s + L_{2} s + L_{4} s + L_{6} s + Rl + Rs}\)</span><br></p>
 </div>
 </div>
 </section>
 <section id="construct-a-dictionary-of-element-values" class="level2" data-number="16.4">
 <h2 data-number="16.4" class="anchored" data-anchor-id="construct-a-dictionary-of-element-values"><span class="header-section-number">16.4</span> Construct a dictionary of element values</h2>
-<div id="cell-29" class="cell" data-execution_count="83">
+<div id="cell-29" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>element_value_keys <span class="op">=</span> []</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>element_value_values <span class="op">=</span> []</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -858,29 +858,29 @@ number of K - Coupled inductors: 0
 <span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>element_values <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">zip</span>(element_value_keys, element_value_values))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-30" class="cell" data-execution_count="84">
+<div id="cell-30" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>element_values</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="84">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="16">
 <p><span class="math inline">\(\displaystyle \left\{ C_{1} : 1.5948, \  C_{3} : 3.7642, \  C_{5} : 4.015, \  C_{7} : 3.0182, \  I_{1} : 1.0, \  L_{2} : 0.7529, \  L_{4} : 0.9276, \  L_{6} : 0.9142, \  Rl : 1.0, \  Rs : 0.5\right\}\)</span></p>
 </div>
 </div>
 </section>
 <section id="dc-operating-point" class="level2" data-number="16.5">
 <h2 data-number="16.5" class="anchored" data-anchor-id="dc-operating-point"><span class="header-section-number">16.5</span> DC operating point</h2>
-<div id="cell-32" class="cell" data-execution_count="85">
+<div id="cell-32" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>NE <span class="op">=</span> NE_sym.subs(element_values)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>NE_dc <span class="op">=</span> NE.subs({s:<span class="dv">0</span>})</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>NE_dc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="85">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="17">
 <p><span class="math inline">\(\displaystyle \left[\begin{matrix}I_{L2} + 2.0 v_{1}\\- I_{L2} + I_{L4}\\- I_{L4} + I_{L6}\\- I_{L6} + 1.0 v_{4}\\v_{1} - v_{2}\\v_{2} - v_{3}\\v_{3} - v_{4}\end{matrix}\right] = \left[\begin{matrix}1.0\\0\\0\\0\\0\\0\\0\end{matrix}\right]\)</span></p>
 </div>
 </div>
-<div id="cell-33" class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="86">
+<div id="cell-33" class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>U_dc <span class="op">=</span> solve(NE_dc,X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Display the numerical solution</p>
 <p>Six significant digits are displayed so that results can be compared to LTSpice.</p>
-<div id="cell-35" class="cell" data-execution_count="87">
+<div id="cell-35" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>table_header <span class="op">=</span> [<span class="st">'unknown'</span>, <span class="st">'mag'</span>]</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>table_row <span class="op">=</span> []</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -921,20 +921,20 @@ I(Rl):   0.333333    device_current</code></pre>
 <section id="ac-analysis" class="level3" data-number="16.5.1">
 <h3 data-number="16.5.1" class="anchored" data-anchor-id="ac-analysis"><span class="header-section-number">16.5.1</span> AC analysis</h3>
 <p>Solve equations for <span class="math inline">\(\omega\)</span> equal to 1 radian per second, s = 1j. V1 is the AC source, magnitude of 10</p>
-<div id="cell-38" class="cell" data-execution_count="88">
+<div id="cell-38" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>NE <span class="op">=</span> NE_sym.subs(element_values)</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>NE_w1 <span class="op">=</span> NE.subs({s:<span class="ot">1j</span>})</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>NE_w1  <span class="co"># display the equations</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="88">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="20">
 <p><span class="math inline">\(\displaystyle \left[\begin{matrix}I_{L2} + v_{1} \cdot \left(2.0 + 1.5948 i\right)\\- I_{L2} + I_{L4} + 3.7642 i v_{2}\\- I_{L4} + I_{L6} + 4.015 i v_{3}\\- I_{L6} + v_{4} \cdot \left(1.0 + 3.0182 i\right)\\- 0.7529 i I_{L2} + v_{1} - v_{2}\\- 0.9276 i I_{L4} + v_{2} - v_{3}\\- 0.9142 i I_{L6} + v_{3} - v_{4}\end{matrix}\right] = \left[\begin{matrix}1.0\\0\\0\\0\\0\\0\\0\end{matrix}\right]\)</span></p>
 </div>
 </div>
-<div id="cell-39" class="cell" data-execution_count="89">
+<div id="cell-39" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>U_w1 <span class="op">=</span> solve(NE_w1,X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Display the numerical solution</p>
 <p>Six significant digits are displayed so that results can be compared to LTSpice.</p>
-<div id="cell-41" class="cell" data-execution_count="90">
+<div id="cell-41" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>table_header <span class="op">=</span> [<span class="st">'unknown'</span>, <span class="st">'mag'</span>,<span class="st">'phase, deg'</span>]</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>table_row <span class="op">=</span> []</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -976,23 +976,23 @@ I(Rl):  mag:   0.235668 phase:   -81.4864°  device_current
 <section id="ac-sweep" class="level3" data-number="16.5.2">
 <h3 data-number="16.5.2" class="anchored" data-anchor-id="ac-sweep"><span class="header-section-number">16.5.2</span> AC Sweep</h3>
 <p>Looking at node 4 voltage and comparing the results with those obtained from LTSpice. The frequency sweep is from 0.01 Hz to 1 Hz.</p>
-<div id="cell-43" class="cell" data-execution_count="91">
+<div id="cell-43" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>NE <span class="op">=</span> NE_sym.subs(element_values)</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>NE</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="91">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="23">
 <p><span class="math inline">\(\displaystyle \left[\begin{matrix}I_{L2} + v_{1} \cdot \left(1.5948 s + 2.0\right)\\- I_{L2} + I_{L4} + 3.7642 s v_{2}\\- I_{L4} + I_{L6} + 4.015 s v_{3}\\- I_{L6} + v_{4} \cdot \left(3.0182 s + 1.0\right)\\- 0.7529 I_{L2} s + v_{1} - v_{2}\\- 0.9276 I_{L4} s + v_{2} - v_{3}\\- 0.9142 I_{L6} s + v_{3} - v_{4}\end{matrix}\right] = \left[\begin{matrix}1.0\\0\\0\\0\\0\\0\\0\end{matrix}\right]\)</span></p>
 </div>
 </div>
-<div id="cell-44" class="cell" data-execution_count="92">
+<div id="cell-44" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>U_ac <span class="op">=</span> solve(NE,X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="plot-the-voltage-at-node-2" class="level3" data-number="16.5.3">
 <h3 data-number="16.5.3" class="anchored" data-anchor-id="plot-the-voltage-at-node-2"><span class="header-section-number">16.5.3</span> Plot the voltage at node 2</h3>
-<div id="cell-46" class="cell" data-execution_count="93">
+<div id="cell-46" class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>H <span class="op">=</span> U_ac[v4]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-47" class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="94">
+<div id="cell-47" class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>num, denom <span class="op">=</span> fraction(H) <span class="co">#returns numerator and denominator</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="co"># convert symbolic to numpy polynomial</span></span>
@@ -1000,17 +1000,17 @@ I(Rl):  mag:   0.235668 phase:   -81.4864°  device_current
 <span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> np.array(Poly(denom, s).all_coeffs(), dtype<span class="op">=</span><span class="bu">float</span>)</span>
 <span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>system <span class="op">=</span> (a, b)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-48" class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="95">
+<div id="cell-48" class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co">#x = np.linspace(0.01*2*np.pi, 1*2*np.pi, 2000, endpoint=True)</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.logspace(<span class="op">-</span><span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">200</span>, endpoint<span class="op">=</span><span class="va">False</span>)<span class="op">*</span><span class="dv">2</span><span class="op">*</span>np.pi</span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>w, mag, phase <span class="op">=</span> signal.bode(system, w<span class="op">=</span>x) <span class="co"># returns: rad/s, mag in dB, phase in deg</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Load the csv file of node 10 voltage over the sweep range and plot along with the results obtained from SymPy.</p>
-<div id="cell-50" class="cell" data-execution_count="96">
+<div id="cell-50" class="cell" data-execution_count="28">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>fn <span class="op">=</span> <span class="st">'test_12_v1.csv'</span> <span class="co"># data from LTSpice</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>LTSpice_data <span class="op">=</span> np.genfromtxt(fn, delimiter<span class="op">=</span><span class="st">','</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-51" class="cell" data-execution_count="97">
+<div id="cell-51" class="cell" data-execution_count="29">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># initaliaze some empty arrays</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>frequency <span class="op">=</span> np.zeros(<span class="bu">len</span>(LTSpice_data))</span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>voltage <span class="op">=</span> np.zeros(<span class="bu">len</span>(LTSpice_data)).astype(<span class="bu">complex</span>)</span>
@@ -1026,19 +1026,19 @@ Using</p>
 <p>np.unwrap(2 * phase) / 2)</p>
 </blockquote>
 <p>to keep the pahse plots the same.</p>
-<div id="cell-53" class="cell" data-execution_count="98">
+<div id="cell-53" class="cell" data-execution_count="30">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>frequency[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="98">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="30">
 <p><span class="math inline">\(\displaystyle 0.01\)</span></p>
 </div>
 </div>
-<div id="cell-54" class="cell" data-execution_count="99">
+<div id="cell-54" class="cell" data-execution_count="31">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>frequency[<span class="op">-</span><span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="99">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="31">
 <p><span class="math inline">\(\displaystyle 1.0\)</span></p>
 </div>
 </div>
-<div id="cell-55" class="cell" data-execution_count="100">
+<div id="cell-55" class="cell" data-execution_count="32">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>fig, ax1 <span class="op">=</span> plt.subplots()</span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>ax1.set_ylabel(<span class="st">'magnitude, dB'</span>)</span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>ax1.set_xlabel(<span class="st">'frequency, Hz'</span>)</span>
@@ -1072,7 +1072,7 @@ Using</p>
 </div>
 </div>
 <p>The SymPy and LTSpice results overlay each other.</p>
-<div id="cell-57" class="cell" data-execution_count="101">
+<div id="cell-57" class="cell" data-execution_count="33">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>fig, ax1 <span class="op">=</span> plt.subplots()</span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>ax1.set_ylabel(<span class="st">'magnitude difference'</span>)</span>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>ax1.set_xlabel(<span class="st">'frequency, Hz'</span>)</span>
@@ -1110,7 +1110,7 @@ Using</p>
 <section id="poles-and-zeros-of-the-transfer-function" class="level2" data-number="16.6">
 <h2 data-number="16.6" class="anchored" data-anchor-id="poles-and-zeros-of-the-transfer-function"><span class="header-section-number">16.6</span> Poles and zeros of the transfer function</h2>
 <p>The poles and zeros of the transfer function can easly be obtained with the following code:</p>
-<div id="cell-59" class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="102">
+<div id="cell-59" class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="34">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>H_num, H_denom <span class="op">=</span> fraction(H) <span class="co">#returns numerator and denominator</span></span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="co"># convert symbolic to numpy polynomial</span></span>
@@ -1118,14 +1118,14 @@ Using</p>
 <span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> np.array(Poly(H_denom, s).all_coeffs(), dtype<span class="op">=</span><span class="bu">float</span>)</span>
 <span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>sys <span class="op">=</span> signal.TransferFunction(a,b)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-60" class="cell" data-execution_count="103">
+<div id="cell-60" class="cell" data-execution_count="35">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>sys_zeros <span class="op">=</span> np.roots(sys.num)</span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>sys_poles <span class="op">=</span> np.roots(sys.den)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="low-pass-filter-pole-zero-plot" class="level4" data-number="16.6.0.1">
 <h4 data-number="16.6.0.1" class="anchored" data-anchor-id="low-pass-filter-pole-zero-plot"><span class="header-section-number">16.6.0.1</span> Low pass filter pole zero plot</h4>
 <p>The poles and zeros of the preamp transfer function are plotted.</p>
-<div id="cell-62" class="cell" data-execution_count="104">
+<div id="cell-62" class="cell" data-execution_count="36">
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>plt.plot(np.real(sys_zeros), np.imag(sys_zeros), <span class="st">'ob'</span>, markerfacecolor<span class="op">=</span><span class="st">'none'</span>)</span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>plt.plot(np.real(sys_poles), np.imag(sys_poles), <span class="st">'xr'</span>)</span>
 <span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>plt.legend([<span class="st">'Zeros'</span>, <span class="st">'Poles'</span>], loc<span class="op">=</span><span class="dv">1</span>)</span>
@@ -1144,7 +1144,7 @@ Using</p>
 </div>
 <p>Poles and zeros of the transfer function plotted on the complex plane. The units are in radian frequency.</p>
 <p>Printing these values in Hz.</p>
-<div id="cell-64" class="cell" data-execution_count="105">
+<div id="cell-64" class="cell" data-execution_count="37">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'number of zeros: </span><span class="sc">{:d}</span><span class="st">'</span>.<span class="bu">format</span>(<span class="bu">len</span>(sys_zeros)))</span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> sys_zeros:</span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'</span><span class="sc">{:,.2f}</span><span class="st"> Hz'</span>.<span class="bu">format</span>(i<span class="op">/</span>(<span class="dv">2</span><span class="op">*</span>np.pi)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1152,7 +1152,7 @@ Using</p>
 <pre><code>number of zeros: 0</code></pre>
 </div>
 </div>
-<div id="cell-65" class="cell" data-execution_count="106">
+<div id="cell-65" class="cell" data-execution_count="38">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'number of poles: </span><span class="sc">{:d}</span><span class="st">'</span>.<span class="bu">format</span>(<span class="bu">len</span>(sys_poles)))</span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> sys_poles:</span>
 <span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'</span><span class="sc">{:,.2f}</span><span class="st"> Hz'</span>.<span class="bu">format</span>(i<span class="op">/</span>(<span class="dv">2</span><span class="op">*</span>np.pi)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1174,7 +1174,7 @@ Using</p>
 <p>Use the SciPy functions <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.impulse2.html">impulse2</a> and <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.step2.html">step2</a> to plot the impulse and step response of the system.</p>
 <p>The <a href="https://en.wikipedia.org/wiki/Impulse_response">impulse</a> and <a href="https://en.wikipedia.org/wiki/Step_response">step response</a> of the filter are plotted below. Any linear, time-invariant is completely characterized by its impulse response. The transfer function is the Laplace transform of the impulse response. The impulse response defines the response of a linear time-invariant system for all frequencies.</p>
 <p>In electronic engineering and control theory, step response is the time behavior of the outputs of a general system when its inputs change from zero to one in a very short time.</p>
-<div id="cell-67" class="cell" data-execution_count="107">
+<div id="cell-67" class="cell" data-execution_count="39">
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>plt.subplots(<span class="dv">1</span>,<span class="dv">2</span>,figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">5</span>))</span>
 <span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="co"># using subplot function and creating</span></span>
@@ -1213,7 +1213,7 @@ Using</p>
 <h3 data-number="16.7.1" class="anchored" data-anchor-id="low-pass-filter-group-delay"><span class="header-section-number">16.7.1</span> Low pass filter group delay</h3>
 <p>The following python code calculates and plots <a href="https://en.wikipedia.org/wiki/Group_delay_and_phase_delay#">group delay</a>. Frequency components of a signal are delayed when passed through a circuit and the signal delay will be different for the various frequencies unless the circuit has the property of being linear phase. The delay variation means that signals consisting of multiple frequency components will suffer distortion because these components are not delayed by the same amount of time at the output of the device.</p>
 <p>Group delay: <span class="math inline">\(\tau _{g}(\omega )=-\frac  {d\phi (\omega )}{d\omega }\)</span></p>
-<div id="cell-69" class="cell" data-execution_count="108">
+<div id="cell-69" class="cell" data-execution_count="40">
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co">#w_preamp, mag_preamp, phase_preamp = bp_sys.bode(w=x_axis_range)</span></span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'group delay'</span>)</span>

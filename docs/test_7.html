@@ -1574,7 +1574,7 @@ number of K - Coupled inductors: 2
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># turn the free symbols into SymPy variables</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>var(<span class="bu">str</span>(NE_sym.free_symbols).replace(<span class="st">'{'</span>,<span class="st">''</span>).replace(<span class="st">'}'</span>,<span class="st">''</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="12">
-<p><span class="math inline">\(\displaystyle \left( V_{7}, \  R_{2}, \  R_{16}, \  v_{16}, \  R_{9}, \  v_{3}, \  V_{2}, \  R_{10}, \  R_{15}, \  V_{4}, \  L_{3}, \  v_{9}, \  I_{4}, \  I_{L6}, \  I_{Ea1}, \  I_{V7}, \  v_{15}, \  I_{V8}, \  R_{17}, \  R_{25}, \  R_{7}, \  V_{1}, \  I_{V6}, \  V_{5}, \  R_{3}, \  s, \  v_{19}, \  L_{6}, \  R_{19}, \  M_{2}, \  v_{5}, \  v_{24}, \  R_{14}, \  v_{1}, \  I_{Ea2}, \  R_{1}, \  L_{4}, \  I_{V5}, \  V_{8}, \  I_{V2}, \  g_{1}, \  R_{12}, \  ea_{1}, \  R_{22}, \  R_{21}, \  v_{7}, \  v_{28}, \  I_{1}, \  v_{21}, \  f_{2}, \  R_{23}, \  v_{11}, \  I_{L2}, \  I_{H2}, \  M_{1}, \  v_{22}, \  v_{10}, \  I_{L1}, \  h_{2}, \  f_{1}, \  R_{11}, \  v_{26}, \  R_{24}, \  I_{L3}, \  v_{14}, \  R_{20}, \  v_{17}, \  I_{L4}, \  V_{3}, \  I_{H1}, \  v_{2}, \  V_{6}, \  v_{8}, \  I_{3}, \  I_{L5}, \  v_{13}, \  C_{1}, \  v_{25}, \  L_{5}, \  R_{13}, \  R_{4}, \  I_{2}, \  I_{V3}, \  C_{2}, \  I_{F2}, \  L_{1}, \  I_{V4}, \  v_{20}, \  v_{18}, \  I_{V1}, \  R_{6}, \  ea_{2}, \  v_{12}, \  I_{F1}, \  v_{27}, \  v_{6}, \  L_{2}, \  g_{2}, \  R_{8}, \  R_{5}, \  h_{1}, \  R_{18}, \  v_{4}, \  v_{23}\right)\)</span></p>
+<p><span class="math inline">\(\displaystyle \left( h_{2}, \  v_{17}, \  V_{8}, \  v_{18}, \  I_{V7}, \  L_{2}, \  v_{15}, \  v_{22}, \  R_{2}, \  v_{24}, \  ea_{1}, \  R_{23}, \  V_{3}, \  g_{2}, \  I_{V2}, \  R_{21}, \  v_{13}, \  v_{20}, \  R_{9}, \  v_{9}, \  g_{1}, \  I_{V4}, \  L_{1}, \  f_{2}, \  v_{10}, \  R_{7}, \  R_{6}, \  R_{20}, \  I_{Ea1}, \  I_{L3}, \  v_{5}, \  v_{27}, \  R_{18}, \  v_{11}, \  v_{25}, \  V_{4}, \  v_{14}, \  f_{1}, \  R_{3}, \  I_{V1}, \  ea_{2}, \  I_{Ea2}, \  I_{V3}, \  L_{3}, \  R_{19}, \  I_{V5}, \  R_{24}, \  v_{28}, \  I_{H1}, \  V_{2}, \  h_{1}, \  R_{25}, \  v_{4}, \  I_{2}, \  I_{L4}, \  v_{21}, \  R_{4}, \  s, \  V_{1}, \  v_{7}, \  R_{11}, \  I_{V6}, \  R_{12}, \  v_{26}, \  R_{8}, \  M_{1}, \  I_{V8}, \  v_{16}, \  R_{14}, \  R_{5}, \  L_{6}, \  v_{2}, \  I_{H2}, \  I_{L6}, \  v_{6}, \  R_{17}, \  v_{19}, \  I_{F1}, \  R_{10}, \  L_{4}, \  R_{16}, \  I_{L2}, \  V_{6}, \  R_{1}, \  V_{5}, \  C_{2}, \  R_{13}, \  I_{F2}, \  M_{2}, \  v_{1}, \  v_{8}, \  I_{1}, \  C_{1}, \  v_{12}, \  R_{15}, \  v_{23}, \  V_{7}, \  I_{L1}, \  I_{3}, \  R_{22}, \  L_{5}, \  I_{L5}, \  I_{4}, \  v_{3}\right)\)</span></p>
 </div>
 </div>
 </section>
@@ -2000,17 +2000,17 @@ I(V8):  mag:    1.14087 phase:   -95.6508°  device_current</code></pre>
 <span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> np.array(Poly(denom, s).all_coeffs(), dtype<span class="op">=</span><span class="bu">float</span>)</span>
 <span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>system <span class="op">=</span> (a, b)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-50" class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="33">
+<div id="cell-50" class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="28">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co">#x = np.linspace(0.01*2*np.pi, 1*2*np.pi, 200, endpoint=True)</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.logspace(<span class="op">-</span><span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">1000</span>, endpoint<span class="op">=</span><span class="va">False</span>)<span class="op">*</span><span class="dv">2</span><span class="op">*</span>np.pi</span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>w, mag, phase <span class="op">=</span> signal.bode(system, w<span class="op">=</span>x) <span class="co"># returns: rad/s, mag in dB, phase in deg</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Load the csv file of node 10 voltage over the sweep range and plot along with the results obtained from SymPy.</p>
-<div id="cell-52" class="cell" data-execution_count="34">
+<div id="cell-52" class="cell" data-execution_count="29">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>fn <span class="op">=</span> <span class="st">'test_7.csv'</span> <span class="co"># data from LTSpice</span></span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>LTSpice_data <span class="op">=</span> np.genfromtxt(fn, delimiter<span class="op">=</span><span class="st">','</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-53" class="cell" data-execution_count="35">
+<div id="cell-53" class="cell" data-execution_count="30">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># initaliaze some empty arrays</span></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>frequency <span class="op">=</span> np.zeros(<span class="bu">len</span>(LTSpice_data))</span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>voltage <span class="op">=</span> np.zeros(<span class="bu">len</span>(LTSpice_data)).astype(<span class="bu">complex</span>)</span>
@@ -2026,7 +2026,7 @@ Using</p>
 <p>np.unwrap(2 * phase) / 2)</p>
 </blockquote>
 <p>to keep the pahse plots the same.</p>
-<div id="cell-55" class="cell" data-execution_count="38">
+<div id="cell-55" class="cell" data-execution_count="31">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>fig, ax1 <span class="op">=</span> plt.subplots()</span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>ax1.set_ylabel(<span class="st">'magnitude, dB'</span>)</span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>ax1.set_xlabel(<span class="st">'frequency, Hz'</span>)</span>
@@ -2059,7 +2059,7 @@ Using</p>
 </div>
 </div>
 </div>
-<div id="cell-56" class="cell" data-execution_count="37">
+<div id="cell-56" class="cell" data-execution_count="32">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>fig, ax1 <span class="op">=</span> plt.subplots()</span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>ax1.set_ylabel(<span class="st">'magnitude difference'</span>)</span>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>ax1.set_xlabel(<span class="st">'frequency, Hz'</span>)</span>

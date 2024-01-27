@@ -473,17 +473,17 @@ window.Quarto = {
 </ul>
 <p>The element types that are supported are resistors, capacitors, inductors, independent sources and controlled sources. Each line in the netlist file contains a circuit element.</p>
 <p>The format for the element description is<br>
-letterXXX n1 n2 value<br>
+<code>letterXX n1 n2 value</code><br>
 Where<br>
 letter signifies the element type, i.e.&nbsp;R, L, C, V, I, O, E, F, G, H or K<br>
-XXX is a string of letters or numbers that uniquely identify the element.</p>
+XX is a string of letters or numbers that uniquely identify the element.</p>
 <p>The element types are described in the following sections.</p>
 <section id="resistors-capacitors-and-inductors" class="level3" data-number="2.3.1">
 <h3 data-number="2.3.1" class="anchored" data-anchor-id="resistors-capacitors-and-inductors"><span class="header-section-number">2.3.1</span> Resistors, capacitors and inductors</h3>
 <p>The resistors, capacitors and inductors are described by the following line:<br>
-R/L/CXXXXXXX N1 N2 value<br>
+<code>R/L/CXX N1 N2 value</code><br>
 Where:<br>
-XXX = the name of the component, can be any length<br>
+XX = the name of the component, can be any length<br>
 N1 = the first terminal<br>
 N2 = the second terminal<br>
 Value = component value in ohms, Farads or Henrys.<br>
@@ -494,7 +494,7 @@ Spice supports other parameters, but these are not allowed in this Python implem
 <section id="coupled-inductors" class="level3" data-number="2.3.2">
 <h3 data-number="2.3.2" class="anchored" data-anchor-id="coupled-inductors"><span class="header-section-number">2.3.2</span> Coupled inductors</h3>
 <p>Two coupled inductors are described by the following line.<br>
-KXX LYY LZZ VALUE<br>
+<code>KXX LYY LZZ VALUE</code><br>
 The parameters are:<br>
 LYY = the name of the first coupled inductor<br>
 LZZ = the name of the second coupled inductor<br>
@@ -505,13 +505,13 @@ The orientation of the inductors is determined by the first node, which is consi
 <section id="independent-sources" class="level3" data-number="2.3.3">
 <h3 data-number="2.3.3" class="anchored" data-anchor-id="independent-sources"><span class="header-section-number">2.3.3</span> Independent sources</h3>
 <p>A voltage source is described by the following line.<br>
-VXX N+ N- VALUE<br>
+<code>VXX N+ N- VALUE</code><br>
 The parameters are:<br>
 N+ = the name of the positive terminal<br>
 N- = the name of the negative terminal<br>
 VALUE = the value of the DC voltage</p>
 <p>A current source is described by the following line.<br>
-IXX N+ N- VALUE<br>
+<code>IXX N+ N- VALUE</code><br>
 The parameters are:<br>
 N+= the name of the positive terminal, current leaves this terminal (pointy end of the arrow)<br>
 N- = the name of the negative terminal<br>
@@ -520,13 +520,13 @@ VALUE = the value of the DC current</p>
 <section id="controlled-sources" class="level3" data-number="2.3.4">
 <h3 data-number="2.3.4" class="anchored" data-anchor-id="controlled-sources"><span class="header-section-number">2.3.4</span> Controlled sources</h3>
 <p>The voltage-controlled dependent sources are defined using statements of the form<br>
-G/EXX nout+ nout- nc+ nc- gain<br>
+<code>G/EXX nout+ nout- nc+ nc- gain</code><br>
 where E is a voltage-controlled voltage source, G is a voltage-controlled current source, the output voltage is connected between nodes nout+ and nout-, and the control voltage is measured at node nc+ with respect to node nc-.<br>
 Examples:<br>
 <code>E1 5 1 4 3 10</code> defines a voltage source that makes node 5 a voltage 10 times (v4 − v3) above the voltage at node 1.<br>
 <code>G1 2 1 5 8 50</code> defines a current source connected between node 2 (the + node) and node 1 and supplying a current 50 times (v5 − v8).</p>
 <p>The current-controlled dependent sources are defined by statements of the form<br>
-F/HXX nout+ nout- Vcontrol gain<br>
+<code>F/HXX nout+ nout- Vcontrol gain</code><br>
 where F is a current-controlled current source, H is a current-controlled voltage source, and the output current source is connected between nodes nout+ and nout-, with positive current flowing through the source from node nout+ to nout-. The control current flows from the positive node of the source Vcontrol through the source and out the negative node.<br>
 Examples:<br>
 <code>Fds 11 9 Vsens 1.25</code> defines a current source connected from node 11 to node 9 that generates a current 1.25 times the current flowing through the source Vsens.<br>
@@ -536,7 +536,7 @@ Examples:<br>
 <section id="op-amps" class="level3" data-number="2.3.5">
 <h3 data-number="2.3.5" class="anchored" data-anchor-id="op-amps"><span class="header-section-number">2.3.5</span> Op Amps</h3>
 <p>An opamp component is described by the following line.<br>
-OXX N+ N- Vout<br>
+<code>OXX N+ N- Vout</code><br>
 The output of the opamp is a voltage source. Two input terminals are at the same potential.</p>
 <p>The op amp element is assumed to be an ideal op amp and use of this component is valid only when used in circuits with a DC path (a short or a resistor) from the output terminal to the negative input terminal of the op amp. No error checking is provided and if the condition is violated, the results will be likely erroneous. Need to work on implementing a better opamp model.</p>
 </section>

@@ -432,7 +432,7 @@ window.Quarto = {
 <span class="math inline">\(I_{V1} - \frac{v_{2}}{R_{2}} + \frac{v_{3}}{R_{2}} = 0\)</span><br>
 <span class="math inline">\(v_{3} = V_{1}\)</span></p>
 <p>can be entered into Python to get the equations in matrix form:</p>
-<div id="c497525b" class="cell" data-execution_count="2">
+<div id="18fc11a4" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>R2, C2, v1, C1, s, v3, v2, V1, R3, I_V1 <span class="op">=</span> symbols(<span class="st">'R2 C2 v1 C1 s v3 v2 V1 R3 I_V1'</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> Matrix([[C1<span class="op">*</span>s <span class="op">+</span> C2<span class="op">*</span>s <span class="op">+</span> <span class="dv">1</span><span class="op">/</span>R3, <span class="op">-</span>C1<span class="op">*</span>s, <span class="dv">0</span>, <span class="dv">0</span>], [<span class="op">-</span>C1<span class="op">*</span>s, C1<span class="op">*</span>s <span class="op">+</span> <span class="dv">1</span><span class="op">/</span>R2, <span class="op">-</span><span class="dv">1</span><span class="op">/</span>R2, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span><span class="op">/</span>R2, <span class="dv">1</span><span class="op">/</span>R2, <span class="dv">1</span>], [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>]])</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> Matrix([v1, v2, v3, I_V1])</span>
@@ -445,65 +445,172 @@ window.Quarto = {
 </div>
 </div>
 <p>The system of equations can be easily solved to obtain a solution in symbolic form:</p>
-<div id="00c89b9e" class="cell" data-execution_count="3">
+<div id="89c5b392" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>U_sym <span class="op">=</span> solve(equ,X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The keys are</p>
-<div id="332412c4" class="cell" data-execution_count="4">
-<div class="cell-output cell-output-display" data-execution_count="4">
-<pre><code>dict_keys([v1, v2, v3, I_V1])</code></pre>
-</div>
-</div>
-<p><span class="math inline">\(v_1\)</span> is</p>
-<div id="a6153d03" class="cell" data-execution_count="5">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="5">
-<p><span class="math inline">\(\displaystyle \frac{C_{1} R_{3} V_{1} s}{C_{1} C_{2} R_{2} R_{3} s^{2} + C_{1} R_{2} s + C_{1} R_{3} s + C_{2} R_{3} s + 1}\)</span></p>
-</div>
-</div>
-<p><span class="math inline">\(v_2\)</span> is</p>
-<div id="e639fb75" class="cell" data-execution_count="6">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="6">
-<p><span class="math inline">\(\displaystyle \frac{C_{1} R_{3} V_{1} s + C_{2} R_{3} V_{1} s + V_{1}}{C_{1} C_{2} R_{2} R_{3} s^{2} + C_{1} R_{2} s + C_{1} R_{3} s + C_{2} R_{3} s + 1}\)</span></p>
-</div>
-</div>
-<p><span class="math inline">\(v_3\)</span> is</p>
-<div id="d7b952c5" class="cell" data-execution_count="7">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="7">
-<p><span class="math inline">\(\displaystyle V_{1}\)</span></p>
-</div>
-</div>
-<p><span class="math inline">\(I_{V1}\)</span> is</p>
-<div id="b20549bf" class="cell" data-execution_count="8">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="8">
-<p><span class="math inline">\(\displaystyle \frac{- C_{1} C_{2} R_{3} V_{1} s^{2} - C_{1} V_{1} s}{C_{1} C_{2} R_{2} R_{3} s^{2} + C_{1} R_{2} s + C_{1} R_{3} s + C_{2} R_{3} s + 1}\)</span></p>
+<div id="2682206c" class="cell" data-execution_count="4">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="4">
+<p><span class="math inline">\(v_{1} = \frac{C_{1} R_{3} V_{1} s}{C_{1} C_{2} R_{2} R_{3} s^{2} + C_{1} R_{2} s + C_{1} R_{3} s + C_{2} R_{3} s + 1}\)</span><br><span class="math inline">\(v_{2} = \frac{C_{1} R_{3} V_{1} s + C_{2} R_{3} V_{1} s + V_{1}}{C_{1} C_{2} R_{2} R_{3} s^{2} + C_{1} R_{2} s + C_{1} R_{3} s + C_{2} R_{3} s + 1}\)</span><br><span class="math inline">\(v_{3} = V_{1}\)</span><br><span class="math inline">\(I_{V1} = \frac{- C_{1} C_{2} R_{3} V_{1} s^{2} - C_{1} V_{1} s}{C_{1} C_{2} R_{2} R_{3} s^{2} + C_{1} R_{2} s + C_{1} R_{3} s + C_{2} R_{3} s + 1}\)</span><br></p>
 </div>
 </div>
 <p>The numeric values for the components can be substituted for the symbols (reference designators) and the following solution is obtained, where s is the Laplace variable:</p>
-<div id="294f4635" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>Values <span class="op">=</span> {R2:<span class="dv">1000</span>, R3:<span class="dv">1000</span>, C1:<span class="fl">1e-6</span>, C2:<span class="fl">10e-6</span>, V1:<span class="dv">1</span>}</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>equ1a <span class="op">=</span> equ.subs(Values)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>U <span class="op">=</span> solve(equ1a,X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="35b79eef" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Values <span class="op">=</span> {R2:<span class="dv">1000</span>, R3:<span class="dv">1000</span>, C1:<span class="fl">1e-6</span>, C2:<span class="fl">10e-6</span>, V1:<span class="dv">1</span>}</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>equ1a <span class="op">=</span> equ.subs(Values)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>U <span class="op">=</span> solve(equ1a,X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The voltage at node #2 can be obtained:</p>
-<div id="8f87891d" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>H <span class="op">=</span> U[v2]</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>H</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="10">
+<div id="2d817966" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>H <span class="op">=</span> U[v2]</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>H</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="6">
 <p><span class="math inline">\(\displaystyle \frac{1100.0 s + 100000.0}{s^{2} + 1200.0 s + 100000.0}\)</span></p>
 </div>
 </div>
 <p>Now we can solve for the roots of the denominator.</p>
-<div id="75bd6311" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>num, denom <span class="op">=</span> fraction(H) <span class="co">#returns numerator and denominator</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>solve(denom)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="11">
+<div id="eda21a7e" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>num, denom <span class="op">=</span> fraction(H) <span class="co">#returns numerator and denominator</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>solve(denom)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="7">
 <p><span class="math inline">\(\displaystyle \left[ -1109.90195135928, \  -90.0980486407215\right]\)</span></p>
 </div>
 </div>
 <p>As you can see, matrix and polynomial math can be easily performed with hardly any effort.</p>
 <section id="jupyterlab" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="jupyterlab"><span class="header-section-number">1.1</span> JupyterLab</h2>
-<p>All the validation problem circuits are presented in JupyterLab notebooks and rendered into chapters by Quarto.</p>
+<p>All the validation and problem circuits are presented in JupyterLab notebooks and rendered into chapters by Quarto.</p>
+<p><strong>Variable names</strong><br>
+I’ve tried to be consistent with the use of variable names throughout the Jupyter notebooks. Resistors, capacitors and inductors use R, L and C as reference designators. The names chosen for the other variables are listed in <a href="#tbl-variable-names" class="quarto-xref">Table&nbsp;<span>1.1</span></a></p>
+<div id="tbl-variable-names" class="quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-variable-names-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1.1: Variable names
+</figcaption>
+<div aria-describedby="tbl-variable-names-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 80%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable name</th>
+<th>definition</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>NE_sym</td>
+<td>Network equations, symbolic</td>
+</tr>
+<tr class="even">
+<td>NE</td>
+<td>Network equations with component values</td>
+</tr>
+<tr class="odd">
+<td>NE_dc</td>
+<td>Network equations with <span class="math inline">\(s=0\)</span></td>
+</tr>
+<tr class="even">
+<td>NE_w1</td>
+<td>Network equations with <span class="math inline">\(s=j \omega\)</span> and <span class="math inline">\(\omega\)</span> equal to a numeric value</td>
+</tr>
+<tr class="odd">
+<td>U_sym</td>
+<td>The solution to the symbolic network equations</td>
+</tr>
+<tr class="even">
+<td>U</td>
+<td>The solution to network equations with component values</td>
+</tr>
+<tr class="odd">
+<td>U_ac</td>
+<td>The solution to network equations at some frequency</td>
+</tr>
+<tr class="even">
+<td>H_sym</td>
+<td>system transfer function, symbolic</td>
+</tr>
+<tr class="odd">
+<td>H</td>
+<td>System transfer function with component values</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(V1, V2, etc.\)</span></td>
+<td>Capital letter V for independent voltage sources</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(v_1, v_2, etc\)</span></td>
+<td>Small letter v for the node voltages</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(I1, I2, etc\)</span></td>
+<td>Capital letter I for independent current sources</td>
+</tr>
+<tr class="odd">
+<td>E</td>
+<td>Voltage controlled voltage source (VCVS)</td>
+</tr>
+<tr class="even">
+<td>F</td>
+<td>Current controlled current source (CCCS)</td>
+</tr>
+<tr class="odd">
+<td>G</td>
+<td>Voltage controlled current source (VCCS)</td>
+</tr>
+<tr class="even">
+<td>H</td>
+<td>Current controlled voltage source (CCVS)</td>
+</tr>
+<tr class="odd">
+<td>K</td>
+<td>Inductor coupling coefficient</td>
+</tr>
+<tr class="even">
+<td>M</td>
+<td>Mutual inductance</td>
+</tr>
+<tr class="odd">
+<td>O</td>
+<td>Op Amp component</td>
+</tr>
+<tr class="even">
+<td>A</td>
+<td>Connectivity matrix</td>
+</tr>
+<tr class="odd">
+<td>X</td>
+<td>Unknown voltages and currents vector</td>
+</tr>
+<tr class="even">
+<td>Z</td>
+<td>Known voltages and currents vector</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p><strong>Large exponents</strong><br>
+The values of the exponents can be very large in the numerical solution to the network equations when using real component values. Often you will see in engineering text books that the author uses normalized component values, where the values have been frequency and impedance scaled to a frequency of <span class="math inline">\(\omega = 1\)</span> and one of the resistors or other components normalized to a value of one. This keeps the numerical values obtained in the solution to the network equations from getting very large or small.</p>
+<p>Almost all platforms map Python floats to the IEEE754 double precision - 64 total bits. Using the sys package, the float information is reported as follows:</p>
+<div id="d707b0ee" class="cell" data-execution_count="8">
+<div class="cell-output cell-output-stdout">
+<pre><code>max=1.7976931348623157e+308
+ max_exp=1024
+ max_10_exp=308
+ min=2.2250738585072014e-308
+ min_exp=-1021
+ min_10_exp=-307
+ dig=15
+ mant_dig=53
+ epsilon=2.220446049250313e-16
+ radix=2
+ rounds=1</code></pre>
+</div>
+</div>
+<p>The maximum exponent that Python can use is 308. In this book, I’m going to let Python do the math and not worry about the size of the exponents. I suppose that large exponents don’t become a problem as long as they remain under two digits.</p>
 </section>
 <section id="practical-network-size-for-symbolic-solutions" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="practical-network-size-for-symbolic-solutions"><span class="header-section-number">1.2</span> Practical network size for symbolic solutions</h2>
