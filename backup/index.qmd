@@ -1,4 +1,4 @@
-:::{.callout-warning}  
+:::{.callout-note}  
 Last update: 26 Jan 2024
 
 - This book is a draft copy and only half baked.
@@ -49,13 +49,14 @@ Since this project is still under construction, I have a list of to dos.
 
 - [ ] finish comments in SymMNA.py code
 - [ ] fix spelling of netlist
+- [ ] debug superposition problem
 - [ ] change usage of spice to SPICE and define
-- [ ] clean up sma() documentation and the test notebook
+- [x] clean up sma() documentation and the test notebook
 - [x] finish chapter 4
 - [x] add summary to end of example notebook
 - [x] have SymMNA return the netlist report
 - [ ] use N for network equations (N_sym, N), U for solved system of equations and H for system functions
-- [ ] In chapter 3, include the schematic capture procedure to generate the netlist
+- [x] In chapter 3, include the schematic capture procedure to generate the netlist
 - [x] think about removing netlist file load, just embed the netlist
 - update status in /Quarto_projects/Symbolic-Modified-Nodal-Analysis-using-Python/draft_docs/To Do List.odt
 - rewrite tests and problems using smna()
@@ -65,10 +66,10 @@ Since this project is still under construction, I have a list of to dos.
   - [x] test 14 and 15 need writeups
 - [ ] remove double spaces at end of sentences
 - [ ] rewrite Two amplifier RIAA phono preamp
-- [ ] update two port notebook
-- [ ] update Thevenin notebook
+- [x] update two port notebook
+- [x] update Thevenin notebook
 - Create new example problems
-  - [ ] Superposition, polyphase and phasors
+  - [ ] Superposition
   - [ ] Laplace transforms
   - [ ] Initial conditions
   - [ ] Transient circuit
@@ -76,12 +77,13 @@ Since this project is still under construction, I have a list of to dos.
 - [ ] finish Summary in state variable notebook
 - [x] add narritave to Appendices chapter
 - [x] why is 2nd order BRF in the appendix?
-- [x] make change log a table
+- [x] make change to log table
 - [ ] spell and grammar check all files
 
 <!--
 ### Links to other projects
-I have a blog called [Solving Engineering Problems using Python](https://tiburonboy.github.io/Solving-Engineering-Problems-using-Python/) where I post some of my Jupyter notebooks related to engineering problems and analysis. My financial analysis blog is located [here]() -->
+I have a blog called [Solving Engineering Problems using Python](https://tiburonboy.github.io/Solving-Engineering-Problems-using-Python/) where I post some of my Jupyter notebooks related to engineering problems and analysis. My financial analysis blog is located [here]() 
+-->
 
 ### License
 This work (includes python code, documentation, test circuits, etc.) is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.  

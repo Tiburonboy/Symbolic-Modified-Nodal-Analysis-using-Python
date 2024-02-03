@@ -1,5 +1,5 @@
 """Symbolic modified nodal analysis
-Last update: 15 Jan 2024
+Last update: 30 Jan 2024
 
 Description:
 The modified nodal analysis provides an algorithmic method for generating systems of independent equations for linear 
@@ -26,6 +26,32 @@ Usage:  See SMNA_func_test.py
 from sympy import *
 import numpy as np
 import pandas as pd
+
+def get_part_values(net_df):
+    """ construct a dictionary of element values from the netlist dataframe: value_dict, get_part_values
+    Parameters
+    ----------
+    net_df: pandas dataframe
+        the network dataframe returned by the smna function below
+    Returns
+    -------
+    element values: Python dictionary
+        the element values from the netlist
+    """
+
+    # initialize variables
+    element_value_keys = []
+    element_value_values = []
+
+    for i in range(len(net_df)):
+        if net_df.iloc[i]['element'][0] == 'F' or net_df.iloc[i]['element'][0] == 'E' or net_df.iloc[i]['element'][0] == 'G' or net_df.iloc[i]['element'][0] == 'H':
+            element_value_keys.append(var(net_df.iloc[i]['element'].lower()))
+            element_value_values.append(net_df.iloc[i]['value'])
+        else:
+            element_value_keys.append(var(net_df.iloc[i]['element']))
+            element_value_values.append(net_df.iloc[i]['value'])
+
+    return dict(zip(element_value_keys, element_value_values))
 
 def smna(net_list):
     """Symbolic modified nodal analysis

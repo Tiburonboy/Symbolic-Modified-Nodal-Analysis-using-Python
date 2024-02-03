@@ -98,7 +98,7 @@ The orientation of the inductors is determined by the first node, which is consi
 $$M = k\sqrt{L_1L_2}$$ {#eq-net_M}
 
 ### Independent sources
-A voltage source is described by the following line.   
+Independent sources are formated as if they are DC sources, even if the source is intended to be an AC source. The value of the source or its type, AC or DC, doesn't matter when seeking a symbolic solution. The numeric value of the source can be changed when doing a numerical analysis, by following the procedures illustrated in the test or problem circuits. A voltage source is described by the following line.   
 ```VXX N+ N- VALUE```    
 The parameters are:    
 N+ = the name of the positive terminal    

@@ -37,7 +37,7 @@ book:
         - Two port parameters.ipynb
         - Thevenin equivalent circuit.ipynb
         - State-variable-filter.ipynb
-        - Superposition_and_polyphase_circuit.ipynb
+        - Superposition.ipynb
         - 2nd_order_BRF.ipynb
         - Elliptic-function-LPF.ipynb
     - References.qmd

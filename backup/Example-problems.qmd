@@ -17,7 +17,7 @@ The table below lists the example problems completed so far.
 | Two port parameters | Two port parameters are derived from the circuit's netlist. |
 | Thevenin equivalent circuit | The Thevenin equivalent circuit is obtained from a netlist. |
 | State variable filter | Network equations for a [state variable filter](https://en.wikipedia.org/wiki/State_variable_filter) are obtained from the netlist which are solved in symbolic form. |
-| A polyphase circuit | A circuit to illustrate superposition and polyphase circuit analysis. |
+| Superposition | A circuit to illustrate superposition and polyphase circuit analysis. |
 <!--
 | Laplace transforms | |
 | Transient circuit | initial conditions |
