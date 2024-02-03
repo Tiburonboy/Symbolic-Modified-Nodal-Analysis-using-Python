@@ -69,6 +69,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -278,8 +307,8 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Superposition_and_polyphase_circuit.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">A polyphase circuit</span></span></a>
+  <a href="./Superposition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Superposition</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -335,7 +364,13 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#summary-of-test-results" id="toc-summary-of-test-results" class="nav-link active" data-scroll-target="#summary-of-test-results">Summary of test results</a></li>
+  <li><a href="#summary-of-test-results" id="toc-summary-of-test-results" class="nav-link active" data-scroll-target="#summary-of-test-results">Summary of test results</a>
+  <ul class="collapse">
+  <li><a href="#test-circuit-8" id="toc-test-circuit-8" class="nav-link" data-scroll-target="#test-circuit-8">Test circuit 8</a></li>
+  <li><a href="#test-circuit-12" id="toc-test-circuit-12" class="nav-link" data-scroll-target="#test-circuit-12">Test circuit 12</a></li>
+  <li><a href="#test-circuit-13" id="toc-test-circuit-13" class="nav-link" data-scroll-target="#test-circuit-13">Test circuit 13</a></li>
+  <li><a href="#test-circuit-14" id="toc-test-circuit-14" class="nav-link" data-scroll-target="#test-circuit-14">Test circuit 14</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -469,7 +504,27 @@ Table&nbsp;1: Validation circuits
 <p><br></p>
 <section id="summary-of-test-results" class="level2">
 <h2 class="anchored" data-anchor-id="summary-of-test-results">Summary of test results</h2>
-<p><br> <br></p>
+<p>LTSpice displays results using 6 digits, with zero to two digits to the left of the decimal point and the remainder of the digits to the right of the decimal point. The Python results can be displayed with 6 digits to the left of the decimal point. So when comparing the numerical results there will be some rounding differences. Most of the test circuits analyzed with the MNA Python code produced numerical results that were identical within rounding, to those obtained from LTSpice. however there were a few exceptions discussed below.</p>
+<section id="test-circuit-8" class="level3">
+<h3 class="anchored" data-anchor-id="test-circuit-8">Test circuit 8</h3>
+<p><img src="test_8.png" class="img-fluid"><br>
+The circuit shown above is the test circuit for Test 8. This circuit is too large to produce meaningful symbolic solutions. The numeric results obtained from the Python MNA code has larger differences to LTSpice than was typical for the other test circuits. There are small differences at <span class="math inline">\(\omega = 0\)</span> and <span class="math inline">\(\omega = 1\)</span> between the Python NMA code and LTSpice solutions; with the differences being less than 0.001. The results for the AC sweep had larger differences. The magnitude and phase results over the frequency range of 0.01 to 10 Hz shows that the magnitude difference was as much as 0.005 and the phase was as much as 0.02 difference. At this time I don’t have an explanation for the differences.</p>
+</section>
+<section id="test-circuit-12" class="level3">
+<h3 class="anchored" data-anchor-id="test-circuit-12">Test circuit 12</h3>
+<p><img src="test_12.png" class="img-fluid"><br>
+The Python MNA code produced node voltage solutions for the AC sweep that were slightly different than those obtained from LTSpice for the test circuit shown above. The magnitude difference was at most 0.001 and the phase difference was as much as 0.175 degrees. I’m not sure why for some circuits there is an almost exact numerical agreement to the LTSpice results and for other circuits there is as much as a 0.001 difference.</p>
+</section>
+<section id="test-circuit-13" class="level3">
+<h3 class="anchored" data-anchor-id="test-circuit-13">Test circuit 13</h3>
+<p><img src="test_13.png" class="img-fluid"><br>
+The circuit constructed for Test 13, shown above, was designed to see how the MNA code would handle such an unusual circuit. A loop of inductors and current sources is not a typical circuit configuration. LTSpice produced an error during the operating point analysis, whereas the Python MNA code would generate network equations without issue. However, the Python code would not produce a solution for all the circuit unknowns; the current in L4 was not determined. To fix this problem a small series resistor was added to L1.</p>
+<p>If we stop to consider how the circuit is operating at DC, we see that each of the current sources have an inductor in parallel, which at DC, acts as a short circuit. Which means that the node voltages would all be equal, <span class="math inline">\(v_1 = v_2 = v_3 = v_{ref}\)</span>. So the solution to the network equations at DC should be <span class="math inline">\(v_1 = v_2 = v_3 = 0\)</span>. At a frequency of <span class="math inline">\(\omega = \infty\)</span>, the inductors would act as an open circuits and the currents flowing into each note would not be equal, because the current sources are not equal or opposite, so <a href="https://en.wikipedia.org/wiki/Kirchhoff%27s_circuit_laws">Kirchhoff’s current law</a> would be violated. So this is a pathological case and such cases might not be obvious by inspection. Also, without the small series resistor added to L1, the AC analysis results produced by the Python MNA code agreed with the LTSpice results. The conclusion is that some sort of sanity check is needed for the circuit and just because the Python code spits out answers that are correct at some frequencies, it does not mean that the MNA circuit equations are valid at all frequencies.</p>
+</section>
+<section id="test-circuit-14" class="level3">
+<h3 class="anchored" data-anchor-id="test-circuit-14">Test circuit 14</h3>
+<p><img src="test_14.png" class="img-fluid"><br>
+The circuit above was designed to have only one unknown current. The magnitude difference was at most 0.006 and the phase difference was as much as 0.6 degrees between the Python MNA and LTSpice results. It is kind of curious that circuits for Tests 12, 13, and 14 which are all driven by sinusoidal current sources have AC solutions which are slightly different than LTSpice. <br> <br></p>
 <p>The following file types are in each github folder located <a href="https://github.com/Tiburonboy/Symbolic-modified-nodal-analysis/tree/master/test%20circuits">here</a>:</p>
 <div id="tbl-test-files" class="quarto-float anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -520,6 +575,7 @@ Table&nbsp;2: Test circuit files
 </div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

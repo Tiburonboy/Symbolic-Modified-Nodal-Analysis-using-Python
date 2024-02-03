@@ -1,0 +1,1721 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.537">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Symbolic Modified Nodal Analysisusing Python - 24&nbsp; Superposition</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./2nd_order_BRF.html" rel="next">
+<link href="./State-variable-filter.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Example-problems.html">Example problems</a></li><li class="breadcrumb-item"><a href="./Superposition.html"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Superposition</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Symbolic Modified Nodal Analysis<br>using Python</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About this book</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Preface.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Theory.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Theory</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./SMNA_example.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">SMNA Example</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./SMNA-function.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">SMNA function</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./Validation-tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Validation tests</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Test 1</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Test 2</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Test 3</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Test 4</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Test 5</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Test 6</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_7.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Test 7</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_8.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Test 8</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_9.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Test 9</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_10.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Test 10</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_11.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Test 11</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_12.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Test 12</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_13.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Test 13</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_14.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Test 14</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_15.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Test 15</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./Example-problems.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Example problems</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Two amplifier RIAA Phono Preamp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Two amplifier RIAA phono preamp</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Two port parameters.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Two port parameters</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Thevenin equivalent circuit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Thevenin equivalent circuit</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./State-variable-filter.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">State Variable Filter</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Superposition.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Superposition</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./2nd_order_BRF.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">2nd Order BRF</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Elliptic-function-LPF.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Elliptic Function LPF</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./References.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./SymMNA_py.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">SymMNA.py</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Change-log.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Change Log</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">24.1</span> Introduction</a></li>
+  <li><a href="#circuit-description" id="toc-circuit-description" class="nav-link" data-scroll-target="#circuit-description"><span class="header-section-number">24.2</span> Circuit description</a></li>
+  <li><a href="#circuit-analysis" id="toc-circuit-analysis" class="nav-link" data-scroll-target="#circuit-analysis"><span class="header-section-number">24.3</span> Circuit analysis</a>
+  <ul class="collapse">
+  <li><a href="#load-the-netlist" id="toc-load-the-netlist" class="nav-link" data-scroll-target="#load-the-netlist"><span class="header-section-number">24.3.1</span> Load the netlist</a></li>
+  </ul></li>
+  <li><a href="#dc-operating-point" id="toc-dc-operating-point" class="nav-link" data-scroll-target="#dc-operating-point"><span class="header-section-number">24.4</span> DC operating point</a></li>
+  <li><a href="#independent-sources-each-with-a-different-frequency" id="toc-independent-sources-each-with-a-different-frequency" class="nav-link" data-scroll-target="#independent-sources-each-with-a-different-frequency"><span class="header-section-number">24.5</span> Independent sources each with a different frequency</a>
+  <ul class="collapse">
+  <li><a href="#superposition-solution" id="toc-superposition-solution" class="nav-link" data-scroll-target="#superposition-solution"><span class="header-section-number">24.5.1</span> Superposition solution</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">24.6</span> Summary</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Example-problems.html">Example problems</a></li><li class="breadcrumb-item"><a href="./Superposition.html"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Superposition</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-superposition" class="quarto-section-identifier"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Superposition</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div id="fig-superposition-circuit" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-superposition-circuit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="Superposition-and-polyphase-circuit.png" id="fig-superposition-circuit" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-superposition-circuit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;24.1
+</figcaption>
+</figure>
+</div>
+<section id="introduction" class="level2" data-number="24.1">
+<h2 data-number="24.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">24.1</span> Introduction</h2>
+<p>The circuit shown above is a large non-planar circuit designed to look at the problem of multiple sources with different phases and frequencies.</p>
+</section>
+<section id="circuit-description" class="level2" data-number="24.2">
+<h2 data-number="24.2" class="anchored" data-anchor-id="circuit-description"><span class="header-section-number">24.2</span> Circuit description</h2>
+<p>The circuit in <a href="#fig-superposition-circuit" class="quarto-xref">Figure&nbsp;<span>24.1</span></a> is has 23 branches and 14 nodes. There are two dependent sources. V1 is a voltage source with a DC value of 5 volts and an AC value of 7 volts which has a phase of 135 degrees with a frequency of 3 Hz. I1 is a current source with a DC value of 2 amps and an AC value of 3 amps which has a phase of 300 degrees and a frequency of 7 Hz, as shaown in <a href="#tbl-sup-dep-sources" class="quarto-xref">Table&nbsp;<span>24.1</span></a>. There are two dependent sources. H1 is a current controlled voltage source with a gain of 2 and the controlling current is the current through V2. The voltage source V2, set to a value of zero volts, was included in the circuit to provide a monitoring point for the current in R9. The other dependednt source, G1, is a voltage controlled voltage source which has a gain of 2 and is controlled by the votages on nodes 2 and 8. The circuit also has a pair of coupled inductors, two inductors, three capacitors and 11 resistors.</p>
+<div id="tbl-sup-dep-sources" class="quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-sup-dep-sources-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;24.1: Dependent sources
+</figcaption>
+<div aria-describedby="tbl-sup-dep-sources-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table">
+<thead>
+<tr class="header">
+<th>source</th>
+<th>DC</th>
+<th>Magnitude @ angle</th>
+<th>frequency, Hz</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>V1</td>
+<td>5</td>
+<td>7 @ 135</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>I1</td>
+<td>2</td>
+<td>3 @ 300</td>
+<td>7</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</section>
+<section id="circuit-analysis" class="level2" data-number="24.3">
+<h2 data-number="24.3" class="anchored" data-anchor-id="circuit-analysis"><span class="header-section-number">24.3</span> Circuit analysis</h2>
+<p>The MNA technique will be used analyze the circuit using the componet values shown in the schematic since the circuit is too large for meaninful symbolic analysis. The analysis will cover the four areas listed below.</p>
+<ul>
+<li>DC operating point with <span class="math inline">\(s=j \omega\)</span> set to zero and the circuit driven by the DC values of the independent sources.</li>
+<li>AC analysis with V1 having a frequency of 3 Hz and I1 having a frequency of 7 Hz.</li>
+<li>Total response of the DC and AC sources at the respective frequencies.</li>
+</ul>
+<p>The results obtained from MNA will be compared to those obtained from LTSpice.</p>
+<p>The netlist generated by LTSpice is listed below:</p>
+<pre><code>V1 6 1 5 AC 7 135
+V2 10 12 0 AC 0 0
+I1 3 4 2 AC 3 300
+L3 11 14 3 Rser=0
+L1 1 5 5 Rser=0
+L4 14 13 2 Rser=0
+L2 4 8 7 Rser=0
+H1 7 3 V2 2
+G1 12 14 8 2 2
+C1 3 1 0.02279
+C2 4 13 0.008443
+C3 13 12 0.01266
+R9 2 10 10
+R6 7 0 50
+R4 5 14 1
+R1 1 2 100
+R3 3 4 75
+R7 0 8 200
+R11 14 12 10
+R5 6 9 10
+R10 9 11 1
+R8 9 0 100
+R2 3 12 20
+K1 L3 L4 0.4</code></pre>
+<p>The following Python modules are used in this analysis.</p>
+<div id="cell-2" class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="53">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sympy <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tabulate <span class="im">import</span> tabulate</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> SymMNA</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display, Markdown, Math, Latex</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>init_printing()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In electrical engineering, a time invarient sinusudial signals can be represented either by polar or rectangular notation. The function polar converts the polar representation, also called a phasor to rectangular notation and the second function converts rectangular notation to magnitude and phase.</p>
+<div id="cell-4" class="cell" data-execution_count="54">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> polar2rec(mag, ang, units<span class="op">=</span><span class="st">'deg'</span>):</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">''' polar to rectangular conversion</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">        mag: float</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">            magnitude of the time invarient sinusudial signal</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">        ang: float</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">            the angle of the time invarient sinusudial signal</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">        units: string</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">            if units is set to deg, and is in degrees not radians</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">        returns: complex</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">            rectangular corrdinates of voltage vector</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">    '''</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> units <span class="op">==</span> <span class="st">'deg'</span>:</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        ang <span class="op">=</span> ang <span class="op">*</span> np.pi <span class="op">/</span> <span class="dv">180</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> mag <span class="op">*</span> np.exp(<span class="ot">1j</span> <span class="op">*</span> ang)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rec2polar(value):</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="co">'''rectangular to polar conversion</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co">    value: complex float</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co">        </span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co">    returns:</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="co">        magnitude, phase (in degrees)</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co">    '''</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">float</span>(<span class="bu">abs</span>(value)), <span class="bu">float</span>(arg(value)<span class="op">*</span><span class="dv">180</span><span class="op">/</span>np.pi)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="load-the-netlist" class="level3" data-number="24.3.1">
+<h3 data-number="24.3.1" class="anchored" data-anchor-id="load-the-netlist"><span class="header-section-number">24.3.1</span> Load the netlist</h3>
+<p>The netlist generated by LTSpice is pasted into the cell below and some edits were made to remove the inductor series resistance and the independent sources are set to their DC values.</p>
+<div id="cell-6" class="cell" data-execution_count="55">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>net_list <span class="op">=</span> <span class="st">'''</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="st">V1 6 1 5 </span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="st">V2 10 12 0 </span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="st">I1 3 4 2 </span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="st">L3 11 14 3 </span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="st">L1 1 5 5 </span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="st">L4 14 13 2 </span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="st">L2 4 8 7 </span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="st">H1 7 3 V2 2</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="st">G1 12 14 8 2 2</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="st">C1 3 1 0.02279</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="st">C2 4 13 0.008443</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="st">C3 13 12 0.01266</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="st">R9 2 10 10</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="st">R6 7 0 50</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="st">R4 5 14 1</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="st">R1 1 2 100</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="st">R3 3 4 75</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="st">R7 0 8 200</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="st">R11 14 12 10</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="st">R5 6 9 10</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="st">R10 9 11 1</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="st">R8 9 0 100</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="st">R2 3 12 20</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="st">K1 L3 L4 0.4</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="st">'''</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Generate the network equations.</p>
+<div id="cell-8" class="cell" data-execution_count="56">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>report, network_df, df2, A, X, Z <span class="op">=</span> SymMNA.smna(net_list)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Put matricies into SymPy </span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> Matrix(X)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>Z <span class="op">=</span> Matrix(Z)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>NE_sym <span class="op">=</span> Eq(A<span class="op">*</span>X,Z)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Generate markdown text to display the network equations.</p>
+<div id="cell-10" class="cell" data-execution_count="57">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(X)):</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(Eq((A<span class="op">*</span>X)[i:i<span class="op">+</span><span class="dv">1</span>][<span class="dv">0</span>],Z[i])))</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="57">
+<p><span class="math inline">\(- C_{1} s v_{3} + I_{L1} - I_{V1} + v_{1} \left(C_{1} s + \frac{1}{R_{1}}\right) - \frac{v_{2}}{R_{1}} = 0\)</span><br><span class="math inline">\(v_{2} \cdot \left(\frac{1}{R_{9}} + \frac{1}{R_{1}}\right) - \frac{v_{10}}{R_{9}} - \frac{v_{1}}{R_{1}} = 0\)</span><br><span class="math inline">\(- C_{1} s v_{1} - I_{H1} + v_{3} \left(C_{1} s + \frac{1}{R_{3}} + \frac{1}{R_{2}}\right) - \frac{v_{4}}{R_{3}} - \frac{v_{12}}{R_{2}} = - I_{1}\)</span><br><span class="math inline">\(- C_{2} s v_{13} + I_{L2} + v_{4} \left(C_{2} s + \frac{1}{R_{3}}\right) - \frac{v_{3}}{R_{3}} = I_{1}\)</span><br><span class="math inline">\(- I_{L1} - \frac{v_{14}}{R_{4}} + \frac{v_{5}}{R_{4}} = 0\)</span><br><span class="math inline">\(I_{V1} + \frac{v_{6}}{R_{5}} - \frac{v_{9}}{R_{5}} = 0\)</span><br><span class="math inline">\(I_{H1} + \frac{v_{7}}{R_{6}} = 0\)</span><br><span class="math inline">\(- I_{L2} + \frac{v_{8}}{R_{7}} = 0\)</span><br><span class="math inline">\(v_{9} \cdot \left(\frac{1}{R_{8}} + \frac{1}{R_{5}} + \frac{1}{R_{10}}\right) - \frac{v_{6}}{R_{5}} - \frac{v_{11}}{R_{10}} = 0\)</span><br><span class="math inline">\(I_{V2} + \frac{v_{10}}{R_{9}} - \frac{v_{2}}{R_{9}} = 0\)</span><br><span class="math inline">\(I_{L3} + \frac{v_{11}}{R_{10}} - \frac{v_{9}}{R_{10}} = 0\)</span><br><span class="math inline">\(- C_{3} s v_{13} - I_{V2} - g_{1} v_{2} + g_{1} v_{8} + v_{12} \left(C_{3} s + \frac{1}{R_{2}} + \frac{1}{R_{11}}\right) - \frac{v_{3}}{R_{2}} - \frac{v_{14}}{R_{11}} = 0\)</span><br><span class="math inline">\(- C_{2} s v_{4} - C_{3} s v_{12} - I_{L4} + v_{13} \left(C_{2} s + C_{3} s\right) = 0\)</span><br><span class="math inline">\(- I_{L3} + I_{L4} + g_{1} v_{2} - g_{1} v_{8} + v_{14} \cdot \left(\frac{1}{R_{4}} + \frac{1}{R_{11}}\right) - \frac{v_{5}}{R_{4}} - \frac{v_{12}}{R_{11}} = 0\)</span><br><span class="math inline">\(- v_{1} + v_{6} = V_{1}\)</span><br><span class="math inline">\(v_{10} - v_{12} = V_{2}\)</span><br><span class="math inline">\(- I_{L3} L_{3} s - I_{L4} M_{1} s + v_{11} - v_{14} = 0\)</span><br><span class="math inline">\(- I_{L1} L_{1} s + v_{1} - v_{5} = 0\)</span><br><span class="math inline">\(- I_{L3} M_{1} s - I_{L4} L_{4} s - v_{13} + v_{14} = 0\)</span><br><span class="math inline">\(- I_{L2} L_{2} s + v_{4} - v_{8} = 0\)</span><br><span class="math inline">\(- I_{V2} h_{1} - v_{3} + v_{7} = 0\)</span><br></p>
+</div>
+</div>
+<p>As shown above MNA generated many equations and these would be difficult to solve by hand and a symbolic soultion would take a lot of computing time. The equations are displace in matrix notation.</p>
+<div id="cell-12" class="cell" data-execution_count="58">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>NE_sym</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="58">
+<p><span class="math inline">\(\displaystyle \left[\begin{matrix}- C_{1} s v_{3} + I_{L1} - I_{V1} + v_{1} \left(C_{1} s + \frac{1}{R_{1}}\right) - \frac{v_{2}}{R_{1}}\\v_{2} \cdot \left(\frac{1}{R_{9}} + \frac{1}{R_{1}}\right) - \frac{v_{10}}{R_{9}} - \frac{v_{1}}{R_{1}}\\- C_{1} s v_{1} - I_{H1} + v_{3} \left(C_{1} s + \frac{1}{R_{3}} + \frac{1}{R_{2}}\right) - \frac{v_{4}}{R_{3}} - \frac{v_{12}}{R_{2}}\\- C_{2} s v_{13} + I_{L2} + v_{4} \left(C_{2} s + \frac{1}{R_{3}}\right) - \frac{v_{3}}{R_{3}}\\- I_{L1} - \frac{v_{14}}{R_{4}} + \frac{v_{5}}{R_{4}}\\I_{V1} + \frac{v_{6}}{R_{5}} - \frac{v_{9}}{R_{5}}\\I_{H1} + \frac{v_{7}}{R_{6}}\\- I_{L2} + \frac{v_{8}}{R_{7}}\\v_{9} \cdot \left(\frac{1}{R_{8}} + \frac{1}{R_{5}} + \frac{1}{R_{10}}\right) - \frac{v_{6}}{R_{5}} - \frac{v_{11}}{R_{10}}\\I_{V2} + \frac{v_{10}}{R_{9}} - \frac{v_{2}}{R_{9}}\\I_{L3} + \frac{v_{11}}{R_{10}} - \frac{v_{9}}{R_{10}}\\- C_{3} s v_{13} - I_{V2} - g_{1} v_{2} + g_{1} v_{8} + v_{12} \left(C_{3} s + \frac{1}{R_{2}} + \frac{1}{R_{11}}\right) - \frac{v_{3}}{R_{2}} - \frac{v_{14}}{R_{11}}\\- C_{2} s v_{4} - C_{3} s v_{12} - I_{L4} + v_{13} \left(C_{2} s + C_{3} s\right)\\- I_{L3} + I_{L4} + g_{1} v_{2} - g_{1} v_{8} + v_{14} \cdot \left(\frac{1}{R_{4}} + \frac{1}{R_{11}}\right) - \frac{v_{5}}{R_{4}} - \frac{v_{12}}{R_{11}}\\- v_{1} + v_{6}\\v_{10} - v_{12}\\- I_{L3} L_{3} s - I_{L4} M_{1} s + v_{11} - v_{14}\\- I_{L1} L_{1} s + v_{1} - v_{5}\\- I_{L3} M_{1} s - I_{L4} L_{4} s - v_{13} + v_{14}\\- I_{L2} L_{2} s + v_{4} - v_{8}\\- I_{V2} h_{1} - v_{3} + v_{7}\end{matrix}\right] = \left[\begin{matrix}0\\0\\- I_{1}\\I_{1}\\0\\0\\0\\0\\0\\0\\0\\0\\0\\0\\V_{1}\\V_{2}\\0\\0\\0\\0\\0\end{matrix}\right]\)</span></p>
+</div>
+</div>
+<p>The sysmbols generated by the Python code are extraced by the SymPy function free_symbols and then declared as SymPy variables.</p>
+<div id="cell-14" class="cell" data-execution_count="59">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># turn the free symbols into SymPy variables</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>var(<span class="bu">str</span>(NE_sym.free_symbols).replace(<span class="st">'{'</span>,<span class="st">''</span>).replace(<span class="st">'}'</span>,<span class="st">''</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="59">
+<p><span class="math inline">\(\displaystyle \left( I_{1}, \  I_{H1}, \  v_{10}, \  v_{8}, \  v_{1}, \  R_{11}, \  C_{2}, \  R_{1}, \  M_{1}, \  v_{5}, \  C_{3}, \  g_{1}, \  I_{L2}, \  R_{10}, \  I_{V2}, \  v_{7}, \  I_{L1}, \  R_{7}, \  v_{11}, \  L_{1}, \  R_{4}, \  v_{9}, \  L_{3}, \  v_{3}, \  R_{9}, \  v_{13}, \  v_{12}, \  R_{5}, \  s, \  I_{L3}, \  R_{8}, \  C_{1}, \  R_{2}, \  I_{V1}, \  V_{1}, \  v_{4}, \  h_{1}, \  L_{2}, \  V_{2}, \  R_{3}, \  v_{6}, \  I_{L4}, \  v_{2}, \  R_{6}, \  v_{14}, \  L_{4}\right)\)</span></p>
+</div>
+</div>
+</section>
+</section>
+<section id="dc-operating-point" class="level2" data-number="24.4">
+<h2 data-number="24.4" class="anchored" data-anchor-id="dc-operating-point"><span class="header-section-number">24.4</span> DC operating point</h2>
+<p>Built a dictionary of element values.</p>
+<div id="cell-17" class="cell" data-execution_count="60">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>element_values <span class="op">=</span> SymMNA.get_part_values(network_df)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>K1 <span class="op">=</span> symbols(<span class="st">'K1'</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate the coupling constant from the mutual inductance</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>element_values[M1] <span class="op">=</span> element_values[K1]<span class="op">*</span>np.sqrt(element_values[L3] <span class="op">*</span>element_values[L4])</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'mutual inductance, M1 = </span><span class="sc">{:.9f}</span><span class="st">'</span>.<span class="bu">format</span>(element_values[M1]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>mutual inductance, M1 = 0.979795897</code></pre>
+</div>
+</div>
+<div id="cell-18" class="cell" data-execution_count="61">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>NE <span class="op">=</span> NE_sym.subs(element_values)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>NE_dc <span class="op">=</span> NE.subs({s:<span class="dv">0</span>})</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>NE_dc  <span class="co"># display the equations</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="61">
+<p><span class="math inline">\(\displaystyle \left[\begin{matrix}I_{L1} - I_{V1} + 0.01 v_{1} - 0.01 v_{2}\\- 0.01 v_{1} - 0.1 v_{10} + 0.11 v_{2}\\- I_{H1} - 0.05 v_{12} + 0.0633333333333333 v_{3} - 0.0133333333333333 v_{4}\\I_{L2} - 0.0133333333333333 v_{3} + 0.0133333333333333 v_{4}\\- I_{L1} - 1.0 v_{14} + 1.0 v_{5}\\I_{V1} + 0.1 v_{6} - 0.1 v_{9}\\I_{H1} + 0.02 v_{7}\\- I_{L2} + 0.005 v_{8}\\- 1.0 v_{11} - 0.1 v_{6} + 1.11 v_{9}\\I_{V2} + 0.1 v_{10} - 0.1 v_{2}\\I_{L3} + 1.0 v_{11} - 1.0 v_{9}\\- I_{V2} + 0.15 v_{12} - 0.1 v_{14} - 2.0 v_{2} - 0.05 v_{3} + 2.0 v_{8}\\- I_{L4}\\- I_{L3} + I_{L4} - 0.1 v_{12} + 1.1 v_{14} + 2.0 v_{2} - 1.0 v_{5} - 2.0 v_{8}\\- v_{1} + v_{6}\\v_{10} - v_{12}\\v_{11} - v_{14}\\v_{1} - v_{5}\\- v_{13} + v_{14}\\v_{4} - v_{8}\\- 2.0 I_{V2} - v_{3} + v_{7}\end{matrix}\right] = \left[\begin{matrix}0\\0\\-2.0\\2.0\\0\\0\\0\\0\\0\\0\\0\\0\\0\\0\\5.0\\0\\0\\0\\0\\0\\0\end{matrix}\right]\)</span></p>
+</div>
+</div>
+<p>Solve the network equations and display the results.</p>
+<div id="cell-20" class="cell" data-execution_count="62">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>U_dc <span class="op">=</span> solve(NE_dc,X)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>table_header <span class="op">=</span> [<span class="st">'unknown'</span>, <span class="st">'mag'</span>]</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>table_row <span class="op">=</span> []</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, value <span class="kw">in</span> U_dc.items():</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    table_row.append([<span class="bu">str</span>(name),<span class="bu">float</span>(value)])</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tabulate(table_row, headers<span class="op">=</span>table_header,colalign <span class="op">=</span> (<span class="st">'left'</span>,<span class="st">'decimal'</span>),tablefmt<span class="op">=</span><span class="st">"simple"</span>,floatfmt<span class="op">=</span>(<span class="st">'5s'</span>,<span class="st">'.6f'</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>unknown             mag
+---------  ------------
+v1         -1444.606764
+v2           701.805800
+v3           626.530983
+v4           564.749806
+v5         -1444.606764
+v6         -1439.606764
+v7           583.602732
+v8           564.749806
+v9         -1449.580366
+v10          916.447056
+v11        -1465.073530
+v12          916.447056
+v13        -1465.073530
+v14        -1465.073530
+I_V1          -0.997360
+I_V2         -21.464126
+I_L3          15.493164
+I_L1          20.466765
+I_L4           0.000000
+I_L2           2.823749
+I_H1         -11.672055</code></pre>
+</div>
+</div>
+<p>LTSpice results:</p>
+<pre><code>       --- Operating Point ---
+
+V(6):    -1439.61    voltage
+V(1):    -1444.61    voltage
+V(10):   916.447     voltage
+V(12):   916.447     voltage
+V(3):    626.531     voltage
+V(4):    564.75  voltage
+V(11):   -1465.07    voltage
+V(14):   -1465.07    voltage
+V(5):    -1444.61    voltage
+V(13):   -1465.07    voltage
+V(8):    564.75  voltage
+V(7):    583.603     voltage
+V(2):    701.806     voltage
+V(9):    -1449.58    voltage
+I(C1):   4.72012e-11     device_current
+I(C2):   1.71378e-11     device_current
+I(C3):   -3.015e-11  device_current
+I(H1):   -11.6721    device_current
+I(L3):   15.4932     device_current
+I(L1):   20.4668     device_current
+I(L4):   -4.72875e-11    device_current
+I(L2):   2.82375     device_current
+I(I1):   2   device_current
+I(R9):   -21.4641    device_current
+I(R6):   11.6721     device_current
+I(R4):   20.4668     device_current
+I(R1):   -21.4641    device_current
+I(R3):   0.823749    device_current
+I(R7):   -2.82375    device_current
+I(R11):  -238.152    device_current
+I(R5):   0.99736     device_current
+I(R10):  15.4932     device_current
+I(R8):   -14.4958    device_current
+I(R2):   -14.4958    device_current
+I(G1):   -274.112    device_current
+I(V1):   -0.99736    device_current
+I(V2):   -21.4641    device_current</code></pre>
+<p>Store the results in a Pandas dataframe.</p>
+<div id="cell-23" class="cell" data-execution_count="63">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>solutions <span class="op">=</span> pd.DataFrame(U_dc.items(), columns<span class="op">=</span>[<span class="st">'unk'</span>, <span class="st">'w=DC'</span>])</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>solutions <span class="op">=</span> solutions.set_index(<span class="st">'unk'</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>solutions[<span class="st">'w=DC'</span>] <span class="op">=</span> solutions[<span class="st">'w=DC'</span>].astype(<span class="bu">float</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co">#solutions</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<!--
+
+## Independent sources with the same frequency
+@tbl-sup-dep-sources lists the dependent sources and in this section we are going to assign the same frequency, 3Hz, to both sources.
+
+The magnitude and phases for each source are specified in @tbl-sup-dep-sources. The following code assigns the AC magnitude and phase to V1 and I1.
+
+element_values[I1] = polar2rec(3, 300, units='deg')
+element_values[V1] = polar2rec(7, 135, units='deg')
+
+Dislay the element values.
+
+element_values
+
+Solve equations for $\omega$ equal to 3 Hz. The value for $\omega$ is calculated by: $\omega = 2 \pi 3$
+
+omega = 2*np.pi*3
+
+NE_w = NE_sym.subs(element_values)
+NE_w = NE_w.subs({s:omega*1j})
+NE_w
+
+Solve the network equations and display the results.
+
+U_w = solve(NE_w,X)
+
+table_header = ['unknown', 'mag','phase, deg']
+table_row = []
+
+for name, value in U_w.items():
+    table_row.append([str(name),float(abs(value)),float(arg(value)*180/np.pi)])
+
+print(tabulate(table_row, headers=table_header,colalign = ('left','decimal','decimal'),tablefmt="simple",floatfmt=('5s','.6f','.6f')))
+
+The results from LTSpice as shown below and they agree with the Python results.
+```
+--- AC Analysis ---
+
+frequency:  3   Hz
+V(6):   mag:     38.821 phase:    114.796°  voltage
+V(1):   mag:    32.3422 phase:    110.509°  voltage
+V(10):  mag:    244.743 phase:    25.3689°  voltage
+V(12):  mag:    244.743 phase:    25.3689°  voltage
+V(3):   mag:    13.1553 phase:    26.1899°  voltage
+V(4):   mag:    237.036 phase:    53.9281°  voltage
+V(11):  mag:    128.942 phase:   -156.272°  voltage
+V(14):  mag:    386.352 phase:   -51.0229°  voltage
+V(5):   mag:    386.439 phase:   -50.3667°  voltage
+V(13):  mag:     253.35 phase:    46.7362°  voltage
+V(8):   mag:    197.857 phase:    20.5139°  voltage
+V(7):   mag:    8.78811 phase:    30.4245°  voltage
+V(2):   mag:    222.762 phase:    26.1224°  voltage
+V(9):   mag:    116.282 phase:   -157.995°  voltage
+I(C1):  mag:    14.4715 phase:    43.3762°  device_current
+I(C2):  mag:     5.5384 phase:   -101.773°  device_current
+I(C3):  mag:    22.1277 phase:   -149.181°  device_current
+I(H1):  mag:   0.175762 phase:   -149.575°  device_current
+I(L3):  mag:     13.185 phase:    39.1073°  device_current
+I(L1):  mag:     4.4259 phase:    38.1777°  device_current
+I(L4):  mag:    18.8263 phase:   -161.689°  device_current
+I(L2):  mag:   0.989283 phase:    20.5139°  device_current
+I(I1):  mag:          3 phase:        -60°  device_current
+I(R9):  mag:    2.21945 phase:   -162.216°  device_current
+I(R6):  mag:   0.175762 phase:    30.4245°  device_current
+I(R4):  mag:     4.4259 phase:    38.1777°  device_current
+I(R1):  mag:    2.21945 phase:   -162.216°  device_current
+I(R3):  mag:    3.00634 phase:   -124.516°  device_current
+I(R7):  mag:   0.989283 phase:   -159.486°  device_current
+I(R11): mag:    40.5798 phase:   -86.9095°  device_current
+I(R5):  mag:    12.0784 phase:    40.7297°  device_current
+I(R10): mag:     13.185 phase:    39.1073°  device_current
+I(R8):  mag:    1.16282 phase:   -157.995°  device_current
+I(R2):  mag:    11.5794 phase:   -154.678°  device_current
+I(G1):  mag:    64.5675 phase:   -117.082°  device_current
+I(V1):  mag:    12.0784 phase:    -139.27°  device_current
+I(V2):  mag:    2.21945 phase:   -162.216°  device_current
+```
+
+-->
+</section>
+<section id="independent-sources-each-with-a-different-frequency" class="level2" data-number="24.5">
+<h2 data-number="24.5" class="anchored" data-anchor-id="independent-sources-each-with-a-different-frequency"><span class="header-section-number">24.5</span> Independent sources each with a different frequency</h2>
+<p>The independent sources V1 and I1 each have different amplitudes, phases and frequencies. First we will solve the network equations for when V1 is active and I1 is set to zero. The following code set I1 to zero and calls the function polar2rec to convert the amplitude and phase to rectangular notation.</p>
+<div id="cell-36" class="cell" data-execution_count="64">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>element_values[I1] <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>element_values[V1] <span class="op">=</span> polar2rec(<span class="dv">7</span>, <span class="dv">135</span>, units<span class="op">=</span><span class="st">'deg'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Solve equations for <span class="math inline">\(\omega\)</span> equal to 3 Hz. The value for <span class="math inline">\(\omega\)</span> is calculated by: <span class="math inline">\(\omega = 2 \pi 3\)</span>, then use the substitute function to set <span class="math inline">\(s = 2 \pi 3j\)</span>. Then display the network equations with numerical values.</p>
+<div id="cell-38" class="cell" data-execution_count="65">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>omega <span class="op">=</span> <span class="dv">2</span><span class="op">*</span>np.pi<span class="op">*</span><span class="dv">3</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>NE_w1 <span class="op">=</span> NE_sym.subs(element_values)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>NE_w1 <span class="op">=</span> NE_w1.subs({s:omega<span class="op">*</span><span class="ot">1j</span>})</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>NE_w1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="65">
+<p><span class="math inline">\(\displaystyle \left[\begin{matrix}I_{L1} - I_{V1} + v_{1} \cdot \left(0.01 + 0.429581379451868 i\right) - 0.01 v_{2} - 0.429581379451868 i v_{3}\\- 0.01 v_{1} - 0.1 v_{10} + 0.11 v_{2}\\- I_{H1} - 0.429581379451868 i v_{1} - 0.05 v_{12} + v_{3} \cdot \left(0.0633333333333333 + 0.429581379451868 i\right) - 0.0133333333333333 v_{4}\\I_{L2} - 0.159146800645552 i v_{13} - 0.0133333333333333 v_{3} + v_{4} \cdot \left(0.0133333333333333 + 0.159146800645552 i\right)\\- I_{L1} - 1.0 v_{14} + 1.0 v_{5}\\I_{V1} + 0.1 v_{6} - 0.1 v_{9}\\I_{H1} + 0.02 v_{7}\\- I_{L2} + 0.005 v_{8}\\- 1.0 v_{11} - 0.1 v_{6} + 1.11 v_{9}\\I_{V2} + 0.1 v_{10} - 0.1 v_{2}\\I_{L3} + 1.0 v_{11} - 1.0 v_{9}\\- I_{V2} + v_{12} \cdot \left(0.15 + 0.238635377966681 i\right) - 0.238635377966681 i v_{13} - 0.1 v_{14} - 2.0 v_{2} - 0.05 v_{3} + 2.0 v_{8}\\- I_{L4} - 0.238635377966681 i v_{12} + 0.397782178612232 i v_{13} - 0.159146800645552 i v_{4}\\- I_{L3} + I_{L4} - 0.1 v_{12} + 1.1 v_{14} + 2.0 v_{2} - 1.0 v_{5} - 2.0 v_{8}\\- v_{1} + v_{6}\\v_{10} - v_{12}\\- 56.5486677646163 i I_{L3} - 18.4687175543308 i I_{L4} + v_{11} - v_{14}\\- 94.2477796076938 i I_{L1} + v_{1} - v_{5}\\- 18.4687175543308 i I_{L3} - 37.6991118430775 i I_{L4} - v_{13} + v_{14}\\- 131.946891450771 i I_{L2} + v_{4} - v_{8}\\- 2.0 I_{V2} - v_{3} + v_{7}\end{matrix}\right] = \left[\begin{matrix}0\\0\\0\\0\\0\\0\\0\\0\\0\\0\\0\\0\\0\\0\\-4.94974746830583 + 4.94974746830583 i\\0\\0\\0\\0\\0\\0\end{matrix}\right]\)</span></p>
+</div>
+</div>
+<p>Solve the network equations and display the results.</p>
+<div id="cell-40" class="cell" data-execution_count="66">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>U_w1 <span class="op">=</span> solve(NE_w1,X)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>table_header <span class="op">=</span> [<span class="st">'unknown'</span>, <span class="st">'mag'</span>,<span class="st">'phase, deg'</span>]</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>table_row <span class="op">=</span> []</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, value <span class="kw">in</span> U_w1.items():</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    table_row.append([<span class="bu">str</span>(name),<span class="bu">float</span>(<span class="bu">abs</span>(value)),<span class="bu">float</span>(arg(value)<span class="op">*</span><span class="dv">180</span><span class="op">/</span>np.pi)])</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tabulate(table_row, headers<span class="op">=</span>table_header,colalign <span class="op">=</span> (<span class="st">'left'</span>,<span class="st">'decimal'</span>,<span class="st">'decimal'</span>),tablefmt<span class="op">=</span><span class="st">"simple"</span>,floatfmt<span class="op">=</span>(<span class="st">'5s'</span>,<span class="st">'.6f'</span>,<span class="st">'.6f'</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>unknown         mag    phase, deg
+---------  --------  ------------
+v1         1.214165    -42.658172
+v2         5.054599     39.141345
+v3         1.983213    -32.248064
+v4         5.501867     67.083943
+v5         7.598113    -22.913101
+v6         5.787062    134.508799
+v7         1.977375    -35.152486
+v8         4.592470     33.669731
+v9         5.241567    168.957875
+v10        5.544043     40.383410
+v11        5.350944    172.465292
+v12        5.544043     40.383410
+v13        5.619390     60.869229
+v14        7.602773    -23.429285
+I_V1       0.330707   -109.201912
+I_V2       0.050272   -127.028107
+I_L3       0.342104     62.074687
+I_L1       0.068631     70.722730
+I_L4       0.389029   -137.950576
+I_L2       0.022962     33.669731
+I_H1       0.039547    144.847514</code></pre>
+</div>
+</div>
+<p>The results from LTSpice as shown below and they agree with the Python results. The DC values for the sources, V1 and I1, are set to zero.</p>
+<pre><code>       --- AC Analysis ---
+
+frequency:  3   Hz
+V(6):   mag:    5.78706 phase:    134.509°  voltage
+V(1):   mag:    1.21416 phase:   -42.6582°  voltage
+V(10):  mag:    5.54404 phase:    40.3834°  voltage
+V(12):  mag:    5.54404 phase:    40.3834°  voltage
+V(3):   mag:    1.98321 phase:   -32.2481°  voltage
+V(4):   mag:    5.50187 phase:    67.0839°  voltage
+V(11):  mag:    5.35094 phase:    172.465°  voltage
+V(14):  mag:    7.60277 phase:   -23.4293°  voltage
+V(5):   mag:    7.59811 phase:   -22.9131°  voltage
+V(13):  mag:    5.61939 phase:    60.8692°  voltage
+V(8):   mag:    4.59247 phase:    33.6697°  voltage
+V(7):   mag:    1.97737 phase:   -35.1525°  voltage
+V(2):   mag:     5.0546 phase:    39.1413°  voltage
+V(9):   mag:    5.24157 phase:    168.958°  voltage
+I(C1):  mag:   0.351813 phase:    73.2905°  device_current
+I(C2):  mag:  0.0977425 phase:   -105.008°  device_current
+I(C3):  mag:   0.474046 phase:   -131.513°  device_current
+I(H1):  mag:  0.0395475 phase:    144.848°  device_current
+I(L3):  mag:   0.342104 phase:    62.0747°  device_current
+I(L1):  mag:  0.0686314 phase:    70.7227°  device_current
+I(L4):  mag:   0.389029 phase:   -137.951°  device_current
+I(L2):  mag:  0.0229624 phase:    33.6697°  device_current
+I(I1):  mag:          0 phase:         -0°  device_current
+I(R9):  mag:  0.0502717 phase:   -127.028°  device_current
+I(R6):  mag:  0.0395475 phase:   -35.1525°  device_current
+I(R4):  mag:  0.0686314 phase:    70.7227°  device_current
+I(R1):  mag:  0.0502717 phase:   -127.028°  device_current
+I(R3):  mag:  0.0819131 phase:   -94.3412°  device_current
+I(R7):  mag:  0.0229624 phase:    -146.33°  device_current
+I(R11): mag:   0.716494 phase:   -67.4048°  device_current
+I(R5):  mag:   0.330707 phase:    70.7981°  device_current
+I(R10): mag:   0.342104 phase:    62.0747°  device_current
+I(R8):  mag:  0.0524157 phase:    168.958°  device_current
+I(R2):  mag:   0.265071 phase:   -118.698°  device_current
+I(G1):  mag:      1.304 phase:   -98.6653°  device_current
+I(V1):  mag:   0.330707 phase:   -109.202°  device_current
+I(V2):  mag:  0.0502717 phase:   -127.028°  device_current</code></pre>
+<div id="cell-42" class="cell" data-execution_count="67">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>w1 <span class="op">=</span> pd.DataFrame(U_w1.items(), columns<span class="op">=</span>[<span class="st">'unk'</span>, <span class="st">'w=3Hz'</span>])</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>w1 <span class="op">=</span> w1.set_index(<span class="st">'unk'</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>w1[<span class="st">'w=3Hz'</span>] <span class="op">=</span> w1[<span class="st">'w=3Hz'</span>].astype(<span class="bu">complex</span>)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>solutions[<span class="st">'w=3Hz'</span>] <span class="op">=</span> w1[<span class="st">'w=3Hz'</span>]</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co">#solutions</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Solve the network equations with V1 set to zero and I1 active with a frequency of 7 Hz, an amplitude of 3 at a phase angle of 300.</p>
+<div id="cell-44" class="cell" data-execution_count="68">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>element_values[I1] <span class="op">=</span> polar2rec(<span class="dv">3</span>, <span class="dv">300</span>, units<span class="op">=</span><span class="st">'deg'</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>element_values[V1] <span class="op">=</span> <span class="dv">0</span> <span class="co">#polar2rec(7, 135, units='deg')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Solve equations for <span class="math inline">\(\omega\)</span> equal to 3 Hz. The value for <span class="math inline">\(\omega\)</span> is calculated by: <span class="math inline">\(\omega = 2 \pi 7\)</span></p>
+<div id="cell-46" class="cell" data-execution_count="69">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>omega <span class="op">=</span> <span class="dv">2</span><span class="op">*</span>np.pi<span class="op">*</span><span class="dv">7</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>NE_w2 <span class="op">=</span> NE_sym.subs(element_values)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>NE_w2 <span class="op">=</span> NE_w2.subs({s:omega<span class="op">*</span><span class="ot">1j</span>})</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>NE_w2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="69">
+<p><span class="math inline">\(\displaystyle \left[\begin{matrix}I_{L1} - I_{V1} + v_{1} \cdot \left(0.01 + 1.00235655205436 i\right) - 0.01 v_{2} - 1.00235655205436 i v_{3}\\- 0.01 v_{1} - 0.1 v_{10} + 0.11 v_{2}\\- I_{H1} - 1.00235655205436 i v_{1} - 0.05 v_{12} + v_{3} \cdot \left(0.0633333333333333 + 1.00235655205436 i\right) - 0.0133333333333333 v_{4}\\I_{L2} - 0.371342534839621 i v_{13} - 0.0133333333333333 v_{3} + v_{4} \cdot \left(0.0133333333333333 + 0.371342534839621 i\right)\\- I_{L1} - 1.0 v_{14} + 1.0 v_{5}\\I_{V1} + 0.1 v_{6} - 0.1 v_{9}\\I_{H1} + 0.02 v_{7}\\- I_{L2} + 0.005 v_{8}\\- 1.0 v_{11} - 0.1 v_{6} + 1.11 v_{9}\\I_{V2} + 0.1 v_{10} - 0.1 v_{2}\\I_{L3} + 1.0 v_{11} - 1.0 v_{9}\\- I_{V2} + v_{12} \cdot \left(0.15 + 0.556815881922255 i\right) - 0.556815881922255 i v_{13} - 0.1 v_{14} - 2.0 v_{2} - 0.05 v_{3} + 2.0 v_{8}\\- I_{L4} - 0.556815881922255 i v_{12} + 0.928158416761876 i v_{13} - 0.371342534839621 i v_{4}\\- I_{L3} + I_{L4} - 0.1 v_{12} + 1.1 v_{14} + 2.0 v_{2} - 1.0 v_{5} - 2.0 v_{8}\\- v_{1} + v_{6}\\v_{10} - v_{12}\\- 131.946891450771 i I_{L3} - 43.0936742934386 i I_{L4} + v_{11} - v_{14}\\- 219.911485751286 i I_{L1} + v_{1} - v_{5}\\- 43.0936742934386 i I_{L3} - 87.9645943005142 i I_{L4} - v_{13} + v_{14}\\- 307.8760800518 i I_{L2} + v_{4} - v_{8}\\- 2.0 I_{V2} - v_{3} + v_{7}\end{matrix}\right] = \left[\begin{matrix}0\\0\\-1.5 + 2.59807621135332 i\\1.5 - 2.59807621135332 i\\0\\0\\0\\0\\0\\0\\0\\0\\0\\0\\0\\0\\0\\0\\0\\0\\0\end{matrix}\right]\)</span></p>
+</div>
+</div>
+<p>Solve the network equations and display the results.</p>
+<div id="cell-48" class="cell" data-execution_count="70">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>U_w2 <span class="op">=</span> solve(NE_w2,X)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>table_header <span class="op">=</span> [<span class="st">'unknown'</span>, <span class="st">'mag'</span>,<span class="st">'phase, deg'</span>]</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>table_row <span class="op">=</span> []</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, value <span class="kw">in</span> U_w2.items():</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    table_row.append([<span class="bu">str</span>(name),<span class="bu">float</span>(<span class="bu">abs</span>(value)),<span class="bu">float</span>(arg(value)<span class="op">*</span><span class="dv">180</span><span class="op">/</span>np.pi)])</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tabulate(table_row, headers<span class="op">=</span>table_header,colalign <span class="op">=</span> (<span class="st">'left'</span>,<span class="st">'decimal'</span>,<span class="st">'decimal'</span>),tablefmt<span class="op">=</span><span class="st">"simple"</span>,floatfmt<span class="op">=</span>(<span class="st">'5s'</span>,<span class="st">'.6f'</span>,<span class="st">'.6f'</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>unknown           mag    phase, deg
+---------  ----------  ------------
+v1           9.005916    163.707427
+v2          32.516027    143.867055
+v3           7.786210    133.896662
+v4          47.805605    173.317623
+v5         269.759059     42.448864
+v6           9.005916    163.707427
+v7           7.302031    133.715779
+v8          26.042563    116.325861
+v9          27.308899    -54.477160
+v10         34.921833    143.365554
+v11         31.025759    -53.448958
+v12         34.921833    143.365554
+v13         41.722434    164.330384
+v14        269.726939     42.183778
+I_V1         3.483553    -45.280685
+I_V2         0.242382    -43.377657
+I_L3         3.753386    134.053052
+I_L1         1.248412    130.841984
+I_L4         5.167787    -51.606488
+I_L2         0.130213    116.325861
+I_H1         0.146041    -46.284221</code></pre>
+</div>
+</div>
+<p>The results from LTSpice as shown below and they agree with the Python results.</p>
+<pre><code>       --- AC Analysis ---
+
+frequency:  7   Hz
+V(6):   mag:    9.00592 phase:    163.707°  voltage
+V(1):   mag:    9.00592 phase:    163.707°  voltage
+V(10):  mag:    34.9218 phase:    143.366°  voltage
+V(12):  mag:    34.9218 phase:    143.366°  voltage
+V(3):   mag:    7.78621 phase:    133.897°  voltage
+V(4):   mag:    47.8056 phase:    173.318°  voltage
+V(11):  mag:    31.0258 phase:    -53.449°  voltage
+V(14):  mag:    269.727 phase:    42.1838°  voltage
+V(5):   mag:    269.759 phase:    42.4489°  voltage
+V(13):  mag:    41.7224 phase:     164.33°  voltage
+V(8):   mag:    26.0426 phase:    116.326°  voltage
+V(7):   mag:    7.30203 phase:    133.716°  voltage
+V(2):   mag:     32.516 phase:    143.867°  voltage
+V(9):   mag:    27.3089 phase:   -54.4772°  voltage
+I(C1):  mag:    4.48781 phase:    133.539°  device_current
+I(C2):  mag:    3.44327 phase:   -52.0221°  device_current
+I(C3):  mag:      8.611 phase:   -51.7727°  device_current
+I(H1):  mag:   0.146041 phase:   -46.2842°  device_current
+I(L3):  mag:    3.75339 phase:    134.053°  device_current
+I(L1):  mag:    1.24841 phase:    130.842°  device_current
+I(L4):  mag:    5.16779 phase:   -51.6065°  device_current
+I(L2):  mag:   0.130213 phase:    116.326°  device_current
+I(I1):  mag:          3 phase:        -60°  device_current
+I(R9):  mag:   0.242382 phase:   -43.3777°  device_current
+I(R6):  mag:   0.146041 phase:    133.716°  device_current
+I(R4):  mag:    1.24841 phase:    130.842°  device_current
+I(R1):  mag:   0.242382 phase:   -43.3777°  device_current
+I(R3):  mag:   0.561096 phase:  0.0650338°  device_current
+I(R7):  mag:   0.130213 phase:   -63.6741°  device_current
+I(R11): mag:    27.8613 phase:    35.1207°  device_current
+I(R5):  mag:    3.48355 phase:    134.719°  device_current
+I(R10): mag:    3.75339 phase:    134.053°  device_current
+I(R8):  mag:   0.273089 phase:   -54.4772°  device_current
+I(R2):  mag:    1.36359 phase:   -33.9423°  device_current
+I(G1):  mag:    30.5828 phase:     15.818°  device_current
+I(V1):  mag:    3.48355 phase:   -45.2807°  device_current
+I(V2):  mag:   0.242382 phase:   -43.3777°  device_current</code></pre>
+<p>Store the Python results in a dataframe.</p>
+<div id="cell-51" class="cell" data-execution_count="72">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>w2 <span class="op">=</span> pd.DataFrame(U_w2.items(), columns<span class="op">=</span>[<span class="st">'unk'</span>, <span class="st">'w=7Hz'</span>])</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>w2 <span class="op">=</span> w2.set_index(<span class="st">'unk'</span>)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>w2[<span class="st">'w=7Hz'</span>] <span class="op">=</span> w2[<span class="st">'w=7Hz'</span>].astype(<span class="bu">complex</span>)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>solutions[<span class="st">'w=7Hz'</span>] <span class="op">=</span> w2[<span class="st">'w=7Hz'</span>]</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="co">#solutions</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="superposition-solution" class="level3" data-number="24.5.1">
+<h3 data-number="24.5.1" class="anchored" data-anchor-id="superposition-solution"><span class="header-section-number">24.5.1</span> Superposition solution</h3>
+<p>Using the principle of <a href="https://en.wikipedia.org/wiki/Superposition_theorem">superposition</a>, we can add the results obtained above to get the solution for the unknown node voltages and inductor and source currents.</p>
+<div id="cell-53" class="cell" data-execution_count="73">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>solutions[<span class="st">'w1+w2'</span>] <span class="op">=</span> solutions[<span class="st">'w=3Hz'</span>] <span class="op">+</span> solutions[<span class="st">'w=7Hz'</span>]</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>solutions[<span class="st">'dc+w1+w2'</span>] <span class="op">=</span> solutions[<span class="st">'w1+w2'</span>] <span class="op">+</span> solutions[<span class="st">'w=DC'</span>]</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>solutions</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="73">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">w=DC</th>
+<th data-quarto-table-cell-role="th">w=3Hz</th>
+<th data-quarto-table-cell-role="th">w=7Hz</th>
+<th data-quarto-table-cell-role="th">w1+w2</th>
+<th data-quarto-table-cell-role="th">dc+w1+w2</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">unk</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">v1</td>
+<td>-1444.606764</td>
+<td>0.892908-0.822746j</td>
+<td>-8.64425300+2.52654000j</td>
+<td>-7.75134500+1.70379400j</td>
+<td>-1452.3581009+1.7037940j</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">v2</td>
+<td>701.805800</td>
+<td>3.920302+3.190643j</td>
+<td>-26.2616000+19.1734280j</td>
+<td>-22.3412980+22.3640710j</td>
+<td>679.4645010+22.3640710j</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">v3</td>
+<td>626.530983</td>
+<td>1.677294-1.058215j</td>
+<td>-5.39864500+5.61067700j</td>
+<td>-3.72135100+4.55246200j</td>
+<td>622.8096302+4.5524620j</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">v4</td>
+<td>564.749806</td>
+<td>2.142328+5.067639j</td>
+<td>-47.4808370+5.5629110j</td>
+<td>-45.3385090+10.6305500j</td>
+<td>519.4112970+10.6305500j</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">v5</td>
+<td>-1444.606764</td>
+<td>6.998594-2.958208j</td>
+<td>199.049815+182.069001j</td>
+<td>206.048410+179.110793j</td>
+<td>-1238.558355+179.110793j</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">v6</td>
+<td>-1439.606764</td>
+<td>-4.056839+4.127001j</td>
+<td>-8.64425300+2.52654000j</td>
+<td>-12.7010930+6.6535420j</td>
+<td>-1452.3078507+6.6535420j</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">v7</td>
+<td>583.602732</td>
+<td>1.616746-1.138482j</td>
+<td>-5.04629800+5.27773900j</td>
+<td>-3.42955200+4.13925700j</td>
+<td>580.1731709+4.1392570j</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">v8</td>
+<td>564.749806</td>
+<td>3.822070+2.546088j</td>
+<td>-11.5492460+23.3415940j</td>
+<td>-7.727175+025.8876810j</td>
+<td>557.0226300+25.8876810j</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">v9</td>
+<td>-1449.580366</td>
+<td>-5.144528+1.003921j</td>
+<td>15.8672200-22.2262750j</td>
+<td>10.7226920-21.2223540j</td>
+<td>-1438.857674-21.222354j</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">v10</td>
+<td>916.447056</td>
+<td>4.223041+3.591982j</td>
+<td>-28.0233350+20.8381170j</td>
+<td>-23.8002940+24.4300990j</td>
+<td>892.6467620+24.4300990j</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">v11</td>
+<td>-1465.073530</td>
+<td>-5.304742+0.701652j</td>
+<td>18.4770390-24.9238190j</td>
+<td>13.1722970-24.2221670j</td>
+<td>-1451.901233-24.222167j</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">v12</td>
+<td>916.447056</td>
+<td>4.223041+3.591982j</td>
+<td>-28.0233350+20.8381170j</td>
+<td>-23.8002940+24.4300990j</td>
+<td>892.6467620+24.4300990j</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">v13</td>
+<td>-1465.073530</td>
+<td>2.735545+4.908599j</td>
+<td>-40.1718250+11.2688080j</td>
+<td>-37.4362800+16.1774060j</td>
+<td>-1502.509810+16.177406j</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">v14</td>
+<td>-1465.073530</td>
+<td>6.975936-3.022991j</td>
+<td>199.866246+181.124557j</td>
+<td>206.842182+178.101566j</td>
+<td>-1258.231348+178.101566j</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">I_V1</td>
+<td>-0.997360</td>
+<td>-0.108769-0.312308j</td>
+<td>2.45114700-2.47528100j</td>
+<td>2.34237800-2.78759000j</td>
+<td>1.34501800-2.78759000j</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">I_V2</td>
+<td>-21.464126</td>
+<td>-0.030274-0.040134j</td>
+<td>0.17617300-0.16646900j</td>
+<td>0.14590000-0.20660300j</td>
+<td>-21.31822600-0.20660300j</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">I_L3</td>
+<td>15.493164</td>
+<td>0.160214+0.302269j</td>
+<td>-2.60981900+2.69754400j</td>
+<td>-2.44960500+2.99981300j</td>
+<td>13.04355800+2.99981300j</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">I_L1</td>
+<td>20.466765</td>
+<td>0.022658+0.064783j</td>
+<td>-0.81643100+0.94444400j</td>
+<td>-0.79377300+1.00922700j</td>
+<td>19.67299300+1.00922700j</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">I_L4</td>
+<td>0.000000</td>
+<td>-0.288881-0.260561j</td>
+<td>3.20950100-4.05032500j</td>
+<td>2.92062100-4.31088500j</td>
+<td>2.92062100-4.31088500j</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">I_L2</td>
+<td>2.823749</td>
+<td>0.019110+0.012730j</td>
+<td>-0.05774600+0.11670800j</td>
+<td>-0.03863600+0.12943800j</td>
+<td>2.78511300+0.12943800j</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">I_H1</td>
+<td>-11.672055</td>
+<td>-0.032335+0.022770j</td>
+<td>0.10092600-0.10555500j</td>
+<td>0.06859100-0.08278500j</td>
+<td>-11.60346400-0.08278500j</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Display the superposition results in polar form.</p>
+<div id="cell-55" class="cell" data-execution_count="74">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>table_header <span class="op">=</span> [<span class="st">'unknown'</span>, <span class="st">'mag'</span>,<span class="st">'phase, deg'</span>]</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>table_row <span class="op">=</span> []</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, value <span class="kw">in</span> solutions[<span class="st">'dc+w1+w2'</span>].items():</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    table_row.append([<span class="bu">str</span>(name),<span class="bu">float</span>(<span class="bu">abs</span>(value)),<span class="bu">float</span>(arg(value)<span class="op">*</span><span class="dv">180</span><span class="op">/</span>np.pi)])</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tabulate(table_row, headers<span class="op">=</span>table_header,colalign <span class="op">=</span> (<span class="st">'left'</span>,<span class="st">'decimal'</span>,<span class="st">'decimal'</span>),tablefmt<span class="op">=</span><span class="st">"simple"</span>,floatfmt<span class="op">=</span>(<span class="st">'5s'</span>,<span class="st">'.6f'</span>,<span class="st">'.6f'</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>unknown            mag    phase, deg
+---------  -----------  ------------
+v1         1452.359109    179.932785
+v2          679.832450      1.885168
+v3          622.826270      0.418799
+v4          519.520071      1.172482
+v5         1251.442158    171.771369
+v6         1452.323098    179.737509
+v7          580.187945      0.408771
+v8          557.623872      2.660912
+v9         1439.014175   -179.154980
+v10         892.981003      1.567689
+v11        1452.103269   -179.044219
+v12         892.981003      1.567689
+v13        1502.596898    179.383125
+v14        1270.773895    171.943355
+I_V1          3.095114    -64.242586
+I_V2         21.319227   -179.444743
+I_L3         13.384069     12.951908
+I_L1         19.698863      2.936707
+I_L4          5.207087    -55.882399
+I_L2          2.788119      2.660912
+I_H1         11.603759   -179.591229</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="summary" class="level2" data-number="24.6">
+<h2 data-number="24.6" class="anchored" data-anchor-id="summary"><span class="header-section-number">24.6</span> Summary</h2>
+<p>In this notebook a large non-planar circuit having independent sources with different DC values, different AC amplitudes, phases and frequencies was analyzed. The results were summed to obtain a total solution by applying the superposition thereom.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./State-variable-filter.html" class="pagination-link  aria-label=" &lt;span="" variable="" filter&lt;="" span&gt;"="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">State Variable Filter</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./2nd_order_BRF.html" class="pagination-link" aria-label="<span class='chapter-number'>25</span>&nbsp; <span class='chapter-title'>2nd Order BRF</span>">
+        <span class="nav-page-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">2nd Order BRF</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

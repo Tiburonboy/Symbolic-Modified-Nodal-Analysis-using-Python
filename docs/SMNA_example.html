@@ -364,8 +364,8 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Superposition_and_polyphase_circuit.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">A polyphase circuit</span></span></a>
+  <a href="./Superposition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Superposition</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -494,7 +494,7 @@ Figure&nbsp;3.1: Example circuit
 </div>
 <section id="introduction" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">3.1</span> Introduction</h2>
-<p>This chapter walks through the Python code used to generate and solve the circuit network equations. <a href="#fig-smna-example-circuit" class="quarto-xref">Figure&nbsp;<span>3.1</span></a> is the schematic for the circuit used in this example. The analysis procedure first requires a circuit net list, which can be gernerated by hand with a text editor. For small circuits, such as those found in circuit analysis text books, this is not to difficult since the number of nodes and components is small. College Text book problems are usually ment by the authors to be solved with pencil and paper by hand. In this example LTSpice was used to draw the schematic and label the components and nodes. Most schematic caputure programs had the ability to export a Spice net list, which then can be pasted in to the procedure outlined here.</p>
+<p>This chapter walks through the Python code used to generate and solve the circuit network equations. <a href="#fig-smna-example-circuit" class="quarto-xref">Figure&nbsp;<span>3.1</span></a> is the schematic for the circuit used in this example. The analysis procedure first requires a circuit net list, which can be gernerated by hand with a text editor. For small circuits, such as those found in circuit analysis text books, this is not difficult since the number of nodes and components is small. College text book problems are usually ment by the authors to be solved with pencil and paper by hand. In this example LTSpice was used to draw the schematic and label the components and nodes. Most schematic caputure programs have the ability to export a SPICE net list, which then can be pasted in to the procedure outlined here.</p>
 </section>
 <section id="circuit-description" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="circuit-description"><span class="header-section-number">3.2</span> Circuit description</h2>
@@ -509,7 +509,7 @@ L2 5 0 1µ
 R2 4 3 0.5
 R3 2 5 0.5
 K1 L1 L2 0.15</code></pre>
-<p>The LTSpice net list requires some editing. The line that defines the independent AC source, V1, needs to be formated as it it were a DC source. For symbolic analysis we are only concerned with the label for the source at this time. Later, in the example an AC analysis will be performed and <span class="math inline">\(j \omega\)</span> will be sustituted for the Laplace variable, <span class="math inline">\(s\)</span>. Also, the suffixes that SPICE allows in the compent values e.g., k and <span class="math inline">\(\mu\)</span>, need to be replaced by their corresponding multiplication factors as shown below.</p>
+<p>The LTSpice net list requires some editing. The line in the netlist that defines the independent AC source, V1, needs to be formated as if it were a DC source. For symbolic analysis we are only concerned with the label for the source at this time. Later, in the this example, an AC analysis will be performed and <span class="math inline">\(j \omega\)</span> will be sustituted for the Laplace variable, <span class="math inline">\(s\)</span>. Also, the suffixes that SPICE allows in the compent values e.g., k and <span class="math inline">\(\mu\)</span>, need to be replaced by their corresponding multiplication factors as shown below.</p>
 <pre><code>V1 1 0 1
 R1 3 1 1e3
 R4 2 0 10e3
@@ -589,7 +589,7 @@ K1 L1 L2 0.15</code></pre>
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>content <span class="op">=</span> [n <span class="cf">for</span> n <span class="kw">in</span> content <span class="cf">if</span> <span class="kw">not</span> n.startswith(<span class="st">'*'</span>)]</span>
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># remove other comment lines, these start with a semicolon ;</span></span>
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>content <span class="op">=</span> [n <span class="cf">for</span> n <span class="kw">in</span> content <span class="cf">if</span> <span class="kw">not</span> n.startswith(<span class="st">';'</span>)]</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co"># remove spice directives, these start with a period, .</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co"># remove SPICE directives, these start with a period, .</span></span>
 <span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>content <span class="op">=</span> [n <span class="cf">for</span> n <span class="kw">in</span> content <span class="cf">if</span> <span class="kw">not</span> n.startswith(<span class="st">'.'</span>)]</span>
 <span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co"># converts 1st letter to upper case</span></span>
 <span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co">#content = [x.upper() for x in content] &lt;- this converts all to upper case</span></span>
@@ -1648,7 +1648,7 @@ inductors: minus sign added to keep current flow convention consistent</p>
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># turn the free symbols into SymPy variables</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>var(<span class="bu">str</span>(equ.free_symbols).replace(<span class="st">'{'</span>,<span class="st">''</span>).replace(<span class="st">'}'</span>,<span class="st">''</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="30">
-<p><span class="math inline">\(\displaystyle \left( R_{3}, \  I_{L2}, \  v_{1}, \  s, \  R_{4}, \  R_{2}, \  v_{4}, \  L_{2}, \  I_{L1}, \  M_{1}, \  R_{1}, \  v_{3}, \  V_{1}, \  v_{2}, \  I_{V1}, \  C_{2}, \  v_{5}, \  L_{1}, \  C_{1}\right)\)</span></p>
+<p><span class="math inline">\(\displaystyle \left( C_{2}, \  V_{1}, \  s, \  R_{1}, \  v_{5}, \  v_{2}, \  R_{2}, \  C_{1}, \  L_{1}, \  L_{2}, \  I_{L1}, \  R_{4}, \  I_{L2}, \  v_{4}, \  v_{3}, \  R_{3}, \  v_{1}, \  M_{1}, \  I_{V1}\right)\)</span></p>
 </div>
 </div>
 <div id="cell-55" class="cell" data-execution_count="31">
@@ -1860,7 +1860,7 @@ I_L2       0.009486   -111.073602</code></pre>
 <span id="cb60-15"><a href="#cb60-15" aria-hidden="true" tabindex="-1"></a>ax2.tick_params(axis<span class="op">=</span><span class="st">'y'</span>, labelcolor<span class="op">=</span><span class="st">'b'</span>)</span>
 <span id="cb60-16"><a href="#cb60-16" aria-hidden="true" tabindex="-1"></a><span class="co">#ax2.set_ylim((-5,25))</span></span>
 <span id="cb60-17"><a href="#cb60-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-18"><a href="#cb60-18" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Bode plot'</span>)</span>
+<span id="cb60-18"><a href="#cb60-18" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Magnitude and phase response'</span>)</span>
 <span id="cb60-19"><a href="#cb60-19" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>

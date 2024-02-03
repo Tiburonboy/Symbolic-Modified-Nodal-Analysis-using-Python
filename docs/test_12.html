@@ -364,8 +364,8 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Superposition_and_polyphase_circuit.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">A polyphase circuit</span></span></a>
+  <a href="./Superposition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Superposition</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -820,7 +820,7 @@ number of K - Coupled inductors: 0
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># turn the free symbols into SymPy variables</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>var(<span class="bu">str</span>(NE_sym.free_symbols).replace(<span class="st">'{'</span>,<span class="st">''</span>).replace(<span class="st">'}'</span>,<span class="st">''</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="12">
-<p><span class="math inline">\(\displaystyle \left( Rs, \  v_{2}, \  I_{L4}, \  I_{1}, \  v_{4}, \  C_{5}, \  C_{7}, \  L_{2}, \  C_{1}, \  Rl, \  v_{1}, \  v_{3}, \  C_{3}, \  I_{L2}, \  s, \  L_{6}, \  L_{4}, \  I_{L6}\right)\)</span></p>
+<p><span class="math inline">\(\displaystyle \left( C_{3}, \  L_{2}, \  I_{1}, \  C_{7}, \  v_{4}, \  I_{L4}, \  v_{3}, \  L_{4}, \  s, \  Rs, \  C_{1}, \  Rl, \  v_{2}, \  v_{1}, \  C_{5}, \  I_{L2}, \  L_{6}, \  I_{L6}\right)\)</span></p>
 </div>
 </div>
 </section>
@@ -1095,7 +1095,7 @@ Using</p>
 <span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a>ax2.tick_params(axis<span class="op">=</span><span class="st">'y'</span>, labelcolor<span class="op">=</span>color)</span>
 <span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a><span class="co">#ax2.set_ylim((-5,25))</span></span>
 <span id="cb39-22"><a href="#cb39-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-23"><a href="#cb39-23" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Magnitude and phase response'</span>)</span>
+<span id="cb39-23"><a href="#cb39-23" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Magnitude and phase response difference'</span>)</span>
 <span id="cb39-24"><a href="#cb39-24" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
