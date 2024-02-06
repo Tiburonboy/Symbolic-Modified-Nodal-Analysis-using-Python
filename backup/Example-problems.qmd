@@ -18,10 +18,8 @@ The table below lists the example problems completed so far.
 | Thevenin equivalent circuit | The Thevenin equivalent circuit is obtained from a netlist. |
 | State variable filter | Network equations for a [state variable filter](https://en.wikipedia.org/wiki/State_variable_filter) are obtained from the netlist which are solved in symbolic form. |
 | Superposition | A circuit to illustrate superposition and polyphase circuit analysis. |
-<!--
-| Laplace transforms | |
-| Transient circuit | initial conditions |
--->
+| Initial conditions | Voltage on the capacitor and current in the inductor at t=0 |
+| Transient analysis | Examining the transient response of a circuit |
 <br>
 <br>
 

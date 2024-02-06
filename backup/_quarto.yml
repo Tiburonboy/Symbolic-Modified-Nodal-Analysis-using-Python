@@ -40,6 +40,8 @@ book:
         - Superposition.ipynb
         - 2nd_order_BRF.ipynb
         - Elliptic-function-LPF.ipynb
+        - Initial_conditions.ipynb
+        - Transient_circuit.ipynb
     - References.qmd
   appendices:
     - SymMNA_py.qmd

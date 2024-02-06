@@ -51,6 +51,7 @@ Since this project is still under construction, I have a list of to dos.
 - [ ] fix spelling of netlist
 - [ ] debug superposition problem
 - [ ] change usage of spice to SPICE and define
+- [ ] fix usage of Op Amp and make consistant thoughout
 - [x] clean up sma() documentation and the test notebook
 - [x] finish chapter 4
 - [x] add summary to end of example notebook
@@ -69,10 +70,9 @@ Since this project is still under construction, I have a list of to dos.
 - [x] update two port notebook
 - [x] update Thevenin notebook
 - Create new example problems
-  - [ ] Superposition
-  - [ ] Laplace transforms
-  - [ ] Initial conditions
-  - [ ] Transient circuit
+  - [x] Superposition
+  - [x] Initial conditions
+  - [x] Transient circuit
   - [ ] non linear circuits, see YouTube [MNA Introduction](https://www.youtube.com/watch?v=BPapfxzwsmI&list=PLlsTHbFeR7v0QG8Q4l6oc7d---eKKSKTz)
 - [ ] finish Summary in state variable notebook
 - [x] add narritave to Appendices chapter
