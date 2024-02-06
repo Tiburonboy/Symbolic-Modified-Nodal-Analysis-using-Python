@@ -1,7 +1,7 @@
 The start of a new book.
 
 > [!NOTE]  
-> Last update: 23 Jan 2023  
+> Last update: 6 Feb 2024  
 > - This book is a draft copy and only half baked.  
 > - Many sections are still under construction.  
 > - Only preliminary files have been posted to github.  
