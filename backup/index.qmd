@@ -9,9 +9,9 @@ Last update: 26 Jan 2024
 :::    
 
 ## About this book {.unnumbered}
-This website is my online book - *Symbolic Modified Nodal Analysis using Python*. Symbolic circuit analysis is a circuit analysis method that derives network equations with the circuit elements represented by symbols and the topology of the circuit described by a netlist.
+This website is my online book - *Symbolic Modified Nodal Analysis using Python*. Symbolic circuit analysis is a circuit analysis method that derives network equations with the circuit elements represented by symbols and the topology of the circuit described by a netlist. [Python](https://en.wikipedia.org/wiki/Python_(programming_language)) is a general purpose programing lauguage with a large standard library and packages.
 
-The circuit analysis technique presented in this book covers circuits driven with sinusoidal sources where the DC or AC steady state response is obtained. The inductors and capacitors in the circuit are replaced by their transformed values. Inductors are replace by their steady state Laplace value, $sL$, where L is the value of the inductor with units of henrys (named after [Joseph Henery](https://en.wikipedia.org/wiki/Joseph_Henry)) and $s$ is the Laplace variable equal to $j \omega$ where $j$ is the [imaginary number](https://en.wikipedia.org/wiki/Imaginary_number) and $\omega$ is the radian frequency. Capacitors in the circuit are replace by their steady state Laplace value, $\frac {1}{sC}$ where C is the value of the capacitor with units in farads (named after [Micheal Faraday](https://en.wikipedia.org/wiki/Michael_Faraday)).
+The circuit analysis technique presented in this book covers circuits driven with sinusoidal sources where the DC or AC steady state response is obtained. The inductors and capacitors in the circuit are replaced by their transformed values. Inductors are replace by their steady state Laplace value, $sL$, where L is the value of the inductor with units of henrys (named after [Joseph Henery](https://en.wikipedia.org/wiki/Joseph_Henry)) and $s$ is the [Laplace](https://en.wikipedia.org/wiki/Laplace_transform) variable equal to $j \omega$ where $j$ is the [imaginary number](https://en.wikipedia.org/wiki/Imaginary_number) and $\omega$ is the radian frequency. Capacitors in the circuit are replace by their steady state Laplace value, $\frac {1}{sC}$ where C is the value of the capacitor with units in farads (named after [Micheal Faraday](https://en.wikipedia.org/wiki/Michael_Faraday)).
 
 There are 15 code validation test circuits along with a few project circuits. The chapters for each of the circuits can be referenced as examples of how to use my Python code to analyze electrical circuits.
 
@@ -47,37 +47,18 @@ This book will be updated occasionally to fix typos, spelling and grammer mistak
 ### Project ToDo List
 Since this project is still under construction, I have a list of to dos.
 
-- [ ] finish comments in SymMNA.py code
 - [ ] fix spelling of netlist
-- [ ] debug superposition problem
 - [ ] change usage of spice to SPICE and define
 - [ ] fix usage of Op Amp and make consistant thoughout
-- [x] clean up sma() documentation and the test notebook
-- [x] finish chapter 4
-- [x] add summary to end of example notebook
-- [x] have SymMNA return the netlist report
-- [ ] use N for network equations (N_sym, N), U for solved system of equations and H for system functions
-- [x] In chapter 3, include the schematic capture procedure to generate the netlist
-- [x] think about removing netlist file load, just embed the netlist
 - update status in /Quarto_projects/Symbolic-Modified-Nodal-Analysis-using-Python/draft_docs/To Do List.odt
-- rewrite tests and problems using smna()
-  - [ ] clean up narrative on all the tests
-  - [ ] add comment to each test about generating a symbolic solution
-  - [ ] review each schematic and remove spice directives  
-  - [x] test 14 and 15 need writeups
+- [ ] clean up narrative on all the tests
+- [ ] add comment to each test about generating a symbolic solution
+- [ ] review each schematic and remove spice directives  
 - [ ] remove double spaces at end of sentences
 - [ ] rewrite Two amplifier RIAA phono preamp
-- [x] update two port notebook
-- [x] update Thevenin notebook
 - Create new example problems
-  - [x] Superposition
-  - [x] Initial conditions
-  - [x] Transient circuit
-  - [ ] non linear circuits, see YouTube [MNA Introduction](https://www.youtube.com/watch?v=BPapfxzwsmI&list=PLlsTHbFeR7v0QG8Q4l6oc7d---eKKSKTz)
+- [ ] non linear circuits, see YouTube [MNA Introduction](https://www.youtube.com/watch?v=BPapfxzwsmI&list=PLlsTHbFeR7v0QG8Q4l6oc7d---eKKSKTz)
 - [ ] finish Summary in state variable notebook
-- [x] add narritave to Appendices chapter
-- [x] why is 2nd order BRF in the appendix?
-- [x] make change to log table
 - [ ] spell and grammar check all files
 
 <!--
