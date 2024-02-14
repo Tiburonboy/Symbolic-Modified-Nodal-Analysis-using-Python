@@ -42,6 +42,10 @@ book:
         - Elliptic-function-LPF.ipynb
         - Initial_conditions.ipynb
         - Transient_circuit.ipynb
+#        - T-coil.ipynb
+#        - Bridge-T.ipynb
+#        - Pi-Filter.ipynb
+#        - SIDO-low-pass-filter.ipynb
     - References.qmd
   appendices:
     - SymMNA_py.qmd
