@@ -1105,13 +1105,14 @@ number of K - Coupled inductors: 1
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># turn the free symbols into SymPy variables</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>var(<span class="bu">str</span>(NE_sym.free_symbols).replace(<span class="st">'{'</span>,<span class="st">''</span>).replace(<span class="st">'}'</span>,<span class="st">''</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="12">
-<p><span class="math inline">\(\displaystyle \left( I_{L2}, \  R_{14}, \  I_{V1}, \  I_{Ea1}, \  C_{2}, \  I_{L1}, \  M_{1}, \  v_{7}, \  ea_{1}, \  s, \  R_{3}, \  R_{11}, \  R_{10}, \  R_{18}, \  R_{4}, \  V_{1}, \  V_{2}, \  g_{1}, \  R_{7}, \  v_{1}, \  L_{4}, \  I_{H1}, \  L_{3}, \  v_{2}, \  L_{2}, \  v_{6}, \  R_{16}, \  I_{V2}, \  v_{5}, \  C_{1}, \  L_{1}, \  V_{4}, \  R_{17}, \  v_{3}, \  I_{L4}, \  v_{9}, \  v_{10}, \  I_{F1}, \  f_{1}, \  R_{2}, \  I_{L3}, \  v_{11}, \  v_{12}, \  R_{12}, \  v_{4}, \  R_{8}, \  v_{13}, \  I_{V4}, \  h_{1}, \  I_{2}, \  v_{8}\right)\)</span></p>
+<p><span class="math inline">\(\displaystyle \left( M_{1}, \  R_{8}, \  I_{L1}, \  R_{4}, \  R_{16}, \  v_{5}, \  v_{2}, \  v_{3}, \  I_{L2}, \  V_{1}, \  I_{H1}, \  v_{1}, \  R_{10}, \  v_{12}, \  I_{2}, \  s, \  R_{14}, \  L_{1}, \  h_{1}, \  R_{18}, \  v_{13}, \  I_{L3}, \  V_{4}, \  v_{9}, \  R_{11}, \  R_{12}, \  I_{F1}, \  L_{3}, \  I_{Ea1}, \  v_{7}, \  v_{4}, \  V_{2}, \  I_{V4}, \  R_{3}, \  C_{2}, \  I_{L4}, \  L_{2}, \  v_{8}, \  I_{V1}, \  I_{V2}, \  C_{1}, \  R_{17}, \  ea_{1}, \  R_{2}, \  g_{1}, \  f_{1}, \  v_{10}, \  L_{4}, \  R_{7}, \  v_{11}, \  v_{6}\right)\)</span></p>
 </div>
 </div>
 </section>
 </section>
 <section id="symbolic-solution" class="level2" data-number="10.3">
 <h2 data-number="10.3" class="anchored" data-anchor-id="symbolic-solution"><span class="header-section-number">10.3</span> Symbolic solution</h2>
+<p>The symbolic solution was taking longer than a couple of minutes on my i3-8130U CPU @ 2.20GHz, so I interruped the kernel and commended the code.</p>
 <div id="cell-25" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#U_sym = solve(NE_sym,X)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -1127,18 +1128,7 @@ number of K - Coupled inductors: 1
 <section id="construct-a-dictionary-of-element-values" class="level2" data-number="10.4">
 <h2 data-number="10.4" class="anchored" data-anchor-id="construct-a-dictionary-of-element-values"><span class="header-section-number">10.4</span> Construct a dictionary of element values</h2>
 <div id="cell-29" class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>element_value_keys <span class="op">=</span> []</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>element_value_values <span class="op">=</span> []</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(network_df)):</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> network_df.iloc[i][<span class="st">'element'</span>][<span class="dv">0</span>] <span class="op">==</span> <span class="st">'F'</span> <span class="kw">or</span> network_df.iloc[i][<span class="st">'element'</span>][<span class="dv">0</span>] <span class="op">==</span> <span class="st">'E'</span> <span class="kw">or</span> network_df.iloc[i][<span class="st">'element'</span>][<span class="dv">0</span>] <span class="op">==</span> <span class="st">'G'</span> <span class="kw">or</span> network_df.iloc[i][<span class="st">'element'</span>][<span class="dv">0</span>] <span class="op">==</span> <span class="st">'H'</span>:</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>        element_value_keys.append(var(network_df.iloc[i][<span class="st">'element'</span>].lower()))</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>        element_value_values.append(network_df.iloc[i][<span class="st">'value'</span>])</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>        element_value_keys.append(var(network_df.iloc[i][<span class="st">'element'</span>]))</span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>        element_value_values.append(network_df.iloc[i][<span class="st">'value'</span>])</span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>element_values <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">zip</span>(element_value_keys, element_value_values))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>element_values <span class="op">=</span> SymMNA.get_part_values(network_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="mutual-inductance" class="level3" data-number="10.4.1">
 <h3 data-number="10.4.1" class="anchored" data-anchor-id="mutual-inductance"><span class="header-section-number">10.4.1</span> Mutual inductance</h3>
@@ -1149,9 +1139,10 @@ number of K - Coupled inductors: 1
 <p><span class="math inline">\(k = \frac {M}{\sqrt{L_1 \times L_2}}\)</span></p>
 <p>Where k is the coupling coefficient and in spice the value of k can be from -1 to +1 to account for a a negative phase relation. Phase dots are drawn on the schematic to indicate the relative direction of the windings. In LTspice the phase dots are associated with the negative terminal of the winding.</p>
 <div id="cell-31" class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate the coupling constant from the mutual inductance</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>element_values[M1] <span class="op">=</span> element_values[K1]<span class="op">*</span>np.sqrt(element_values[L3] <span class="op">*</span>element_values[L4])</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'mutual inductance, M1 = </span><span class="sc">{:.9f}</span><span class="st">'</span>.<span class="bu">format</span>(element_values[M1]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>K1 <span class="op">=</span> symbols(<span class="st">'K1'</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate the coupling constant from the mutual inductance</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>element_values[M1] <span class="op">=</span> element_values[K1]<span class="op">*</span>np.sqrt(element_values[L3] <span class="op">*</span>element_values[L4])</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'mutual inductance, M1 = </span><span class="sc">{:.9f}</span><span class="st">'</span>.<span class="bu">format</span>(element_values[M1]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>mutual inductance, M1 = 4.472135955</code></pre>
 </div>

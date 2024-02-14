@@ -832,7 +832,7 @@ number of K - Coupled inductors: 0
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># turn the free symbols into SymPy variables</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>var(<span class="bu">str</span>(NE_sym.free_symbols).replace(<span class="st">'{'</span>,<span class="st">''</span>).replace(<span class="st">'}'</span>,<span class="st">''</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="12">
-<p><span class="math inline">\(\displaystyle \left( C_{3}, \  L_{2}, \  I_{1}, \  C_{7}, \  v_{4}, \  I_{L4}, \  v_{3}, \  L_{4}, \  s, \  Rs, \  C_{1}, \  Rl, \  v_{2}, \  v_{1}, \  C_{5}, \  I_{L2}, \  L_{6}, \  I_{L6}\right)\)</span></p>
+<p><span class="math inline">\(\displaystyle \left( I_{L4}, \  v_{3}, \  I_{1}, \  C_{1}, \  Rs, \  v_{4}, \  v_{2}, \  C_{3}, \  L_{6}, \  Rl, \  s, \  I_{L2}, \  C_{5}, \  L_{2}, \  C_{7}, \  I_{L6}, \  v_{1}, \  L_{4}\right)\)</span></p>
 </div>
 </div>
 </section>
@@ -857,18 +857,11 @@ number of K - Coupled inductors: 0
 <section id="construct-a-dictionary-of-element-values" class="level2" data-number="16.4">
 <h2 data-number="16.4" class="anchored" data-anchor-id="construct-a-dictionary-of-element-values"><span class="header-section-number">16.4</span> Construct a dictionary of element values</h2>
 <div id="cell-29" class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>element_value_keys <span class="op">=</span> []</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>element_value_values <span class="op">=</span> []</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(network_df)):</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> network_df.iloc[i][<span class="st">'element'</span>][<span class="dv">0</span>] <span class="op">==</span> <span class="st">'F'</span> <span class="kw">or</span> network_df.iloc[i][<span class="st">'element'</span>][<span class="dv">0</span>] <span class="op">==</span> <span class="st">'E'</span> <span class="kw">or</span> network_df.iloc[i][<span class="st">'element'</span>][<span class="dv">0</span>] <span class="op">==</span> <span class="st">'G'</span> <span class="kw">or</span> network_df.iloc[i][<span class="st">'element'</span>][<span class="dv">0</span>] <span class="op">==</span> <span class="st">'H'</span>:</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>        element_value_keys.append(var(network_df.iloc[i][<span class="st">'element'</span>].lower()))</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>        element_value_values.append(network_df.iloc[i][<span class="st">'value'</span>])</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>        element_value_keys.append(var(network_df.iloc[i][<span class="st">'element'</span>]))</span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>        element_value_values.append(network_df.iloc[i][<span class="st">'value'</span>])</span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>element_values <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">zip</span>(element_value_keys, element_value_values))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>element_values <span class="op">=</span> SymMNA.get_part_values(network_df)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>element_values</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="15">
+<p><span class="math inline">\(\displaystyle \left\{ C_{1} : 1.5948, \  C_{3} : 3.7642, \  C_{5} : 4.015, \  C_{7} : 3.0182, \  I_{1} : 1.0, \  L_{2} : 0.7529, \  L_{4} : 0.9276, \  L_{6} : 0.9142, \  Rl : 1.0, \  Rs : 0.5\right\}\)</span></p>
+</div>
 </div>
 <div id="cell-30" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>element_values</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>

@@ -564,7 +564,7 @@ R5 6 0 10k</code></pre>
 <div id="cell-13" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>var(<span class="bu">str</span>(equ.free_symbols).replace(<span class="st">'{'</span>,<span class="st">''</span>).replace(<span class="st">'}'</span>,<span class="st">''</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="6">
-<p><span class="math inline">\(\displaystyle \left( v_{2}, \  R_{3}, \  s, \  R_{5}, \  v_{7}, \  V_{1}, \  C_{3}, \  R_{6}, \  v_{5}, \  I_{O1}, \  C_{2}, \  C_{1}, \  v_{1}, \  C_{5}, \  I_{V1}, \  C_{4}, \  v_{6}, \  R_{4}, \  v_{4}, \  v_{3}, \  R_{1}, \  R_{2}, \  R_{7}\right)\)</span></p>
+<p><span class="math inline">\(\displaystyle \left( C_{1}, \  I_{O1}, \  v_{6}, \  C_{5}, \  v_{4}, \  v_{1}, \  v_{2}, \  I_{V1}, \  v_{7}, \  v_{5}, \  R_{7}, \  v_{3}, \  R_{5}, \  R_{2}, \  C_{4}, \  V_{1}, \  R_{3}, \  R_{1}, \  C_{2}, \  R_{6}, \  s, \  R_{4}, \  C_{3}\right)\)</span></p>
 </div>
 </div>
 <p>Built a dictionary of element values.</p>
@@ -579,7 +579,7 @@ R5 6 0 10k</code></pre>
 </section>
 <section id="symbolic-solution" class="level2" data-number="26.3">
 <h2 data-number="26.3" class="anchored" data-anchor-id="symbolic-solution"><span class="header-section-number">26.3</span> Symbolic solution</h2>
-<p>The symbolic solution take a long time, 2 hours, on my laptop. Going to write some code to save off the results to a pickle file.</p>
+<p>The symbolic solution takes a long time, 2 hours, on my laptop (i3-8130U CPU @ 2.20GHz), so I commended the code. Going to write some code to save off the results to a pickle file.</p>
 <div id="cell-17" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#U_sym = solve(equ,X)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
