@@ -43,9 +43,11 @@ book:
         - Initial_conditions.ipynb
         - Transient_circuit.ipynb
 #        - T-coil.ipynb
-#        - Bridge-T.ipynb
-#        - Pi-Filter.ipynb
-#        - SIDO-low-pass-filter.ipynb
+        - Bridge-T.ipynb
+        - Pi-Filter.ipynb
+        - SIDO-low-pass-filter.ipynb
+        - Super-node.ipynb
+        - Phasor-analysis.ipynb
     - References.qmd
   appendices:
     - SymMNA_py.qmd

@@ -19,11 +19,20 @@ The table below lists the example problems completed so far.
 | State variable filter | Network equations for a [state variable filter](https://en.wikipedia.org/wiki/State_variable_filter) are obtained from the netlist which are solved in symbolic form. |
 | Superposition | A circuit to illustrate superposition and polyphase circuit analysis. |
 | Initial conditions | Voltage on the capacitor and current in the inductor at t=0 |
-| Transient analysis | Examining the transient response of a circuit |
+| Transient circuit | Examining the transient response of a circuit |
+| Bridge T | Initial conditions and transient solution |
+| Pi Filter | Transfer function using the FACTS method |
+| SIDO filter | The circuit analyzed is from an [electronics stackexchange](https://electronics.stackexchange.com/) question linked [here](https://electronics.stackexchange.com/questions/682389/transfer-function-of-the-below-circuit), where the use asked for help to determine the transfer function. The circuit appears to be a low pass filter for the input to some following device. |
+| Super node | Analysis of a circuit with a super node |
+| Phasor analysis | Analysis of a circuit with phasor elements |
 <br>
 <br>
 
 <!--
+
+
+| T-coil | This notebook looks at a circuit called the T-coil. A T-coil uses a coupled inductor with a bridging capacitor to develop a constant impedance. Historically T-coils were used in wide band vacuum tube amplifiers and today they are commonly used in Transient Voltage Suppression (TVS) circuits. |
+
 ## Future example problems
 
 : table caption {tbl-colwidths="[30,70]"}  
@@ -34,9 +43,6 @@ The table below lists the example problems completed so far.
 | Active inductor, Nullors, Gyrators, NICs, Current Conveyor | Where are these used?<br>Controlled Sources, Nullors, Active Gain Devices, Impedance Converters and Inverters (Gyrators, NICs, Current Conveyors)<br>See Op Amp circuit #2 or #2HP  See Haydak Chapter 13, for RC-NIC and RC gyrator filters  |
 | Wien bridge oscillator | https://en.wikipedia.org/wiki/Wien_bridge_oscillator <br>Simple circuit <br>not so easy to make osc in LTSpice. Notebook started |
 | Switched mode power supply | Do the LED driver fly back circuit, <br>see Analog Devices power management tools, <br>https://www.analog.com/en/design-center/design-tools-and-calculators/power-management-tools.html |
-| Pi filter transfer function | move to other blog |
-| Bridge-T network analysis |  |
-| T-coil circuit | See papers in download folder |
 | Diode circuit | Get network equations with R in place of diode and then substitute equations for diode in python |
 | Transistor circuit | Get network equations with R’s in place of transistor and then substitute equations in python<br>Or look at an Op Amp model that can have C in the feedback loop |
 | Tone control circuit of link | https://sound-au.com/project27.htm |

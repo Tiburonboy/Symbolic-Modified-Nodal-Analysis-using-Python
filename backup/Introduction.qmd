@@ -6,7 +6,7 @@ format:
 jupyter: python3
 ---
 # Introduction {#sec-Introduction}    
-Circuit analysis and theory are fundamental to electrical engineering and is usually one of the first topics taught to electrical engineering students. The purpose of this book is to describe a circuit analysis method called [Modified Nodal Analysis](https://en.wikipedia.org/wiki/Modified_nodal_analysis) (MNA) implemented in Python that can provide symbolic solutions for circuit analysis problems. The Python programming language along with its packages and libraries provide powerful computational tools that make solving math problems extremely easy with just a few lines of code. The Python library, SymPy, is used for symbolic mathematics and is the main library used to perform the types of circuit analysis problems described in this book.
+Circuit analysis and theory are fundamental to electrical engineering and is usually one of the first topics taught to electrical engineering students. The purpose of this book is to describe a circuit analysis method called [Modified Nodal Analysis](https://en.wikipedia.org/wiki/Modified_nodal_analysis) (MNA) implemented in Python that can provide frequency domain symbolic network equations for circuit analysis problems. The Python programming language along with its packages and libraries provide powerful computational tools that make solving math problems extremely easy with just a few lines of code. The Python library, SymPy, is used for symbolic mathematics and is the main library used to perform the types of circuit analysis problems described in this book.
 
 For example, the following system of equations,
 
