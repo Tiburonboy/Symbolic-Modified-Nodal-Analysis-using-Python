@@ -369,6 +369,36 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Transient circuit</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bridge-T.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Bridge-T</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Pi-Filter.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Pi-filter</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./SIDO-low-pass-filter.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">SIDO-low-pass-filter</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Super-node.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Super node</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Phasor-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Phasor analysis</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item">
@@ -437,14 +467,14 @@ window.Quarto = {
 </header>
 
 
-<p>Circuit analysis and theory are fundamental to electrical engineering and is usually one of the first topics taught to electrical engineering students. The purpose of this book is to describe a circuit analysis method called <a href="https://en.wikipedia.org/wiki/Modified_nodal_analysis">Modified Nodal Analysis</a> (MNA) implemented in Python that can provide symbolic solutions for circuit analysis problems. The Python programming language along with its packages and libraries provide powerful computational tools that make solving math problems extremely easy with just a few lines of code. The Python library, SymPy, is used for symbolic mathematics and is the main library used to perform the types of circuit analysis problems described in this book.</p>
+<p>Circuit analysis and theory are fundamental to electrical engineering and is usually one of the first topics taught to electrical engineering students. The purpose of this book is to describe a circuit analysis method called <a href="https://en.wikipedia.org/wiki/Modified_nodal_analysis">Modified Nodal Analysis</a> (MNA) implemented in Python that can provide frequency domain symbolic network equations for circuit analysis problems. The Python programming language along with its packages and libraries provide powerful computational tools that make solving math problems extremely easy with just a few lines of code. The Python library, SymPy, is used for symbolic mathematics and is the main library used to perform the types of circuit analysis problems described in this book.</p>
 <p>For example, the following system of equations,</p>
 <p><span class="math inline">\(- C_{1} s v_{2} + v_{1} \left(C_{1} s + C_{2} s + \frac{1}{R_{3}}\right) = 0\)</span><br>
 <span class="math inline">\(- C_{1} s v_{1} + v_{2} \left(C_{1} s + \frac{1}{R_{2}}\right) - \frac{v_{3}}{R_{2}} = 0\)</span><br>
 <span class="math inline">\(I_{V1} - \frac{v_{2}}{R_{2}} + \frac{v_{3}}{R_{2}} = 0\)</span><br>
 <span class="math inline">\(v_{3} = V_{1}\)</span></p>
 <p>can be entered into Python to get the equations in matrix form:</p>
-<div id="5f698382" class="cell" data-execution_count="2">
+<div id="69220fc6" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>R2, C2, v1, C1, s, v3, v2, V1, R3, I_V1 <span class="op">=</span> symbols(<span class="st">'R2 C2 v1 C1 s v3 v2 V1 R3 I_V1'</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> Matrix([[C1<span class="op">*</span>s <span class="op">+</span> C2<span class="op">*</span>s <span class="op">+</span> <span class="dv">1</span><span class="op">/</span>R3, <span class="op">-</span>C1<span class="op">*</span>s, <span class="dv">0</span>, <span class="dv">0</span>], [<span class="op">-</span>C1<span class="op">*</span>s, C1<span class="op">*</span>s <span class="op">+</span> <span class="dv">1</span><span class="op">/</span>R2, <span class="op">-</span><span class="dv">1</span><span class="op">/</span>R2, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span><span class="op">/</span>R2, <span class="dv">1</span><span class="op">/</span>R2, <span class="dv">1</span>], [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>]])</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> Matrix([v1, v2, v3, I_V1])</span>
@@ -457,22 +487,22 @@ window.Quarto = {
 </div>
 </div>
 <p>The system of equations can be easily solved to obtain a solution in symbolic form:</p>
-<div id="d86659a0" class="cell" data-execution_count="3">
+<div id="fd22ba83" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>U_sym <span class="op">=</span> solve(equ,X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="9edaa095" class="cell" data-execution_count="4">
+<div id="82a78f73" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="4">
 <p><span class="math inline">\(v_{1} = \frac{C_{1} R_{3} V_{1} s}{C_{1} C_{2} R_{2} R_{3} s^{2} + C_{1} R_{2} s + C_{1} R_{3} s + C_{2} R_{3} s + 1}\)</span><br><span class="math inline">\(v_{2} = \frac{C_{1} R_{3} V_{1} s + C_{2} R_{3} V_{1} s + V_{1}}{C_{1} C_{2} R_{2} R_{3} s^{2} + C_{1} R_{2} s + C_{1} R_{3} s + C_{2} R_{3} s + 1}\)</span><br><span class="math inline">\(v_{3} = V_{1}\)</span><br><span class="math inline">\(I_{V1} = \frac{- C_{1} C_{2} R_{3} V_{1} s^{2} - C_{1} V_{1} s}{C_{1} C_{2} R_{2} R_{3} s^{2} + C_{1} R_{2} s + C_{1} R_{3} s + C_{2} R_{3} s + 1}\)</span><br></p>
 </div>
 </div>
 <p>The numeric values for the components can be substituted for the symbols (reference designators) and the following solution is obtained, where s is the Laplace variable:</p>
-<div id="6f87805f" class="cell" data-execution_count="5">
+<div id="a4312370" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Values <span class="op">=</span> {R2:<span class="dv">1000</span>, R3:<span class="dv">1000</span>, C1:<span class="fl">1e-6</span>, C2:<span class="fl">10e-6</span>, V1:<span class="dv">1</span>}</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>equ1a <span class="op">=</span> equ.subs(Values)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>U <span class="op">=</span> solve(equ1a,X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The voltage at node #2 can be obtained:</p>
-<div id="936468ac" class="cell" data-execution_count="6">
+<div id="358a7846" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>H <span class="op">=</span> U[v2]</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>H</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="6">
@@ -480,7 +510,7 @@ window.Quarto = {
 </div>
 </div>
 <p>Now we can solve for the roots of the denominator.</p>
-<div id="f75b897a" class="cell" data-execution_count="7">
+<div id="a869bc37" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>num, denom <span class="op">=</span> fraction(H) <span class="co">#returns numerator and denominator</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>solve(denom)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="7">
@@ -607,7 +637,7 @@ Table&nbsp;1.1: Variable names
 <p><strong>Large exponents</strong><br>
 The values of the exponents can be very large in the numerical solution to the network equations when using real component values. Often you will see in engineering text books that the author uses normalized component values, where the values have been frequency and impedance scaled to a frequency of <span class="math inline">\(\omega = 1\)</span> and one of the resistors or other components normalized to a value of one. This keeps the numerical values obtained in the solution to the network equations from getting very large or small.</p>
 <p>Almost all platforms map Python floats to the IEEE754 double precision - 64 total bits. Using the sys package, the float information is reported as follows:</p>
-<div id="6981b182" class="cell" data-execution_count="8">
+<div id="4bc010ab" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-stdout">
 <pre><code>max=1.7976931348623157e+308
  max_exp=1024

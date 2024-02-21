@@ -392,6 +392,36 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Transient circuit</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bridge-T.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Bridge-T</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Pi-Filter.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Pi-filter</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./SIDO-low-pass-filter.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">SIDO-low-pass-filter</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Super-node.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Super node</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Phasor-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Phasor analysis</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item">
@@ -503,7 +533,7 @@ L1 2 3 0.152
 .end</code></pre>
 <p>The function, smna, will ignore spice directives and comments, however, some edits are needed; e-6 for <span class="math inline">\(\mu\)</span>, also if V1 was an AC source, the line would need to be fixed. Independent sources are formatted as if they are DC sources. If AC analysis is performed, <span class="math inline">\(j \omega\)</span> is substituted for the Laplace variable <span class="math inline">\(s\)</span>. See the test and problem circuits for the typical edits needed to fix up the netlist.</p>
 <p>The edited circuit netlist shown below:</p>
-<div id="25ff938c" class="cell" data-execution_count="2">
+<div id="af3faca0" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-stdout">
 <pre><code>
 V1 1 0 1
@@ -516,11 +546,11 @@ L1 2 3 0.152
 </div>
 </div>
 <p>calling the function</p>
-<div id="3464b7b3" class="cell" data-execution_count="3">
+<div id="636e491b" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>report, df, df2, A, X, Z <span class="op">=</span> SymMNA.smna(net_list)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>sample report</p>
-<div id="fa447a95" class="cell" data-execution_count="4">
+<div id="4e33e2c1" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-stdout">
 <pre><code>Net list report
 number of lines in netlist: 6
@@ -562,7 +592,7 @@ number of K - Coupled inductors: 0
 </li>
 <li>Lname2: name of coupled inductor 2</li>
 </ul>
-<div id="a4b06a9d" class="cell" data-execution_count="5">
+<div id="f3f4cce8" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display" data-execution_count="5">
 <div>
 
@@ -669,7 +699,7 @@ number of K - Coupled inductors: 0
 </div>
 </div>
 <p>A second Pandas data frame is used for components having unknown currents. Unknown currents arise from inductors (L), independent voltage sources (V), op amps (O), voltage-controlled voltage sources (E), current-controlled voltage sources (H), or current-controlled current sources (F).</p>
-<div id="bf984710" class="cell" data-execution_count="6">
+<div id="730e3d0f" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display" data-execution_count="6">
 <div>
 
@@ -703,25 +733,25 @@ number of K - Coupled inductors: 0
 </div>
 </div>
 <p>The <span class="math inline">\(A\)</span> matrix describes the connectivity of the resistors, capacitors and G type (VCCS) circuit elements.</p>
-<div id="0eff5aa1" class="cell" data-execution_count="7">
+<div id="69164e43" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="7">
 <p><span class="math inline">\(\displaystyle \left[\begin{matrix}\frac{1}{R_{1}} &amp; - \frac{1}{R_{1}} &amp; 0 &amp; 1 &amp; 0\\- \frac{1}{R_{1}} &amp; C_{1} s + \frac{1}{R_{1}} &amp; 0 &amp; 0 &amp; 1\\0 &amp; 0 &amp; C_{2} s + \frac{1}{R_{2}} &amp; 0 &amp; -1\\1 &amp; 0 &amp; 0 &amp; 0 &amp; 0\\0 &amp; 1 &amp; -1 &amp; 0 &amp; - L_{1} s\end{matrix}\right]\)</span></p>
 </div>
 </div>
 <p>The <span class="math inline">\(X\)</span> vector is composed of the voltage unknowns to be solved for and the unknown currents from each voltage source.</p>
-<div id="a66b8c92" class="cell" data-execution_count="8">
+<div id="176d1f50" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="8">
 <p><span class="math inline">\(\displaystyle \left[ v_{1}, \  v_{2}, \  v_{3}, \  I_{V1}, \  I_{L1}\right]\)</span></p>
 </div>
 </div>
 <p>The <span class="math inline">\(Z\)</span> vector is composed of the known currents and the known voltages.</p>
-<div id="36d84af8" class="cell" data-execution_count="9">
+<div id="7500ec77" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="9">
 <p><span class="math inline">\(\displaystyle \left[ 0, \  0, \  0, \  V_{1}, \  0\right]\)</span></p>
 </div>
 </div>
 <p>The <span class="math inline">\(A\)</span>, <span class="math inline">\(X\)</span> and <span class="math inline">\(Z\)</span> matrices can be formulated in to network equations by the SymPy function Eq which represents that two objects are equal, in this case <span class="math inline">\(A*X\)</span> and <span class="math inline">\(Z\)</span>.</p>
-<div id="55935bcf" class="cell" data-execution_count="11">
+<div id="4f27def5" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>equ <span class="op">=</span> Eq(A<span class="op">*</span>X,Z)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>equ</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="11">
@@ -729,19 +759,19 @@ number of K - Coupled inductors: 0
 </div>
 </div>
 <p>The symbols used for the network elements, node voltages, unknown currents and mutual inductance need to be created as SymPy symbols and be included in the global namespace.</p>
-<div id="6fe6b190" class="cell" data-execution_count="12">
+<div id="8fbf173f" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># turn the free symbols into SymPy variables</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>var(<span class="bu">str</span>(equ.free_symbols).replace(<span class="st">'{'</span>,<span class="st">''</span>).replace(<span class="st">'}'</span>,<span class="st">''</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="12">
-<p><span class="math inline">\(\displaystyle \left( v_{1}, \  V_{1}, \  R_{1}, \  s, \  C_{2}, \  I_{V1}, \  v_{3}, \  L_{1}, \  I_{L1}, \  v_{2}, \  C_{1}, \  R_{2}\right)\)</span></p>
+<p><span class="math inline">\(\displaystyle \left( R_{2}, \  R_{1}, \  L_{1}, \  v_{2}, \  I_{V1}, \  v_{1}, \  C_{2}, \  I_{L1}, \  v_{3}, \  V_{1}, \  C_{1}, \  s\right)\)</span></p>
 </div>
 </div>
 <p>The symbolic solution is obtained by call calling the SymPy function solve, which algebraically solves equations and systems of equations.</p>
-<div id="11c655ff" class="cell" data-execution_count="13">
+<div id="63450b62" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>U_sym <span class="op">=</span> solve(equ,X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>There are three unknown node voltages, <span class="math inline">\(v_1\)</span> is just the controlled source V1.</p>
-<div id="bb4f89b2" class="cell" data-execution_count="14">
+<div id="ba5d6762" class="cell" data-execution_count="14">
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="14">
 <p><span class="math inline">\(v_{1} = V_{1}\)</span><br><span class="math inline">\(v_{2} = \frac{C_{2} L_{1} R_{2} V_{1} s^{2} + L_{1} V_{1} s + R_{2} V_{1}}{C_{1} C_{2} L_{1} R_{1} R_{2} s^{3} + C_{1} L_{1} R_{1} s^{2} + C_{1} R_{1} R_{2} s + C_{2} L_{1} R_{2} s^{2} + C_{2} R_{1} R_{2} s + L_{1} s + R_{1} + R_{2}}\)</span><br><span class="math inline">\(v_{3} = \frac{R_{2} V_{1}}{C_{1} C_{2} L_{1} R_{1} R_{2} s^{3} + C_{1} L_{1} R_{1} s^{2} + C_{1} R_{1} R_{2} s + C_{2} L_{1} R_{2} s^{2} + C_{2} R_{1} R_{2} s + L_{1} s + R_{1} + R_{2}}\)</span><br><span class="math inline">\(I_{V1} = \frac{- C_{1} C_{2} L_{1} R_{2} V_{1} s^{3} - C_{1} L_{1} V_{1} s^{2} - C_{1} R_{2} V_{1} s - C_{2} R_{2} V_{1} s - V_{1}}{C_{1} C_{2} L_{1} R_{1} R_{2} s^{3} + C_{1} L_{1} R_{1} s^{2} + C_{1} R_{1} R_{2} s + C_{2} L_{1} R_{2} s^{2} + C_{2} R_{1} R_{2} s + L_{1} s + R_{1} + R_{2}}\)</span><br><span class="math inline">\(I_{L1} = \frac{C_{2} R_{2} V_{1} s + V_{1}}{C_{1} C_{2} L_{1} R_{1} R_{2} s^{3} + C_{1} L_{1} R_{1} s^{2} + C_{1} R_{1} R_{2} s + C_{2} L_{1} R_{2} s^{2} + C_{2} R_{1} R_{2} s + L_{1} s + R_{1} + R_{2}}\)</span><br></p>
 </div>
@@ -750,7 +780,7 @@ number of K - Coupled inductors: 0
 
 Edit was made here!
 
-::: {#b125e0e9 .cell execution_count=15}
+::: {#aee20e11 .cell execution_count=15}
 
 ::: {.cell-output .cell-output-display .cell-output-markdown execution_count=15}
 $\displaystyle V_{1}$
@@ -760,7 +790,7 @@ $\displaystyle V_{1}$
 
 The voltage on node number 2 is:
 
-::: {#6e1d1317 .cell execution_count=16}
+::: {#7cdf5efd .cell execution_count=16}
 
 ::: {.cell-output .cell-output-display .cell-output-markdown execution_count=16}
 $\displaystyle \frac{C_{2} L_{1} R_{2} V_{1} s^{2} + L_{1} V_{1} s + R_{2} V_{1}}{C_{1} C_{2} L_{1} R_{1} R_{2} s^{3} + C_{1} L_{1} R_{1} s^{2} + C_{1} R_{1} R_{2} s + C_{2} L_{1} R_{2} s^{2} + C_{2} R_{1} R_{2} s + L_{1} s + R_{1} + R_{2}}$
@@ -770,7 +800,7 @@ $\displaystyle \frac{C_{2} L_{1} R_{2} V_{1} s^{2} + L_{1} V_{1} s + R_{2} V_{1}
 
 The voltage on node number 3 is:
 
-::: {#3ecaeb6c .cell execution_count=17}
+::: {#00d8b724 .cell execution_count=17}
 
 ::: {.cell-output .cell-output-display .cell-output-markdown execution_count=17}
 $\displaystyle \frac{R_{2} V_{1}}{C_{1} C_{2} L_{1} R_{1} R_{2} s^{3} + C_{1} L_{1} R_{1} s^{2} + C_{1} R_{1} R_{2} s + C_{2} L_{1} R_{2} s^{2} + C_{2} R_{1} R_{2} s + L_{1} s + R_{1} + R_{2}}$
@@ -780,7 +810,7 @@ $\displaystyle \frac{R_{2} V_{1}}{C_{1} C_{2} L_{1} R_{1} R_{2} s^{3} + C_{1} L_
 
 The current from V1 is :
 
-::: {#119bf68d .cell execution_count=18}
+::: {#c82b10e7 .cell execution_count=18}
 
 ::: {.cell-output .cell-output-display .cell-output-markdown execution_count=18}
 $\displaystyle \frac{- C_{1} C_{2} L_{1} R_{2} V_{1} s^{3} - C_{1} L_{1} V_{1} s^{2} - C_{1} R_{2} V_{1} s - C_{2} R_{2} V_{1} s - V_{1}}{C_{1} C_{2} L_{1} R_{1} R_{2} s^{3} + C_{1} L_{1} R_{1} s^{2} + C_{1} R_{1} R_{2} s + C_{2} L_{1} R_{2} s^{2} + C_{2} R_{1} R_{2} s + L_{1} s + R_{1} + R_{2}}$
@@ -790,7 +820,7 @@ $\displaystyle \frac{- C_{1} C_{2} L_{1} R_{2} V_{1} s^{3} - C_{1} L_{1} V_{1} s
 
 The current in $L_1$ is:
 
-::: {#0716b9ca .cell execution_count=19}
+::: {#c81b2c5f .cell execution_count=19}
 
 ::: {.cell-output .cell-output-display .cell-output-markdown execution_count=19}
 $\displaystyle \frac{C_{2} R_{2} V_{1} s + V_{1}}{C_{1} C_{2} L_{1} R_{1} R_{2} s^{3} + C_{1} L_{1} R_{1} s^{2} + C_{1} R_{1} R_{2} s + C_{2} L_{1} R_{2} s^{2} + C_{2} R_{1} R_{2} s + L_{1} s + R_{1} + R_{2}}$
@@ -800,14 +830,14 @@ $\displaystyle \frac{C_{2} R_{2} V_{1} s + V_{1}}{C_{1} C_{2} L_{1} R_{1} R_{2} 
 
 -->
 <p>The symbolic transfer function of <span class="math inline">\(\frac {v_3} {v_1}\)</span> can be obtained by:</p>
-<div id="ffa12c93" class="cell" data-execution_count="20">
+<div id="72a9a226" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>U_sym[v3]<span class="op">/</span>U_sym[v1]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="20">
 <p><span class="math inline">\(\displaystyle \frac{R_{2}}{C_{1} C_{2} L_{1} R_{1} R_{2} s^{3} + C_{1} L_{1} R_{1} s^{2} + C_{1} R_{1} R_{2} s + C_{2} L_{1} R_{2} s^{2} + C_{2} R_{1} R_{2} s + L_{1} s + R_{1} + R_{2}}\)</span></p>
 </div>
 </div>
 <p>The following code can be used to get the element values from the dataframe.</p>
-<div id="e5366f1c" class="cell" data-execution_count="21">
+<div id="3c88a252" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>element_value_keys <span class="op">=</span> []</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>element_value_values <span class="op">=</span> []</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -826,14 +856,14 @@ $\displaystyle \frac{C_{2} R_{2} V_{1} s + V_{1}}{C_{1} C_{2} L_{1} R_{1} R_{2} 
 </div>
 </div>
 <p>The numerical values for the elements can be put into equations.</p>
-<div id="221f5bae" class="cell" data-execution_count="22">
+<div id="af70ab17" class="cell" data-execution_count="22">
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="22">
 <p><span class="math inline">\(\displaystyle \left[\begin{matrix}I_{V1} + 0.00166666666666667 v_{1} - 0.00166666666666667 v_{2}\\I_{L1} - 0.00166666666666667 v_{1} + v_{2} \cdot \left(3.8 \cdot 10^{-7} s + 0.00166666666666667\right)\\- I_{L1} + v_{3} \cdot \left(3.8 \cdot 10^{-7} s + 0.00166666666666667\right)\\v_{1}\\- 0.152 I_{L1} s + v_{2} - v_{3}\end{matrix}\right] = \left[\begin{matrix}0\\0\\0\\1.0\\0\end{matrix}\right]\)</span></p>
 </div>
 </div>
 <p>The network equations with actual values can then be solved by using SymPy’s solve function.</p>
 <p>The solution equations:</p>
-<div id="8797b80d" class="cell" data-execution_count="24">
+<div id="ee9fc0d3" class="cell" data-execution_count="24">
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="24">
 <p><span class="math inline">\(v_{1} = 1.0\)</span><br><span class="math inline">\(v_{2} = \frac{270750000.0 s^{2} + 1187500000000.0 s + 4.6875 \cdot 10^{15}}{61731.0 s^{3} + 541500000.0 s^{2} + 3325000000000.0 s + 9.375 \cdot 10^{15}}\)</span><br><span class="math inline">\(v_{3} = \frac{4.6875 \cdot 10^{15}}{61731.0 s^{3} + 541500000.0 s^{2} + 3325000000000.0 s + 9.375 \cdot 10^{15}}\)</span><br><span class="math inline">\(I_{V1} = \frac{- 20577.0 s^{3} - 90250000.0 s^{2} - 712500000000.0 s - 1.5625 \cdot 10^{15}}{12346200.0 s^{3} + 108300000000.0 s^{2} + 665000000000000.0 s + 1.875 \cdot 10^{18}}\)</span><br><span class="math inline">\(I_{L1} = \frac{31250000.0}{1083.0 s^{2} + 4750000.0 s + 37500000000.0}\)</span><br></p>
 </div>
@@ -842,7 +872,7 @@ $\displaystyle \frac{C_{2} R_{2} V_{1} s + V_{1}}{C_{1} C_{2} L_{1} R_{1} R_{2} 
 
 The voltage on node number 1 is:
 
-::: {#b5221b11 .cell execution_count=25}
+::: {#ee310144 .cell execution_count=25}
 
 ::: {.cell-output .cell-output-display .cell-output-markdown execution_count=25}
 $\displaystyle 1.0$
@@ -852,7 +882,7 @@ $\displaystyle 1.0$
 
 The voltage on node number 2 is:
 
-::: {#2edade0a .cell execution_count=26}
+::: {#816b9c4d .cell execution_count=26}
 
 ::: {.cell-output .cell-output-display .cell-output-markdown execution_count=26}
 $\displaystyle \frac{270750000.0 s^{2} + 1187500000000.0 s + 4.6875 \cdot 10^{15}}{61731.0 s^{3} + 541500000.0 s^{2} + 3325000000000.0 s + 9.375 \cdot 10^{15}}$
@@ -862,7 +892,7 @@ $\displaystyle \frac{270750000.0 s^{2} + 1187500000000.0 s + 4.6875 \cdot 10^{15
 
 The voltage on node number 3 is:
 
-::: {#4a024b13 .cell execution_count=27}
+::: {#94f43838 .cell execution_count=27}
 
 ::: {.cell-output .cell-output-display .cell-output-markdown execution_count=27}
 $\displaystyle \frac{4.6875 \cdot 10^{15}}{61731.0 s^{3} + 541500000.0 s^{2} + 3325000000000.0 s + 9.375 \cdot 10^{15}}$
@@ -872,7 +902,7 @@ $\displaystyle \frac{4.6875 \cdot 10^{15}}{61731.0 s^{3} + 541500000.0 s^{2} + 3
 
 current  V1
 
-::: {#b84b029c .cell execution_count=28}
+::: {#b0e61d9d .cell execution_count=28}
 
 ::: {.cell-output .cell-output-display .cell-output-markdown execution_count=28}
 $\displaystyle \frac{- 20577.0 s^{3} - 90250000.0 s^{2} - 712500000000.0 s - 1.5625 \cdot 10^{15}}{12346200.0 s^{3} + 108300000000.0 s^{2} + 665000000000000.0 s + 1.875 \cdot 10^{18}}$
@@ -882,7 +912,7 @@ $\displaystyle \frac{- 20577.0 s^{3} - 90250000.0 s^{2} - 712500000000.0 s - 1.5
 
 The current in $L_1$ is:
 
-::: {#56255ae1 .cell execution_count=29}
+::: {#e4a27157 .cell execution_count=29}
 
 ::: {.cell-output .cell-output-display .cell-output-markdown execution_count=29}
 $\displaystyle \frac{31250000.0}{1083.0 s^{2} + 4750000.0 s + 37500000000.0}$
@@ -892,7 +922,7 @@ $\displaystyle \frac{31250000.0}{1083.0 s^{2} + 4750000.0 s + 37500000000.0}$
 
 -->
 <p>The transfer function from node 1 to node 3 is:</p>
-<div id="dcb12118" class="cell" data-execution_count="30">
+<div id="662821b6" class="cell" data-execution_count="30">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>U[v3]<span class="op">/</span>U[v1]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="30">
 <p><span class="math inline">\(\displaystyle \frac{4.6875 \cdot 10^{15}}{61731.0 s^{3} + 541500000.0 s^{2} + 3325000000000.0 s + 9.375 \cdot 10^{15}}\)</span></p>
@@ -902,7 +932,7 @@ $\displaystyle \frac{31250000.0}{1083.0 s^{2} + 4750000.0 s + 37500000000.0}$
 <h2 data-number="4.1" class="anchored" data-anchor-id="ac-analysis"><span class="header-section-number">4.1</span> AC analysis</h2>
 <p>An AC analysis of the circuit can also be performed by substituting <span class="math inline">\(j \omega\)</span> for <span class="math inline">\(s\)</span> in the network equations and solving for the voltage at any desired node. The independent voltage source can be adjusted to a different amplitude and phase.</p>
 <p>For example, we can change the independent voltage source, V1, to have an amplitude of 10 at a frequency of 10 Hz with a phase of shift of 30 degrees.</p>
-<div id="a5f3283d" class="cell" data-execution_count="31">
+<div id="49b26659" class="cell" data-execution_count="31">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>source_amp <span class="op">=</span> <span class="dv">10</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>source_phase <span class="op">=</span> <span class="dv">30</span> <span class="co"># phase in degrees</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>new_V1 <span class="op">=</span> source_amp<span class="op">*</span>np.exp(<span class="ot">1j</span><span class="op">*</span>(source_phase<span class="op">*</span>np.pi<span class="op">/</span><span class="dv">180</span>))</span>
@@ -919,7 +949,7 @@ $\displaystyle \frac{31250000.0}{1083.0 s^{2} + 4750000.0 s + 37500000000.0}$
 </div>
 </div>
 <p>Again, we can use the SymPy function, solve, to get a solution for <span class="math inline">\(V_1 = 10 sin(2 \pi 10 t + 30)\)</span> and print the unknown voltages and currents.</p>
-<div id="2f750801" class="cell" data-execution_count="32">
+<div id="a2549a24" class="cell" data-execution_count="32">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>U_Nw <span class="op">=</span> solve(equ_Nw,X)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>table_header <span class="op">=</span> [<span class="st">'unknown'</span>, <span class="st">'mag'</span>,<span class="st">'phase, deg'</span>]</span>
