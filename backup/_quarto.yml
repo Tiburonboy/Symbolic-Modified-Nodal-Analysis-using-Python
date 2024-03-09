@@ -48,6 +48,7 @@ book:
         - SIDO-low-pass-filter.ipynb
         - Super-node.ipynb
         - Phasor-analysis.ipynb
+        - Modeling Op Amps.ipynb
     - References.qmd
   appendices:
     - SymMNA_py.qmd

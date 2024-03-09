@@ -25,6 +25,7 @@ The table below lists the example problems completed so far.
 | SIDO filter | The circuit analyzed is from an [electronics stackexchange](https://electronics.stackexchange.com/) question linked [here](https://electronics.stackexchange.com/questions/682389/transfer-function-of-the-below-circuit), where the use asked for help to determine the transfer function. The circuit appears to be a low pass filter for the input to some following device. |
 | Super node | Analysis of a circuit with a super node |
 | Phasor analysis | Analysis of a circuit with phasor elements |
+| Modeling Op Amps | Linear Op Amp circuits |
 <br>
 <br>
 

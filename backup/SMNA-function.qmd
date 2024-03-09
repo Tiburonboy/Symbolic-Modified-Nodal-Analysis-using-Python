@@ -6,7 +6,7 @@ format:
 jupyter: python3
 ---
 # SMNA function {#sec-SMNA-func}
-The python code described in @sec-example has been converted into a function called smna(netlist). A listing for the function can be found in the appendix as well as on GitHub linked [here](https://github.com/Tiburonboy/Symbolic-modified-nodal-analysis).
+The python code described in @sec-example has been converted into a function called smna(netlist). A listing for the function can be found in @sec-SymMNA as well as on GitHub linked [here](https://github.com/Tiburonboy/Symbolic-modified-nodal-analysis).
 
 The function implements the MNA method on a circuit’s netlist. Stamps which are templates for modifying the B, C and D matrices are used to facilitate the construction of the matrices. The stamps used in this implementation of the MNA follow the stamps of @Palusinski2005. The code is divided in the following sections.  
 

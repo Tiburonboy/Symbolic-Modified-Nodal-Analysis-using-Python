@@ -72,7 +72,7 @@ Since this project is still under construction, I have a list of to dos.
 - [ ] cleanup new example problems
 - [x] finish Summary in state variable notebook
 - [ ] spell and grammar check all files
-- [ ] differential equations from MNA network equations
+- [ ] write about generating differential equations from MNA network equations
 - [ ] state equations
 - [ ] add Active inductor, Nullor, Gyrator, NICs, Current Conveyor examples
 
