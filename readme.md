@@ -8,5 +8,7 @@ The start of a new book.
 > - Spelling and grammar checks have not been completed.  
 > - This book is posted for testing only.  
 
+A link to the book is here:  
+
 https://tiburonboy.github.io/Symbolic-Modified-Nodal-Analysis-using-Python/
 
