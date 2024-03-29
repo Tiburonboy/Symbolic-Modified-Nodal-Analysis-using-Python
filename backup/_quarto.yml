@@ -49,6 +49,10 @@ book:
         - Super-node.ipynb
         - Phasor-analysis.ipynb
         - Modeling Op Amps.ipynb
+        - Op Amp circuits.ipynb
+#        - double pendulum.ipynb
+        - tran mech sys.ipynb
+        - rot mech sys.ipynb
     - References.qmd
   appendices:
     - SymMNA_py.qmd

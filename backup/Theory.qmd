@@ -4,7 +4,7 @@ In 1975, @Ho1975 published a paper titled, *The Modified Nodal Approach to Netwo
 The modified nodal analysis provides an algorithmic method for generating systems of independent equations for linear circuit analysis. A Wikipedia description of the analysis technique is available [here](https://en.wikipedia.org/wiki/Modified_nodal_analysis). In electrical engineering and electronics, a circuit is a collection of interconnected components. Circuit analysis is the process of finding the voltages across, and the currents through, all network components. Typically a set of equations is developed that describes the circuit interconnections and are usually based on node voltages as unknowns or loop currents as unknowns. The equations that describe the circuit are called network equations.
 
 ## Network equations
-The network equations are a set of independent equations expressed in this code in matrix form. There is an equation for each node based on [Kirchhoff's current law](https://en.wikipedia.org/wiki/Kirchhoff%27s_circuit_laws) and an equation for each current unknown. The current unknowns are the currents from the voltages sources, op amps, voltage controlled voltage sources, current controlled voltage sources, current controlled current sources and inductors.
+The network equations are a set of independent equations expressed in this code in matrix form. There is an equation for each node based on [Kirchhoff's current law](https://en.wikipedia.org/wiki/Kirchhoff%27s_circuit_laws) and an equation for each current unknown. The current unknowns are the currents from the voltages sources, Op Amps, voltage controlled voltage sources, current controlled voltage sources, current controlled current sources and inductors.
 
 @eq-AX_Z are the network equations in matrix form.
 
@@ -16,7 +16,7 @@ $$A = \begin{bmatrix}G B\\C D\end{bmatrix}$$ {#eq-net_equ}
 
 The matrix $G$ is formed from the coefficients representing the KCL equations for each node. The positive diagonal of $G_{k,k}$ are the conductance terms of the resistor and capacitor elements connected to node k. The off diagonal terms of $G_{k,j}$ are the resistors and capacitor conductances connecting node k to node j. G type elements (VCCS) have input to the G matrix at the connection and controlling node positions.
 
-The $B$ matrix describes the connectivity of the unknown branch currents. Independent voltage sources, op amps, H, F and E type elements as well as inductors have inputs to the B matrix.
+The $B$ matrix describes the connectivity of the unknown branch currents. Independent voltage sources, Op Amps, H, F and E type elements as well as inductors have inputs to the B matrix.
 
 The $C$ matrix describes the connectivity of the unknown branch currents and is mainly the transpose of the $B$ matrix, with the exception of the F type elements (CCCS) and includes the E type value.
 
@@ -132,11 +132,11 @@ The direction of positive controlling current flow is from the positive node, th
 ### Op Amps
 An opamp component is described by the following line.   
 ```OXX N+ N- Vout```  
-The output of the opamp is a voltage source. Two input terminals are at the same potential.   
+The output of the opamp is a voltage source.
 
-The op amp element is assumed to be an ideal op amp and use of this component is valid only when used in circuits with a DC path (a short or a resistor) from the output terminal to the negative input terminal of the op amp. No error checking is provided and if the condition is violated, the results will be likely erroneous. Need to work on implementing a better opamp model. See @sec-Modeling_Op_Amps.  
+The Op Amp element is assumed to be an ideal Op Amp and the voltage at the input terminals are defined by the model to equal each other. The use of this component is valid only when used in a network with a path from the output terminal to the negative input terminal of the Op Amp. No error checking is provided and if the condition is violated, the results will be likely erroneous. Op Amp circuits with Inductors and/or capacitors in the feedback path may not analize correctly at $s \ne \infty$ or $s \ne 0$. See @sec-Modeling_Op_Amps and @sec-Op_Amp_circuits for additional comments.
 
-## Analysis procedure    
+## Analysis procedure 
 
 1. Draw the circuit to be analyzed in LTSpice or some other schematic capture program. Label the nodes. The Symbolic Modified Network Analysis code will provide warnings for netlist formatting errors and non consecutive node numbering, but will still generate nodal equations which may be erroneous. Users should verify the results.  
 2. Export the netlist of the circuit and convert component values to units of Ohms, Farads and Henrys. Use scientific notation, for example, replace component values such as 2k with 2e3 and 2u with 2e-6.  
