@@ -51,8 +51,8 @@ book:
         - Modeling Op Amps.ipynb
         - Op Amp circuits.ipynb
 #        - double pendulum.ipynb
-        - tran mech sys.ipynb
-        - rot mech sys.ipynb
+        - mech-sys.ipynb
+#        - rot mech sys.ipynb
     - References.qmd
   appendices:
     - SymMNA_py.qmd
