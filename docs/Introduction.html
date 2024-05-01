@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.537">
+<meta name="generator" content="quarto-1.4.553">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -54,7 +54,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -399,6 +419,24 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Phasor analysis</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Modeling Op Amps.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Modeling Op Amps</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Op Amp circuits.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Op Amp circuits</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mech-sys.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Mechanical systems</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item">
@@ -442,6 +480,9 @@ window.Quarto = {
   <ul>
   <li><a href="#jupyterlab" id="toc-jupyterlab" class="nav-link active" data-scroll-target="#jupyterlab"><span class="header-section-number">1.1</span> JupyterLab</a></li>
   <li><a href="#practical-network-size-for-symbolic-solutions" id="toc-practical-network-size-for-symbolic-solutions" class="nav-link" data-scroll-target="#practical-network-size-for-symbolic-solutions"><span class="header-section-number">1.2</span> Practical network size for symbolic solutions</a></li>
+  <li><a href="#linear-and-nonlinear-circuits" id="toc-linear-and-nonlinear-circuits" class="nav-link" data-scroll-target="#linear-and-nonlinear-circuits"><span class="header-section-number">1.3</span> Linear and nonlinear circuits</a></li>
+  <li><a href="#state-variables" id="toc-state-variables" class="nav-link" data-scroll-target="#state-variables"><span class="header-section-number">1.4</span> State variables</a></li>
+  <li><a href="#pros-and-cons-of-mna" id="toc-pros-and-cons-of-mna" class="nav-link" data-scroll-target="#pros-and-cons-of-mna"><span class="header-section-number">1.5</span> Pros and cons of MNA</a></li>
   </ul>
 </nav>
     </div>
@@ -474,7 +515,7 @@ window.Quarto = {
 <span class="math inline">\(I_{V1} - \frac{v_{2}}{R_{2}} + \frac{v_{3}}{R_{2}} = 0\)</span><br>
 <span class="math inline">\(v_{3} = V_{1}\)</span></p>
 <p>can be entered into Python to get the equations in matrix form:</p>
-<div id="69220fc6" class="cell" data-execution_count="2">
+<div id="656c839a" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>R2, C2, v1, C1, s, v3, v2, V1, R3, I_V1 <span class="op">=</span> symbols(<span class="st">'R2 C2 v1 C1 s v3 v2 V1 R3 I_V1'</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> Matrix([[C1<span class="op">*</span>s <span class="op">+</span> C2<span class="op">*</span>s <span class="op">+</span> <span class="dv">1</span><span class="op">/</span>R3, <span class="op">-</span>C1<span class="op">*</span>s, <span class="dv">0</span>, <span class="dv">0</span>], [<span class="op">-</span>C1<span class="op">*</span>s, C1<span class="op">*</span>s <span class="op">+</span> <span class="dv">1</span><span class="op">/</span>R2, <span class="op">-</span><span class="dv">1</span><span class="op">/</span>R2, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span><span class="op">/</span>R2, <span class="dv">1</span><span class="op">/</span>R2, <span class="dv">1</span>], [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>]])</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> Matrix([v1, v2, v3, I_V1])</span>
@@ -487,22 +528,22 @@ window.Quarto = {
 </div>
 </div>
 <p>The system of equations can be easily solved to obtain a solution in symbolic form:</p>
-<div id="fd22ba83" class="cell" data-execution_count="3">
+<div id="f9529f9a" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>U_sym <span class="op">=</span> solve(equ,X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="82a78f73" class="cell" data-execution_count="4">
+<div id="f938bcb8" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="4">
 <p><span class="math inline">\(v_{1} = \frac{C_{1} R_{3} V_{1} s}{C_{1} C_{2} R_{2} R_{3} s^{2} + C_{1} R_{2} s + C_{1} R_{3} s + C_{2} R_{3} s + 1}\)</span><br><span class="math inline">\(v_{2} = \frac{C_{1} R_{3} V_{1} s + C_{2} R_{3} V_{1} s + V_{1}}{C_{1} C_{2} R_{2} R_{3} s^{2} + C_{1} R_{2} s + C_{1} R_{3} s + C_{2} R_{3} s + 1}\)</span><br><span class="math inline">\(v_{3} = V_{1}\)</span><br><span class="math inline">\(I_{V1} = \frac{- C_{1} C_{2} R_{3} V_{1} s^{2} - C_{1} V_{1} s}{C_{1} C_{2} R_{2} R_{3} s^{2} + C_{1} R_{2} s + C_{1} R_{3} s + C_{2} R_{3} s + 1}\)</span><br></p>
 </div>
 </div>
 <p>The numeric values for the components can be substituted for the symbols (reference designators) and the following solution is obtained, where s is the Laplace variable:</p>
-<div id="a4312370" class="cell" data-execution_count="5">
+<div id="baace6da" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Values <span class="op">=</span> {R2:<span class="dv">1000</span>, R3:<span class="dv">1000</span>, C1:<span class="fl">1e-6</span>, C2:<span class="fl">10e-6</span>, V1:<span class="dv">1</span>}</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>equ1a <span class="op">=</span> equ.subs(Values)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>U <span class="op">=</span> solve(equ1a,X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The voltage at node #2 can be obtained:</p>
-<div id="358a7846" class="cell" data-execution_count="6">
+<div id="1f4358ca" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>H <span class="op">=</span> U[v2]</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>H</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="6">
@@ -510,7 +551,7 @@ window.Quarto = {
 </div>
 </div>
 <p>Now we can solve for the roots of the denominator.</p>
-<div id="a869bc37" class="cell" data-execution_count="7">
+<div id="4a46e581" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>num, denom <span class="op">=</span> fraction(H) <span class="co">#returns numerator and denominator</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>solve(denom)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="7">
@@ -637,7 +678,7 @@ Table&nbsp;1.1: Variable names
 <p><strong>Large exponents</strong><br>
 The values of the exponents can be very large in the numerical solution to the network equations when using real component values. Often you will see in engineering text books that the author uses normalized component values, where the values have been frequency and impedance scaled to a frequency of <span class="math inline">\(\omega = 1\)</span> and one of the resistors or other components normalized to a value of one. This keeps the numerical values obtained in the solution to the network equations from getting very large or small.</p>
 <p>Almost all platforms map Python floats to the IEEE754 double precision - 64 total bits. Using the sys package, the float information is reported as follows:</p>
-<div id="4bc010ab" class="cell" data-execution_count="8">
+<div id="322c323f" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-stdout">
 <pre><code>max=1.7976931348623157e+308
  max_exp=1024
@@ -695,8 +736,29 @@ R6 7 6 44.2e3</code></pre>
 <p><span class="math inline">\(\frac{4.30028181226968 \cdot \left(1.0784981875 \cdot 10^{-10} s^{3} + 2.263375 \cdot 10^{-7} s^{2} + 0.000474999999999999 s + 1.0\right)}{1.50943922351291 \cdot 10^{-12} s^{4} + 4.7350839034956 \cdot 10^{-9} s^{3} + 4.53071325287237 \cdot 10^{-6} s^{2} + 0.00311443743767615 s + 1.0}\)</span></p>
 <p>See <a href="2nd_order_BRF.html" class="quarto-xref"><span>Chapter 25</span></a> for a reduced complexity version of the schematic above, for which a symbolic solution was obtained in less than one second.</p>
 <p>Python together with SymPy has enabled the ability to explore circuit analysis problems without having to resort to pages and pages of hand calculations and then to display the results with good looking graphics and equations.</p>
+</section>
+<section id="linear-and-nonlinear-circuits" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="linear-and-nonlinear-circuits"><span class="header-section-number">1.3</span> Linear and nonlinear circuits</h2>
+<p>The Python code in the book supports <a href="https://en.wikipedia.org/wiki/Linear_circuit">linear circuit</a> analysis. The element types - resistors, capacitors, inductors, independent and dependent sources are all linear, therefore the circuits that are modeled using these element types are linear circuits. A linear circuit is a circuit where the <a href="https://en.wikipedia.org/wiki/Superposition_principle">superposition principle</a> is valid.</p>
+<p>Non-linear circuit elements, such as diodes and transistors, are not supported. It might be possible to modify the Python code to support non-linear circuit elements and generate valid network equations, but finding solutions to nonlinear network equations is difficult and outside the scope of this book.</p>
+</section>
+<section id="state-variables" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="state-variables"><span class="header-section-number">1.4</span> State variables</h2>
+<p>A topic that is sometimes included in engineering text books on circuit analysis is state variable analysis. State variable analysis is a method of describing the electrical network in terms of a set of first order differential equations, see <span class="citation" data-cites="Hayt1978">Hayt and Kemmerly (<a href="References.html#ref-Hayt1978" role="doc-biblioref">1978</a>)</span>, chapter 17 and <span class="citation" data-cites="Haykin1970">Haykin (<a href="References.html#ref-Haykin1970" role="doc-biblioref">1970</a>)</span>, chapter 2. The normal form of the state equations and the analysis approach relies on a network topology where energy storage elements, typically the capacitors and inductors, are placed in the network tree and equations are written in normal form. Deriving a of state equations is not is not included in the scope of this book. Typically there is a state equation for each inductor and capacitor, whereas the MNA approach writes network equations based primarily on unknown node voltages.</p>
+</section>
+<section id="pros-and-cons-of-mna" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="pros-and-cons-of-mna"><span class="header-section-number">1.5</span> Pros and cons of MNA</h2>
+<p>The MNA approach is a suitable technique for hand analysis of small circuits as well as for computer analysis of larger circuits using the same algorithm as illustrated in this book. The only disadvantage of the MNA technique is that often additional equations are generated, when a smaller number would be sufficient. For students doing homework problems and solving sets of equations by hand, the extra equation or two, generated by the MNA technique makes matrix inversions much harder. Modern pocket scientific calculators that engineering students now use can solve sets of linear equations relatively easily. However, some effort is required to enter the equations into the calculator. When a computer is used to generate the schematic for a circuit and the net list is exported to the Python code, the extra equations that the MNA approach generates is not a practical concern. The Python code can quickly provide numerical solutions to the network equations, even when the network is too large for the Python code to generate symbolic solutions.</p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-Haykin1970" class="csl-entry" role="listitem">
+Haykin, S. 1970. <em>Active Network Theory</em>. Addison Wesley.
+</div>
+<div id="ref-Hayt1978" class="csl-entry" role="listitem">
+Hayt, W., and J. Kemmerly. 1978. <em>Engineering Circuit Analysis, 3rd Edition</em>. McGraw-Hill.
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->
@@ -779,6 +841,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -813,7 +893,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -861,7 +945,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      return note.innerHTML;
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
     }
   }
   for (var i=0; i<xrefs.length; i++) {
@@ -1084,12 +1173,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./Preface.html" class="pagination-link  aria-label=" preface"="">
+      <a href="./Preface.html" class="pagination-link" aria-label="Preface">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Preface</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./Theory.html" class="pagination-link" aria-label="<span class='chapter-number'>2</span>&nbsp; <span class='chapter-title'>Theory</span>">
+      <a href="./Theory.html" class="pagination-link" aria-label="Theory">
         <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Theory</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
