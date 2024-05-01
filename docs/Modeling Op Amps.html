@@ -1,0 +1,2043 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.553">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Symbolic Modified Nodal Analysisusing Python - 34&nbsp; Modeling Op Amps</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./Op Amp circuits.html" rel="next">
+<link href="./Phasor-analysis.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Example-problems.html">Example problems</a></li><li class="breadcrumb-item"><a href="./Modeling Op Amps.html"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Modeling Op Amps</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Symbolic Modified Nodal Analysis<br>using Python</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About this book</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Preface.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Theory.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Theory</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./SMNA_example.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">SMNA Example</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./SMNA-function.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">SMNA function</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./Validation-tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Validation tests</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Test 1</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Test 2</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Test 3</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Test 4</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Test 5</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Test 6</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_7.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Test 7</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_8.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Test 8</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_9.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Test 9</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_10.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Test 10</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_11.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Test 11</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_12.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Test 12</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_13.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Test 13</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_14.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Test 14</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_15.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Test 15</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./Example-problems.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Example problems</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Two amplifier RIAA Phono Preamp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Two amplifier RIAA phono preamp</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Two port parameters.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Two port parameters</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Thevenin equivalent circuit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Thevenin equivalent circuit</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./State-variable-filter.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">State Variable Filter</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Superposition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Superposition</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./2nd_order_BRF.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">2nd Order BRF</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Elliptic-function-LPF.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Elliptic Function LPF</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Initial_conditions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Initial conditions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Transient_circuit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Transient circuit</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bridge-T.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Bridge-T</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Pi-Filter.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Pi-filter</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./SIDO-low-pass-filter.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">SIDO-low-pass-filter</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Super-node.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Super node</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Phasor-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Phasor analysis</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Modeling Op Amps.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Modeling Op Amps</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Op Amp circuits.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Op Amp circuits</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mech-sys.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Mechanical systems</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./References.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./SymMNA_py.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">SymMNA.py</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Change-log.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Change Log</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">34.1</span> Introduction</a></li>
+  <li><a href="#the-ideal-op-amp" id="toc-the-ideal-op-amp" class="nav-link" data-scroll-target="#the-ideal-op-amp"><span class="header-section-number">34.2</span> The ideal Op Amp</a></li>
+  <li><a href="#mna-op-amp-stamp" id="toc-mna-op-amp-stamp" class="nav-link" data-scroll-target="#mna-op-amp-stamp"><span class="header-section-number">34.3</span> MNA Op Amp stamp</a></li>
+  <li><a href="#op-amp-feedback-test-circuit" id="toc-op-amp-feedback-test-circuit" class="nav-link" data-scroll-target="#op-amp-feedback-test-circuit"><span class="header-section-number">34.4</span> Op Amp feedback test circuit</a></li>
+  <li><a href="#op-amp-test-circuit" id="toc-op-amp-test-circuit" class="nav-link" data-scroll-target="#op-amp-test-circuit"><span class="header-section-number">34.5</span> Op Amp test circuit</a></li>
+  <li><a href="#case-1-no-feedback" id="toc-case-1-no-feedback" class="nav-link" data-scroll-target="#case-1-no-feedback"><span class="header-section-number">34.6</span> Case 1: No feedback</a></li>
+  <li><a href="#case-2-r-in-the-feed-back-path" id="toc-case-2-r-in-the-feed-back-path" class="nav-link" data-scroll-target="#case-2-r-in-the-feed-back-path"><span class="header-section-number">34.7</span> Case 2: R in the feed back path</a></li>
+  <li><a href="#case-3-swap-op-amp-input-connections" id="toc-case-3-swap-op-amp-input-connections" class="nav-link" data-scroll-target="#case-3-swap-op-amp-input-connections"><span class="header-section-number">34.8</span> Case 3: Swap Op Amp input connections</a></li>
+  <li><a href="#case-4-c-in-feedback-path" id="toc-case-4-c-in-feedback-path" class="nav-link" data-scroll-target="#case-4-c-in-feedback-path"><span class="header-section-number">34.9</span> Case 4: C in feedback path</a></li>
+  <li><a href="#case-5-c-and-r-in-parallel-in-feedback-path" id="toc-case-5-c-and-r-in-parallel-in-feedback-path" class="nav-link" data-scroll-target="#case-5-c-and-r-in-parallel-in-feedback-path"><span class="header-section-number">34.10</span> Case 5: C and R in parallel in feedback path</a></li>
+  <li><a href="#case-5a-c-and-r-in-series-in-feedback-path" id="toc-case-5a-c-and-r-in-series-in-feedback-path" class="nav-link" data-scroll-target="#case-5a-c-and-r-in-series-in-feedback-path"><span class="header-section-number">34.11</span> Case 5a: C and R in series in feedback path</a></li>
+  <li><a href="#case-6-l-in-feedback-path" id="toc-case-6-l-in-feedback-path" class="nav-link" data-scroll-target="#case-6-l-in-feedback-path"><span class="header-section-number">34.12</span> Case 6: L in feedback path</a></li>
+  <li><a href="#case-7-l-and-r-in-series-in-the-feedback-path" id="toc-case-7-l-and-r-in-series-in-the-feedback-path" class="nav-link" data-scroll-target="#case-7-l-and-r-in-series-in-the-feedback-path"><span class="header-section-number">34.13</span> Case 7: L and R in series in the feedback path</a></li>
+  <li><a href="#case-8-l-and-r-in-parallel-in-the-feedback-path" id="toc-case-8-l-and-r-in-parallel-in-the-feedback-path" class="nav-link" data-scroll-target="#case-8-l-and-r-in-parallel-in-the-feedback-path"><span class="header-section-number">34.14</span> Case 8: L and R in parallel in the feedback path</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">34.15</span> Summary</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Example-problems.html">Example problems</a></li><li class="breadcrumb-item"><a href="./Modeling Op Amps.html"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Modeling Op Amps</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-Modeling_Op_Amps" class="quarto-section-identifier"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Modeling Op Amps</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div id="fig-ideal-op-amp" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ideal-op-amp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="ideal-op-amp.png" class="img-fluid figure-img" width="300">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ideal-op-amp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;34.1: Op Amp schematic symbol
+</figcaption>
+</figure>
+</div>
+<!--
+## Abstract {.unnumbered}
+This notebook examines the Op Amp model used in the Symbolic Modified Analysis python code. Op Amps are a very common componet of electronic circuits and are used extensively in analog signal processing and instrumentation. The Op Amp, within the context of MNA, is modeled as an ideal amplifier with infinite gain and bandwidth. The model assums that circuit surrounding the Op Amp provide a feedback connection from the output termial, $V_{out}$ to the $V-$ input terminal.  
+-->
+<section id="introduction" class="level2" data-number="34.1">
+<h2 data-number="34.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">34.1</span> Introduction</h2>
+<p>The <a href="https://en.wikipedia.org/wiki/Operational_amplifier">Operational Amplifier</a> or Op Amp, is type of electronic amplifier that has two input terminals, amplifies the voltage difference between the two input terminals while suppresses any voltage common to the two inputs and is usually operated with negative feedback to control the gain of the amplifier. The amplifier typically has a very high differential mode gain, high input impedance and low output impedance. Today Op Amps are commonly impemnted in an intergrated circuit that can contain hundreds of transistors. The Op Amp is included in my sysmbolic MNA code as one of the element types along with resistors, capacitors, inductors, dependent sources and independednt sources.</p>
+<p>The schematic symbol for an Op Amp is shown in <a href="#fig-ideal-op-amp" class="quarto-xref">Figure&nbsp;<span>34.1</span></a>. The two input terminals are labled <span class="math inline">\(V-\)</span> and <span class="math inline">\(V+\)</span>. The <span class="math inline">\(V-\)</span> terminal is called the inverting input and <span class="math inline">\(V+\)</span> is called the non-inverting input. <span class="math inline">\(V_{out}\)</span> is the output terminal of the amplifier. An input on the <span class="math inline">\(V+\)</span> terminal causes an in phase output and an input on the <span class="math inline">\(V-\)</span> terminal causes an out of phase output. Not shown, but implied, are power supply and or ground connections. The datasheet for the particular model of Op Amp will show other connections.</p>
+<p>Op Amps are very versitile and are used in many types of circuits. A web search will uncover many examples and a few are listed below:</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Operational_amplifier_applications#Summing_amplifier">Operational Amplifier Applications</a></li>
+<li><a href="https://www.ti.com/lit/an/snla140d/snla140d.pdf">Amplifier Circuit Collection</a></li>
+<li><a href="https://www.analog.com/media/en/technical-documentation/application-notes/28080533an106.pdf">Collection of Amp Applications</a></li>
+<li><a href="https://www.ti.com/lit/an/sboa092b/sboa092b.pdf">Handbook of Operational Amplifier Applications</a></li>
+<li><a href="https://web.mit.edu/6.101/www/reference/op_amps_everyone.pdf">Op Amps for Everyone, Ron Mancini</a></li>
+</ul>
+<p>The first mass-produced Op Amp, in 1953, was the vacuum tube-based K2-W from <a href="https://www.sciencedirect.com/topics/engineering/philbrick">GAP/R</a>. The first widely available integrated circuit Op Amp was the Fairchild μA709 operational amplifier, designed by <a href="https://en.wikipedia.org/wiki/Bob_Widlar">Bob Widlar</a> in 1965. In 1968, the μA709 was replaced by the μA741, which offered better performance while being more stable and easier to setup. A modern version of the μA741 is produced by Texas Instruments, with the part number <a href="https://www.ti.com/product/LM741">LM741</a>.</p>
+<p>There are more than 30 semiconductor manufactures making general purpose Op Amps priced as low as $0.30 each in small quantities. Under the general purpose catagory, there are thousands of part numbers avaliable from distributers such as <a href="https://www.digikey.com/en/products/filter/instrumentation-op-amps-buffer-amps/687?s=N4IgjCBcpgbB0QGMoDMCGAbAzgUwDQgD2UA2iAMwCsADACwAcFIAuoQA4AuUIAypwCcAlgDsA5iAC%2BhMAE4GsqKBSQMOAsTIgaraSAC0AJiXIoggK4aSkclV17jN4uwAE6ALbtWhO4i%2BQwDn9DKklJIA">Digikey</a>. The world wide market for Op Amps is about $6 billion dollars.</p>
+<p>Op Amps can be configured to operate in circuits without feedback, which is how a <a href="https://en.wikipedia.org/wiki/Comparator">comparitor</a> works. Some applications configure the Op Amp to have positive feedback and <a href="https://en.wikipedia.org/wiki/Schmitt_trigger">Schmitt trigger</a> is an example of this type of configureation. When the Op Amp is used without feedback or with positive feedback, the amplifier is operating as a non-linear device and non-linear circuits cannot be analyized with the Python MNA code presented in this book.</p>
+<p>Only negative feedback Op Amp circuits are supported by the Python MNA code. These circuit configurations typically use resistors to connect the output terminal of the Op Amp to the inverting terminal of the Op Amp. When Op Amps are included in circuits to be analyzed using MNA, the Op Amp model used has negative feed back implied, reguardless of whether such feedback is actually present in the circuit. This is discussed below.</p>
+</section>
+<section id="the-ideal-op-amp" class="level2" data-number="34.2">
+<h2 data-number="34.2" class="anchored" data-anchor-id="the-ideal-op-amp"><span class="header-section-number">34.2</span> The ideal Op Amp</h2>
+<p>The concept of an ideal Op Amp is used when performance limitations of real Op Amps are ignored in order to symplify the circuit analysis. Often the performance limitions of real Op Amps have only minor effects on the operation of the circuit and the engineer will use their judgment to decide if the second order effects of these limitions need to be considered. The ideal Op Amp is described by <a href="#eq-ideal-op-amp" class="quarto-xref">Equation&nbsp;<span>34.1</span></a>. The Op Amp’s inputs consist of a non-inverting input <span class="math inline">\(V+\)</span> and an inverting input <span class="math inline">\(V-\)</span>, as shown in <a href="#fig-ideal-op-amp" class="quarto-xref">Figure&nbsp;<span>34.1</span></a>. The Op Amp amplifies only the difference in voltage between the two inputs, which is called the differential input voltage. The power supply terminals of a real Op Amp are not included in the model of an ideal Op Amp.</p>
+<p>The output voltage of the Op Amp <span class="math inline">\(V_{out}\)</span> is given by the equation:</p>
+<p><span id="eq-ideal-op-amp"><span class="math display">\[V_{out} = A_{OL}(V_+ - V_-) \tag{34.1}\]</span></span></p>
+<p>Where <span class="math inline">\(A_{OL}\)</span> is the open-loop gain of the amplifier. The value of the open loop gain in real Op Amps is very large, sometimes on the order of 100 dB. The value of <span class="math inline">\(A_{OL}\)</span> in ideal Op Amps is not needed when the Op Amp is configured with negative feedback. The components in the feedback path determine the gain of the Op Amp circuit independednt of <span class="math inline">\(A_{OL}\)</span>.</p>
+<p>The ideal Op Amp has other charasterics such as:</p>
+<ul>
+<li>Infinite gain and bandwidth</li>
+<li>Zero output impedance</li>
+<li>Infinite input impedance</li>
+<li>Zero volts between the two inputs</li>
+<li>Infinite output voltage range</li>
+<li>Infinite bandwidth with zero phase shift and infinite slew rate</li>
+<li>Zero noise</li>
+<li>Infinite common-mode rejection ratio</li>
+</ul>
+</section>
+<section id="mna-op-amp-stamp" class="level2" data-number="34.3">
+<h2 data-number="34.3" class="anchored" data-anchor-id="mna-op-amp-stamp"><span class="header-section-number">34.3</span> MNA Op Amp stamp</h2>
+<p>MNA is an algorithic procedure for generating network equations. When there is an element type ‘O’, in the netlist, three connection nodes are required. The first node is the inverting input, the second node is the non inverting input and the third node is the output node. The Python code, then makes entries into the B and C matricies based simply on the node numbers of the Op Amp terminals. This is called stamping the matrix, because for each component type a specific template is used.</p>
+<p>The B matrix is an n by m matrix with only 0, 1 and -1 elements, where n = number of nodes and m is the number of current unknowns, i_unk. There is one column for each unknown current. The Op Amp model has one unknown current for the output current. In the code that builds the B matrix, a value of 1 is included in the matrix at the index position given by the Op Amp output node number. The snippit of code that performes this operation is shown below.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># generate the B Matrix</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>sn <span class="op">=</span> <span class="dv">0</span>   <span class="co"># count source number as code walks through the data frame</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(df)):</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    n1 <span class="op">=</span> df.loc[i,<span class="st">'p node'</span>]</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    n2 <span class="op">=</span> df.loc[i,<span class="st">'n node'</span>]</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    n_vout <span class="op">=</span> df.loc[i,<span class="st">'Vout'</span>] <span class="co"># node connected to op amp output</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># process elements with input to B matrix</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> df.loc[i,<span class="st">'element'</span>][<span class="dv">0</span>]   <span class="co">#get 1st letter of element name</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    :</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    :</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> x <span class="op">==</span> <span class="st">'O'</span>:  <span class="co"># op amp type, output connection of the opamp goes in the B matrix</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>        B[n_vout<span class="op">-</span><span class="dv">1</span>,sn] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>        sn <span class="op">+=</span> <span class="dv">1</span>   <span class="co"># increment source count</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    :</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    :</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Each Op Amp the entry in the B matrix lines up with an unknown current in the X vector.</p>
+<p>The C matrix is an m by n matrix with only 0, 1 and -1 elements. The code is similar to the B matrix code, except the indices are swapped. The code loops through all the branches and for Op Amps, a 1 is inserted for the non-inverting node and a -1 for the inverting node, unless the terminal is connected to ground. The code snippit is shown below.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># generate the C Matrix</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>sn <span class="op">=</span> <span class="dv">0</span>   <span class="co"># count source number as code walks through the data frame</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(df)):</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    n1 <span class="op">=</span> df.loc[i,<span class="st">'p node'</span>]</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    n2 <span class="op">=</span> df.loc[i,<span class="st">'n node'</span>]</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    cn1 <span class="op">=</span> df.loc[i,<span class="st">'cp node'</span>] <span class="co"># nodes for controlled sources</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    cn2 <span class="op">=</span> df.loc[i,<span class="st">'cn node'</span>]</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    n_vout <span class="op">=</span> df.loc[i,<span class="st">'Vout'</span>] <span class="co"># node connected to op amp output</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># process elements with input to B matrix</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> df.loc[i,<span class="st">'element'</span>][<span class="dv">0</span>]   <span class="co">#get 1st letter of element name</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    :</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    :</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> x <span class="op">==</span> <span class="st">'O'</span>:  <span class="co"># op amp type, input connections of the opamp go into the C matrix</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        <span class="co"># C[sn,n_vout-1] = 1</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> i_unk <span class="op">&gt;</span> <span class="dv">1</span>:  <span class="co">#is B greater than 1 by n?, O</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>            <span class="co"># check to see if any terminal is grounded</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>            <span class="co"># then stamp the matrix</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> n1 <span class="op">!=</span> <span class="dv">0</span>:</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>                C[sn,n1<span class="op">-</span><span class="dv">1</span>] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> n2 <span class="op">!=</span> <span class="dv">0</span>:</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>                C[sn,n2<span class="op">-</span><span class="dv">1</span>] <span class="op">=</span> <span class="op">-</span><span class="dv">1</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> n1 <span class="op">!=</span> <span class="dv">0</span>:</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>                C[n1<span class="op">-</span><span class="dv">1</span>] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> n2 <span class="op">!=</span> <span class="dv">0</span>:</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>                C[n2<span class="op">-</span><span class="dv">1</span>] <span class="op">=</span> <span class="op">-</span><span class="dv">1</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>        sn <span class="op">+=</span> <span class="dv">1</span>   <span class="co"># increment source count</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    :</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>    :</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The above code mathematically equates the voltages at the input input terminals equal to each other, <span class="math inline">\(v_n = v_m\)</span>, where n and m are the node numbers. By default, the MNA Op Amp model is operating as if negative feedback is present in the circuit, reguardless of whether such feedback is actually present in the surrounding network. The Python MNA code does not verify that the Op Amp has negative feedback applied by the surrounding network. Consequencely, the Python MNA code is agnostic with reguard to feedback and which input terminal is used. The Python MNA code Op Amp model should be used with some care and the results need to be checked.</p>
+<p>The <a href="https://en.wikipedia.org/wiki/Nullor">Nullor</a> is a two port device which can be used to model ideal Op Amps. The Python NMA Op Amp and the Nullor have the same NMA stamp and are equalivent.</p>
+<!--
+Implying that there is negative feedback in the circuit. Doesn't mader which input pin is used for the feedback connection.   
+
+#### Op Amp elements
+The op amp element is assumed to be an ideal op amp and use of this component is valid only when used in circuits with a DC path (a short or a resistor) from the output terminal to the negative input terminal of the op amp. No error checking is provided and if the condition is violated, the results likely will be erroneous.   
+
+$\large{\color {red} {\text{Need to fix the references and clean up the description of Op Amps}}}$   
+References use in the debugging of the opamp stamp:   
+
+1. Design of Analog Circuits Through Symbolic Analysis, edited by Mourad Fakhfakh, Esteban Tlelo-Cuautle, Francisco V. Fernández   
+2. Computer Aided Design and Design Automation, edited by Wai-Kai Chen 
+
+Lines up with an unknown voltages in the X vector
+
+How do the B and C matrices get used?
+
+The A matrix describes the connectivity of the resistors, capacitors and G type (VCCS) circuit elements. The column vector X are the unknown node voltages and unknown currents terms from the voltage sources and inductors. The column vector Z is made of the known voltages and currents. The A is formed by four sub matrices, G, B, C and D, which are described below.
+
+$A = \begin{bmatrix}G B\\C D\end{bmatrix}$
+
+The matrix G is formed from the coefficients representing the KCL equations for each node.
+
+The positive diagonal of $G_{k,k}$ are the conductance terms of the resistor and capacitor elements connected to node k.  The off diagonal terms of $G_{k,j}$ are the resistors and capacitor conductances connecting node k to node j.  G type elements (VCCS) have input to the G matrix at the connection and controlling node positions.
+
+The B matrix describes the connectivity of the unknown branch currents.  Independent voltage sources, opamps, H, F and E type elements as well as inductors have inputs to the B matrix.
+
+The C matrix describes the connectivity of the unknown branch currents and is mainly the transpose of B the matrix, with the exception of the F type elements (CCCS) and includes the E type value. 
+
+The D matrix also describes connectivity of the unknown currents.  The D matrix is composed of zeros unless there are controlled sources and inductors in the network.  
+
+The X vector is composed of the V and J vectors as shown below.   
+$X = \begin{bmatrix}V\\J\end{bmatrix}$  
+The V vector contains the node voltages which are the voltage unknowns to be solved for.  The J vector contains the unknown currents from each voltage source.
+
+The Z vector is composed of the I and Ev vectors as shown below.  
+$Z = \begin{bmatrix}I\\Ev\end{bmatrix}$  
+The I vector contains the known currents and the Ev vector contains the known voltages. Ev is used as the variable because sympy uses e and E sometimes for the constant e=2.71, sometimes called Euler's number [[9]](#ref9). The use of E or e as a symbol was causing some errors when the code was run.  
+
+and what does the Op Amp stamp do in the algorithum?
+
+The MNA Op Amp model 
+
+assums that there will be a circuit path from out put to input. This make the circuit linear across all frequencies. The going in assumption with MNA is a linear circuit. No current flow in the input terminals. Where is that defined?
+
+with or with out feed back path, B and C matrices get formulated the same, The difference is in the A matrix. Now there is a connection between Op Amp input and Op Amp output.  With resistive DC path between input and output, there is a proper number of knowns and unknowns.
+
+Checking with C in feedback path
+
+should not have direct L in the feed back path
+-->
+</section>
+<section id="op-amp-feedback-test-circuit" class="level2" data-number="34.4">
+<h2 data-number="34.4" class="anchored" data-anchor-id="op-amp-feedback-test-circuit"><span class="header-section-number">34.4</span> Op Amp feedback test circuit</h2>
+<p>The circuit in <a href="#fig-op-amp-test-circuit" class="quarto-xref">Figure&nbsp;<span>34.2</span></a> is used to examine various Op Amp feedback connections. The following Op Amp circuits with various elements in the feedback path are examined below.</p>
+<ol type="1">
+<li>No feedback</li>
+<li>R in the feed back path</li>
+<li>Swap Op Amp input connections</li>
+<li>C in feedback path</li>
+<li>C and R in parallel in feedback path<br>
+5a. C and R in series in feedback path</li>
+<li>L in feedback path</li>
+<li>L and R in series in the feedback path</li>
+<li>L and R in parallel in the feedback path</li>
+</ol>
+<p>The following Python modules are used in this notebook.</p>
+<!--
+
+Application Report
+
+Texas Instruments [AN-31 amplifier circuit collection](https://www.ti.com/lit/an/snla140d/snla140d.pdf)
+
+Analog Devices Application note [A Collection of Amp Applications](https://www.analog.com/media/en/technical-documentation/application-notes/28080533an106.pdf)
+
+See @sec-voltage-follower
+
+MNA Op Amps 
+
+Op Amps are a big part of modern circuit design and have replaced desicret transistors in many circuit.
+
+Does the circuit still work if the Op Amp inputs are switched?
+
+creat a test circuit with no DC negative feedback
+
+Types of of Op Amp circuits to examine in this notebook
+
+Outline
+
+- what is an Op Amp
+    - history 
+- Common usage
+    - Voltage follower
+    - Inverting amplifier
+    - Non-inverting amplifier
+    - Differential amplifier
+    - Integrator
+    - Differentiator
+    - GIC
+- models
+    - ideal Op Amp vs real Op Amps
+    - SPICE
+    - MNA
+- Op Amp stamp
+    - DC negative feedback is present in the surrounding circuit
+          - Why is a DC path needed in feedback?
+    - liminations of the Op Amp models, where does the model work and where doesn’t it work and why. What are the differences between the models.
+
+Stamp theory  
+Op Amps are in the C matrix and the B matrix  
+
+### Op Amp elements
+The op amp element is assumed to be an ideal op amp and use of this component is valid only when used in circuits with a DC path (a short or a resistor) from the output terminal to the negative input terminal of the op amp. No error checking is provided and if the condition is violated, the results likely will be erroneous.   
+
+- [Nullor](https://en.wikipedia.org/wiki/Nullor) model vs Op Amp stamp. Nullor has the same stamp if you include the second output
+
+https://lpsa.swarthmore.edu/Systems/Electrical/mna/MNA5.html
+Caveats: The two ideal op-amp assumptions (no input current, no potential difference at inputs) only hold for circuits with negative feedback.  Because of this, the MNA method as applied here can give erroneous results if negative feedback is not present.  This problem actually persists in many commercial circuit simulators -- you can hook up a circuit with the input terminals reversed (so that it would not operate properly in practice due to lack of negative feedback) and the simulation behaves as if there is no problem.  Note also that the output of the op-amp is not limited by any power supply -- this circuit will happily generate hundreds of volts.
+
+Resistors, capacitors, inductors and Op Amps are the circuit ements modeled in MNA code. The Op Amps are assimed to be ideal linear amplifiers. 
+
+most common component used in linear circuits. Of corrse transistors can be bioaded to perate in thheir linear range and Op Amps can be used in non-linear circuits. 
+
+“Summing Amplifier,” US Patent #2401779, Karl D. Swartzel, Jr., June 1946
+
+
+## Market size
+
+https://www.skyquestt.com/report/operational-amplifiers-market
+
+https://www.marketresearchfuture.com/reports/operational-amplifier-market-6026
+
+https://www.marketresearchfuture.com/reports/operational-amplifier-market-6026
+
+Global Operational Amplifiers (Op-Amps) Market Insights
+https://www.skyquestt.com/report/operational-amplifiers-market
+
+Operational Amplifiers (Op-Amps) Market size was valued at USD 7.60 billion in 2021 and is poised to grow from USD 8.11 billion in 2022 to USD 13.62 billion by 2030, at a CAGR of 6.7% during the forecast period (2023-2030).
+
+Global Operational Amplifiers (Op-Amps) Market Competitive Landscape
+
+The Global Operational Amplifiers (op-amps) Market is highly competitive and fragmented, with the presence of several large and small players. The market is characterized by intense competition, rapid technological advancements, and frequent product launches by key players. To enhance their market presence and broaden their product offerings, some of the leading competitors in the worldwide op-amps market are concentrating on a variety of growth tactics, including mergers and acquisitions, partnerships, and collaborations. The high degree of competition in the market is leading to product differentiation and customization, with manufacturers focusing on delivering products that provide high accuracy, precision, and efficiency.
+
+Top Player’s Company Profiles in Operational Amplifiers (Op-Amps) Market
+
+    Texas Instruments Inc. (US)
+
+    Analog Devices Inc. (US)
+
+    STMicroelectronics (Switzerland)
+
+    Infineon Technologies AG (Germany)
+
+    Maxim Integrated Products Inc. (US)
+
+    ON Semiconductor Corporation (US)
+
+    Microchip Technology Inc. (US)
+
+    NXP Semiconductors (Netherlands)
+
+    ROHM Semiconductor (Japan)
+
+    Renesas Electronics Corporation (Japan)
+
+    Intersil Corporation (US)
+
+    Toshiba Corporation (Japan)
+
+    Diodes Incorporated (US)
+
+    Fairchild Semiconductor Corporation (US)
+
+    Cirrus Logic Inc. (US)
+
+    Linear Technology Corporation (US)
+
+    Silicon Laboratories Inc. (US)
+
+    Allegro Microsystems LLC (US)
+
+    New Japan Radio Co. Ltd. (Japan)
+
+    Maxim Integrated Products, Inc. (US)
+
+Global Operational Amplifier (OP-AMP) Market Overview:
+https://www.marketresearchfuture.com/reports/operational-amplifier-market-6026
+
+Operational Amplifier (OP-AMP) Market Size was valued at USD 5.8 Billion in 2022. The operational amplifier (OP-AMP) market industry is projected to grow from USD 6.06 Billion in 2023 to USD 8.619 Billion by 2032, exhibiting a compound annual growth rate (CAGR) of 4.50% during the forecast period (2023 - 2032). The rise in demand for battery-powered products, the increased use of electronic devices, and the rise in demand for connected devices are the main market drivers that significantly impact the operational amplifiers market growth. During the forecast period, each of these variables is predicted to impact the operational amplifiers market.
+
+Operational amplifier demand has increased due to the rising need for automation across the manufacturing and automotive sectors, driving market expansion. The market for operational amplifiers is also growing as battery-powered items become more popular. Automation systems employ OP-AMPs in feedback control loops to regulate and stabilize processes. OP-AMPs are used in PID (Proportional-Integral-Derivative) controllers, analog control systems, and other control circuits to precisely measure and control variables like speed, position, temperature, and pressure. 
+
+Furthermore, numerous motor types, including DC motors, stepper motors, and servo motors, are frequently used by robots and automated systems. In motor control circuits, OP-AMPs are used to drive and regulate the motor's torque, direction, and speed. OP-AMPs facilitate effective and precise motor control, which enhances the general effectiveness of automation and robotics systems. Automation and robotics significantly rely on sensors for perception and interaction with the environment. OP-AMPs condition and amplify sensor signals in sensor interface circuits, providing precise measurements.
+
+Operational Amplifier (op amp) Market Size, Sales Volume, Revenue, Price Analysis Report 2024-2030
+https://industrytoday.co.uk/market-research-industry-today/operational-amplifier-op-amp-market-size-sales-volume-revenue-price-analysis-report-2024-2030#
+
+An operational amplifier is an integrated circuit that operates as a voltage amplifier. Moreover an operational amplifier is known as an instrumentation amplifier. Its greatest use is in Instrumentation as a PID/PI controller and operational amplifier is the basic component in all the instruments due to its versatile applications. The global market for Operational Amplifier (op amp) was estimated to be worth US$ 5294.4 million in 2023 and is forecast to a readjusted size of US$ 6723.5 million by 2030 with a CAGR of 3.4% during the forecast period 2024-2030
+
+
+
+[Vacuum Tube Op Amps](https://www.sciencedirect.com/topics/engineering/philbrick)
+
+George Philbrick and GAP/R
+
+After WWII, George Philbrick also continued with op amp development work. Shortly thereafter he formed a company bearing his name, George A. Philbrick Researches, Inc., in 1946 (GAP/R). In many regards, Philbrick's work was instrumental in the development of op amp technology. His company was to see growth over the span of the vacuum tube technology days and well into the solid-state era.
+
+Not too long after forming GAP/R, Philbrick introduced the world's first commercially available op amp, known as the K2-W. This modular 8-pin octal plug-in op amp was developed in 1952, and appeared in January 1953 (see Reference 52). A photo and schematic of this $20 op amp are shown in Figure 8-5.
+
+The K2-W used two 12AX7 dual triodes, with one of the two tubes operated as a long-tailed pair input stage, which offered fully differential operation at the input. With the K2-W operating on ±300 V supplies, the input stage's 220 KΩ tail resistor was returned to the −300 V supply, fulfilling the long-tailed pair biasing requirement.
+
+Half of the remaining 12AX7 dual triode was operated as a second gain stage, which in turn drove the remaining section as a cathode follower output, through a level shifter part 8355037 (typically thyrite devices). Overall gain of the K2-W was enhanced by positive feedback through the 150 kΩ resistor, connected back to the cathode of the second stage. Operating from the ±300 V power supplies @ 4.5 mA, the K2-W was able to achieve a ±50 V rated signal range at both input and output. DC gain was typically 15,000, and the entire circuit was packaged in a convenient, plug-in octal tube-based package.
+
+Some vacuum tube op amp manufacturers provided chopper-stabilizer “add-on” units. In the case of GAP/R, this was the GAP/R K2-P. This unit, when used with the K2-W, formed a combination low drift, high gain op amp (see Reference 53).
+
+Early on GAP/R set an excellent standard for application information, publishing a popular 1956 manual for the K2-W and related amplifiers which went through at least 10 printings by 1963 (Reference 53). GAP/R not only made available applications literature for their devices; they published a periodical devoted to analog computation, the Lightning Empiricist. It contained technical articles and new product information.
+
+GAP/R also published what is now a classic set of reprints, the “Palimpsest” (see Reference 54). Some researchers see George A. Philbrick as a veritable op amp founding father. For example, Roedel, in his “An Introduction to Analog Computors” (Reference 54, again), gives Philbrick and Lovell credit for being the first op amp users.
+
+It is also undoubtedly true that the GAP/R organization produced some of the best documentation and application support for op amps, both vacuum tube and solid state.
+
+Because of the longevity of so many op amp principles, much of the wisdom imparted in the GAP/R app notes is still as valid today as it was in the 1950s. Although it did not appear until several years later, the best example of this is GAP/R's classic 1965 op amp book edited by Dan Sheingold, Applications Manual for Computing Amplifiers … (see Reference 55).
+
+Armed with this book (and perhaps a copy of Korn and Korn's Electronic Analog Computers), the op amp user of the late 1960s was well prepared to face op amp circuit hardships. This was not just with analog computation tasks, but also the growing list of diverse applications into which op amps were finding new homes.
+
+Fairchild released the μA709.
+
+[The Father of Analog Integrated Circuits: Robert J. Widlar](https://archive.computerhistory.org/resources/access/text/2017/03/102770862-05-01-acc.pdf)
+
+At a time when even discrete solid-state op-amps had not yet succeeded in displacing their vacuum tube coun-
+terparts, and the very value of the integrated circuit idea was still a legitimate topic of debate, Bob Widlar
+(“wide-lar”) almost single-handedly established the discipline of analog IC design. After receiving his bach-
+elor’s degree in 1962 from the University of Colorado at Boulder, he took a job with Ball Brothers Research,
+where his virtuosity at circuit design attracted the attention of engineers at one of their components suppliers.
+Despite the breach in protocol inherent in aggressively recruiting a customer’s key employee, Fairchild induced
+Widlar to leave Ball in late 1963. In an amazing debut, abetted by Dave Talbert’s brilliant process engineering,
+Widlar was able to put the world’s first integrated circuit op-amp into production by 1964. Development of the
+μA702, as Fairchild called it, proceeded despite a general lack of enthusiasm for the project at the company.
+
+The μA709 (1965)
+
+Despite its innovations, the 702 was not a commercial success. Its initial price of approximately $150-$300
+limited potential sales to military and aerospace customers. The relatively low gain and limited output drive
+capability, the somewhat peculiar power supply voltages (e.g., +12V/-6V), and the uncomfortably small input
+common-mode range (forced in part by the grounding of the emitters of Q3 and Q4), further constrained the
+part’s appeal.
+
+Widlar responded by developing the first analog IC that was a certified “smash hit.” The 709 op-amp’s generous
+open-loop gain (~ 60,000), respectable bandwidths (~1MHz) and an input common-mode range that accommo-
+dates positive voltages, made it a credible competitor to the K2-W in many applications (Figure 3). It was also
+the first IC op-amp to use the +/-15V supply voltages that had recently emerged as a standard for many discrete
+solid-state op-amps (e.g., the GAP/R P65).
+
+The μA741 followed the μA709,
+
+The 741 op amp
+The 741 is easily the most iconic opamp ever made. Designed by Dave Fullagar at Fairchild as a user-friendly, general-purpose op amp, it became a huge hit with electronic designers. Billions have been produced since its introduction in 1968, by a wide variety of manufacturers. What’s perhaps even more amazing is that it’s still being produced today by TI and ST, despite being hopelessly out of date. Fifty years of development has produced a wide array of opamps that are faster, more accurate, less noisy and less power-hungry than the 741. Yet somehow, this classic part keeps hanging on, basically unchanged for over half a century.
+
+https://www.ti.com/product/LM741
+
+
+ Chip Hall of Fame: Fairchild Semiconductor μA741 Op-Amp This chip became the de facto standard for analog amplifier ICs. Still in production, it’s available everywhere there are electronics
+https://spectrum.ieee.org/chip-hall-of-fame-fairchild-semiconductor-a741-opamp
+
+
+The 741 op amp
+https://www.tinytransistors.net/2020/11/03/the-741-op-amp/
+
+
+The first mass-produced Op Amp was the vacuum tube-based K2-W from GAP/R in January 1953. The first widely available integrated circuit op amp in the late 1960s was the Fairchild μA709 bipolar operational amplifier, created by Bob Widlar in 1965. In 1968, the μA709 was replaced by the μA741, which offered better performance while being more stable and easier to setup.
+
+A standard 741 operational amplifier is made up of a circuit containing 20 transistors and 11 resistors. All of them are integrated into a monolithic chip. The below circuit illustrates the internal connections of those components.
+
+The TL072 is dual low-noise JFET-Input general-purpose op-amp and it comes in a 8-pin PDIP, SOIC, SOP or TSSOP package. It has a low input bias current of 200 pA with an operating free-air temperature range of 0 °C to 70 °C or -40 °C to 85 °C for the TL07xI. It operates from a single power supply with a range of -0.3 V to 36 V and also supports dual supplies with a range of ±18 V. It has a wide gain-bandwidth of 3 MHz. Suitable for high-fidelity and audio pre-amplifier applications.
+
+The OPA2134 is a low distortion, low noise op amp for audio applications that comes in an 8-Pin PDIP or SOIC package. It is specified for operation from 5 V to 36 V (±2.5 V to ±18 V) and it has a high open-loop gain of 120 dB (600 Ω). This FET-Input op-amp with an operating free-air temperature range of 40°C to 85°C has  a wide gain-bandwidth of 8 MHz and a slew rate of 20 V/us. This amplifier is ideal to provide superior sound quality and speed for exceptional audio performance.
+
+The OP07 is a ultra-low offset voltage (75 µV max for OP07E) op amp that comes encased in a PDIP-8 or SOIC-8 package type with a low input bias current of ±4 nA and high open-loop gain of 200 V/mV. It typically has a gain-bandwidth of 0.6 MHz and it has an input voltage range of ±13 V. The OP07 is a direct replacement for 725, 108A, and OP05 amplifiers and it is suitable for high gain instrumentation applications.
+
+
+## References and notes
+
+What is an Op Amp?
+
+Operational Amplifiers, also known as Op-amps, are basically a voltage amplifying device designed to be used with components like capacitors and resistors, between its in/out terminals. They are essentially a core part of analog devices. Feedback components like these are used to determine the operation of the amplifier. The amplifier can perform many different operations (resistive, capacitive, or both), giving it the name Operational Amplifier.
+
+The operational amplifier is arguably the most useful single device in analog electronic circuitry. With only a handful of external components, it can be made to perform a wide variety of analog signal processing tasks. It is also quite affordable, most general-purpose amplifiers selling for under a dollar apiece. Modern designs have been engineered with durability in mind as well: several “op-amps” are manufactured that can sustain direct short-circuits on their outputs without damage.
+
+One key to the usefulness of these little circuits is in the engineering principle of feedback, particularly negative feedback, which constitutes the foundation of almost all automatic control processes. The principles presented in this section, extend well beyond the immediate scope of electronics. It is well worth the electronics student’s time to learn these principles and learn them well.
+
+One great advantage in using an op-amp with negative feedback is that the actual voltage gain of the op-amp doesn’t matter, so long as its very large. If the op-amp’s differential gain were 250,000 instead of 200,000, all it would mean is that the output voltage would hold just a little closer to Vin (less differential voltage needed between inputs to generate the required output). In the circuit just illustrated, the output voltage would still be (for all practical purposes) equal to the non-inverting input voltage. Op-amp gains, therefore, do not have to be precisely set by the factory in order for the circuit designer to build an amplifier circuit with precise gain. Negative feedback makes the system self-correcting. The above circuit as a whole will simply follow the input voltage with a stable gain of 1.
+
+[Top 10 fundamental operational amplifier circuits](https://www.arrow.com/en/research-and-events/articles/fundamentals-of-op-amp-circuits)
+
+- Voltage follower
+- Inverting op amp
+- Non-inverting op amp
+- Non-inverting summing amplifier
+- Inverting summing amplifier
+- Differential amplifier
+- Integrator
+- differentiator
+- Converter current – voltage
+- Negative resistance
+
+This model must be used with great care because it is so simplistic. It is useful as a learning tool for investigating the general operation of an op amp, but should never be considered as part of a true-to-life simulation. This model makes no attempt to consider the many limitations of the op amp. Because this model in no way imposes output signal swing limits, the effects of saturation will go unnoticed. Similarly, no attempt has been made at modeling the frequency response of the op amp. This is of great concern and we will spend considerable time on this subject in later chapters. Many other effects are also ignored. With so many limitations, you might wonder just where such a model may be used. This model is useful for non-critical simulations given low frequency inputs. You must also recognize the onset of saturation (clipping) yourself. Its primary advantage is that the circuit model is small, and thus computationally fast. Because of this, it is very efficient for students who are new to both op amps and circuit simulation. Perhaps of equal importance, is the fact that this model points out the fact that your simulation results can only be as good as the models you use. Many people fall into the trap that “because the simulation came from a computer, it must be correct”. Nothing could be further from the truth. Always remember the old axiom: GIGO (Garbage In = Garbage Out). It can be very instructive to simulate a circuit using differing levels of accuracy and complexity, and then noting how closely the results match the same circuit built in the laboratory.
+
+An operational amplifier is, in essence, a multi-stage high gain amplifier treated as a single entity. Normally, op amps have a differential input and a single-ended output. In other words, one input produces an inverted output signal, and the other input produces a noninverted output signal. Often, the op amp is driven from a bipolar power supply (i.e., two supplies, one positive and one negative). Just about any sort of active amplifying device may be used for the individual stages. Op amps can be made entirely from vacuum tubes or discrete bipolar transistors (and of course, they were made that way some years ago). The advances in semiconductor manufacture in the late 1960's and early 1970's eventually made it possible to miniaturize the required components and place the whole affair on a single silicon chip (hence the term, integrated circuit). Through common use, this is what is generally meant by the term op amp today.
+
+If we connect the output of an op-amp to its inverting input and apply a voltage signal to the noninverting input, we find that the output voltage of the op-amp closely follows that input voltage (I’ve neglected to draw in the power supply, +V/-V wires, and ground symbol for simplicity):
+
+[Operational amplifier](https://en.wikipedia.org/wiki/Operational_amplifier)
+
+[Analog Integrators: How to Apply Them for Sensor Interfaces, Signal Generation, and Filtering](https://www.digikey.com/en/articles/analog-integrators-how-to-apply-them-for-sensor-interfaces)
+
+Nullors, Gyrators, NICs, Current Conveyors 
+
+Nullor circuits
+
+[Nullor](https://en.wikipedia.org/wiki/Nullor)
+
+A nullor is a theoretical two-port network consisting of a nullator at its input and a norator at its output.[1] Nullors represent an ideal amplifier, having infinite current, voltage, transconductance and transimpedance gain.[2] Its transmission parameters are all zero, that is, its input–output behavior is summarized with the matrix equation
+
+$$\begin{pmatrix} v_1\\i_1 \end{pmatrix} = \begin{pmatrix} 0 & 0 \\ 0 & 0 \end{pmatrix}  \begin{pmatrix}v_{2} \\ i_{2}\end{pmatrix}$$
+
+$\begin{pmatrix} v_1\\i_1 \end{pmatrix} = \begin{pmatrix} 0 & 0 \\ 0 & 0 \end{pmatrix}  \begin{pmatrix}v_{2} \\ i_{2}\end{pmatrix}$
+
+In negative-feedback circuits, the circuit surrounding the nullor determines the nullor output in such a way as to force the nullor input to zero. 
+
+Impedance Converters and Inverters (Gyrators, NICs, Current Conveyors)
+
+[Gyrators](https://en.wikipedia.org/wiki/Gyrator)
+
+[Negative Impedance Converter circuits](https://en.wikipedia.org/wiki/Negative_impedance_converter)
+
+[Current conveyor](https://en.wikipedia.org/wiki/Current_conveyor
+
+Frequency dependent negative resistor](https://en.wikipedia.org/wiki/Frequency_dependent_negative_resistor)
+
+https://www.allaboutcircuits.com/
+
+[Positive Feedback](https://www.allaboutcircuits.com/textbook/semiconductors/chpt-8/positive-feedback/)
+-->
+<div id="bfc181d7-546f-45fc-a38e-efe43f2550ec" class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sympy <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tabulate <span class="im">import</span> tabulate</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> signal</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> SymMNA</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display, Markdown, Math, Latex</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>init_printing()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="op-amp-test-circuit" class="level2" data-number="34.5">
+<h2 data-number="34.5" class="anchored" data-anchor-id="op-amp-test-circuit"><span class="header-section-number">34.5</span> Op Amp test circuit</h2>
+<p>An Op Amp test circuit, shown below, is used to explore various feedback configurations. A resistor is used to terminate each Op Amp terminal. A DC voltage source, V1, is used as the stimulus to the circuit and all the resistor values are set to one.</p>
+<div id="fig-op-amp-test-circuit" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-op-amp-test-circuit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="op-amp-test-v1.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-op-amp-test-circuit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;34.2: Op Amp test circuit
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="case-1-no-feedback" class="level2" data-number="34.6">
+<h2 data-number="34.6" class="anchored" data-anchor-id="case-1-no-feedback"><span class="header-section-number">34.6</span> Case 1: No feedback</h2>
+<p>The net list for <a href="#fig-op-amp-test-circuit" class="quarto-xref">Figure&nbsp;<span>34.2</span></a> was obtained from LTSpice.</p>
+<div id="e85c9495-f94e-4c8f-a933-ea7c2e468222" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>net_list1 <span class="op">=</span> <span class="st">'''</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="st">V1 1 0 1</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="st">O1 3 4 2</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="st">R1 3 1 1</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="st">R3 2 0 1</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="st">R2 4 0 1</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="st">'''</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Generate the network equations.</p>
+<div id="79f04799-86fd-4488-ae9c-07fdbbf9188e" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>report, network_df, df2, A1, X1, Z1 <span class="op">=</span> SymMNA.smna(net_list1)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Put matricies into SymPy </span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>X1 <span class="op">=</span> Matrix(X1)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>Z1 <span class="op">=</span> Matrix(Z1)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>NE1_sym <span class="op">=</span> Eq(A1<span class="op">*</span>X1,Z1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Generate markdown text to display the network equations.</p>
+<div id="41e03b8e-0ad5-4830-ab79-ab409890c0a8" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(X1)):</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(Eq((A1<span class="op">*</span>X1)[i:i<span class="op">+</span><span class="dv">1</span>][<span class="dv">0</span>],Z1[i])))</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="4">
+<p><span class="math inline">\(I_{V1} + \frac{v_{1}}{R_{1}} - \frac{v_{3}}{R_{1}} = 0\)</span><br><span class="math inline">\(I_{O1} + \frac{v_{2}}{R_{3}} = 0\)</span><br><span class="math inline">\(- \frac{v_{1}}{R_{1}} + \frac{v_{3}}{R_{1}} = 0\)</span><br><span class="math inline">\(\frac{v_{4}}{R_{2}} = 0\)</span><br><span class="math inline">\(v_{1} = V_{1}\)</span><br><span class="math inline">\(v_{3} - v_{4} = 0\)</span><br></p>
+</div>
+</div>
+<p>Shown above are the six equations generatated by NMA. The last three equations are rather simple.</p>
+<p>The symbols generated by the Python code are extraced by the SymPy function free_symbols and then declared as SymPy variables.</p>
+<div id="1966adbb-01e7-4b18-bc56-02ba5be72f8e" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># turn the free symbols into SymPy variables</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>var(<span class="bu">str</span>(NE1_sym.free_symbols).replace(<span class="st">'{'</span>,<span class="st">''</span>).replace(<span class="st">'}'</span>,<span class="st">''</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="5">
+<p><span class="math inline">\(\displaystyle \left( R_{3}, \  v_{1}, \  R_{2}, \  v_{3}, \  v_{2}, \  I_{V1}, \  V_{1}, \  R_{1}, \  v_{4}, \  I_{O1}\right)\)</span></p>
+</div>
+</div>
+<p>Attemp to solve the equations.</p>
+<div id="3a8530f6-df2b-442a-be66-49506e78eb5a" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>U1_sym <span class="op">=</span> solve(NE1_sym,X1)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>U1_sym</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="6">
+<p><span class="math inline">\(\displaystyle \left[ \right]\)</span></p>
+</div>
+</div>
+<p>No solution is found. By inspection we can see that there are three equations:</p>
+<p><span class="math inline">\(I_{V1} + \frac{v_{1}}{R_{1}} - \frac{v_{3}}{R_{1}} = 0\)</span><br><span class="math inline">\(I_{O1} + \frac{v_{2}}{R_{3}} = 0\)</span><br><span class="math inline">\(- \frac{v_{1}}{R_{1}} + \frac{v_{3}}{R_{1}} = 0\)</span></p>
+<p>and four knowns: <span class="math inline">\(v_2\)</span>, <span class="math inline">\(v_3\)</span>, <span class="math inline">\(I_{V1}\)</span> and <span class="math inline">\(I_{O1}\)</span>.</p>
+<p>So without a connection from node 2 to the rest of the network, the voltage and current at node 2 cannot be solved for.</p>
+</section>
+<section id="case-2-r-in-the-feed-back-path" class="level2" data-number="34.7">
+<h2 data-number="34.7" class="anchored" data-anchor-id="case-2-r-in-the-feed-back-path"><span class="header-section-number">34.7</span> Case 2: R in the feed back path</h2>
+<p>R added to network between nodes 2 and 3, by manually editing the netlist below.</p>
+<div id="abc9b883-8ddb-440c-9c83-d4902830a1b4" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>net_list2 <span class="op">=</span> <span class="st">'''</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="st">V1 1 0 1</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="st">O1 3 4 2</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="st">R1 3 1 1</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="st">R3 2 0 1</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="st">R2 4 0 1</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="st">R 2 3 1</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="st">'''</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Generate the network equations.</p>
+<div id="621ae5e3-2aa9-4d69-a957-9aa8866cf5bc" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>report, network_df, df2, A2, X2, Z2 <span class="op">=</span> SymMNA.smna(net_list2)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Put matricies into SymPy </span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>X2 <span class="op">=</span> Matrix(X2)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>Z2 <span class="op">=</span> Matrix(Z2)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>NE2_sym <span class="op">=</span> Eq(A2<span class="op">*</span>X2,Z2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Both case 1 and case 2 have a 6 by 6 A matrix, but R shows up in the off diagonal in case 2.</p>
+<div id="6a4a74fc-e024-42a4-9727-ca3e9423c282" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>A2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="9">
+<p><span class="math inline">\(\displaystyle \left[\begin{matrix}\frac{1}{R_{1}} &amp; 0 &amp; - \frac{1}{R_{1}} &amp; 0 &amp; 1 &amp; 0\\0 &amp; \frac{1}{R_{3}} + \frac{1}{R} &amp; - \frac{1}{R} &amp; 0 &amp; 0 &amp; 1\\- \frac{1}{R_{1}} &amp; - \frac{1}{R} &amp; \frac{1}{R_{1}} + \frac{1}{R} &amp; 0 &amp; 0 &amp; 0\\0 &amp; 0 &amp; 0 &amp; \frac{1}{R_{2}} &amp; 0 &amp; 0\\1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0\\0 &amp; 0 &amp; 1 &amp; -1 &amp; 0 &amp; 0\end{matrix}\right]\)</span></p>
+</div>
+</div>
+<p>Generate markdown text to display the network equations.</p>
+<div id="9b2d5fb1-d1c3-4e72-a3dd-27a0b1dd5d80" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(X2)):</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(Eq((A2<span class="op">*</span>X2)[i:i<span class="op">+</span><span class="dv">1</span>][<span class="dv">0</span>],Z2[i])))</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="10">
+<p><span class="math inline">\(I_{V1} + \frac{v_{1}}{R_{1}} - \frac{v_{3}}{R_{1}} = 0\)</span><br><span class="math inline">\(I_{O1} + v_{2} \cdot \left(\frac{1}{R_{3}} + \frac{1}{R}\right) - \frac{v_{3}}{R} = 0\)</span><br><span class="math inline">\(v_{3} \cdot \left(\frac{1}{R_{1}} + \frac{1}{R}\right) - \frac{v_{1}}{R_{1}} - \frac{v_{2}}{R} = 0\)</span><br><span class="math inline">\(\frac{v_{4}}{R_{2}} = 0\)</span><br><span class="math inline">\(v_{1} = V_{1}\)</span><br><span class="math inline">\(v_{3} - v_{4} = 0\)</span><br></p>
+</div>
+</div>
+<p>The symbols generated by the Python code are extraced by the SymPy function free_symbols and then declared as SymPy variables.</p>
+<div id="874d46af-ca2b-49cc-a0da-1e7b19c85149" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># turn the free symbols into SymPy variables</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>var(<span class="bu">str</span>(NE2_sym.free_symbols).replace(<span class="st">'{'</span>,<span class="st">''</span>).replace(<span class="st">'}'</span>,<span class="st">''</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="11">
+<p><span class="math inline">\(\displaystyle \left( R_{3}, \  v_{1}, \  R, \  R_{2}, \  v_{3}, \  v_{2}, \  I_{V1}, \  V_{1}, \  R_{1}, \  v_{4}, \  I_{O1}\right)\)</span></p>
+</div>
+</div>
+<p>Solve the equations and display the results.</p>
+<div id="ae329ea2-2c29-49dc-99a7-c899c412aa62" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>U2_sym <span class="op">=</span> solve(NE2_sym,X2)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> U2_sym.keys():</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st"> = </span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(i),latex(U2_sym[i]))</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="12">
+<p><span class="math inline">\(v_{1} = V_{1}\)</span><br><span class="math inline">\(v_{2} = - \frac{R V_{1}}{R_{1}}\)</span><br><span class="math inline">\(v_{3} = 0\)</span><br><span class="math inline">\(v_{4} = 0\)</span><br><span class="math inline">\(I_{V1} = - \frac{V_{1}}{R_{1}}\)</span><br><span class="math inline">\(I_{O1} = \frac{R V_{1} + R_{3} V_{1}}{R_{1} R_{3}}\)</span><br></p>
+</div>
+</div>
+<p>Notice that <span class="math inline">\(v_3\)</span> and <span class="math inline">\(v_4\)</span> are both zero volts. There is no current flowing into the Op Amp input terminals.</p>
+<p>Solving for the transfer function at node 2.</p>
+<div id="146d1092-0bb3-481a-b967-32bd6a5f9e24" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>H2_sym <span class="op">=</span> U2_sym[v2]<span class="op">/</span>U2_sym[v1]</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>H2_sym <span class="co">#.simplify()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="13">
+<p><span class="math inline">\(\displaystyle - \frac{R}{R_{1}}\)</span></p>
+</div>
+</div>
+</section>
+<section id="case-3-swap-op-amp-input-connections" class="level2" data-number="34.8">
+<h2 data-number="34.8" class="anchored" data-anchor-id="case-3-swap-op-amp-input-connections"><span class="header-section-number">34.8</span> Case 3: Swap Op Amp input connections</h2>
+<p>As discussed above, the MNA code equates the voltages at the Op Amps input terminals. This implies that there is negative feedback present in the circuit. Because the voltage at thes terminal are equal, there is no distinction between the two as far as a mathematical solution to the network equations is concerned. This is illustrated below.</p>
+<div id="1df4516e-22ec-494e-882c-ad7d034a6bf7" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>net_list3 <span class="op">=</span> <span class="st">'''</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="st">V1 1 0 1</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="st">*O1 3 4 2</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="st">O1 4 3 2</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="st">R1 3 1 1</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="st">R3 2 0 1</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="st">R2 4 0 1</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="st">R 2 3 1</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="st">'''</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Generate the network equations.</p>
+<div id="e886cddf-cc97-487f-b9a9-ee132d014d78" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>report, network_df, df2, A3, X3, Z3 <span class="op">=</span> SymMNA.smna(net_list3)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Put matricies into SymPy </span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>X3 <span class="op">=</span> Matrix(X3)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>Z3 <span class="op">=</span> Matrix(Z3)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>NE3_sym <span class="op">=</span> Eq(A3<span class="op">*</span>X3,Z3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Generate markdown text to display the network equations.</p>
+<div id="041f7dd4-efb5-46b3-8ac6-9a731aa92e4b" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(X3)):</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(Eq((A3<span class="op">*</span>X3)[i:i<span class="op">+</span><span class="dv">1</span>][<span class="dv">0</span>],Z3[i])))</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="16">
+<p><span class="math inline">\(I_{V1} + \frac{v_{1}}{R_{1}} - \frac{v_{3}}{R_{1}} = 0\)</span><br><span class="math inline">\(I_{O1} + v_{2} \cdot \left(\frac{1}{R_{3}} + \frac{1}{R}\right) - \frac{v_{3}}{R} = 0\)</span><br><span class="math inline">\(v_{3} \cdot \left(\frac{1}{R_{1}} + \frac{1}{R}\right) - \frac{v_{1}}{R_{1}} - \frac{v_{2}}{R} = 0\)</span><br><span class="math inline">\(\frac{v_{4}}{R_{2}} = 0\)</span><br><span class="math inline">\(v_{1} = V_{1}\)</span><br><span class="math inline">\(- v_{3} + v_{4} = 0\)</span><br></p>
+</div>
+</div>
+<p>Last equation,</p>
+<p><span class="math inline">\(- v_{3} + v_{4} = 0\)</span></p>
+<p>is identical anlgebracily to the equation generated in Case 1 above, which is:</p>
+<p><span class="math inline">\(v_{3} - v_{4} = 0\)</span></p>
+<p>This shows that because the Op Amp model defines <span class="math inline">\(V+\)</span> and <span class="math inline">\(V-\)</span> to be equal, the terminals of the NMA Op Amp model can be swapped.</p>
+<p>The symbols generated by the Python code are extraced by the SymPy function free_symbols and then declared as SymPy variables.</p>
+<div id="d3ef5dc8-a840-45a8-88bc-28559ee3ebd7" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># turn the free symbols into SymPy variables</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>var(<span class="bu">str</span>(NE3_sym.free_symbols).replace(<span class="st">'{'</span>,<span class="st">''</span>).replace(<span class="st">'}'</span>,<span class="st">''</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="17">
+<p><span class="math inline">\(\displaystyle \left( R_{3}, \  v_{1}, \  R, \  R_{2}, \  v_{3}, \  v_{2}, \  I_{V1}, \  V_{1}, \  R_{1}, \  v_{4}, \  I_{O1}\right)\)</span></p>
+</div>
+</div>
+<p>Solve the equations and display the results.</p>
+<div id="d5f9d118-1461-44c9-af02-309c6c145dbc" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>U3_sym <span class="op">=</span> solve(NE3_sym,X3)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> U3_sym.keys():</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st"> = </span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(i),latex(U3_sym[i]))</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="18">
+<p><span class="math inline">\(v_{1} = V_{1}\)</span><br><span class="math inline">\(v_{2} = - \frac{R V_{1}}{R_{1}}\)</span><br><span class="math inline">\(v_{3} = 0\)</span><br><span class="math inline">\(v_{4} = 0\)</span><br><span class="math inline">\(I_{V1} = - \frac{V_{1}}{R_{1}}\)</span><br><span class="math inline">\(I_{O1} = \frac{R V_{1} + R_{3} V_{1}}{R_{1} R_{3}}\)</span><br></p>
+</div>
+</div>
+<p>Notice that <span class="math inline">\(v_3\)</span> and <span class="math inline">\(v_4\)</span> are both zero volts. There is no current flowing into the Op Amp input terminals.</p>
+<p>Solving for the transfer function at node 2.</p>
+<div id="d42d1d33-42bf-49be-9544-7f325806d24f" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>H3_sym <span class="op">=</span> U3_sym[v2]<span class="op">/</span>U3_sym[v1]</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>H3_sym <span class="co">#.simplify()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="19">
+<p><span class="math inline">\(\displaystyle - \frac{R}{R_{1}}\)</span></p>
+</div>
+</div>
+</section>
+<section id="case-4-c-in-feedback-path" class="level2" data-number="34.9">
+<h2 data-number="34.9" class="anchored" data-anchor-id="case-4-c-in-feedback-path"><span class="header-section-number">34.9</span> Case 4: C in feedback path</h2>
+<div id="d208cc59-4845-4f61-8a44-6dab08bdad37" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>net_list4 <span class="op">=</span> <span class="st">'''</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="st">V1 1 0 1</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="st">O1 3 4 2</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="st">R1 3 1 1</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="st">R3 2 0 1</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="st">R2 4 0 1</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="st">C 2 3 1</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="st">'''</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Generate the network equations.</p>
+<div id="bb75afd2-9855-4ba8-ad7d-ed0626bc60f8" class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>report, network_df, df2, A4, X4, Z4 <span class="op">=</span> SymMNA.smna(net_list4)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Put matricies into SymPy </span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>X4 <span class="op">=</span> Matrix(X4)</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>Z4 <span class="op">=</span> Matrix(Z4)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>NE4_sym <span class="op">=</span> Eq(A4<span class="op">*</span>X4,Z4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Generate markdown text to display the network equations.</p>
+<div id="66a5df6c-9069-45ca-ba33-1b5e988ba5bb" class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(X4)):</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(Eq((A4<span class="op">*</span>X4)[i:i<span class="op">+</span><span class="dv">1</span>][<span class="dv">0</span>],Z4[i])))</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="22">
+<p><span class="math inline">\(I_{V1} + \frac{v_{1}}{R_{1}} - \frac{v_{3}}{R_{1}} = 0\)</span><br><span class="math inline">\(- C s v_{3} + I_{O1} + v_{2} \left(C s + \frac{1}{R_{3}}\right) = 0\)</span><br><span class="math inline">\(- C s v_{2} + v_{3} \left(C s + \frac{1}{R_{1}}\right) - \frac{v_{1}}{R_{1}} = 0\)</span><br><span class="math inline">\(\frac{v_{4}}{R_{2}} = 0\)</span><br><span class="math inline">\(v_{1} = V_{1}\)</span><br><span class="math inline">\(v_{3} - v_{4} = 0\)</span><br></p>
+</div>
+</div>
+<p>The symbols generated by the Python code are extraced by the SymPy function free_symbols and then declared as SymPy variables.</p>
+<div id="bb418a7e-6347-4d82-9137-2d1afce91661" class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># turn the free symbols into SymPy variables</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>var(<span class="bu">str</span>(NE4_sym.free_symbols).replace(<span class="st">'{'</span>,<span class="st">''</span>).replace(<span class="st">'}'</span>,<span class="st">''</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="23">
+<p><span class="math inline">\(\displaystyle \left( s, \  R_{3}, \  v_{1}, \  R_{2}, \  v_{3}, \  v_{2}, \  I_{V1}, \  V_{1}, \  C, \  R_{1}, \  v_{4}, \  I_{O1}\right)\)</span></p>
+</div>
+</div>
+<p>Solve and display the solution.</p>
+<div id="4b35b839-55c3-4593-81c0-3347a75c0916" class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>U4_sym <span class="op">=</span> solve(NE4_sym,X4)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> U4_sym.keys():</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st"> = </span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(i),latex(U4_sym[i]))</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="24">
+<p><span class="math inline">\(v_{1} = V_{1}\)</span><br><span class="math inline">\(v_{2} = - \frac{V_{1}}{C R_{1} s}\)</span><br><span class="math inline">\(v_{3} = 0\)</span><br><span class="math inline">\(v_{4} = 0\)</span><br><span class="math inline">\(I_{V1} = - \frac{V_{1}}{R_{1}}\)</span><br><span class="math inline">\(I_{O1} = \frac{C R_{3} V_{1} s + V_{1}}{C R_{1} R_{3} s}\)</span><br></p>
+</div>
+</div>
+<p>Solving for the transfer function at node 2.</p>
+<div id="fdbb1de8-e6ba-48c4-a46d-a44f30312c51" class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>U4_sym[v2]<span class="op">/</span>U4_sym[v1]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="25">
+<p><span class="math inline">\(\displaystyle - \frac{1}{C R_{1} s}\)</span></p>
+</div>
+</div>
+<p>Seems correct.</p>
+</section>
+<section id="case-5-c-and-r-in-parallel-in-feedback-path" class="level2" data-number="34.10">
+<h2 data-number="34.10" class="anchored" data-anchor-id="case-5-c-and-r-in-parallel-in-feedback-path"><span class="header-section-number">34.10</span> Case 5: C and R in parallel in feedback path</h2>
+<div id="ecf40542-2ab9-44ec-801d-1a8b8d1e1dfe" class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>net_list5 <span class="op">=</span> <span class="st">'''</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="st">V1 1 0 1</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="st">O1 3 4 2</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="st">R1 3 1 1</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="st">R3 2 0 1</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="st">R2 4 0 1</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="st">C 2 3 1</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="st">R 2 3 1</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="st">'''</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Generate the network equations.</p>
+<div id="402527fc-accc-4ed8-bf5c-1c43eecf050c" class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>report, network_df, df2, A5, X5, Z5 <span class="op">=</span> SymMNA.smna(net_list5)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Put matricies into SymPy </span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>X5 <span class="op">=</span> Matrix(X5)</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>Z5 <span class="op">=</span> Matrix(Z5)</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>NE5_sym <span class="op">=</span> Eq(A5<span class="op">*</span>X5,Z5)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Generate markdown text to display the network equations.</p>
+<div id="d9e08adb-4ba0-4119-8ce7-8315a4c070b1" class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(X5)):</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(Eq((A5<span class="op">*</span>X5)[i:i<span class="op">+</span><span class="dv">1</span>][<span class="dv">0</span>],Z5[i])))</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="28">
+<p><span class="math inline">\(I_{V1} + \frac{v_{1}}{R_{1}} - \frac{v_{3}}{R_{1}} = 0\)</span><br><span class="math inline">\(I_{O1} + v_{2} \left(C s + \frac{1}{R_{3}} + \frac{1}{R}\right) + v_{3} \left(- C s - \frac{1}{R}\right) = 0\)</span><br><span class="math inline">\(v_{2} \left(- C s - \frac{1}{R}\right) + v_{3} \left(C s + \frac{1}{R_{1}} + \frac{1}{R}\right) - \frac{v_{1}}{R_{1}} = 0\)</span><br><span class="math inline">\(\frac{v_{4}}{R_{2}} = 0\)</span><br><span class="math inline">\(v_{1} = V_{1}\)</span><br><span class="math inline">\(v_{3} - v_{4} = 0\)</span><br></p>
+</div>
+</div>
+<p>The symbols generated by the Python code are extraced by the SymPy function free_symbols and then declared as SymPy variables.</p>
+<div id="2606fb12-4e07-4a73-a9ba-7a5c4f42049b" class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># turn the free symbols into SymPy variables</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>var(<span class="bu">str</span>(NE5_sym.free_symbols).replace(<span class="st">'{'</span>,<span class="st">''</span>).replace(<span class="st">'}'</span>,<span class="st">''</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="29">
+<p><span class="math inline">\(\displaystyle \left( s, \  R_{3}, \  v_{1}, \  R, \  R_{2}, \  v_{3}, \  v_{2}, \  I_{V1}, \  V_{1}, \  C, \  R_{1}, \  v_{4}, \  I_{O1}\right)\)</span></p>
+</div>
+</div>
+<p>Solve and display the solution.</p>
+<div id="cab247fc-2676-4eb8-8e84-d07396ab6f00" class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>U5_sym <span class="op">=</span> solve(NE5_sym,X5)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> U5_sym.keys():</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st"> = </span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(i),latex(U5_sym[i]))</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="30">
+<p><span class="math inline">\(v_{1} = V_{1}\)</span><br><span class="math inline">\(v_{2} = - \frac{R V_{1}}{C R R_{1} s + R_{1}}\)</span><br><span class="math inline">\(v_{3} = 0\)</span><br><span class="math inline">\(v_{4} = 0\)</span><br><span class="math inline">\(I_{V1} = - \frac{V_{1}}{R_{1}}\)</span><br><span class="math inline">\(I_{O1} = \frac{C R R_{3} V_{1} s + R V_{1} + R_{3} V_{1}}{C R R_{1} R_{3} s + R_{1} R_{3}}\)</span><br></p>
+</div>
+</div>
+<p>Solving for the transfer function at node 2.</p>
+<div id="b80e734b-a232-4b49-b208-b3fc81e80110" class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>U5_sym[v2]<span class="op">/</span>U5_sym[v1]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="31">
+<p><span class="math inline">\(\displaystyle - \frac{R}{C R R_{1} s + R_{1}}\)</span></p>
+</div>
+</div>
+<p>At <span class="math inline">\(s=0\)</span> the transfer function reduces correctly to the DC case. For <span class="math inline">\(s=\infty\)</span>, the capacitor is a short and equation is not correct, but then the circuit now has a short accross R and this is not reflected in the netlist. So at <span class="math inline">\(s=\infty\)</span>, the solution needs some interperation and maybe the netlist needs to edited to correctly reflect the value of <span class="math inline">\(Z_c\)</span> at <span class="math inline">\(\infty\)</span>.</p>
+<p>The result seems correct for <span class="math inline">\(s \ne \infty\)</span>.</p>
+</section>
+<section id="case-5a-c-and-r-in-series-in-feedback-path" class="level2" data-number="34.11">
+<h2 data-number="34.11" class="anchored" data-anchor-id="case-5a-c-and-r-in-series-in-feedback-path"><span class="header-section-number">34.11</span> Case 5a: C and R in series in feedback path</h2>
+<div id="83697af5-b2da-4c1a-a405-02272e9c86f3" class="cell" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>net_list5a <span class="op">=</span> <span class="st">'''</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="st">V1 1 0 1</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="st">O1 3 4 2</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="st">R1 3 1 1</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="st">R3 2 0 1</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="st">R2 4 0 1</span></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="st">C 2 5 1</span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="st">R 3 5 1</span></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="st">'''</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Generate the network equations.</p>
+<div id="940dff29-bd70-424e-80b2-ca65cbf1308f" class="cell" data-execution_count="33">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>report, network_df, df2, A5a, X5a, Z5a <span class="op">=</span> SymMNA.smna(net_list5a)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Put matricies into SymPy </span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>X5a <span class="op">=</span> Matrix(X5a)</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>Z5a <span class="op">=</span> Matrix(Z5a)</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>NE5a_sym <span class="op">=</span> Eq(A5a<span class="op">*</span>X5a,Z5a)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Generate markdown text to display the network equations.</p>
+<div id="630c106a-0923-47be-92a7-fcf1d6c51352" class="cell" data-execution_count="34">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(X5a)):</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(Eq((A5a<span class="op">*</span>X5a)[i:i<span class="op">+</span><span class="dv">1</span>][<span class="dv">0</span>],Z5a[i])))</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="34">
+<p><span class="math inline">\(I_{V1} + \frac{v_{1}}{R_{1}} - \frac{v_{3}}{R_{1}} = 0\)</span><br><span class="math inline">\(- C s v_{5} + I_{O1} + v_{2} \left(C s + \frac{1}{R_{3}}\right) = 0\)</span><br><span class="math inline">\(v_{3} \cdot \left(\frac{1}{R_{1}} + \frac{1}{R}\right) - \frac{v_{1}}{R_{1}} - \frac{v_{5}}{R} = 0\)</span><br><span class="math inline">\(\frac{v_{4}}{R_{2}} = 0\)</span><br><span class="math inline">\(- C s v_{2} + v_{5} \left(C s + \frac{1}{R}\right) - \frac{v_{3}}{R} = 0\)</span><br><span class="math inline">\(v_{1} = V_{1}\)</span><br><span class="math inline">\(v_{3} - v_{4} = 0\)</span><br></p>
+</div>
+</div>
+<p>The symbols generated by the Python code are extraced by the SymPy function free_symbols and then declared as SymPy variables.</p>
+<div id="ac58a6d5-eb4f-40ff-a81f-68ffc59ebd4f" class="cell" data-execution_count="35">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># turn the free symbols into SymPy variables</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>var(<span class="bu">str</span>(NE5a_sym.free_symbols).replace(<span class="st">'{'</span>,<span class="st">''</span>).replace(<span class="st">'}'</span>,<span class="st">''</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="35">
+<p><span class="math inline">\(\displaystyle \left( s, \  R_{3}, \  v_{1}, \  R, \  R_{2}, \  v_{3}, \  v_{2}, \  I_{V1}, \  v_{4}, \  V_{1}, \  C, \  R_{1}, \  v_{5}, \  I_{O1}\right)\)</span></p>
+</div>
+</div>
+<p>Solve and display the solution.</p>
+<div id="c1c9e066-3a3f-47db-8070-79df28a11657" class="cell" data-execution_count="36">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>U5a_sym <span class="op">=</span> solve(NE5a_sym,X5a)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> U5a_sym.keys():</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st"> = </span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(i),latex(U5a_sym[i]))</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="36">
+<p><span class="math inline">\(v_{1} = V_{1}\)</span><br><span class="math inline">\(v_{2} = \frac{- C R V_{1} s - V_{1}}{C R_{1} s}\)</span><br><span class="math inline">\(v_{3} = 0\)</span><br><span class="math inline">\(v_{4} = 0\)</span><br><span class="math inline">\(v_{5} = - \frac{R V_{1}}{R_{1}}\)</span><br><span class="math inline">\(I_{V1} = - \frac{V_{1}}{R_{1}}\)</span><br><span class="math inline">\(I_{O1} = \frac{C R V_{1} s + C R_{3} V_{1} s + V_{1}}{C R_{1} R_{3} s}\)</span><br></p>
+</div>
+</div>
+<p>Solving for the transfer function at node 2.</p>
+<div id="adafd683-08ef-4c51-8860-03efe8a80345" class="cell" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>(U5a_sym[v2]<span class="op">/</span>U5a_sym[v1]).simplify()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="37">
+<p><span class="math inline">\(\displaystyle - \frac{R}{R_{1}} - \frac{1}{C R_{1} s}\)</span></p>
+</div>
+</div>
+<p>The result seems correct.</p>
+</section>
+<section id="case-6-l-in-feedback-path" class="level2" data-number="34.12">
+<h2 data-number="34.12" class="anchored" data-anchor-id="case-6-l-in-feedback-path"><span class="header-section-number">34.12</span> Case 6: L in feedback path</h2>
+<div id="6cf6101f-0511-4337-9d5d-650eaeb7abed" class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>net_list6 <span class="op">=</span> <span class="st">'''</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="st">V1 1 0 1</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="st">O1 3 4 2</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="st">R1 3 1 1</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="st">R3 2 0 1</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="st">R2 4 0 1</span></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="st">L 2 3 1</span></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a><span class="st">'''</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Generate the network equations.</p>
+<div id="a17ac438-e799-440d-a842-b998b30b5b33" class="cell" data-execution_count="39">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>report, network_df, df2, A6, X6, Z6 <span class="op">=</span> SymMNA.smna(net_list6)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Put matricies into SymPy </span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>X6 <span class="op">=</span> Matrix(X6)</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>Z6 <span class="op">=</span> Matrix(Z6)</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>NE6_sym <span class="op">=</span> Eq(A6<span class="op">*</span>X6,Z6)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Generate markdown text to display the network equations.</p>
+<div id="488cb2c9-569e-42a8-8500-bc5fc61730b5" class="cell" data-execution_count="40">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(X6)):</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(Eq((A6<span class="op">*</span>X6)[i:i<span class="op">+</span><span class="dv">1</span>][<span class="dv">0</span>],Z6[i])))</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="40">
+<p><span class="math inline">\(I_{V1} + \frac{v_{1}}{R_{1}} - \frac{v_{3}}{R_{1}} = 0\)</span><br><span class="math inline">\(I_{L} + I_{O1} + \frac{v_{2}}{R_{3}} = 0\)</span><br><span class="math inline">\(- I_{L} - \frac{v_{1}}{R_{1}} + \frac{v_{3}}{R_{1}} = 0\)</span><br><span class="math inline">\(\frac{v_{4}}{R_{2}} = 0\)</span><br><span class="math inline">\(v_{1} = V_{1}\)</span><br><span class="math inline">\(v_{3} - v_{4} = 0\)</span><br><span class="math inline">\(- I_{L} L s + v_{2} - v_{3} = 0\)</span><br></p>
+</div>
+</div>
+<p>The symbols generated by the Python code are extraced by the SymPy function free_symbols and then declared as SymPy variables.</p>
+<div id="d582ed9b-dc12-4dd4-92e7-0f2309cc28a5" class="cell" data-execution_count="41">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># turn the free symbols into SymPy variables</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>var(<span class="bu">str</span>(NE6_sym.free_symbols).replace(<span class="st">'{'</span>,<span class="st">''</span>).replace(<span class="st">'}'</span>,<span class="st">''</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="41">
+<p><span class="math inline">\(\displaystyle \left( s, \  R_{3}, \  v_{1}, \  R_{2}, \  L, \  I_{L}, \  v_{3}, \  v_{2}, \  I_{V1}, \  V_{1}, \  R_{1}, \  v_{4}, \  I_{O1}\right)\)</span></p>
+</div>
+</div>
+<p>Solve and display the solution.</p>
+<div id="1ae403b7-c802-4f4e-ad39-74aa5c15361a" class="cell" data-execution_count="42">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>U6_sym <span class="op">=</span> solve(NE6_sym,X6)</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> U6_sym.keys():</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st"> = </span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(i),latex(U6_sym[i]))</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="42">
+<p><span class="math inline">\(v_{1} = V_{1}\)</span><br><span class="math inline">\(v_{2} = - \frac{L V_{1} s}{R_{1}}\)</span><br><span class="math inline">\(v_{3} = 0\)</span><br><span class="math inline">\(v_{4} = 0\)</span><br><span class="math inline">\(I_{V1} = - \frac{V_{1}}{R_{1}}\)</span><br><span class="math inline">\(I_{O1} = \frac{L V_{1} s + R_{3} V_{1}}{R_{1} R_{3}}\)</span><br><span class="math inline">\(I_{L} = - \frac{V_{1}}{R_{1}}\)</span><br></p>
+</div>
+</div>
+<p>Solving for the transfer function at node 2.</p>
+<div id="b1f75254-f654-4a31-90ec-8daa48133f73" class="cell" data-execution_count="43">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>U6_sym[v2]<span class="op">/</span>U6_sym[v1]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="43">
+<p><span class="math inline">\(\displaystyle - \frac{L s}{R_{1}}\)</span></p>
+</div>
+</div>
+<p>At <span class="math inline">\(s=0\)</span> the transfer function does not reduce correctly to the DC case. For <span class="math inline">\(s=\infty\)</span>, the inductor is an open and equation is correct.</p>
+<p>The result seems correct for <span class="math inline">\(s \ne 0\)</span>.</p>
+</section>
+<section id="case-7-l-and-r-in-series-in-the-feedback-path" class="level2" data-number="34.13">
+<h2 data-number="34.13" class="anchored" data-anchor-id="case-7-l-and-r-in-series-in-the-feedback-path"><span class="header-section-number">34.13</span> Case 7: L and R in series in the feedback path</h2>
+<div id="0da25bc0-781c-4f1f-9b51-d7486b032149" class="cell" data-execution_count="44">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>net_list7 <span class="op">=</span> <span class="st">'''</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="st">V1 1 0 1</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="st">O1 3 4 2</span></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="st">R1 3 1 1</span></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="st">R3 2 0 1</span></span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a><span class="st">R2 4 0 1</span></span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a><span class="st">L 2 5 1</span></span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a><span class="st">R 3 5 1</span></span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a><span class="st">'''</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Generate the network equations.</p>
+<div id="e77ff146-b430-4311-b779-1518bcc85c0b" class="cell" data-execution_count="45">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>report, network_df, df2, A7, X7, Z7 <span class="op">=</span> SymMNA.smna(net_list7)</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Put matricies into SymPy </span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>X7 <span class="op">=</span> Matrix(X7)</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>Z7 <span class="op">=</span> Matrix(Z7)</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>NE7_sym <span class="op">=</span> Eq(A7<span class="op">*</span>X7,Z7)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Generate markdown text to display the network equations.</p>
+<div id="293b0641-3d15-4019-ab7c-4408746c27b7" class="cell" data-execution_count="46">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(X7)):</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(Eq((A7<span class="op">*</span>X7)[i:i<span class="op">+</span><span class="dv">1</span>][<span class="dv">0</span>],Z7[i])))</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="46">
+<p><span class="math inline">\(I_{V1} + \frac{v_{1}}{R_{1}} - \frac{v_{3}}{R_{1}} = 0\)</span><br><span class="math inline">\(I_{L} + I_{O1} + \frac{v_{2}}{R_{3}} = 0\)</span><br><span class="math inline">\(v_{3} \cdot \left(\frac{1}{R_{1}} + \frac{1}{R}\right) - \frac{v_{1}}{R_{1}} - \frac{v_{5}}{R} = 0\)</span><br><span class="math inline">\(\frac{v_{4}}{R_{2}} = 0\)</span><br><span class="math inline">\(- I_{L} - \frac{v_{3}}{R} + \frac{v_{5}}{R} = 0\)</span><br><span class="math inline">\(v_{1} = V_{1}\)</span><br><span class="math inline">\(v_{3} - v_{4} = 0\)</span><br><span class="math inline">\(- I_{L} L s + v_{2} - v_{5} = 0\)</span><br></p>
+</div>
+</div>
+<p>The symbols generated by the Python code are extraced by the SymPy function free_symbols and then declared as SymPy variables.</p>
+<div id="baa0d920-2ba1-460b-943b-45ff698d3779" class="cell" data-execution_count="47">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># turn the free symbols into SymPy variables</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>var(<span class="bu">str</span>(NE7_sym.free_symbols).replace(<span class="st">'{'</span>,<span class="st">''</span>).replace(<span class="st">'}'</span>,<span class="st">''</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="47">
+<p><span class="math inline">\(\displaystyle \left( s, \  R_{3}, \  v_{1}, \  R, \  R_{2}, \  L, \  I_{L}, \  v_{3}, \  v_{2}, \  I_{V1}, \  v_{4}, \  V_{1}, \  R_{1}, \  v_{5}, \  I_{O1}\right)\)</span></p>
+</div>
+</div>
+<p>Solve and display the solution.</p>
+<div id="8a738a1f-c229-4b7c-b623-848a02282648" class="cell" data-execution_count="48">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>U7_sym <span class="op">=</span> solve(NE7_sym,X7)</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> U7_sym.keys():</span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st"> = </span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(i),latex(U7_sym[i]))</span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="48">
+<p><span class="math inline">\(v_{1} = V_{1}\)</span><br><span class="math inline">\(v_{2} = \frac{- L V_{1} s - R V_{1}}{R_{1}}\)</span><br><span class="math inline">\(v_{3} = 0\)</span><br><span class="math inline">\(v_{4} = 0\)</span><br><span class="math inline">\(v_{5} = - \frac{R V_{1}}{R_{1}}\)</span><br><span class="math inline">\(I_{V1} = - \frac{V_{1}}{R_{1}}\)</span><br><span class="math inline">\(I_{O1} = \frac{L V_{1} s + R V_{1} + R_{3} V_{1}}{R_{1} R_{3}}\)</span><br><span class="math inline">\(I_{L} = - \frac{V_{1}}{R_{1}}\)</span><br></p>
+</div>
+</div>
+<p>Solving for the transfer function at node 2.</p>
+<div id="b880d0b9-8d0a-43c5-a5c0-b1d5d7f1107b" class="cell" data-execution_count="49">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>(U7_sym[v2]<span class="op">/</span>U7_sym[v1]).simplify()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="49">
+<p><span class="math inline">\(\displaystyle \frac{- L s - R}{R_{1}}\)</span></p>
+</div>
+</div>
+<p>The result seems correct for <span class="math inline">\(s \ne \infty\)</span>.</p>
+</section>
+<section id="case-8-l-and-r-in-parallel-in-the-feedback-path" class="level2" data-number="34.14">
+<h2 data-number="34.14" class="anchored" data-anchor-id="case-8-l-and-r-in-parallel-in-the-feedback-path"><span class="header-section-number">34.14</span> Case 8: L and R in parallel in the feedback path</h2>
+<div id="c6e33d5d-24ba-4e91-902d-d07575b11732" class="cell" data-execution_count="50">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>net_list8 <span class="op">=</span> <span class="st">'''</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="st">V1 1 0 1</span></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="st">O1 3 4 2</span></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a><span class="st">R1 3 1 1</span></span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a><span class="st">R3 2 0 1</span></span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a><span class="st">R2 4 0 1</span></span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a><span class="st">L 2 3 1</span></span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a><span class="st">R 2 3 1</span></span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a><span class="st">'''</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Generate the network equations.</p>
+<div id="5af382e3-d9b7-48ec-8849-60736584d451" class="cell" data-execution_count="51">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>report, network_df, df2, A8, X8, Z8 <span class="op">=</span> SymMNA.smna(net_list8)</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Put matricies into SymPy </span></span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>X8 <span class="op">=</span> Matrix(X8)</span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>Z8 <span class="op">=</span> Matrix(Z8)</span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>NE8_sym <span class="op">=</span> Eq(A8<span class="op">*</span>X8,Z8)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Generate markdown text to display the network equations.</p>
+<div id="67310a06-1680-430b-94e3-336c4f3f2e47" class="cell" data-execution_count="52">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(X8)):</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(Eq((A8<span class="op">*</span>X8)[i:i<span class="op">+</span><span class="dv">1</span>][<span class="dv">0</span>],Z8[i])))</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="52">
+<p><span class="math inline">\(I_{V1} + \frac{v_{1}}{R_{1}} - \frac{v_{3}}{R_{1}} = 0\)</span><br><span class="math inline">\(I_{L} + I_{O1} + v_{2} \cdot \left(\frac{1}{R_{3}} + \frac{1}{R}\right) - \frac{v_{3}}{R} = 0\)</span><br><span class="math inline">\(- I_{L} + v_{3} \cdot \left(\frac{1}{R_{1}} + \frac{1}{R}\right) - \frac{v_{1}}{R_{1}} - \frac{v_{2}}{R} = 0\)</span><br><span class="math inline">\(\frac{v_{4}}{R_{2}} = 0\)</span><br><span class="math inline">\(v_{1} = V_{1}\)</span><br><span class="math inline">\(v_{3} - v_{4} = 0\)</span><br><span class="math inline">\(- I_{L} L s + v_{2} - v_{3} = 0\)</span><br></p>
+</div>
+</div>
+<p>The symbols generated by the Python code are extraced by the SymPy function free_symbols and then declared as SymPy variables.</p>
+<div id="041c99ab-f350-45f5-9304-e4ba32054378" class="cell" data-execution_count="53">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># turn the free symbols into SymPy variables</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>var(<span class="bu">str</span>(NE8_sym.free_symbols).replace(<span class="st">'{'</span>,<span class="st">''</span>).replace(<span class="st">'}'</span>,<span class="st">''</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="53">
+<p><span class="math inline">\(\displaystyle \left( s, \  R_{3}, \  v_{1}, \  R, \  R_{2}, \  L, \  I_{L}, \  v_{3}, \  v_{2}, \  I_{V1}, \  V_{1}, \  R_{1}, \  v_{4}, \  I_{O1}\right)\)</span></p>
+</div>
+</div>
+<p>Solve the equations.</p>
+<div id="566b4a37-4ecd-4d55-8911-586b13fc83ea" class="cell" data-execution_count="54">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>U8_sym <span class="op">=</span> solve(NE8_sym,X8)</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> U8_sym.keys():</span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st"> = </span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(i),latex(U8_sym[i]))</span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="54">
+<p><span class="math inline">\(v_{1} = V_{1}\)</span><br><span class="math inline">\(v_{2} = - \frac{L R V_{1} s}{L R_{1} s + R R_{1}}\)</span><br><span class="math inline">\(v_{3} = 0\)</span><br><span class="math inline">\(v_{4} = 0\)</span><br><span class="math inline">\(I_{V1} = - \frac{V_{1}}{R_{1}}\)</span><br><span class="math inline">\(I_{O1} = \frac{L R V_{1} s + L R_{3} V_{1} s + R R_{3} V_{1}}{L R_{1} R_{3} s + R R_{1} R_{3}}\)</span><br><span class="math inline">\(I_{L} = - \frac{R V_{1}}{L R_{1} s + R R_{1}}\)</span><br></p>
+</div>
+</div>
+<p>Solving for the transfer function at node 2.</p>
+<div id="6297b6f7-bb65-41f0-ba36-6109daa808bf" class="cell" data-execution_count="55">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>(U8_sym[v2]<span class="op">/</span>U8_sym[v1]).simplify()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="55">
+<p><span class="math inline">\(\displaystyle - \frac{L R s}{R_{1} \left(L s + R\right)}\)</span></p>
+</div>
+</div>
+<p>The result seems correct for <span class="math inline">\(s \ne \infty\)</span> or <span class="math inline">\(s \ne 0\)</span>.</p>
+</section>
+<section id="summary" class="level2" data-number="34.15">
+<h2 data-number="34.15" class="anchored" data-anchor-id="summary"><span class="header-section-number">34.15</span> Summary</h2>
+<ul>
+<li>Resistors in the feedback path seem to give the correct results</li>
+<li>Inductors and capacitors in the feedback path seem to work as long as <span class="math inline">\(s \ne \infty \space \text {or} \space \ne 0\)</span>.</li>
+<li>If a solution is only desired for non-zero or non-infinit requencies, then the results seem correct.</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./Phasor-analysis.html" class="pagination-link" aria-label="Phasor analysis">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Phasor analysis</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./Op Amp circuits.html" class="pagination-link" aria-label="Op Amp circuits">
+        <span class="nav-page-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Op Amp circuits</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

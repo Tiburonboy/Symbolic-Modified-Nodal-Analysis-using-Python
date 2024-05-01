@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.537">
+<meta name="generator" content="quarto-1.4.553">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -385,6 +385,24 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Phasor analysis</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Modeling Op Amps.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Modeling Op Amps</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Op Amp circuits.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Op Amp circuits</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mech-sys.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Mechanical systems</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item">
@@ -469,13 +487,13 @@ window.Quarto = {
 <p>The modified nodal analysis provides an algorithmic method for generating systems of independent equations for linear circuit analysis. A Wikipedia description of the analysis technique is available <a href="https://en.wikipedia.org/wiki/Modified_nodal_analysis">here</a>. In electrical engineering and electronics, a circuit is a collection of interconnected components. Circuit analysis is the process of finding the voltages across, and the currents through, all network components. Typically a set of equations is developed that describes the circuit interconnections and are usually based on node voltages as unknowns or loop currents as unknowns. The equations that describe the circuit are called network equations.</p>
 <section id="network-equations" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="network-equations"><span class="header-section-number">2.1</span> Network equations</h2>
-<p>The network equations are a set of independent equations expressed in this code in matrix form. There is an equation for each node based on <a href="https://en.wikipedia.org/wiki/Kirchhoff%27s_circuit_laws">Kirchhoff’s current law</a> and an equation for each current unknown. The current unknowns are the currents from the voltages sources, op amps, voltage controlled voltage sources, current controlled voltage sources, current controlled current sources and inductors.</p>
+<p>The network equations are a set of independent equations expressed in this code in matrix form. There is an equation for each node based on <a href="https://en.wikipedia.org/wiki/Kirchhoff%27s_circuit_laws">Kirchhoff’s current law</a> and an equation for each current unknown. The current unknowns are the currents from the voltages sources, Op Amps, voltage controlled voltage sources, current controlled voltage sources, current controlled current sources and inductors.</p>
 <p><a href="#eq-AX_Z" class="quarto-xref">Equation&nbsp;<span>2.1</span></a> are the network equations in matrix form.</p>
 <p><span id="eq-AX_Z"><span class="math display">\[A\cdot X = Z \tag{2.1}\]</span></span></p>
 <p>Matrix <span class="math inline">\(A\)</span> describes the connectivity of the resistors, capacitors and G type (VCCS) circuit elements. The <span class="math inline">\(X\)</span> vector contains unknown node voltages and unknown currents from the voltage sources and inductors. The <span class="math inline">\(Z\)</span> vector contains the known voltages and currents. The <span class="math inline">\(A\)</span> matrix is formed by four sub matrices, <span class="math inline">\(G\)</span>, <span class="math inline">\(B\)</span>, <span class="math inline">\(C\)</span> and <span class="math inline">\(D\)</span>, which are described below.</p>
 <p><span id="eq-net_equ"><span class="math display">\[A = \begin{bmatrix}G B\\C D\end{bmatrix} \tag{2.2}\]</span></span></p>
 <p>The matrix <span class="math inline">\(G\)</span> is formed from the coefficients representing the KCL equations for each node. The positive diagonal of <span class="math inline">\(G_{k,k}\)</span> are the conductance terms of the resistor and capacitor elements connected to node k. The off diagonal terms of <span class="math inline">\(G_{k,j}\)</span> are the resistors and capacitor conductances connecting node k to node j. G type elements (VCCS) have input to the G matrix at the connection and controlling node positions.</p>
-<p>The <span class="math inline">\(B\)</span> matrix describes the connectivity of the unknown branch currents. Independent voltage sources, op amps, H, F and E type elements as well as inductors have inputs to the B matrix.</p>
+<p>The <span class="math inline">\(B\)</span> matrix describes the connectivity of the unknown branch currents. Independent voltage sources, Op Amps, H, F and E type elements as well as inductors have inputs to the B matrix.</p>
 <p>The <span class="math inline">\(C\)</span> matrix describes the connectivity of the unknown branch currents and is mainly the transpose of the <span class="math inline">\(B\)</span> matrix, with the exception of the F type elements (CCCS) and includes the E type value.</p>
 <p>The <span class="math inline">\(D\)</span> matrix also describes connectivity of the unknown currents. The <span class="math inline">\(D\)</span> matrix is composed of zeros unless there are controlled sources and inductors in the network.</p>
 <p>The <span class="math inline">\(X\)</span> vector is composed of the <span class="math inline">\(V\)</span> and <span class="math inline">\(J\)</span> vectors as shown in <a href="#eq-net_X" class="quarto-xref">Equation&nbsp;<span>2.3</span></a>.</p>
@@ -579,8 +597,8 @@ Examples:<br>
 <h3 data-number="2.3.5" class="anchored" data-anchor-id="op-amps"><span class="header-section-number">2.3.5</span> Op Amps</h3>
 <p>An opamp component is described by the following line.<br>
 <code>OXX N+ N- Vout</code><br>
-The output of the opamp is a voltage source. Two input terminals are at the same potential.</p>
-<p>The op amp element is assumed to be an ideal op amp and use of this component is valid only when used in circuits with a DC path (a short or a resistor) from the output terminal to the negative input terminal of the op amp. No error checking is provided and if the condition is violated, the results will be likely erroneous. Need to work on implementing a better opamp model.</p>
+The output of the opamp is a voltage source.</p>
+<p>The Op Amp element is assumed to be an ideal Op Amp and the voltage at the input terminals are defined by the model to equal each other. The use of this component is valid only when used in a network with a path from the output terminal to the negative input terminal of the Op Amp. No error checking is provided and if the condition is violated, the results will be likely erroneous. Op Amp circuits with Inductors and/or capacitors in the feedback path may not analize correctly at <span class="math inline">\(s \ne \infty\)</span> or <span class="math inline">\(s \ne 0\)</span>. See <a href="Modeling Op Amps.html" class="quarto-xref"><span>Chapter 34</span></a> and <a href="Op Amp circuits.html" class="quarto-xref"><span>Chapter 35</span></a> for additional comments.</p>
 </section>
 </section>
 <section id="analysis-procedure" class="level2" data-number="2.4">
@@ -686,6 +704,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -720,7 +756,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -768,7 +808,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      return note.innerHTML;
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
     }
   }
   for (var i=0; i<xrefs.length; i++) {
@@ -991,12 +1036,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./Introduction.html" class="pagination-link  aria-label=" &lt;span="">
+      <a href="./Introduction.html" class="pagination-link" aria-label="Introduction">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./SMNA_example.html" class="pagination-link" aria-label="<span class='chapter-number'>3</span>&nbsp; <span class='chapter-title'>SMNA Example</span>">
+      <a href="./SMNA_example.html" class="pagination-link" aria-label="SMNA Example">
         <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">SMNA Example</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>

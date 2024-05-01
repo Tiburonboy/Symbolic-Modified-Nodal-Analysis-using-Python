@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.537">
+<meta name="generator" content="quarto-1.4.553">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -402,6 +402,24 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Phasor analysis</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Modeling Op Amps.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Modeling Op Amps</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Op Amp circuits.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Op Amp circuits</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mech-sys.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Mechanical systems</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item">
@@ -483,10 +501,10 @@ window.Quarto = {
 <div id="fig-superposition-circuit" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-superposition-circuit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="Superposition-and-polyphase-circuit.png" id="fig-superposition-circuit" class="img-fluid figure-img">
+<img src="Superposition-and-polyphase-circuit.png" class="img-fluid figure-img">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-superposition-circuit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;24.1
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-superposition-circuit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;24.1: Circuit schematic
 </figcaption>
 </figure>
 </div>
@@ -665,7 +683,7 @@ K1 L3 L4 0.4</code></pre>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># turn the free symbols into SymPy variables</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>var(<span class="bu">str</span>(NE_sym.free_symbols).replace(<span class="st">'{'</span>,<span class="st">''</span>).replace(<span class="st">'}'</span>,<span class="st">''</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="7">
-<p><span class="math inline">\(\displaystyle \left( R_{5}, \  I_{H1}, \  L_{2}, \  v_{2}, \  v_{13}, \  v_{7}, \  R_{6}, \  L_{3}, \  v_{1}, \  L_{4}, \  I_{V1}, \  I_{L1}, \  R_{9}, \  v_{11}, \  V_{2}, \  R_{2}, \  C_{2}, \  R_{3}, \  R_{10}, \  v_{5}, \  C_{3}, \  g_{1}, \  I_{L4}, \  L_{1}, \  V_{1}, \  v_{4}, \  I_{L3}, \  v_{10}, \  R_{4}, \  v_{9}, \  v_{6}, \  h_{1}, \  C_{1}, \  I_{L2}, \  R_{1}, \  v_{12}, \  R_{11}, \  s, \  v_{14}, \  v_{3}, \  v_{8}, \  I_{1}, \  M_{1}, \  R_{7}, \  R_{8}, \  I_{V2}\right)\)</span></p>
+<p><span class="math inline">\(\displaystyle \left( v_{10}, \  R_{10}, \  R_{3}, \  R_{5}, \  R_{9}, \  V_{2}, \  R_{7}, \  s, \  I_{1}, \  C_{3}, \  R_{2}, \  v_{14}, \  I_{L3}, \  I_{L4}, \  L_{3}, \  R_{11}, \  I_{H1}, \  R_{6}, \  R_{8}, \  L_{4}, \  C_{2}, \  v_{13}, \  v_{11}, \  R_{1}, \  g_{1}, \  I_{V2}, \  v_{3}, \  v_{9}, \  R_{4}, \  v_{2}, \  v_{12}, \  v_{6}, \  I_{L2}, \  I_{L1}, \  I_{V1}, \  L_{2}, \  C_{1}, \  V_{1}, \  L_{1}, \  v_{8}, \  h_{1}, \  v_{4}, \  v_{5}, \  M_{1}, \  v_{1}, \  v_{7}\right)\)</span></p>
 </div>
 </div>
 </section>
@@ -1069,6 +1087,7 @@ I(V2):  mag:   0.242382 phase:   -43.3777°  device_current</code></pre>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>solutions</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="20">
 <div>
+<div>
 
 
 <table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
@@ -1265,6 +1284,7 @@ I(V2):  mag:   0.242382 phase:   -43.3777°  device_current</code></pre>
 </div>
 </div>
 </div>
+</div>
 <p>Display the superposition results in polar form.</p>
 <div id="cell-55" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>table_header <span class="op">=</span> [<span class="st">'unknown'</span>, <span class="st">'mag'</span>,<span class="st">'phase, deg'</span>]</span>
@@ -1440,6 +1460,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   if (showAllCode) {
     showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -1474,7 +1512,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -1522,7 +1564,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      return note.innerHTML;
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
     }
   }
   for (var i=0; i<xrefs.length; i++) {
@@ -1745,12 +1792,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./State-variable-filter.html" class="pagination-link  aria-label=" &lt;span="" variable="" filter&lt;="" span&gt;"="">
+      <a href="./State-variable-filter.html" class="pagination-link" aria-label="State Variable Filter">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">State Variable Filter</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./2nd_order_BRF.html" class="pagination-link" aria-label="<span class='chapter-number'>25</span>&nbsp; <span class='chapter-title'>2nd Order BRF</span>">
+      <a href="./2nd_order_BRF.html" class="pagination-link" aria-label="2nd Order BRF">
         <span class="nav-page-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">2nd Order BRF</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.537">
+<meta name="generator" content="quarto-1.4.553">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -336,6 +336,24 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Phasor analysis</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Modeling Op Amps.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Modeling Op Amps</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Op Amp circuits.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Op Amp circuits</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mech-sys.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Mechanical systems</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item">
@@ -373,13 +391,7 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#example-problems" id="toc-example-problems" class="nav-link active" data-scroll-target="#example-problems">Example problems</a></li>
-  </ul>
-</nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -407,9 +419,9 @@ ul.task-list li input[type="checkbox"] {
 Update this section to include typical topics in circuit analysis
 
 Can MNA equations be turned into state variable equations? See page Haykin page 59
+
+## Example problems
 -->
-<section id="example-problems" class="level2">
-<h2 class="anchored" data-anchor-id="example-problems">Example problems</h2>
 <p>The table below lists the example problems completed so far.</p>
 <table class="table">
 <colgroup>
@@ -461,7 +473,7 @@ Can MNA equations be turned into state variable equations? See page Haykin page 
 </tr>
 <tr class="even">
 <td style="text-align: left;">SIDO filter</td>
-<td style="text-align: left;">The circuit analyzed is from an <a href="https://electronics.stackexchange.com/">electronics stackexchange</a> question linked <a href="https://electronics.stackexchange.com/questions/682389/transfer-function-of-the-below-circuit">here</a>, where the use asked for help to determine the transfer function. The circuit appears to be a low pass filter for the input to some following device.</td>
+<td style="text-align: left;">Deriving the symbolic transfer function of a filter</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Super node</td>
@@ -471,13 +483,78 @@ Can MNA equations be turned into state variable equations? See page Haykin page 
 <td style="text-align: left;">Phasor analysis</td>
 <td style="text-align: left;">Analysis of a circuit with phasor elements</td>
 </tr>
+<tr class="odd">
+<td style="text-align: left;">Modeling Op Amps</td>
+<td style="text-align: left;">Analysis of Op Amp model and stamp</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Op Amp circuits</td>
+<td style="text-align: left;">Typical Op Amp circuits and the use of the Op Amp element type</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Mechanical systems</td>
+<td style="text-align: left;">Electric circuit analogs for a translational and a rotational mechanical system</td>
+</tr>
 </tbody>
 </table>
 <p><br> <br></p>
 <!--
-
-
+| Rotational Mechanical system | Electric circuit analog for a rotational mechanical system |
 | T-coil | This notebook looks at a circuit called the T-coil. A T-coil uses a coupled inductor with a bridging capacitor to develop a constant impedance. Historically T-coils were used in wide band vacuum tube amplifiers and today they are commonly used in Transient Voltage Suppression (TVS) circuits. |
+
+Examples that are not filters
+
+/home/jeff64/Downloads/Electrical Equivalent Circuit Based Analysis of Double Pendulum System.pdf
+
+
+| A translational mechanical system | |
+| A rotational electromechanical system | |
+| Mechanical systems | electric circuit analogs |
+Electric Circuit-Based Modeling and Analysis of the Translational, Rotational Mechanical and Electromechanical Systems Dynamics
+@ARTICLE{9803041,
+  author={Akbaba, Mehmet and Dakkak, Omar and Kim, Byung-Seo and Cora, Adnan and Nor, Shahrudin Awang},
+  journal={IEEE Access}, 
+  title={Electric Circuit-Based Modeling and Analysis of the Translational, Rotational Mechanical and Electromechanical Systems Dynamics}, 
+  year={2022},
+  volume={10},
+  number={},
+  pages={67338-67349},
+  keywords={Mechanical systems;Mathematical models;Analytical models;Integrated circuit modeling;Electromechanical systems;Friction;Equivalent circuits;Modeling and simulation;a set of rules;complex mechanical systems;electrical system;analogy},
+  doi={10.1109/ACCESS.2022.3185422}
+}
+
+| car suspension | modeling a mechanical system with electric circuit analogy |
+See /home/jeff64/Downloads/A comprehensive methodology to obtain electrical analogues of linear mechanical systems.pdf
+@article{LOPEZMARTINEZ2023110511,
+title = {A comprehensive methodology to obtain electrical analogues of linear mechanical systems},
+journal = {Mechanical Systems and Signal Processing},
+volume = {200},
+pages = {110511},
+year = {2023},
+issn = {0888-3270},
+doi = {https://doi.org/10.1016/j.ymssp.2023.110511},
+url = {https://www.sciencedirect.com/science/article/pii/S0888327023004193},
+author = {J. López-Martínez and D. García-Vallejo and A. Alcayde and S. Sánchez-Salinas and Francisco G. Montoya},
+keywords = {Full car model, Electric analogue, Electromechanical analogy, Vertical dynamics, 3D 7-DOF car model analogue},
+abstract = {Electrical analogues of linear mechanical systems have traditionally been obtained using a set of rules that can potentially be tedious when applied to complex systems. In addition, such rules do not cover all the possibilities of mechanical systems including rotational and translational generalized coordinates. The present work establishes a comprehensive and systematic methodology for obtaining the electrical analogue of any mechanical system modelled by rigid bodies, springs, and dampers. The method is simple and straightforward. First, the dynamic equations of the mechanical system are derived into matrix form. These equations are then translated to the electrical domain by means of the electromechanical analogy and, finally, the electrical circuit is obtained by direct inspection of the matrices. In addition, the method can deal with a combination of translational and rotational coordinates in the definition of the mechanical model. To support the proposed method, and beyond the planar vehicle models found in the literature, the electrical analogue of a linear 3D 7-DOF full car model is presented in this work.}
+}
+
+
+| suspended mechanical system | |
+@article{article,
+author = {AKBABA, Mehmet},
+year = {2021},
+month = {07},
+pages = {},
+title = {Modeling and simulation of dynamic mechanical systems using electric circuit analogy},
+volume = {5},
+journal = {Turkish Journal of Engineering},
+doi = {10.31127/tuje.695769}
+}
+
+| Double pendulum | Electric circuit analog for a double pendulum |
+
+and pdf files saved in down load folder, also look at dual pendulum circuit (se LTSpice file)
 
 ## Future example problems
 
@@ -496,7 +573,6 @@ Can MNA equations be turned into state variable equations? See page Haykin page 
 -->
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -578,6 +654,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -612,7 +706,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -660,7 +758,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      return note.innerHTML;
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
     }
   }
   for (var i=0; i<xrefs.length; i++) {
@@ -883,12 +986,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./test_15.html" class="pagination-link  aria-label=" &lt;span="" 15&lt;="" span&gt;"="">
+      <a href="./test_15.html" class="pagination-link" aria-label="Test 15">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Test 15</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./Two amplifier RIAA Phono Preamp.html" class="pagination-link" aria-label="<span class='chapter-number'>20</span>&nbsp; <span class='chapter-title'>Two amplifier RIAA phono preamp</span>">
+      <a href="./Two amplifier RIAA Phono Preamp.html" class="pagination-link" aria-label="Two amplifier RIAA phono preamp">
         <span class="nav-page-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Two amplifier RIAA phono preamp</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>

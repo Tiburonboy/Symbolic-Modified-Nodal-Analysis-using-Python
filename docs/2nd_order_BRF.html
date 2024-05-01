@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.537">
+<meta name="generator" content="quarto-1.4.553">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -422,6 +422,24 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Phasor analysis</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Modeling Op Amps.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Modeling Op Amps</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Op Amp circuits.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Op Amp circuits</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mech-sys.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Mechanical systems</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item">
@@ -463,8 +481,7 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#abstract" id="toc-abstract" class="nav-link active" data-scroll-target="#abstract">Abstract</a></li>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction"><span class="header-section-number">25.1</span> Introduction</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">25.1</span> Introduction</a></li>
   <li><a href="#circuit-description" id="toc-circuit-description" class="nav-link" data-scroll-target="#circuit-description"><span class="header-section-number">25.2</span> Circuit description</a></li>
   <li><a href="#load-the-net-list" id="toc-load-the-net-list" class="nav-link" data-scroll-target="#load-the-net-list"><span class="header-section-number">25.3</span> Load the net list</a></li>
   <li><a href="#symbolic-mna-code" id="toc-symbolic-mna-code" class="nav-link" data-scroll-target="#symbolic-mna-code"><span class="header-section-number">25.4</span> Symbolic MNA code</a></li>
@@ -519,20 +536,19 @@ window.Quarto = {
 </header>
 
 
-<section id="abstract" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="abstract">Abstract</h2>
-</section>
 <section id="introduction" class="level2" data-number="25.1">
 <h2 data-number="25.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">25.1</span> Introduction</h2>
 <p>This notebook walks through the Python code used to generate and solve the circuit network equations. The example starts with a net list for the circuit shown below.</p>
-<p><img src="2nd_order_BRF.png" class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="2nd_order_BRF.png" class="img-fluid figure-img"></p>
+<figcaption>Filter schematic</figcaption>
+</figure>
+</div>
 </section>
 <section id="circuit-description" class="level2" data-number="25.2">
 <h2 data-number="25.2" class="anchored" data-anchor-id="circuit-description"><span class="header-section-number">25.2</span> Circuit description</h2>
 <p>The circuit below is a 2nd order band reject filter, problem 13-20 from <span class="citation" data-cites="Budak1974">Budak (<a href="References.html#ref-Budak1974" role="doc-biblioref">1974</a>)</span>. The schematic of the circuit is shown below with each node explicity annotated. The problem asks to obtain: <span class="math inline">\(\frac {V_o} {V_i}\)</span>, which according to the way I have labled the nodes, is <span class="math inline">\(\frac {V_2} {V_1}\)</span>.</p>
-<!--
-<img src="2nd_order_BRF.png" width="700">  
--->
 <p>The net list for this circuit is:</p>
 <pre><code>* 2nd order BRF
 O1 2 5 2 
@@ -1012,6 +1028,7 @@ number of K - Coupled inductors: 0</code></pre>
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="22">
 <div>
+<div>
 
 
 <table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
@@ -1141,9 +1158,11 @@ number of K - Coupled inductors: 0</code></pre>
 </div>
 </div>
 </div>
+</div>
 <div id="cell-33" class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>df2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="23">
+<div>
 <div>
 
 
@@ -1172,6 +1191,7 @@ number of K - Coupled inductors: 0</code></pre>
 </tbody>
 </table>
 
+</div>
 </div>
 </div>
 </div>
@@ -1989,6 +2009,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   if (showAllCode) {
     showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -2023,7 +2061,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -2071,7 +2113,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      return note.innerHTML;
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
     }
   }
   for (var i=0; i<xrefs.length; i++) {
@@ -2294,12 +2341,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./Superposition.html" class="pagination-link  aria-label=" &lt;span="">
+      <a href="./Superposition.html" class="pagination-link" aria-label="Superposition">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Superposition</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./Elliptic-function-LPF.html" class="pagination-link" aria-label="<span class='chapter-number'>26</span>&nbsp; <span class='chapter-title'>Elliptic Function LPF</span>">
+      <a href="./Elliptic-function-LPF.html" class="pagination-link" aria-label="Elliptic Function LPF">
         <span class="nav-page-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Elliptic Function LPF</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
