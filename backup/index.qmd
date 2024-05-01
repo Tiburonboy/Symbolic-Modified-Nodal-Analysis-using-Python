@@ -1,5 +1,5 @@
 :::{.callout-note}  
-Last update: 26 Jan 2024
+Last update: 1 May 2024
 
 - This book is a draft copy and only half baked.
 - Many sections are still under construction.
@@ -50,17 +50,20 @@ The following versions were used in this book.
 | [Tabulate](https://pypi.org/project/tabulate/) | 0.8.10 |
 | [matplotlib](https://matplotlib.org/) | 3.7.0 |
 | [LTSpice](https://www.analog.com/en/design-center/design-tools-and-calculators/ltspice-simulator.html) | 17.1.8 |
+| [Quarto](https://quarto.org/) | 1.4.553 |
 : Python packages {#tbl-python-packages} {tbl-colwidths="[20,20]"}
 
 The Jupyter notebooks are available from my github repository. The results presented in this book should be reproducible if the libraries and modules have the same version numbers. 
 
 ### Update History
-This book will be updated occasionally to fix typos, spelling and grammer mistakes. Additionally, new content will be added as new chapters are written.
+This book will be updated occasionally to fix typos, spelling and grammer mistakes. Additionally, new content will be added as new chapters in the **Example Problems** section.
 
 | date | description |
 |:---------|:------------|
 | 29 Dec 2023 | test version |
-| 26 Jan 2023 | another book update |
+| 26 Jan 2023 | various updates to draft |
+| 27 Apr 2024 | adding/removing example problems |
+| 1 May 2024 | rendering book with Quarto 1.4, 1st draft considered complete |
 
 ### Project ToDo List
 Since this project is still under construction, I have a list of to dos.
@@ -68,9 +71,10 @@ Since this project is still under construction, I have a list of to dos.
 - [ ] fix spelling of netlist
 - [ ] fix usage of spice to SPICE and define
 - [ ] fix usage of Op Amp and make consistant thoughout
-- [ ] clean up narrative on all the tests
+- [ ] fix chapter 4 usage of getting element values from datafram
+- [ ] clean up narrative on all the validation test chapters
 - [x] add comment to each test about generating a symbolic solution
-- [ ] review each schematic figures and remove SPICE directives  
+- [ ] review each schematic figure, clean up and make consistant  
 - [ ] remove double spaces at end of sentences
 - [ ] rewrite Two amplifier RIAA phono preamp
 - [ ] cleanup new example problems
@@ -79,9 +83,8 @@ Since this project is still under construction, I have a list of to dos.
 - [x] comment on state equations
 - [x] comment on linear vs non-linear circuits
 - [x] comment on cons of MNA - number of equations
-- [ ] add comment about reproducibility of results
-- [ ] add Active inductor, Nullor, Gyrator, NICs, Current Conveyor examples
-- [ ] fix the book update history
+- [x] add comment about reproducibility of results
+- [x] fix the book update history
 
 <!--
 - update status in /Quarto_projects/Symbolic-Modified-Nodal-Analysis-using-Python/draft_docs/To Do List.odt

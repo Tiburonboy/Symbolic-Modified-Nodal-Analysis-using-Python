@@ -4,9 +4,10 @@
 Update this section to include typical topics in circuit analysis
 
 Can MNA equations be turned into state variable equations? See page Haykin page 59
--->
 
 ## Example problems
+-->
+
 The table below lists the example problems completed so far.
 
 : {tbl-colwidths="[30,70]"}
@@ -27,13 +28,13 @@ The table below lists the example problems completed so far.
 | Phasor analysis | Analysis of a circuit with phasor elements |
 | Modeling Op Amps | Analysis of Op Amp model and stamp |
 | Op Amp circuits | Typical Op Amp circuits and the use of the Op Amp element type |
-| Translational Mechanical system | Electric circuit analog for a translational mechanical system |
-| Rotational Mechanical system | Electric circuit analog for a rotational mechanical system |
+| Mechanical systems | Electric circuit analogs for a translational and a rotational mechanical system |
+
 <br>
 <br>
 
 <!--
-
+| Rotational Mechanical system | Electric circuit analog for a rotational mechanical system |
 | T-coil | This notebook looks at a circuit called the T-coil. A T-coil uses a coupled inductor with a bridging capacitor to develop a constant impedance. Historically T-coils were used in wide band vacuum tube amplifiers and today they are commonly used in Transient Voltage Suppression (TVS) circuits. |
 
 Examples that are not filters
