@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.553">
+<meta name="generator" content="quarto-1.4.537">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -378,7 +378,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Pi-Filter.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Pi-filter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Pi Filter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -530,7 +530,7 @@ window.Quarto = {
 <p>This <a href="https://jupyterlab.readthedocs.io/en/latest/">JupyterLab notebook</a> uses the <a href="https://www.sympy.org/">SymPy</a>, <a href="https://numpy.org/">NumPy</a>,<a href="https://scipy.org/">SciPy</a> and the <a href="https://www.python.org/">Python</a> programming language libraries to analyze a phono preamplifier circuit from the Texas Instruments application note, AN346, <a href="https://www.ti.com/lit/an/snoa586d/snoa586d.pdf">High-Performance Audio Applications of the LM833</a>. The purpose of this analysis is to demonstrate the capability of using the Python libraries in electrical engineering circuit analysis. The circuit chosen for this analysis is a two stage RIAA Phono Preamplifier described in the application note. The preamplifier is designed to accurately reproduce the RIAA equalization curve required for play back of Vinyl LP records. The preamplifier provides about 35 dB of gain at 1kHz along with the proper gain profile and phase response. The schematic of the circuit is shown below with each node explicity annotated.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="Two-amplifier-RIAA-Phone-Preamp.png" class="img-fluid figure-img"></p>
+<p><img src="Two-amplifier-RIAA-Phone-Preamp-v2.png" class="img-fluid figure-img"></p>
 <figcaption>Schematic</figcaption>
 </figure>
 </div>
@@ -2453,24 +2453,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   if (showAllCode) {
     showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -2505,11 +2487,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
+      return note.innerHTML;
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -2557,12 +2535,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
-      }
+      return note.innerHTML;
     }
   }
   for (var i=0; i<xrefs.length; i++) {
@@ -2785,12 +2758,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./Example-problems.html" class="pagination-link" aria-label="Example problems">
+      <a href="./Example-problems.html" class="pagination-link  aria-label=" example="" problems"="">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Example problems</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./Two port parameters.html" class="pagination-link" aria-label="Two port parameters">
+      <a href="./Two port parameters.html" class="pagination-link" aria-label="<span class='chapter-number'>21</span>&nbsp; <span class='chapter-title'>Two port parameters</span>">
         <span class="nav-page-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Two port parameters</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>

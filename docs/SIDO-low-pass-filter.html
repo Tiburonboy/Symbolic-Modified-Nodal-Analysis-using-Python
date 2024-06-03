@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.553">
+<meta name="generator" content="quarto-1.4.537">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -398,7 +398,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Pi-Filter.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Pi-filter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Pi Filter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -514,7 +514,6 @@ window.Quarto = {
 </header>
 
 
-<p>Last update: 12 Feb 2024</p>
 <div id="fig-SIDO-low-pass-filter" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-SIDO-low-pass-filter-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -531,7 +530,7 @@ The circuit analyzed is from an [electronics stackexchange](https://electronics.
 -->
 <section id="introduction" class="level2" data-number="31.1">
 <h2 data-number="31.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">31.1</span> Introduction</h2>
-<p>The circuit shown in <a href="#fig-SIDO-low-pass-filter" class="quarto-xref">Figure&nbsp;<span>31.1</span></a>, is from an <a href="https://electronics.stackexchange.com/">electronics stackexchange</a> question, where <span class="citation" data-cites="user349644">user349644 (<a href="References.html#ref-user349644" role="doc-biblioref">2023</a>)</span> asks for help in determining the transfer function of the circuit. The circuit appears to be a low pass filter for the differential input to a following device. An interesting response to the question was provided by <span class="citation" data-cites="user347817">Franc (<a href="References.html#ref-user347817" role="doc-biblioref">2023</a>)</span>, who has provided some interesting solutions to other circuit analysis questions. Usually his solutions are in the from of an image captured from a MathCAD type program consisting of equations, diagrams and plots.</p>
+<p>The circuit shown in <a href="#fig-SIDO-low-pass-filter" class="quarto-xref">Figure&nbsp;<span>31.1</span></a>, is from an <a href="https://electronics.stackexchange.com/">electronics stackexchange</a> question, where <span class="citation" data-cites="user349644">user349644 (<a href="References.html#ref-user349644" role="doc-biblioref">2023</a>)</span> asks for help in determining the transfer function of the circuit. The circuit appears to be a low pass filter for the differential input to a following stage. I’m calling this circuit a Single-In-Dual-Out (SIDO) filter, where the output is the voltage across C3. An interesting response to the question was provided by <span class="citation" data-cites="user347817">Franc (<a href="References.html#ref-user347817" role="doc-biblioref">2023</a>)</span>, who has provided some interesting solutions to other circuit analysis questions. Usually his solutions are in the from of an image captured from a MathCAD type program consisting of equations, diagrams and plots.</p>
 </section>
 <section id="circuit-description" class="level2" data-number="31.2">
 <h2 data-number="31.2" class="anchored" data-anchor-id="circuit-description"><span class="header-section-number">31.2</span> Circuit description</h2>
@@ -1012,24 +1011,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   if (showAllCode) {
     showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -1064,11 +1045,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
+      return note.innerHTML;
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -1116,12 +1093,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
-      }
+      return note.innerHTML;
     }
   }
   for (var i=0; i<xrefs.length; i++) {
@@ -1344,12 +1316,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./Pi-Filter.html" class="pagination-link" aria-label="Pi-filter">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Pi-filter</span></span>
+      <a href="./Pi-Filter.html" class="pagination-link  aria-label=" &lt;span="" filter&lt;="" span&gt;"="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Pi Filter</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./Super-node.html" class="pagination-link" aria-label="Super node">
+      <a href="./Super-node.html" class="pagination-link" aria-label="<span class='chapter-number'>32</span>&nbsp; <span class='chapter-title'>Super node</span>">
         <span class="nav-page-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Super node</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>

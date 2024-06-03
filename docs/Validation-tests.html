@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.553">
+<meta name="generator" content="quarto-1.4.537">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -344,7 +344,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Pi-Filter.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Pi-filter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Pi Filter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -456,17 +456,9 @@ window.Quarto = {
 </header>
 
 
-<p>Basic validation of the Python code consisted of analyzing simple networks and examining the results. A more comprehensive evaluation of the code was performed by solving test circuits and comparing the results to LTSpice. It is assumed, without offering any mathematical proof, that if the numerical solution agrees with the LTSpice solution, the symbolic solution is also correct.</p>
-<p>Table 1 lists the circuits that were used for validation. The validation circuits are a collection of problems from textbooks or large and complex circuits that I made up that include various elements or unique combinations of elements or topologies. The circuits range from simple to large and complex. The largest circuit consists of 32 nodes, 59 branches and multiple instances of all of the supported element types.</p>
-<p>In LTSpice the series resistance for inductors defaults to 1e-3 Ohms unless set to zero. Leaving the default series inductance at 1e-3 Ohms will cause small numerical differences in the solution obtained by LTSpice.</p>
+<p>Basic validation of the Python code consisted of analyzing simple networks and examining the results. A more comprehensive evaluation of the code was performed by solving test circuits and comparing the results to LTSpice. It is assumed, without offering any mathematical proof, that if the NumPy numerical solution agrees with the LTSpice solution, the SymPy symbolic solution is also correct.</p>
 <p>Code verification often looks at requirements or specifications versus what was implemented. This project didn’t have a formal set of requirements, only a general goal of implementing symbolic MNA using the Python libraries. No formal software or code verification is included.</p>
-<p>See Table 2 for a list of the types of supporting files.</p>
-<div id="tbl-test_circuits" class="quarto-float anchored">
-<figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-test_circuits-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;1: Validation circuits
-</figcaption>
-<div aria-describedby="tbl-test_circuits-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<p>The circuits used in the validation tests are listed below. The validation circuits are a collection of problems from textbooks or large and complex circuits that I made up that include various elements or unique combinations of elements or topologies. The circuits range from simple to large and complex. The largest circuit consists of 32 nodes, 59 branches and multiple instances of all of the supported element types.</p>
 <table class="table">
 <colgroup>
 <col style="width: 10%">
@@ -558,13 +550,11 @@ Table&nbsp;1: Validation circuits
 </tr>
 </tbody>
 </table>
-</div>
-</figure>
-</div>
 <p><br></p>
+<p>In LTSpice the series resistance for inductors defaults to 1e-3 Ohms unless set to zero. Leaving the default series inductance at 1e-3 Ohms will cause small numerical differences in the solution obtained by LTSpice.</p>
 <section id="summary-of-test-results" class="level2">
 <h2 class="anchored" data-anchor-id="summary-of-test-results">Summary of test results</h2>
-<p>LTSpice displays results using 6 digits, with zero to two digits to the left of the decimal point and the remainder of the digits to the right of the decimal point. The Python results can be displayed with 6 digits to the left of the decimal point. So when comparing the numerical results there will be some rounding differences. Most of the test circuits analyzed with the MNA Python code produced numerical results that were identical within rounding, to those obtained from LTSpice. however there were a few exceptions discussed below.</p>
+<p>LTSpice displays results using 6 digits, with zero to two digits to the left of the decimal point and the remainder of the digits to the right of the decimal point. The Python results can be displayed with 6 digits to the left of the decimal point. So when comparing the numerical results there will be some rounding differences. Most of the test circuits analyzed with the MNA Python code produced numerical results that were identical within rounding, to those obtained from LTSpice. However, there were a few exceptions discussed below.</p>
 <section id="test-circuit-8" class="level3">
 <h3 class="anchored" data-anchor-id="test-circuit-8">Test circuit 8</h3>
 <p><img src="test_8.png" class="img-fluid"><br>
@@ -585,13 +575,7 @@ The circuit constructed for Test 13, shown above, was designed to see how the MN
 <h3 class="anchored" data-anchor-id="test-circuit-14">Test circuit 14</h3>
 <p><img src="test_14.png" class="img-fluid"><br>
 The circuit above was designed to have only one unknown current. The magnitude difference was at most 0.006 and the phase difference was as much as 0.6 degrees between the Python MNA and LTSpice results. It is kind of curious that circuits for Tests 12, 13, and 14 which are all driven by sinusoidal current sources have AC solutions which are slightly different than LTSpice. <br> <br></p>
-<p>The following file types are in each github folder located <a href="https://github.com/Tiburonboy/Symbolic-modified-nodal-analysis/tree/master/test%20circuits">here</a>:</p>
-<div id="tbl-test-files" class="quarto-float anchored">
-<figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-test-files-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;2: Test circuit files
-</figcaption>
-<div aria-describedby="tbl-test-files-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<p>The following file types are archived <a href="https://github.com/Tiburonboy/Symbolic-modified-nodal-analysis/tree/master/test%20circuits">here</a>:</p>
 <table class="table">
 <colgroup>
 <col style="width: 20%">
@@ -630,9 +614,6 @@ Table&nbsp;2: Test circuit files
 </tr>
 </tbody>
 </table>
-</div>
-</figure>
-</div>
 
 
 </section>
@@ -718,24 +699,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -770,11 +733,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
+      return note.innerHTML;
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -822,12 +781,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
-      }
+      return note.innerHTML;
     }
   }
   for (var i=0; i<xrefs.length; i++) {
@@ -1050,12 +1004,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./SMNA-function.html" class="pagination-link" aria-label="SMNA function">
+      <a href="./SMNA-function.html" class="pagination-link  aria-label=" &lt;span="" function&lt;="" span&gt;"="">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">SMNA function</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./test_1.html" class="pagination-link" aria-label="Test 1">
+      <a href="./test_1.html" class="pagination-link" aria-label="<span class='chapter-number'>5</span>&nbsp; <span class='chapter-title'>Test 1</span>">
         <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Test 1</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>

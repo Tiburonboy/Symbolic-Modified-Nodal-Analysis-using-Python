@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.553">
+<meta name="generator" content="quarto-1.4.537">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -315,7 +315,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Pi-Filter.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Pi-filter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Pi Filter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -422,7 +422,7 @@ Can MNA equations be turned into state variable equations? See page Haykin page 
 
 ## Example problems
 -->
-<p>The table below lists the example problems completed so far.</p>
+<p>The table below is a list of the example problems with a short discription.</p>
 <table class="table">
 <colgroup>
 <col style="width: 30%">
@@ -430,8 +430,8 @@ Can MNA equations be turned into state variable equations? See page Haykin page 
 </colgroup>
 <thead>
 <tr class="header">
+<th style="text-align: left;">Title</th>
 <th style="text-align: left;">Circuit Description</th>
-<th style="text-align: left;">notes</th>
 </tr>
 </thead>
 <tbody>
@@ -454,6 +454,14 @@ Can MNA equations be turned into state variable equations? See page Haykin page 
 <tr class="odd">
 <td style="text-align: left;">Superposition</td>
 <td style="text-align: left;">A circuit to illustrate superposition and polyphase circuit analysis.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2nd order BRF</td>
+<td style="text-align: left;">Walk through of the NMA code</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Elliptic Function LPF</td>
+<td style="text-align: left;">A circuit too complex for quick symbolic solution</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Initial conditions</td>
@@ -497,64 +505,18 @@ Can MNA equations be turned into state variable equations? See page Haykin page 
 </tr>
 </tbody>
 </table>
-<p><br> <br></p>
 <!--
-| Rotational Mechanical system | Electric circuit analog for a rotational mechanical system |
-| T-coil | This notebook looks at a circuit called the T-coil. A T-coil uses a coupled inductor with a bridging capacitor to develop a constant impedance. Historically T-coils were used in wide band vacuum tube amplifiers and today they are commonly used in Transient Voltage Suppression (TVS) circuits. |
+<br>
+<br>
 
-Examples that are not filters
+| Wien bridge oscillator | https://en.wikipedia.org/wiki/Wien_bridge_oscillator <br>Simple circuit <br>not so easy to make osc in LTSpice. Notebook started |
+| Flyback circuit | Boost switch mode power supply (notebook not started) |
+| Switched mode power supply | Do the LED driver fly back circuit, <br>see Analog Devices power management tools, <br>https://www.analog.com/en/design-center/design-tools-and-calculators/power-management-tools.html |
+When this example is completed add a comment in into about LTI circuits [Linear time-invariant system](https://en.wikipedia.org/wiki/Linear_time-invariant_system)
 
-/home/jeff64/Downloads/Electrical Equivalent Circuit Based Analysis of Double Pendulum System.pdf
+| T-coil | A circuit with a coupled inductor and a bridging capacitor |
 
-
-| A translational mechanical system | |
-| A rotational electromechanical system | |
-| Mechanical systems | electric circuit analogs |
-Electric Circuit-Based Modeling and Analysis of the Translational, Rotational Mechanical and Electromechanical Systems Dynamics
-@ARTICLE{9803041,
-  author={Akbaba, Mehmet and Dakkak, Omar and Kim, Byung-Seo and Cora, Adnan and Nor, Shahrudin Awang},
-  journal={IEEE Access}, 
-  title={Electric Circuit-Based Modeling and Analysis of the Translational, Rotational Mechanical and Electromechanical Systems Dynamics}, 
-  year={2022},
-  volume={10},
-  number={},
-  pages={67338-67349},
-  keywords={Mechanical systems;Mathematical models;Analytical models;Integrated circuit modeling;Electromechanical systems;Friction;Equivalent circuits;Modeling and simulation;a set of rules;complex mechanical systems;electrical system;analogy},
-  doi={10.1109/ACCESS.2022.3185422}
-}
-
-| car suspension | modeling a mechanical system with electric circuit analogy |
-See /home/jeff64/Downloads/A comprehensive methodology to obtain electrical analogues of linear mechanical systems.pdf
-@article{LOPEZMARTINEZ2023110511,
-title = {A comprehensive methodology to obtain electrical analogues of linear mechanical systems},
-journal = {Mechanical Systems and Signal Processing},
-volume = {200},
-pages = {110511},
-year = {2023},
-issn = {0888-3270},
-doi = {https://doi.org/10.1016/j.ymssp.2023.110511},
-url = {https://www.sciencedirect.com/science/article/pii/S0888327023004193},
-author = {J. López-Martínez and D. García-Vallejo and A. Alcayde and S. Sánchez-Salinas and Francisco G. Montoya},
-keywords = {Full car model, Electric analogue, Electromechanical analogy, Vertical dynamics, 3D 7-DOF car model analogue},
-abstract = {Electrical analogues of linear mechanical systems have traditionally been obtained using a set of rules that can potentially be tedious when applied to complex systems. In addition, such rules do not cover all the possibilities of mechanical systems including rotational and translational generalized coordinates. The present work establishes a comprehensive and systematic methodology for obtaining the electrical analogue of any mechanical system modelled by rigid bodies, springs, and dampers. The method is simple and straightforward. First, the dynamic equations of the mechanical system are derived into matrix form. These equations are then translated to the electrical domain by means of the electromechanical analogy and, finally, the electrical circuit is obtained by direct inspection of the matrices. In addition, the method can deal with a combination of translational and rotational coordinates in the definition of the mechanical model. To support the proposed method, and beyond the planar vehicle models found in the literature, the electrical analogue of a linear 3D 7-DOF full car model is presented in this work.}
-}
-
-
-| suspended mechanical system | |
-@article{article,
-author = {AKBABA, Mehmet},
-year = {2021},
-month = {07},
-pages = {},
-title = {Modeling and simulation of dynamic mechanical systems using electric circuit analogy},
-volume = {5},
-journal = {Turkish Journal of Engineering},
-doi = {10.31127/tuje.695769}
-}
-
-| Double pendulum | Electric circuit analog for a double pendulum |
-
-and pdf files saved in down load folder, also look at dual pendulum circuit (se LTSpice file)
+A T-coil uses a coupled inductor with a bridging capacitor to develop a constant impedance. Historically T-coils were used in wide band vacuum tube amplifiers and today they are commonly used in Transient Voltage Suppression (TVS) circuits.
 
 ## Future example problems
 
@@ -564,12 +526,10 @@ and pdf files saved in down load folder, also look at dual pendulum circuit (se 
 |:---|:---|
 | Active filters | move to other blog, Several of these started [Sallen–Key topology](https://en.wikipedia.org/wiki/Sallen%E2%80%93Key_topology) |
 | Active inductor, Nullors, Gyrators, NICs, Current Conveyor | Where are these used?<br>Controlled Sources, Nullors, Active Gain Devices, Impedance Converters and Inverters (Gyrators, NICs, Current Conveyors)<br>See Op Amp circuit #2 or #2HP  See Haydak Chapter 13, for RC-NIC and RC gyrator filters  |
-| Wien bridge oscillator | https://en.wikipedia.org/wiki/Wien_bridge_oscillator <br>Simple circuit <br>not so easy to make osc in LTSpice. Notebook started |
 | Switched mode power supply | Do the LED driver fly back circuit, <br>see Analog Devices power management tools, <br>https://www.analog.com/en/design-center/design-tools-and-calculators/power-management-tools.html |
 | Diode circuit | Get network equations with R in place of diode and then substitute equations for diode in python |
 | Transistor circuit | Get network equations with R’s in place of transistor and then substitute equations in python<br>Or look at an Op Amp model that can have C in the feedback loop |
 | Tone control circuit of link | https://sound-au.com/project27.htm |
-| Chua's circuit | work in progress<br>See circuit analysis folder under jupyterlab<br>https://en.wikipedia.org/wiki/Chua's_circuit |
 -->
 
 
@@ -654,24 +614,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -706,11 +648,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
+      return note.innerHTML;
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -758,12 +696,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
-      }
+      return note.innerHTML;
     }
   }
   for (var i=0; i<xrefs.length; i++) {
@@ -986,12 +919,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./test_15.html" class="pagination-link" aria-label="Test 15">
+      <a href="./test_15.html" class="pagination-link  aria-label=" &lt;span="" 15&lt;="" span&gt;"="">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Test 15</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./Two amplifier RIAA Phono Preamp.html" class="pagination-link" aria-label="Two amplifier RIAA phono preamp">
+      <a href="./Two amplifier RIAA Phono Preamp.html" class="pagination-link" aria-label="<span class='chapter-number'>20</span>&nbsp; <span class='chapter-title'>Two amplifier RIAA phono preamp</span>">
         <span class="nav-page-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Two amplifier RIAA phono preamp</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
