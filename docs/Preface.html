@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.553">
+<meta name="generator" content="quarto-1.4.537">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -335,7 +335,7 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Pi-Filter.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Pi-filter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Pi Filter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -443,7 +443,7 @@ div.csl-indent {
 
 
 <p>This book describes a Python coding project that I started in 2015. Over the years I’ve put the code on <a href="https://en.wikipedia.org/wiki/GitHub">Github</a> along with some test circuits and documentation, linked <a href="https://github.com/Tiburonboy/Symbolic-modified-nodal-analysis">here</a>. I think I have enough content that I’m able to turn the effort into an online book.</p>
-<p>The nodal analysis code started as a translation from some C code to generate a nodal admittance matrix that I had written in 1988. I wrote the C code for two reasons. Free versions of <a href="https://en.wikipedia.org/wiki/SPICE">SPICE</a> for the PC didn’t exist at the time and I wanted to use some of the code from, <em>Numerical Recipes in C</em>, <span class="citation" data-cites="Press1992">Press (<a href="References.html#ref-Press1992" role="doc-biblioref">1992</a>)</span>. The original C code worked well and calculated numerical solutions. I then started writing some C code to generate the matrices with symbolic values and then intended to use LISP to symbolically solve the equations. I didn’t get too far with this effort. The LISP code would generate huge symbolic strings with no simplification. The output was a big pile of trash that was not in the least bit useful or decipherable. Currently, there are many free <a href="https://en.wikipedia.org/wiki/List_of_free_electronics_circuit_simulators">circuit simulators</a> available.</p>
+<p>The nodal analysis code started as a translation from some <a href="https://en.wikipedia.org/wiki/C_(programming_language)">C</a> code to generate a nodal admittance matrix that I had written in 1988. I wrote the C code for two reasons. Free versions of <a href="https://en.wikipedia.org/wiki/SPICE">SPICE</a> for the PC didn’t exist at the time and I wanted to use some of the code from, <em>Numerical Recipes in C</em>, <span class="citation" data-cites="Press1992">Press (<a href="References.html#ref-Press1992" role="doc-biblioref">1992</a>)</span>. The original C code worked well and calculated numerical solutions. I then started writing some C code to generate the matrices with symbolic values and then intended to use LISP to symbolically solve the equations. I didn’t get too far with this effort. The LISP code would generate huge symbolic strings with no simplification. The output was a big pile of trash that was not in the least bit useful or decipherable. Currently, there are many free <a href="https://en.wikipedia.org/wiki/List_of_free_electronics_circuit_simulators">circuit simulators</a> available.</p>
 <p>In 2014, I started to use Python for my coding projects and engineering calculations. There are some nice Python libraries for numeric and symbolic calculations (such as NumPy and SymPy), so I decided to try writing a Python script to generate node equations based on my old C code I had written many years before. Part way into this project I discovered that there is a new nodal analysis technique being taught today in engineering school called <a href="https://en.wikipedia.org/wiki/Modified_nodal_analysis">modified nodal analysis</a> (MNA). My motivation for reviving this coding project is my continued interest in circuit analysis and synthesis.</p>
 <p>The MNA procedure provides an algorithmic method for generating systems of independent equations for linear circuit analysis. Some of my younger colleagues at work were taught this method, but I never heard of it. These days, I never really analyze a circuit by hand, unless it’s so simple that you can almost do it by inspection. Most problems that an electrical engineer encounters on the job are complex enough that they use computers to analyze the circuits. <a href="https://www.analog.com/en/design-center/design-tools-and-calculators/ltspice-simulator.html">LTSpice</a> is the version of spice that I use, since it’s free and does a good job converging when analyzing switching circuits.</p>
 <p>My code started initially by following the code from <span class="citation" data-cites="Cheever2022">Cheever (<a href="References.html#ref-Cheever2022" role="doc-biblioref">2022</a>)</span>, which used <a href="https://www.mathworks.com/products/matlab.html">MATLAB</a> to generate modified nodal equations. I somewhat followed his MATLAB code for resistors, capacitors, op amps and independent sources. The naming of the matrices follows his convention. The preprocessor and parser code was converted from my old C code. The use of Pandas for a data frame is new and SymPy is used to do the math; the use of element stamps is from <span class="citation" data-cites="Palusinski2005">Palusinski (<a href="References.html#ref-Palusinski2005" role="doc-biblioref">2005</a>)</span>.</p>
@@ -461,7 +461,36 @@ div.csl-indent {
 </section>
 <section id="chapter-contents" class="level2">
 <h2 class="anchored" data-anchor-id="chapter-contents">Chapter contents</h2>
-<p><strong>Chapter 1</strong> introduces the topic of MNA and describes how Python can easily solve mathematical expressions that would be very hard and laborious to do with pencil and paper. <strong>Chapter 2</strong>, describes the theory behind MNA. <strong>Chapter 3</strong> walks through a circuit analysis problem from netlist generation to AC analysis and generation of a frequency response plot of the circuit. <strong>Chapter 4</strong> provides a description of the Python function that implements the symbolic MNA procedure. There are 15 circuits that were used to validate the Python code. These circuits range from simple circuits that you would find in textbooks, to complex circuits that would be very difficult to analyze if not for computers. There are also a couple of test circuits designed to generate sub-matrices of all zeros during the formulation of the network equations. The last part of the book is a collection of interesting circuits (at least to me) that showcase the power and ease with which the Python code can solve circuit analysis problems. The appendices contain a listing for the smna function and a change log of the history of the project’s code development.</p>
+<!--
+**Chapter 1** introduces the topic of MNA and describes how Python can easily solve mathematical expressions that would be very hard and laborious to do with pencil and paper. **Chapter 2** describes the theory behind MNA. **Chapter 3** walks through a circuit analysis problem from netlist generation to AC analysis and generation of a frequency response plot of the circuit. **Chapter 4** provides a description of the Python function that implements the symbolic MNA procedure. There are 15 circuits that were used to validate the Python code. These circuits range from simple circuits that you would find in textbooks, to complex circuits that would be very difficult to analyze if not for computers. There are also a couple of test circuits designed to generate sub-matrices of all zeros during the formulation of the network equations. The last part of the book is a collection of interesting circuits (at least to me) that showcase the power and ease with which the Python code can solve circuit analysis problems. The appendices contain a listing for the SMNA function and a change log of the history of the project's code development.
+
+The material in this book is organized
+
+The structure of this book  
+
+The material contained in this book should be understandable to students   
+
+The difference between this book and others
+-->
+<p>The first four chapters describe my implementation of symbolic circuit analysis with Python. The next part of the book consists of 15 circuits that are used to validate the Python code. These are Jupyter notebooks that have been rendered into chapters. The last part of the book contains circuit analysis example problems; followed by references, code listing and a change log. Section links are provided below.</p>
+<ul>
+<li><a href="Introduction.html" class="quarto-xref"><span>1&nbsp; Introduction</span></a> introduces the topic of MNA and describes how Python can easily solve mathematical expressions that would be very hard and laborious to do with pencil and paper.
+<ul>
+<li>Jupyterlab, variable names, large exponents</li>
+<li>Practical network size for symbolic solutions</li>
+<li>Linear and nonlinear circuits</li>
+<li>State variables</li>
+<li>Pros and cons of MNA</li>
+</ul></li>
+<li><a href="Theory.html" class="quarto-xref"><span>2&nbsp; Theory</span></a> describes the theory behind MNA.</li>
+<li><a href="SMNA_example.html" class="quarto-xref"><span>3&nbsp; SMNA Example</span></a> walks through a circuit analysis problem from netlist generation to AC analysis and generation of a frequency response plot of the circuit.</li>
+<li><a href="SMNA-function.html" class="quarto-xref"><span>4&nbsp; SMNA function</span></a> provides a description of the Python function that implements the symbolic MNA procedure.</li>
+</ul>
+<p><strong>Validation tests</strong>: There are 15 circuits that were used to validate the Python code. These circuits range from simple circuits that you would find in textbooks, to complex circuits that would be very difficult to analyze if not for computers. There are also a couple of test circuits designed to generate sub-matrices of all zeros during the formulation of the network equations.</p>
+<p><strong>Example problems</strong>: The last part of the book is a collection of interesting circuits (at least to me) that showcase the power and ease with which the Python code can solve circuit analysis problems.</p>
+<p><strong>References</strong>: This section provides information about works cited in this book.</p>
+<p><a href="SymMNA_py.html" class="quarto-xref"><span>Appendix A — SymMNA.py</span></a> is the Python source listing of the MNA function called in the verification tests and example problems sections.</p>
+<p><a href="Change-log.html" class="quarto-xref"><span>Appendix B — Change Log</span></a> is a list of the changes to the MNA code and this book.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
@@ -560,24 +589,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -612,11 +623,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
+      return note.innerHTML;
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -664,12 +671,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
-      }
+      return note.innerHTML;
     }
   }
   for (var i=0; i<xrefs.length; i++) {
@@ -892,12 +894,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./index.html" class="pagination-link" aria-label="About this book">
+      <a href="./index.html" class="pagination-link  aria-label=" about="" this="" book"="">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">About this book</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./Introduction.html" class="pagination-link" aria-label="Introduction">
+      <a href="./Introduction.html" class="pagination-link" aria-label="<span class='chapter-number'>1</span>&nbsp; <span class='chapter-title'>Introduction</span>">
         <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>

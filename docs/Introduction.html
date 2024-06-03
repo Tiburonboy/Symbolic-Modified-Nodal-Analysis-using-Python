@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.553">
+<meta name="generator" content="quarto-1.4.537">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -398,7 +398,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Pi-Filter.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Pi-filter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Pi Filter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -508,57 +508,127 @@ window.Quarto = {
 </header>
 
 
-<p>Circuit analysis and theory are fundamental to electrical engineering and is usually one of the first topics taught to electrical engineering students. The purpose of this book is to describe a circuit analysis method called <a href="https://en.wikipedia.org/wiki/Modified_nodal_analysis">Modified Nodal Analysis</a> (MNA) implemented in Python that can provide frequency domain symbolic network equations for circuit analysis problems. The Python programming language along with its packages and libraries provide powerful computational tools that make solving math problems extremely easy with just a few lines of code. The Python library, SymPy, is used for symbolic mathematics and is the main library used to perform the types of circuit analysis problems described in this book.</p>
-<p>For example, the following system of equations,</p>
+<p>Circuit analysis and theory are fundamental to electrical engineering and is usually one of the first topics taught to electrical engineering students. The purpose of this book is to describe a circuit analysis method called <a href="https://en.wikipedia.org/wiki/Modified_nodal_analysis">Modified Nodal Analysis</a> (MNA) implemented in Python and using the SymPy library. The Python programming language along with its packages and libraries provide powerful computational tools that make solving math problems extremely easy with just a few lines of code. SymPy and NumPy are the main libraries used to perform the types of circuit analysis problems described in this book. In this chapter the following Python libraries are used.</p>
+<div id="433cc19b" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display, Markdown, Math, Latex</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sympy <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> signal</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>init_printing()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The <a href="https://docs.python.org/3/library/sys.html">sys</a> module provides access to some variables used or maintained by the interpreter and to functions that interact strongly with the interpreter. <a href="https://ipython.readthedocs.io/en/stable/api/generated/IPython.display.html">IPython.display</a> is a public API for display tools in <a href="https://ipython.org/">IPython</a>. <a href="https://www.sympy.org/en/index.html">SymPy</a> is a Python library for symbolic mathematics. <a href="https://scipy.org/">SciPy</a> is a collection of algorithms for scientific computing. <a href="https://matplotlib.org/">Matplotlib</a> is a comprehensive library for creating static, animated, and interactive visualizations in Python. <a href="https://numpy.org/">NumPy</a> is a package for scientific computing with Python. The function <a href="https://docs.sympy.org/latest/tutorials/intro-tutorial/printing.html">init_printing()</a> will automatically enable the best printer available in the Python environment.</p>
+<p>The following example shows some typical frequency domain circuit equations and the solution. Consider the following system of equations,</p>
 <p><span class="math inline">\(- C_{1} s v_{2} + v_{1} \left(C_{1} s + C_{2} s + \frac{1}{R_{3}}\right) = 0\)</span><br>
 <span class="math inline">\(- C_{1} s v_{1} + v_{2} \left(C_{1} s + \frac{1}{R_{2}}\right) - \frac{v_{3}}{R_{2}} = 0\)</span><br>
 <span class="math inline">\(I_{V1} - \frac{v_{2}}{R_{2}} + \frac{v_{3}}{R_{2}} = 0\)</span><br>
 <span class="math inline">\(v_{3} = V_{1}\)</span></p>
-<p>can be entered into Python to get the equations in matrix form:</p>
-<div id="656c839a" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>R2, C2, v1, C1, s, v3, v2, V1, R3, I_V1 <span class="op">=</span> symbols(<span class="st">'R2 C2 v1 C1 s v3 v2 V1 R3 I_V1'</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> Matrix([[C1<span class="op">*</span>s <span class="op">+</span> C2<span class="op">*</span>s <span class="op">+</span> <span class="dv">1</span><span class="op">/</span>R3, <span class="op">-</span>C1<span class="op">*</span>s, <span class="dv">0</span>, <span class="dv">0</span>], [<span class="op">-</span>C1<span class="op">*</span>s, C1<span class="op">*</span>s <span class="op">+</span> <span class="dv">1</span><span class="op">/</span>R2, <span class="op">-</span><span class="dv">1</span><span class="op">/</span>R2, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span><span class="op">/</span>R2, <span class="dv">1</span><span class="op">/</span>R2, <span class="dv">1</span>], [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>]])</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> Matrix([v1, v2, v3, I_V1])</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>Z <span class="op">=</span> Matrix([<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, V1])</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>equ <span class="op">=</span> Eq(A<span class="op">*</span>X,Z)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>equ</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>where, <span class="math inline">\(C_1\)</span> and <span class="math inline">\(C_2\)</span> are the capacitors in an electrical circuit, <span class="math inline">\(R_2\)</span> and <span class="math inline">\(R_3\)</span> are the resistors, <span class="math inline">\(v_1\)</span>, <span class="math inline">\(v_2\)</span> and <span class="math inline">\(v_3\)</span> are the unknown node voltages, <span class="math inline">\(V_1\)</span> is the input voltage source and <span class="math inline">\(I_{V1}\)</span> is the unknown current flowing through <span class="math inline">\(V_1\)</span>, can be entered into SymPy to get the equations in matrix form:</p>
+<div id="e67ff835" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="2">
 <p><span class="math inline">\(\displaystyle \left[\begin{matrix}- C_{1} s v_{2} + v_{1} \left(C_{1} s + C_{2} s + \frac{1}{R_{3}}\right)\\- C_{1} s v_{1} + v_{2} \left(C_{1} s + \frac{1}{R_{2}}\right) - \frac{v_{3}}{R_{2}}\\I_{V1} - \frac{v_{2}}{R_{2}} + \frac{v_{3}}{R_{2}}\\v_{3}\end{matrix}\right] = \left[\begin{matrix}0\\0\\0\\V_{1}\end{matrix}\right]\)</span></p>
 </div>
 </div>
-<p>The system of equations can be easily solved to obtain a solution in symbolic form:</p>
-<div id="f9529f9a" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>U_sym <span class="op">=</span> solve(equ,X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="f938bcb8" class="cell" data-execution_count="4">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="4">
+<p>The system of equations can be easily solved to obtain a symbolic solution.</p>
+<div id="4330a611" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="3">
 <p><span class="math inline">\(v_{1} = \frac{C_{1} R_{3} V_{1} s}{C_{1} C_{2} R_{2} R_{3} s^{2} + C_{1} R_{2} s + C_{1} R_{3} s + C_{2} R_{3} s + 1}\)</span><br><span class="math inline">\(v_{2} = \frac{C_{1} R_{3} V_{1} s + C_{2} R_{3} V_{1} s + V_{1}}{C_{1} C_{2} R_{2} R_{3} s^{2} + C_{1} R_{2} s + C_{1} R_{3} s + C_{2} R_{3} s + 1}\)</span><br><span class="math inline">\(v_{3} = V_{1}\)</span><br><span class="math inline">\(I_{V1} = \frac{- C_{1} C_{2} R_{3} V_{1} s^{2} - C_{1} V_{1} s}{C_{1} C_{2} R_{2} R_{3} s^{2} + C_{1} R_{2} s + C_{1} R_{3} s + C_{2} R_{3} s + 1}\)</span><br></p>
 </div>
 </div>
-<p>The numeric values for the components can be substituted for the symbols (reference designators) and the following solution is obtained, where s is the Laplace variable:</p>
-<div id="baace6da" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Values <span class="op">=</span> {R2:<span class="dv">1000</span>, R3:<span class="dv">1000</span>, C1:<span class="fl">1e-6</span>, C2:<span class="fl">10e-6</span>, V1:<span class="dv">1</span>}</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>equ1a <span class="op">=</span> equ.subs(Values)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>U <span class="op">=</span> solve(equ1a,X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The solution for the voltage transfer function <span class="math inline">\(H_{sym} = v_2/v_3\)</span> is:</p>
+<div id="bdebc0ba" class="cell" data-execution_count="4">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="4">
+<p><span class="math inline">\(\displaystyle \frac{C_{1} R_{3} s + C_{2} R_{3} s + 1}{C_{1} C_{2} R_{2} R_{3} s^{2} + C_{1} R_{2} s + C_{1} R_{3} s + C_{2} R_{3} s + 1}\)</span></p>
 </div>
-<p>The voltage at node #2 can be obtained:</p>
-<div id="1f4358ca" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>H <span class="op">=</span> U[v2]</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>H</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The zeros of <span class="math inline">\(H_{sym}\)</span> are obtained by taking the numerator and solving for <span class="math inline">\(s\)</span>, the result is:</p>
+<div id="b6789fac" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="6">
+<p><span class="math inline">\(\displaystyle \left[ - \frac{1}{R_{3} \left(C_{1} + C_{2}\right)}\right]\)</span></p>
+</div>
+</div>
+<p>The poles of <span class="math inline">\(H_{sym}\)</span> are obtained by taking the denominator and solving for <span class="math inline">\(s\)</span>. There are two solutions and the first is:</p>
+<div id="1413a19c" class="cell" data-execution_count="8">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="8">
+<p><span class="math inline">\(\displaystyle \frac{- C_{1} R_{2} - C_{1} R_{3} - C_{2} R_{3} - \sqrt{C_{1}^{2} R_{2}^{2} + 2 C_{1}^{2} R_{2} R_{3} + C_{1}^{2} R_{3}^{2} - 2 C_{1} C_{2} R_{2} R_{3} + 2 C_{1} C_{2} R_{3}^{2} + C_{2}^{2} R_{3}^{2}}}{2 C_{1} C_{2} R_{2} R_{3}}\)</span></p>
+</div>
+</div>
+<p>The second pole of <span class="math inline">\(H_{sym}\)</span> is:</p>
+<div id="0cf7fc83" class="cell" data-execution_count="9">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="9">
+<p><span class="math inline">\(\displaystyle \frac{- C_{1} R_{2} - C_{1} R_{3} - C_{2} R_{3} + \sqrt{C_{1}^{2} R_{2}^{2} + 2 C_{1}^{2} R_{2} R_{3} + C_{1}^{2} R_{3}^{2} - 2 C_{1} C_{2} R_{2} R_{3} + 2 C_{1} C_{2} R_{3}^{2} + C_{2}^{2} R_{3}^{2}}}{2 C_{1} C_{2} R_{2} R_{3}}\)</span></p>
+</div>
+</div>
+<p>The following numerical values can be assigned to the component symbols.</p>
+<div id="f7df1adb" class="cell" data-execution_count="10">
+<div class="cell-output cell-output-stdout">
+<pre><code>R2 = 1000
+R3 = 1000
+C1 = 1e-06
+C2 = 1e-05
+V1 = 1</code></pre>
+</div>
+</div>
+<p>The values can be substituted for the symbols and the following system equations are obtained:</p>
+<div id="831227dd" class="cell" data-execution_count="11">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="11">
+<p><span class="math inline">\(\displaystyle \left[\begin{matrix}- 1.0 \cdot 10^{-6} s v_{2} + v_{1} \cdot \left(1.1 \cdot 10^{-5} s + \frac{1}{1000}\right)\\- 1.0 \cdot 10^{-6} s v_{1} + v_{2} \cdot \left(1.0 \cdot 10^{-6} s + \frac{1}{1000}\right) - \frac{v_{3}}{1000}\\I_{V1} - \frac{v_{2}}{1000} + \frac{v_{3}}{1000}\\v_{3}\end{matrix}\right] = \left[\begin{matrix}0\\0\\0\\1\end{matrix}\right]\)</span></p>
+</div>
+</div>
+<p>The numerical solution to the system of equations is:</p>
+<div id="05617cb1" class="cell" data-execution_count="12">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="12">
+<p><span class="math inline">\(v_{1} = \frac{100.0 s}{s^{2} + 1200.0 s + 100000.0}\)</span><br><span class="math inline">\(v_{2} = \frac{1100.0 s + 100000.0}{s^{2} + 1200.0 s + 100000.0}\)</span><br><span class="math inline">\(v_{3} = 1.0\)</span><br><span class="math inline">\(I_{V1} = \frac{- s^{2} - 100.0 s}{1000.0 s^{2} + 1200000.0 s + 100000000.0}\)</span><br></p>
+</div>
+</div>
+<p>The frequency domain voltage transfer function <span class="math inline">\(H = v_2/v_3\)</span> can be obtained:</p>
+<div id="ccdb31c4" class="cell" data-execution_count="13">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="13">
 <p><span class="math inline">\(\displaystyle \frac{1100.0 s + 100000.0}{s^{2} + 1200.0 s + 100000.0}\)</span></p>
 </div>
 </div>
-<p>Now we can solve for the roots of the denominator.</p>
-<div id="4a46e581" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>num, denom <span class="op">=</span> fraction(H) <span class="co">#returns numerator and denominator</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>solve(denom)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="7">
-<p><span class="math inline">\(\displaystyle \left[ -1109.90195135928, \  -90.0980486407215\right]\)</span></p>
+<p>The poles and zeros of the frequency domain transfer function are plotted.</p>
+<div id="150758d5" class="cell" data-execution_count="15">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Introduction_files/figure-html/cell-16-output-1.png" width="609" height="449" class="figure-img"></p>
+</figure>
 </div>
 </div>
-<p>As you can see, matrix and polynomial math can be easily performed with hardly any effort.</p>
+</div>
+<p>The SciPy function <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.bode.html">bode</a> to plot the magnitude and phase of <span class="math inline">\(H\)</span>.</p>
+<div id="2e5e53b4" class="cell" data-execution_count="16">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Introduction_files/figure-html/cell-17-output-1.png" width="652" height="451" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The SciPy functions <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.impulse2.html">impulse2</a> and <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.step2.html">step2</a> to plot the impulse and step response of the system.</p>
+<div id="8a344d64" class="cell" data-execution_count="17">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Introduction_files/figure-html/cell-18-output-1.png" width="607" height="449" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The step response is shown below.</p>
+<div id="5c5f1c48" class="cell" data-execution_count="18">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Introduction_files/figure-html/cell-19-output-1.png" width="594" height="449" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Matrix and polynomial math can be performed with hardly any effort with the help of SymPy. The code used to perform the calculations above and display the results is embeded in this mark down document, but is hidden from display. The code can be examined by looking at the orginal markdown document for this chapter or the example and validation chapters later in this book.</p>
 <section id="jupyterlab" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="jupyterlab"><span class="header-section-number">1.1</span> JupyterLab</h2>
 <p>All the validation and problem circuits are presented in JupyterLab notebooks and rendered into chapters by Quarto.</p>
@@ -619,54 +689,66 @@ Table&nbsp;1.1: Variable names
 <td>System transfer function with component values</td>
 </tr>
 <tr class="even">
-<td><span class="math inline">\(V1, V2, etc.\)</span></td>
+<td><span class="math inline">\(V_1, V_2,\)</span> …</td>
 <td>Capital letter V for independent voltage sources</td>
 </tr>
 <tr class="odd">
-<td><span class="math inline">\(v_1, v_2, etc\)</span></td>
+<td><span class="math inline">\(v_1, v_2,\)</span> …</td>
 <td>Small letter v for the node voltages</td>
 </tr>
 <tr class="even">
-<td><span class="math inline">\(I1, I2, etc\)</span></td>
+<td><span class="math inline">\(I_1, I_2,\)</span> …</td>
 <td>Capital letter I for independent current sources</td>
 </tr>
 <tr class="odd">
+<td><span class="math inline">\(R_1, R_2,\)</span> …</td>
+<td>Capital letter R for resistors</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(L_1, L_2,\)</span> …</td>
+<td>Capital letter L for inductors</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(C_1, C_2,\)</span> …</td>
+<td>Capital letter C for capacitors</td>
+</tr>
+<tr class="even">
 <td>E</td>
 <td>Voltage controlled voltage source (VCVS)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>F</td>
 <td>Current controlled current source (CCCS)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>G</td>
 <td>Voltage controlled current source (VCCS)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>H</td>
 <td>Current controlled voltage source (CCVS)</td>
 </tr>
-<tr class="odd">
-<td>K</td>
-<td>Inductor coupling coefficient</td>
-</tr>
 <tr class="even">
-<td>M</td>
-<td>Mutual inductance</td>
+<td><span class="math inline">\(K_1, K_2,\)</span> …</td>
+<td>Inductor coupling coefficients</td>
 </tr>
 <tr class="odd">
-<td>O</td>
-<td>Op Amp component</td>
+<td><span class="math inline">\(M_1, M_2,\)</span> …</td>
+<td>Mutual inductances</td>
 </tr>
 <tr class="even">
+<td><span class="math inline">\(O_1, O_2,\)</span> …</td>
+<td>Op Amp components</td>
+</tr>
+<tr class="odd">
 <td>A</td>
 <td>Connectivity matrix</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>X</td>
 <td>Unknown voltages and currents vector</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Z</td>
 <td>Known voltages and currents vector</td>
 </tr>
@@ -678,7 +760,7 @@ Table&nbsp;1.1: Variable names
 <p><strong>Large exponents</strong><br>
 The values of the exponents can be very large in the numerical solution to the network equations when using real component values. Often you will see in engineering text books that the author uses normalized component values, where the values have been frequency and impedance scaled to a frequency of <span class="math inline">\(\omega = 1\)</span> and one of the resistors or other components normalized to a value of one. This keeps the numerical values obtained in the solution to the network equations from getting very large or small.</p>
 <p>Almost all platforms map Python floats to the IEEE754 double precision - 64 total bits. Using the sys package, the float information is reported as follows:</p>
-<div id="322c323f" class="cell" data-execution_count="8">
+<div id="b01c2ed0" class="cell" data-execution_count="19">
 <div class="cell-output cell-output-stdout">
 <pre><code>max=1.7976931348623157e+308
  max_exp=1024
@@ -697,7 +779,7 @@ The values of the exponents can be very large in the numerical solution to the n
 </section>
 <section id="practical-network-size-for-symbolic-solutions" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="practical-network-size-for-symbolic-solutions"><span class="header-section-number">1.2</span> Practical network size for symbolic solutions</h2>
-<p>Test circuit number 4, <a href="test_4.html" class="quarto-xref"><span>Chapter 8</span></a>, has 26 branches, 13 nodes, 18 resistors, 4 independent sources and 4 dependent sources. A symbolic solution for this problem was taking too long on my i3 computer, so I interrupted the kernel, and proceeded with a numerical solution, which can be solved quite quickly. The complexity of a circuit can be reduced by letting some components have the same value, for example <span class="math inline">\(R_1 = R_2 = R_3 = R\)</span>, which would reduce the number of symbols that are being manipulated.</p>
+<p>Test circuit number 4, <a href="test_4.html" class="quarto-xref"><span>Chapter 8</span></a>, has 26 branches, 13 nodes, 18 resistors, 4 independent sources and 4 dependent sources. A symbolic solution for this problem was taking too long on my i3-8130U 2.20GHz computer, so I interrupted the kernel, and proceeded with a numerical solution, which can be solved quite quickly. The complexity of a circuit can be reduced by letting some components have the same value, for example <span class="math inline">\(R_1 = R_2 = R_3 = R\)</span>, which would reduce the number of symbols that are being manipulated.</p>
 <p>Another circuit, shown below, a 100 Hz low pass elliptic function filter, is an example of a circuit where the size of the symbolic expressions became too large and the number of terms too great to allow any reasonable interpenetration of the circuit’s operation. The Python kernel needed to be interrupted during the symbolic solution. After actual component values are substituted into the network equations a numerical solution was easily obtained by SymPy, see <a href="Elliptic-function-LPF.html" class="quarto-xref"><span>Chapter 26</span></a> for this circuit’s notebook.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -706,8 +788,7 @@ The values of the exponents can be very large in the numerical solution to the n
 </figure>
 </div>
 <p>The net list for this circuit is:</p>
-<pre><code>* Elliptic function VCVS LPF
-R3 3 0 4750
+<pre><code>R3 3 0 4750
 R4 5 0 73.2e3
 R1 4 1 9530
 R2 5 4 9530
@@ -735,7 +816,7 @@ R6 7 6 44.2e3</code></pre>
 <p>After substituting numerical values for the components, the following solution for the voltage at node 2 was obtained in less than one second.</p>
 <p><span class="math inline">\(\frac{4.30028181226968 \cdot \left(1.0784981875 \cdot 10^{-10} s^{3} + 2.263375 \cdot 10^{-7} s^{2} + 0.000474999999999999 s + 1.0\right)}{1.50943922351291 \cdot 10^{-12} s^{4} + 4.7350839034956 \cdot 10^{-9} s^{3} + 4.53071325287237 \cdot 10^{-6} s^{2} + 0.00311443743767615 s + 1.0}\)</span></p>
 <p>See <a href="2nd_order_BRF.html" class="quarto-xref"><span>Chapter 25</span></a> for a reduced complexity version of the schematic above, for which a symbolic solution was obtained in less than one second.</p>
-<p>Python together with SymPy has enabled the ability to explore circuit analysis problems without having to resort to pages and pages of hand calculations and then to display the results with good looking graphics and equations.</p>
+<p>Python together with SymPy has enabled the ability to explore circuit analysis problems without having to resort to pages and pages of hand calculations. The results can then be displayed with good looking graphics and <a href="https://en.wikipedia.org/wiki/LaTeX">LaTex</a> rendered equations.</p>
 </section>
 <section id="linear-and-nonlinear-circuits" class="level2" data-number="1.3">
 <h2 data-number="1.3" class="anchored" data-anchor-id="linear-and-nonlinear-circuits"><span class="header-section-number">1.3</span> Linear and nonlinear circuits</h2>
@@ -748,7 +829,8 @@ R6 7 6 44.2e3</code></pre>
 </section>
 <section id="pros-and-cons-of-mna" class="level2" data-number="1.5">
 <h2 data-number="1.5" class="anchored" data-anchor-id="pros-and-cons-of-mna"><span class="header-section-number">1.5</span> Pros and cons of MNA</h2>
-<p>The MNA approach is a suitable technique for hand analysis of small circuits as well as for computer analysis of larger circuits using the same algorithm as illustrated in this book. The only disadvantage of the MNA technique is that often additional equations are generated, when a smaller number would be sufficient. For students doing homework problems and solving sets of equations by hand, the extra equation or two, generated by the MNA technique makes matrix inversions much harder. Modern pocket scientific calculators that engineering students now use can solve sets of linear equations relatively easily. However, some effort is required to enter the equations into the calculator. When a computer is used to generate the schematic for a circuit and the net list is exported to the Python code, the extra equations that the MNA approach generates is not a practical concern. The Python code can quickly provide numerical solutions to the network equations, even when the network is too large for the Python code to generate symbolic solutions.</p>
+<p>The MNA approach is a suitable technique for hand analysis of small circuits as well as for computer analysis of larger circuits using the same algorithm as illustrated in this book. The only disadvantage of the MNA technique is that often additional equations are generated, when a smaller number would be sufficient. For students doing homework problems and solving sets of equations by hand, the extra equation or two, generated by the MNA technique makes matrix inversions much harder. Modern pocket scientific calculators that engineering students now use can solve sets of linear equations relatively easily. However, some effort is required to enter the equations into the calculator.</p>
+<p>When a computer is used to generate the schematic for a circuit and the net list is exported to the Python code, the extra equations that the MNA approach generates is not a practical concern. Using the examples in this book as templates for problem solving makes the work flow very easy, which is the main benefit of using MNA.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
@@ -841,24 +923,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -893,11 +957,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
+      return note.innerHTML;
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -945,12 +1005,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
-      }
+      return note.innerHTML;
     }
   }
   for (var i=0; i<xrefs.length; i++) {
@@ -1173,12 +1228,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./Preface.html" class="pagination-link" aria-label="Preface">
+      <a href="./Preface.html" class="pagination-link  aria-label=" preface"="">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Preface</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./Theory.html" class="pagination-link" aria-label="Theory">
+      <a href="./Theory.html" class="pagination-link" aria-label="<span class='chapter-number'>2</span>&nbsp; <span class='chapter-title'>Theory</span>">
         <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Theory</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
