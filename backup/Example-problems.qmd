@@ -8,17 +8,19 @@ Can MNA equations be turned into state variable equations? See page Haykin page 
 ## Example problems
 -->
 
-The table below lists the example problems completed so far.
+The table below is a list of the example problems with a short discription.
 
 : {tbl-colwidths="[30,70]"}
 
-| Circuit Description | notes |
+| Title | Circuit Description |
 |:---|:---|
 | Two amplifier RIAA Phono Preamp | A circuit for a phono preamp is analyzed. |
 | Two port parameters | Two port parameters are derived from the circuit's netlist. |
 | Thevenin equivalent circuit | The Thevenin equivalent circuit is obtained from a netlist. |
 | State variable filter | Network equations for a [state variable filter](https://en.wikipedia.org/wiki/State_variable_filter) are obtained from the netlist which are solved in symbolic form. |
 | Superposition | A circuit to illustrate superposition and polyphase circuit analysis. |
+| 2nd order BRF | Walk through of the NMA code |
+| Elliptic Function LPF | A circuit too complex for quick symbolic solution |
 | Initial conditions | Voltage on the capacitor and current in the inductor at t=0 |
 | Transient circuit | Examining the transient response of a circuit |
 | Bridge T | Initial conditions and transient solution |
@@ -30,66 +32,18 @@ The table below lists the example problems completed so far.
 | Op Amp circuits | Typical Op Amp circuits and the use of the Op Amp element type |
 | Mechanical systems | Electric circuit analogs for a translational and a rotational mechanical system |
 
-<br>
-<br>
-
 <!--
-| Rotational Mechanical system | Electric circuit analog for a rotational mechanical system |
-| T-coil | This notebook looks at a circuit called the T-coil. A T-coil uses a coupled inductor with a bridging capacitor to develop a constant impedance. Historically T-coils were used in wide band vacuum tube amplifiers and today they are commonly used in Transient Voltage Suppression (TVS) circuits. |
+<br>
+<br>
 
-Examples that are not filters
+| Wien bridge oscillator | https://en.wikipedia.org/wiki/Wien_bridge_oscillator <br>Simple circuit <br>not so easy to make osc in LTSpice. Notebook started |
+| Flyback circuit | Boost switch mode power supply (notebook not started) |
+| Switched mode power supply | Do the LED driver fly back circuit, <br>see Analog Devices power management tools, <br>https://www.analog.com/en/design-center/design-tools-and-calculators/power-management-tools.html |
+When this example is completed add a comment in into about LTI circuits [Linear time-invariant system](https://en.wikipedia.org/wiki/Linear_time-invariant_system)
 
-/home/jeff64/Downloads/Electrical Equivalent Circuit Based Analysis of Double Pendulum System.pdf
+| T-coil | A circuit with a coupled inductor and a bridging capacitor |
 
-
-| A translational mechanical system | |
-| A rotational electromechanical system | |
-| Mechanical systems | electric circuit analogs |
-Electric Circuit-Based Modeling and Analysis of the Translational, Rotational Mechanical and Electromechanical Systems Dynamics
-@ARTICLE{9803041,
-  author={Akbaba, Mehmet and Dakkak, Omar and Kim, Byung-Seo and Cora, Adnan and Nor, Shahrudin Awang},
-  journal={IEEE Access}, 
-  title={Electric Circuit-Based Modeling and Analysis of the Translational, Rotational Mechanical and Electromechanical Systems Dynamics}, 
-  year={2022},
-  volume={10},
-  number={},
-  pages={67338-67349},
-  keywords={Mechanical systems;Mathematical models;Analytical models;Integrated circuit modeling;Electromechanical systems;Friction;Equivalent circuits;Modeling and simulation;a set of rules;complex mechanical systems;electrical system;analogy},
-  doi={10.1109/ACCESS.2022.3185422}
-}
-
-| car suspension | modeling a mechanical system with electric circuit analogy |
-See /home/jeff64/Downloads/A comprehensive methodology to obtain electrical analogues of linear mechanical systems.pdf
-@article{LOPEZMARTINEZ2023110511,
-title = {A comprehensive methodology to obtain electrical analogues of linear mechanical systems},
-journal = {Mechanical Systems and Signal Processing},
-volume = {200},
-pages = {110511},
-year = {2023},
-issn = {0888-3270},
-doi = {https://doi.org/10.1016/j.ymssp.2023.110511},
-url = {https://www.sciencedirect.com/science/article/pii/S0888327023004193},
-author = {J. López-Martínez and D. García-Vallejo and A. Alcayde and S. Sánchez-Salinas and Francisco G. Montoya},
-keywords = {Full car model, Electric analogue, Electromechanical analogy, Vertical dynamics, 3D 7-DOF car model analogue},
-abstract = {Electrical analogues of linear mechanical systems have traditionally been obtained using a set of rules that can potentially be tedious when applied to complex systems. In addition, such rules do not cover all the possibilities of mechanical systems including rotational and translational generalized coordinates. The present work establishes a comprehensive and systematic methodology for obtaining the electrical analogue of any mechanical system modelled by rigid bodies, springs, and dampers. The method is simple and straightforward. First, the dynamic equations of the mechanical system are derived into matrix form. These equations are then translated to the electrical domain by means of the electromechanical analogy and, finally, the electrical circuit is obtained by direct inspection of the matrices. In addition, the method can deal with a combination of translational and rotational coordinates in the definition of the mechanical model. To support the proposed method, and beyond the planar vehicle models found in the literature, the electrical analogue of a linear 3D 7-DOF full car model is presented in this work.}
-}
-
-
-| suspended mechanical system | |
-@article{article,
-author = {AKBABA, Mehmet},
-year = {2021},
-month = {07},
-pages = {},
-title = {Modeling and simulation of dynamic mechanical systems using electric circuit analogy},
-volume = {5},
-journal = {Turkish Journal of Engineering},
-doi = {10.31127/tuje.695769}
-}
-
-| Double pendulum | Electric circuit analog for a double pendulum |
-
-and pdf files saved in down load folder, also look at dual pendulum circuit (se LTSpice file)
+A T-coil uses a coupled inductor with a bridging capacitor to develop a constant impedance. Historically T-coils were used in wide band vacuum tube amplifiers and today they are commonly used in Transient Voltage Suppression (TVS) circuits.
 
 ## Future example problems
 
@@ -99,10 +53,8 @@ and pdf files saved in down load folder, also look at dual pendulum circuit (se 
 |:---|:---|
 | Active filters | move to other blog, Several of these started [Sallen–Key topology](https://en.wikipedia.org/wiki/Sallen%E2%80%93Key_topology) |
 | Active inductor, Nullors, Gyrators, NICs, Current Conveyor | Where are these used?<br>Controlled Sources, Nullors, Active Gain Devices, Impedance Converters and Inverters (Gyrators, NICs, Current Conveyors)<br>See Op Amp circuit #2 or #2HP  See Haydak Chapter 13, for RC-NIC and RC gyrator filters  |
-| Wien bridge oscillator | https://en.wikipedia.org/wiki/Wien_bridge_oscillator <br>Simple circuit <br>not so easy to make osc in LTSpice. Notebook started |
 | Switched mode power supply | Do the LED driver fly back circuit, <br>see Analog Devices power management tools, <br>https://www.analog.com/en/design-center/design-tools-and-calculators/power-management-tools.html |
 | Diode circuit | Get network equations with R in place of diode and then substitute equations for diode in python |
 | Transistor circuit | Get network equations with R’s in place of transistor and then substitute equations in python<br>Or look at an Op Amp model that can have C in the feedback loop |
 | Tone control circuit of link | https://sound-au.com/project27.htm |
-| Chua's circuit | work in progress<br>See circuit analysis folder under jupyterlab<br>https://en.wikipedia.org/wiki/Chua's_circuit |
 -->

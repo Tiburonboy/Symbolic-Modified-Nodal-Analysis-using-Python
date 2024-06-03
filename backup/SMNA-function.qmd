@@ -6,7 +6,7 @@ format:
 jupyter: python3
 ---
 # SMNA function {#sec-SMNA-func}
-The python code described in @sec-example has been converted into a function called smna(netlist). A listing for the function can be found in @sec-SymMNA as well as on GitHub linked [here](https://github.com/Tiburonboy/Symbolic-modified-nodal-analysis).
+The python code described in @sec-example has been converted into a function called smna(netlist). A listing for the function can be found in @sec-SymMNA_py as well as on GitHub linked [here](https://github.com/Tiburonboy/Symbolic-modified-nodal-analysis).
 
 The function implements the MNA method on a circuit’s netlist. Stamps which are templates for modifying the B, C and D matrices are used to facilitate the construction of the matrices. The stamps used in this implementation of the MNA follow the stamps of @Palusinski2005. The code is divided in the following sections.  
 
@@ -72,11 +72,11 @@ L1 2 3 0.152
 print(net_list)
 ```
 
-calling the function
+Calling the function to generate MNA matricies:
 
 ```{python}
 #| echo: true
-report, df, df2, A, X, Z = SymMNA.smna(net_list)
+report, network_df, i_unk_df, A, X, Z = SymMNA.smna(net_list)
 ```
 
 sample report
@@ -102,13 +102,13 @@ The netlist information is put into a Pandas data frame. The column definitions 
 
 ```{python}
 #| echo: false
-df
+network_df
 ```
 A second Pandas data frame is used for components having unknown currents. Unknown currents arise from inductors (L), independent voltage sources (V), op amps (O), voltage-controlled voltage sources (E), current-controlled voltage sources (H), or current-controlled current sources (F).
 
 ```{python}
 #| echo: false
-df2
+i_unk_df
 ```
 The $A$ matrix describes the connectivity of the resistors, capacitors and G type (VCCS) circuit elements.
 
@@ -212,22 +212,11 @@ The symbolic transfer function of $\frac {v_3} {v_1}$ can be obtained by:
 U_sym[v3]/U_sym[v1]
 ```
 
-The following code can be used to get the element values from the dataframe.
+Call the function to get element values:
 
 ```{python}
 #| echo: true
-element_value_keys = []
-element_value_values = []
-
-for i in range(len(df)):
-  if df.iloc[i]['element'][0] == 'F' or df.iloc[i]['element'][0] == 'E' or df.iloc[i]['element'][0] == 'G' or df.iloc[i]['element'][0] == 'H':
-    element_value_keys.append(var(df.iloc[i]['element'].lower()))
-    element_value_values.append(df.iloc[i]['value'])
-  else:
-    element_value_keys.append(var(df.iloc[i]['element']))
-    element_value_values.append(df.iloc[i]['value'])
-
-element_values = dict(zip(element_value_keys, element_value_values))
+element_values = SymMNA.get_part_values(network_df)
 element_values
 ```
 
@@ -238,6 +227,7 @@ The numerical values for the elements can be put into equations.
 equ_values = equ.subs(element_values)
 equ_values
 ```
+
 The network equations with actual values can then be solved by using SymPy’s solve function.
 
 ```{python}
@@ -263,6 +253,7 @@ The voltage on node number 1 is:
 #| echo: false
 U[v1]
 ```
+
 The voltage on node number 2 is:
 
 ```{python}
@@ -276,6 +267,7 @@ The voltage on node number 3 is:
 #| echo: false
 U[v3]
 ```
+
 current  V1
 
 ```{python}

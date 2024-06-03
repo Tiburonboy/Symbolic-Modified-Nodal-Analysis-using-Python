@@ -5,17 +5,13 @@ format:
     number-sections: true
 ---
 # Validation tests {#sec-Validation}
-Basic validation of the Python code consisted of analyzing simple networks and examining the results. A more comprehensive evaluation of the code was performed by solving test circuits and comparing the results to LTSpice. It is assumed, without offering any mathematical proof, that if the numerical solution agrees with the LTSpice solution, the symbolic solution is also correct. 
-
-Table 1 lists the circuits that were used for validation. The validation circuits are a collection of problems from textbooks or large and complex circuits that I made up that include various elements or unique combinations of elements or topologies. The circuits range from simple to large and complex. The largest circuit consists of 32 nodes, 59 branches and multiple instances of all of the supported element types.
-
-In LTSpice the series resistance for inductors defaults to 1e-3 Ohms unless set to zero. Leaving the default series inductance at 1e-3 Ohms will cause small numerical differences in the solution obtained by LTSpice.
+Basic validation of the Python code consisted of analyzing simple networks and examining the results. A more comprehensive evaluation of the code was performed by solving test circuits and comparing the results to LTSpice. It is assumed, without offering any mathematical proof, that if the NumPy numerical solution agrees with the LTSpice solution, the SymPy symbolic solution is also correct. 
 
 Code verification often looks at requirements or specifications versus what was implemented. This project didn't have a formal set of requirements, only a general goal of implementing symbolic MNA using the Python libraries. No formal software or code verification is included.
 
-See Table 2 for a list of the types of supporting files.
+The circuits used in the validation tests are listed below. The validation circuits are a collection of problems from textbooks or large and complex circuits that I made up that include various elements or unique combinations of elements or topologies. The circuits range from simple to large and complex. The largest circuit consists of 32 nodes, 59 branches and multiple instances of all of the supported element types.
 
-: Validation circuits {#tbl-test_circuits} {tbl-colwidths="[10,75,15]"}
+: {tbl-colwidths="[10,75,15]"}
 
 | Test file | Circuit Description | notes |
 |:---|:---|:---|
@@ -36,12 +32,14 @@ See Table 2 for a list of the types of supporting files.
 | test_15 | A circuit with no unknown currents | AC analysis |
 <br>
 
+In LTSpice the series resistance for inductors defaults to 1e-3 Ohms unless set to zero. Leaving the default series inductance at 1e-3 Ohms will cause small numerical differences in the solution obtained by LTSpice.
+
 ## Summary of test results
-LTSpice displays results using 6 digits, with zero to two digits to the left of the decimal point and the remainder of the digits to the right of the decimal point. The Python results can be displayed with 6 digits to the left of the decimal point. So when comparing the numerical results there will be some rounding differences. Most of the test circuits analyzed with the MNA Python code produced numerical results that were identical within rounding, to those obtained from LTSpice. however there were a few exceptions discussed below.
+LTSpice displays results using 6 digits, with zero to two digits to the left of the decimal point and the remainder of the digits to the right of the decimal point. The Python results can be displayed with 6 digits to the left of the decimal point. So when comparing the numerical results there will be some rounding differences. Most of the test circuits analyzed with the MNA Python code produced numerical results that were identical within rounding, to those obtained from LTSpice. However, there were a few exceptions discussed below.
 
 ### Test circuit 8
 ![](test_8.png)  
-The circuit shown above is the test circuit for Test 8. This circuit is too large to produce meaningful symbolic solutions. The numeric results obtained from the Python MNA code has larger differences to LTSpice than was typical for the other test circuits. There are small differences at $\omega = 0$ and $\omega = 1$ between the Python NMA code and LTSpice solutions; with the differences being less than 0.001. The results for the AC sweep had larger differences. The magnitude and phase results over the frequency range of 0.01 to 10 Hz shows that the magnitude difference was as much as 0.005 and the phase was as much as 0.02 difference. At this time I don’t have an explanation for the differences.
+The circuit shown above is the test circuit for Test 8. This circuit is too large to produce meaningful symbolic solutions. The numeric results obtained from the Python MNA code has larger differences to LTSpice than was typical for the other test circuits. There are small differences at $\omega = 0$ and $\omega = 1$ between the Python NMA code and LTSpice solutions; with the differences being less than 0.001. The results for the AC sweep had larger differences. The magnitude and phase results over the frequency range of 0.01 to 10 Hz shows that the magnitude difference was as much as 0.005 and the phase was as much as 0.02 difference. At this time I don't have an explanation for the differences.
 
 ### Test circuit 12
 ![](test_12.png)  
@@ -59,9 +57,9 @@ The circuit above was designed to have only one unknown current. The magnitude d
 <br>
 <br>
 
-The following file types are in each github folder located [here](https://github.com/Tiburonboy/Symbolic-modified-nodal-analysis/tree/master/test%20circuits):
+The following file types are archived [here](https://github.com/Tiburonboy/Symbolic-modified-nodal-analysis/tree/master/test%20circuits):
 
-: Test circuit files {#tbl-test-files} {tbl-colwidths="[20,80]"}
+: {tbl-colwidths="[20,80]"}
 
 | file name | Description |
 |:---------------|-------------|

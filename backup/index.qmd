@@ -1,15 +1,13 @@
 :::{.callout-note}  
-Last update: 1 May 2024
-
 - This book is a draft copy and only half baked.
 - Many sections are still under construction.
-- Only preliminary files have been posted to github.
+- Only preliminary files have been posted to GitHub.
 - Spelling and grammar checks have not been completed.
-- This book is posted for testing only.  
+- This book is posted for testing only. 
 :::    
 
 ## About this book {.unnumbered}
-This website is my online book - *Symbolic Modified Nodal Analysis using Python*. Symbolic circuit analysis is a circuit analysis method that derives network equations with the circuit elements represented by symbols and the topology of the circuit described by a netlist. [Python](https://en.wikipedia.org/wiki/Python_(programming_language)) is a general purpose programing lauguage with a large standard library and packages.
+This website is my online book - *Symbolic Modified Nodal Analysis using Python*. Symbolic circuit analysis is a circuit analysis method that derives network equations with the circuit elements represented by symbols and the topology of the circuit described by a netlist. [Python](https://en.wikipedia.org/wiki/Python_(programming_language)) is a general purpose programming language with a large standard library and packages.
 
 One of the first topics taught to electrical engineering students is basic electrical circuit analysis. This can be thought of as EE 101, and deals with circuit models not physical circuits. The current to voltage relationship for resistors is described by [Ohm’s law](https://en.wikipedia.org/wiki/Ohm%27s_law), $V=IR$, and current to voltage relationships for [capacitors](https://en.wikipedia.org/wiki/Capacitor) and [inductors](https://en.wikipedia.org/wiki/Inductor) can be described by the following differential equations:
 $$i(t) = C \frac {\mathrm d v(t)}{\mathrm d t}$$
@@ -23,9 +21,9 @@ There are 15 code validation test circuits along with a few project circuits. Th
 <!--
 comment on the following which are typical 1st year circuit analysis topics
 resistive circuits
-time domain solutions - differencial equations inductor and capacitors are descrived by the dirivative of current and voltage for each elenent type, 
+time domain solutions - differential equations inductor and capacitors are described by the derivative of current and voltage for each element type,
 phasor analysis with sinusoidal excitations mostly algebraic solutions and complex quantities
-state equations - state variable are the independent capacitor voltages and inductor currents. They satify the state equations resukting from Kirchhoff's voltage and current laws. 
+state equations - state variables are the independent capacitor voltages and inductor currents. They satisfy the state equations resulting from Kirchhoff's voltage and current laws.
 Fourier analysis
 -->
 
@@ -53,10 +51,10 @@ The following versions were used in this book.
 | [Quarto](https://quarto.org/) | 1.4.553 |
 : Python packages {#tbl-python-packages} {tbl-colwidths="[20,20]"}
 
-The Jupyter notebooks are available from my github repository. The results presented in this book should be reproducible if the libraries and modules have the same version numbers. 
+The Jupyter notebooks are available from my GitHub repository. The results presented in this book should be reproducible if the libraries and modules have the same version numbers.
 
 ### Update History
-This book will be updated occasionally to fix typos, spelling and grammer mistakes. Additionally, new content will be added as new chapters in the **Example Problems** section.
+This book will be updated occasionally to fix typos, spelling and grammar mistakes. Additionally, new content will be added as new chapters in the **Example Problems** section.
 
 | date | description |
 |:---------|:------------|
@@ -64,20 +62,20 @@ This book will be updated occasionally to fix typos, spelling and grammer mistak
 | 26 Jan 2023 | various updates to draft |
 | 27 Apr 2024 | adding/removing example problems |
 | 1 May 2024 | rendering book with Quarto 1.4, 1st draft considered complete |
+| 3 Jun 2024 | incremental changes |
 
+<!--
 ### Project ToDo List
 Since this project is still under construction, I have a list of to dos.
 
-- [ ] fix spelling of netlist
-- [ ] fix usage of spice to SPICE and define
-- [ ] fix usage of Op Amp and make consistant thoughout
-- [ ] fix chapter 4 usage of getting element values from datafram
+- [ ] fix spelling & usage of netlist, SPICE, Op-Amp or op-amp, GitHub - make consistent throughout
+- [ ] fix chapter 4 usage of getting element values from dataframe
 - [ ] clean up narrative on all the validation test chapters
+- [ ] clean up narrative on all example problem chapters
 - [x] add comment to each test about generating a symbolic solution
-- [ ] review each schematic figure, clean up and make consistant  
+- [ ] review each schematic figure, clean up and make consistent
 - [ ] remove double spaces at end of sentences
-- [ ] rewrite Two amplifier RIAA phono preamp
-- [ ] cleanup new example problems
+- [ ] rewrite Two amplifier RIAA phono preamp chapter
 - [x] finish Summary in state variable notebook
 - [ ] spell and grammar check all files
 - [x] comment on state equations
@@ -86,13 +84,21 @@ Since this project is still under construction, I have a list of to dos.
 - [x] add comment about reproducibility of results
 - [x] fix the book update history
 
-<!--
 - update status in /Quarto_projects/Symbolic-Modified-Nodal-Analysis-using-Python/draft_docs/To Do List.odt
 - [ ] non linear circuits, see YouTube [MNA Introduction](https://www.youtube.com/watch?v=BPapfxzwsmI&list=PLlsTHbFeR7v0QG8Q4l6oc7d---eKKSKTz)
 
 ### Links to other projects
-I have a blog called [Solving Engineering Problems using Python](https://tiburonboy.github.io/Solving-Engineering-Problems-using-Python/) where I post some of my Jupyter notebooks related to engineering problems and analysis. My financial analysis blog is located [here]() 
+I have a blog called [Solving Engineering Problems using Python](https://tiburonboy.github.io/Solving-Engineering-Problems-using-Python/) where I post some of my Jupyter notebooks related to engineering problems and analysis. My financial analysis blog is located [here]()
 -->
+
+### About the author
+This book is published under the pseudonym Tiburonboy.
+
+When I was about ten years old, my parents gave me an electronics kit for Christmas. It was a collection of resistors, capacitors, transistors and other assorted electronic components. The kit included about ten plans to build various circuits like an AM radio and audio oscillator. Ever since then I have been interested in radios and electronics.
+
+After graduating from high school, my Dad asked me what I was going to study in college and I told him mathematics. He suggested that I study electrical engineering since engineers were more in demand than mathematicians and electrical engineering was very math oriented. This turned out to be the best advice he gave me, because for the next 37 years my interest in electronics has turned into a very rewarding career as an electrical engineer.
+
+My first job after graduating from college was working as a civilian for the US Navy. For more than 40 years I have been designing electronic circuits for instrumentation and telemetry systems. I have five Patents and have published seven technical papers.
 
 ### License
 This work (includes python code, documentation, test circuits, etc.) is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.  
@@ -101,5 +107,4 @@ Adapt — remix, transform, and build upon the material for any purpose, even co
 https://creativecommons.org/licenses/by-sa/4.0/  
 
 <img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" />
-
 
