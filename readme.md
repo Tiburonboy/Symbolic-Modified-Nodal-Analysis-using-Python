@@ -2,9 +2,7 @@ This book is self published and being done without the benefit of a proofreader 
 
 > [!NOTE]  
 > Last update: 3 June 2024  
-> - This book is a draft copy.  
-> - Many sections are still under construction.  
-> - Only preliminary files have been posted to github.  
+> - This book is a draft copy, many sections are still under construction.  
 > - Spelling and grammar checks have not been completed.  
 > - This book is posted for testing only.  
 
