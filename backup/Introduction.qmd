@@ -6,7 +6,11 @@ format:
 jupyter: python3
 ---
 # Introduction {#sec-Introduction}    
-Circuit analysis and theory are fundamental to electrical engineering and is usually one of the first topics taught to electrical engineering students. The purpose of this book is to describe a circuit analysis method called [Modified Nodal Analysis](https://en.wikipedia.org/wiki/Modified_nodal_analysis) (MNA) implemented in Python and using the SymPy library. The Python programming language along with its packages and libraries provide powerful computational tools that make solving math problems extremely easy with just a few lines of code. SymPy and NumPy are the main libraries used to perform the types of circuit analysis problems described in this book. In this chapter the following Python libraries are used.
+Circuit analysis and theory are fundamental to electrical engineering and is usually one of the first topics taught to electrical engineering students. The purpose of this book is to describe a circuit analysis method called [Modified Nodal Analysis](https://en.wikipedia.org/wiki/Modified_nodal_analysis) (MNA) implemented in Python and using the SymPy library. The Python programming language along with its packages and libraries provide powerful computational tools that make solving math problems extremely easy with just a few lines of code. SymPy and NumPy are the main libraries used to perform the types of circuit analysis problems described in this book.
+
+Symbolic Modified Nodal Analysis circuit analysis offers an alternative way to analyze electric circuits since the results are analytic expressions that describe the functionality of the circuit in terms of the circuit variables. The analytic expressions can, but not always, offer some insight into the behavior of the circuit.
+
+In this chapter, as well as in the remainder of this book, the following Python libraries are used.
 
 ```{python}
 #| echo: true
@@ -16,19 +20,137 @@ from sympy import *
 from scipy import signal
 import matplotlib.pyplot as plt
 import numpy as np
+import SymMNA
 init_printing()
 ```
 
-The [sys](https://docs.python.org/3/library/sys.html) module provides access to some variables used or maintained by the interpreter and to functions that interact strongly with the interpreter. [IPython.display](https://ipython.readthedocs.io/en/stable/api/generated/IPython.display.html) is a public API for display tools in [IPython](https://ipython.org/). [SymPy](https://www.sympy.org/en/index.html) is a Python library for symbolic mathematics. 
-[SciPy](https://scipy.org/) is a collection of algorithms for scientific computing. [Matplotlib](https://matplotlib.org/) is a comprehensive library for creating static, animated, and interactive visualizations in Python. 
-[NumPy](https://numpy.org/) is a package for scientific computing with Python. The function [init_printing()](https://docs.sympy.org/latest/tutorials/intro-tutorial/printing.html) will automatically enable the best printer available in the Python environment.
+The [sys](https://docs.python.org/3/library/sys.html) module provides access to some variables used or maintained by the interpreter and to functions that interact strongly with the interpreter. [IPython.display](https://ipython.readthedocs.io/en/stable/api/generated/IPython.display.html) is a public API for display tools in [IPython](https://ipython.org/). [SymPy](https://www.sympy.org/en/index.html) is a Python library for symbolic mathematics. [SciPy](https://scipy.org/) is a collection of algorithms for scientific computing. [Matplotlib](https://matplotlib.org/) is a comprehensive library for creating static, animated, and interactive visualizations in Python. [NumPy](https://numpy.org/) is a package for scientific computing with Python. The function SymMNA is described in @sec-SMNA-func. The function [init_printing()](https://docs.sympy.org/latest/tutorials/intro-tutorial/printing.html) will automatically enable the best printer available in the Python environment.
+
+Consider the example circuit shown in @fig-Intro_circuit. This circuit has five branches and three nodes. There is a voltage source $V_1$, which drives the circuit and each of the nodes is labeled along with the ground node.
+
+![Example circuit](Intro_circuit.png){#fig-Intro_circuit}
+
+<!--
+The netlist for this circuit is:
+
+```
+V1 1 0 1
+R1 2 1 1
+L1 2 3 0.1
+C1 3 0 0.1
+C2 2 0 0.2
+```
+-->
+
+For this circuit, the MNA code generates the following system of equations:
+
+```{python}
+#| echo: false
+net_list = '''
+V1 1 0 1
+R1 2 1 1
+L1 2 3 0.1
+C1 3 0 0.1
+C2 2 0 0.2
+'''
+
+report, network_df, df2, A, X, Z = SymMNA.smna(net_list)
+
+# Put matrices into SymPy
+X = Matrix(X)
+Z = Matrix(Z)
+
+NE_sym = Eq(A*X,Z)
+
+temp = ''
+for i in range(len(X)):
+    temp += '${:s}$<br>'.format(latex(Eq((A*X)[i:i+1][0],Z[i])))
+
+Markdown(temp)
+```
+
+where, $s$ is the Laplace variable, $C_1$ and $C_2$ are capacitors, $R_1$ is a resistor, $L_1$ is an inductor, $v_1$, $v_2$ and $v_3$ are the unknown node voltages, $V_1$ is the input voltage source, $I_{V1}$ is the unknown current flowing through $V_1$ and $I_{L1}$ is the unknown current flowing in $L_1$. These equations can be easily solved by SymPy to obtain the unknown voltages and currents as analytic expressions.
+
+```{python}
+#| echo: false
+U_sym = solve(NE_sym,X)
+
+temp = ''
+for i in U_sym.keys():
+    temp += '${:s} = {:s}$<br>'.format(latex(i),latex(U_sym[i]))
+
+Markdown(temp)
+```
+
+Once the network equations are solved, SymPy can be used to obtain the analytic expression for a transfer function, since manipulation of equations is very easy. For example, SymPy can be used to the find the symbolic form of the impedance of the circuit as seen from the terminal of $V_1$, $Z(s)=\frac {v_1}{I_{V1}}$, which is:
+
+```{python}
+#| echo: false
+# turn the free symbols into SymPy variables
+var(str(NE_sym.free_symbols).replace('{','').replace('}',''))
+
+Z_sym = (-U_sym[v1]/U_sym[I_V1]).simplify()
+Z_sym
+```
+
+The numerator and denominator of $Z(s)$ can be extracted. The numerator is:
+
+```{python}
+#| echo: false
+n, d = fraction(Z_sym)
+display(n)
+```
+
+The denominator is:
+
+```{python}
+#| echo: false
+display(d)
+```
+
+SymPy can easily solve for the roots of the numerator and denominator. Since the numerator is a third order expression, the analytic solution is a bit long. Quarto will insert a slider bar for expressions wider than the text display width.
+
+```{python}
+#| echo: false
+n_roots = solve(n,s)
+display(n_roots[0])
+```
+
+```{python}
+#| echo: false
+display(n_roots[1])
+```
+
+```{python}
+#| echo: false
+display(n_roots[2])
+```
+
+The are three zeros in the impedance function and from the expressions above, we can see what components are influencing the zeros. However, as you can see, these expressions are long and complex. It's difficult to imagine what insights can be obtained from these analytic expressions.
+
+The roots of the denominator are:
+
+```{python}
+#| echo: false
+d_roots = solve(d,s)
+display(d_roots[1])
+```
+
+```{python}
+#| echo: false
+display(d_roots[2])
+```
+
+<!--
+
+**OLD below here**
 
 The following example shows some typical frequency domain circuit equations and the solution. Consider the following system of equations,
 
 $- C_{1} s v_{2} + v_{1} \left(C_{1} s + C_{2} s + \frac{1}{R_{3}}\right) = 0$  
 $- C_{1} s v_{1} + v_{2} \left(C_{1} s + \frac{1}{R_{2}}\right) - \frac{v_{3}}{R_{2}} = 0$  
 $I_{V1} - \frac{v_{2}}{R_{2}} + \frac{v_{3}}{R_{2}} = 0$  
-$v_{3} = V_{1}$ 
+$v_{3} = V_{1}$
 
 where, $C_1$ and $C_2$ are the capacitors in an electrical circuit, $R_2$ and $R_3$ are the resistors, $v_1$, $v_2$ and $v_3$ are the unknown node voltages, $V_1$ is the input voltage source and $I_{V1}$ is the unknown current flowing through $V_1$, can be entered into SymPy to get the equations in matrix form:
 
@@ -123,7 +245,7 @@ for i in U.keys():
 Markdown(temp)
 ```
 
-The frequency domain voltage transfer function $H = v_2/v_3$ can be obtained: 
+The frequency domain voltage transfer function $H = v_2/v_3$ can be obtained:
 
 ```{python}
 #| echo: false
@@ -169,7 +291,7 @@ fig, ax1 = plt.subplots()
 ax1.set_ylabel('magnitude, dB')
 ax1.set_xlabel('frequency, Hz')
 
-plt.semilogx(w/(2*np.pi), mag,'-b')    # Bode magnitude plot
+plt.semilogx(w/(2*np.pi), mag,'-b')  # Bode magnitude plot
 
 ax1.tick_params(axis='y')
 #ax1.set_ylim((-30,20))
@@ -218,11 +340,12 @@ plt.grid()
 # show plot
 plt.show()
 ```
+-->
 
-Matrix and polynomial math can be performed with hardly any effort with the help of SymPy. The code used to perform the calculations above and display the results is embeded in this mark down document, but is hidden from display. The code can be examined by looking at the orginal markdown document for this chapter or the example and validation chapters later in this book.  
+Matrix and polynomial math can be performed with hardly any effort with the help of SymPy. For some high order polynomials, SymPy does have trouble finding the symbolic roots. The code used to perform the calculations above and display the results is embedded in this markdown document, but is hidden from display. The code can be examined by looking at the original markdown document for this chapter or the example and validation chapters later in this book.  
 
 ## JupyterLab
-All the validation and problem circuits are presented in JupyterLab notebooks and rendered into chapters by Quarto. 
+All the validation and example problem circuits are presented in JupyterLab notebooks and rendered into chapters by Quarto.
 
 **Variable names**  
 I've tried to be consistent with the use of variable names throughout the Jupyter notebooks. Resistors, capacitors and inductors use R, L and C as reference designators. The names chosen for the other variables are listed in @tbl-variable-names
@@ -244,20 +367,22 @@ I've tried to be consistent with the use of variable names throughout the Jupyte
 | $R_1, R_2,$ ... | Capital letter R for resistors |
 | $L_1, L_2,$ ... | Capital letter L for inductors |
 | $C_1, C_2,$ ... | Capital letter C for capacitors |
-| E | Voltage controlled voltage source (VCVS) |
-| F | Current controlled current source (CCCS) |
-| G | Voltage controlled current source (VCCS) |
-| H | Current controlled voltage source (CCVS) |
+| $E_1, E_2,$ ... | Voltage controlled voltage source (VCVS) |
+| $F_1, F_2,$ ... | Current controlled current source (CCCS) |
+| $G_1, G_2,$ ... | Voltage controlled current source (VCCS) |
+| $H_1, H_2,$ ... | Current controlled voltage source (CCVS) |
 | $K_1, K_2,$ ... | Inductor coupling coefficients |
-| $M_1, M_2,$ ... | Mutual inductances |
+| $M_1, M_2,$ ... | Mutual inductance |
 | $O_1, O_2,$ ... | Op Amp components |
 | A | Connectivity matrix |
 | X | Unknown voltages and currents vector |
 | Z | Known voltages and currents vector |
 : Variable names {#tbl-variable-names} {tbl-colwidths="[20,80]"}
 
+Expressions generated by SymPy that have imaginary quantities will use $i$ for the imaginary number. Typically, electrical engineers will use $j$ for the imaginary number since $i$ is the variable used for electrical current. Depending on who generates the equation, either $i$ or $j$ might be used and the reader should short these out based on context. Usually, the variables used for current have a number, e.g. $i_1$ or $i_2$ and a lone $i$ would be the imaginary number.  
+
 **Large exponents**  
-The values of the exponents can be very large in the numerical solution to the network equations when using real component values. Often you will see in engineering text books that the author uses normalized component values, where the values have been frequency and impedance scaled to a frequency of $\omega = 1$ and one of the resistors or other components normalized to a value of one. This keeps the numerical values obtained in the solution to the network equations from getting very large or small. 
+The values of the exponents can be very large in the numerical solution to the network equations when using real component values. Often you will see in engineering text books that the author uses normalized component values, where the values have been frequency and impedance scaled to a frequency of $\omega = 1$ and one of the resistors or other components normalized to a value of one. This keeps the numerical values obtained in the solution to the network equations from getting very large or small.
 
 Almost all platforms map Python floats to the IEEE754 double precision - 64 total bits. Using the sys package, the float information is reported as follows:
 
@@ -274,7 +399,7 @@ for i in sys_float_info:
 The maximum exponent that Python can use is 308. In this book, I'm going to let Python do the math and not worry about the size of the exponents. I suppose that large exponents don't become a problem as long as they remain under two digits.
 
 ## Practical network size for symbolic solutions
-Test circuit number 4, @sec-test_4, has 26 branches, 13 nodes, 18 resistors, 4 independent sources and 4 dependent sources. A symbolic solution for this problem was taking too long on my i3-8130U 2.20GHz computer, so I interrupted the kernel, and proceeded with a numerical solution, which can be solved quite quickly. The complexity of a circuit can be reduced by letting some components have the same value, for example $R_1 = R_2 = R_3 = R$, which would reduce the number of symbols that are being manipulated. 
+Test circuit number 4, @sec-test_4, has 26 branches, 13 nodes, 18 resistors, 4 independent sources and 4 dependent sources. A symbolic solution for this problem was taking too long on my i3-8130U 2.20GHz computer, so I interrupted the kernel, and proceeded with a numerical solution, which can be solved quite quickly. The complexity of a circuit can be reduced by letting some components have the same value, for example $R_1 = R_2 = R_3 = R$, which would reduce the number of symbols that are being manipulated.
 
 Another circuit, shown below, a 100 Hz low pass elliptic function filter, is an example of a circuit where the size of the symbolic expressions became too large and the number of terms too great to allow any reasonable interpenetration of the circuitâ€™s operation. The Python kernel needed to be interrupted during the symbolic solution. After actual component values are substituted into the network equations a numerical solution was easily obtained by SymPy, see @sec-elliptic-function for this circuit's notebook.
 
@@ -297,7 +422,7 @@ V1 1 0 1
 R5 6 0 10e3
 R6 7 6 44.2e3
 ```
-The following circuit equations were generated by the MNA code in less than one second: 
+The following circuit equations were generated by the MNA code in less than one second:
 
 $- C_{1} s v_{3} + I_{V1} + v_{1} \left(C_{1} s + \frac{1}{R_{1}}\right) - \frac{v_{4}}{R_{1}} = 0$  
 $v_{2} \left(C_{5} s + \frac{1}{R_{7}}\right) - \frac{v_{7}}{R_{7}} = 0$  
@@ -328,6 +453,75 @@ Non-linear circuit elements, such as diodes and transistors, are not supported. 
 A topic that is sometimes included in engineering text books on circuit analysis is state variable analysis. State variable analysis is a method of describing the electrical network in terms of a set of first order differential equations, see @Hayt1978, chapter 17 and @Haykin1970, chapter 2. The normal form of the state equations and the analysis approach relies on a network topology where energy storage elements, typically the capacitors and inductors, are placed in the network tree and equations are written in normal form. Deriving a of state equations is not is not included in the scope of this book. Typically there is a state equation for each inductor and capacitor, whereas the MNA approach writes network equations based primarily on unknown node voltages.
 
 ## Pros and cons of MNA
-The MNA approach is a suitable technique for hand analysis of small circuits as well as for computer analysis of larger circuits using the same algorithm as illustrated in this book. The only disadvantage of the MNA technique is that often additional equations are generated, when a smaller number would be sufficient. For students doing homework problems and solving sets of equations by hand, the extra equation or two, generated by the MNA technique makes matrix inversions much harder. Modern pocket scientific calculators that engineering students now use can solve sets of linear equations relatively easily. However, some effort is required to enter the equations into the calculator. 
+The MNA approach is a suitable technique for hand analysis of small circuits as well as for computer analysis of larger circuits using the same algorithm as illustrated in this book. One disadvantage of the MNA technique is that often additional equations are generated, when a smaller number would be sufficient. For students doing homework problems and solving sets of equations by hand, the extra equation or two, generated by the MNA technique makes matrix inversions much harder.
+
+For example, the circuit in @fig-Intro_circuit, can be described by the following two mesh equations:
+
+```{python}
+#| echo: false
+# declare the following symbols
+C1, C2, L1, R1, i1, i2, s = symbols('C1 C2 L1 R1 i1 i2 s')
+equ1 = Eq(i1*R1 + L1*s*(i1-i2) +(i1-i2)/(s*C1), V1)
+equ2 = Eq(L1*s*(i2-i1) + (i2-i1)/(s*C1) + i2/(s*C2), 0)
+equ1
+```
+
+```{python}
+#| echo: false
+equ2
+```
+where $i_1$ and $i_2$ are the unknown currents.
+
+The MNA procedure generated five equations, but one of them was trivial. Only two equations need to be solved to find the mesh currents, which are:
+
+```{python}
+#| echo: false
+U_sym = solve([equ1,equ2],[i1,i2])
+
+temp = ''
+for i in U_sym.keys():
+    temp += '${:s} = {:s}$<br>'.format(latex(i),latex(U_sym[i]))
+
+Markdown(temp)
+```
+
+
+Modern pocket scientific calculators that engineering students now use can solve sets of linear equations relatively easily. However, some effort is required to enter the equations into the calculator.
 
 When a computer is used to generate the schematic for a circuit and the net list is exported to the Python code, the extra equations that the MNA approach generates is not a practical concern. Using the examples in this book as templates for problem solving makes the work flow very easy, which is the main benefit of using MNA.
+
+<!--
+rewrite to include the following sections. Rewrite the start of the introduction to flow from intro to who, why and Prerequisites sections.  
+
+Make a new notebook for introduction circuit that yields more interesting graphs: MNA_other_circuits/intro_circuit.ipynb
+
+## Introduction
+
+Symbolic circuit analysis using Python
+This book will not teach you about machine learning, statistics or visualization.
+
+The goal is to teach you a set of tools, practices and project management techniques that should make your projects easier to reproduce, replicate and retrace. These tools and techniques can be used right from the start of your project at a minimal cost, such that once you’re done with the analysis, you’re also done with making the project reproducible. Your projects are going to be reproducible simply because they were engineered, from the start, to be reproducible.
+
+## Who is this book for?
+This book is for anyone that uses raw data to build any type of output based on that raw data. This can be a simple quarterly report for example, in which the data is used for tables and graphs, or a scientific article for a peer reviewed journal or even an interactive web application. It doesn’t matter, because the process is, at its core, always very similar:
+
+  Get the data;
+  Clean the data;
+  Write code to analyze the data;
+  Put the results into the final product.
+
+This book will already assume some familiarity with programming, and in particular the R programming language. However, if you’re comfortable with another programming language like Python, you could still learn a lot from reading this book. The tools presented in this book are specific to R, but there will always be an alternative for the language you prefer using, meaning that you could apply the advice from this book to your needs and preferences.
+
+## What is the aim of this book?
+The aim of this book is to make the process of analyzing data as reliable, retraceable, and reproducible as possible, and do this by design. This means that once you’re done with the analysis, you’re done. You don’t want to spend time, which you often don’t have anyways, to rewrite or refactor an analysis and make it reproducible after the fact. We both know that this is not going to happen. Once an analysis is done, it’s time to go to the next analysis. And if you need to rerun an older analysis (for example, because the data got updated), then you’ll simply figure it out at that point, right? That’s a problem for future you, right? Hopefully, future you will remember every quirk of your code and know which script to run at which point in the process, which comments are outdated and can be safely ignored, what features of the data need to be checked (and when they need to be checked), and so on… You better hope future you is a more diligent worker than you!
+
+Going forward, I’m going to refer to a project that is reproducible as a “reproducible analytical pipeline”, or RAP for short. There are only two ways to make such a RAP; either you are lucky enough to have someone on the team whose job is to turn your messy code into a RAP, or you do it yourself. And this second option is very likely the most common. The issue is, as stated above, that most of us simply don’t do it. We are always in the rush to get to the results, and don’t think about making the process reproducible. This is because we always think that making the process reproducible takes time and this time is better spent working on the analysis itself. But this is a misconception, for two reasons.
+
+The first reason is that employing the techniques that we are going to discuss in this book won’t actually take much time. As you will see, they’re not really things that you “add on top of the analysis”, but will be part of the analysis itself, and they will also help with managing the project. And some of these techniques will even save you time (especially testing) and headaches.
+
+## Prerequisites
+You should be comfortable with the R programming language. This book will assume that you have been using R for some projects already, and want to improve not only your knowledge of the language itself, but also how to successfully manage complex projects. Ideally, you should know about packages, how to install them, you should have written some functions already, know about loops and have some basic knowledge of data structures like lists. While this is not a book on visualization, we will be making some graphs using the {ggplot2} package, so if you’re familiar with that, that’s good. If not, no worries, visualization, data munging or data analysis is not the point of this book. Chapter 2, Before we start should help you gauge how easily you will be able to follow this book.
+
+Ideally, you should also not be afraid of not using Graphical User Interfaces (GUIs). While you can follow along using an IDE like RStudio, I will not be teaching any features from any program with a GUI. This is not to make things harder than they should be (quite the contrary actually) but because interacting graphically with a program is simply not reproducible. So our aim is to write code that can be executed non-interactively by a machine. This is because one necessary condition for a workflow to be reproducible and get referred to as a RAP, is for the workflow to be able to be executed by a machine, automatically, without any human intervention. This is the second lesson of building RAPs: there should be no human intervention needed to get the outputs once the RAP is started. If you achieve this, then your workflow is likely reproducible, or can at least be made reproducible much more easily than if it requires some special manipulation by a human somewhere in the loop.
+-->
+

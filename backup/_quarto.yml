@@ -5,7 +5,8 @@ project:
 book:
   title: "Symbolic Modified Nodal Analysis<br>using Python"
   author: "Tiburonboy"
-  date: "6/03/2024"
+  date: "7/15/2024"
+  date-format: D MMMM YYYY
 
   chapters:
     - index.qmd

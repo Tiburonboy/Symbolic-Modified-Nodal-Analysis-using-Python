@@ -1,7 +1,5 @@
 :::{.callout-note}  
-- This book is a draft copy and only half baked.
-- Many sections are still under construction.
-- Only preliminary files have been posted to GitHub.
+- This book is a draft copy, many sections are still under construction.
 - Spelling and grammar checks have not been completed.
 - This book is posted for testing only. 
 :::    
@@ -16,7 +14,7 @@ Since differential equations are used to model capacitors and inductors, EE 101 
 
 The circuit analysis technique presented in this book analyzes electrical circuits in the frequency domain. The inductors and capacitors in the circuit are replaced by their transformed values. Inductors are replace by their steady state Laplace value, $sL$, where L is the value of the inductor with units of henrys (named after [Joseph Henery](https://en.wikipedia.org/wiki/Joseph_Henry)) and $s$ is the [Laplace](https://en.wikipedia.org/wiki/Laplace_transform) variable equal to $j \omega$ where $j$ is the [imaginary number](https://en.wikipedia.org/wiki/Imaginary_number) and $\omega$ is the radian frequency. Capacitors in the circuit are replace by their steady state Laplace value, $\frac {1}{sC}$ where C is the value of the capacitor with units in farads (named after [Micheal Faraday](https://en.wikipedia.org/wiki/Michael_Faraday)).
 
-There are 15 code validation test circuits along with a few project circuits. The chapters for each of the circuits can be referenced as examples of how to use my Python code to analyze electrical circuits.
+There are 15 code validation test circuits followed by example problems. The chapters for these circuits can be referenced as examples on how to use my Python code to analyze electrical circuits.
 
 <!--
 comment on the following which are typical 1st year circuit analysis topics
@@ -49,7 +47,7 @@ The following versions were used in this book.
 | [matplotlib](https://matplotlib.org/) | 3.7.0 |
 | [LTSpice](https://www.analog.com/en/design-center/design-tools-and-calculators/ltspice-simulator.html) | 17.1.8 |
 | [Quarto](https://quarto.org/) | 1.4.553 |
-: Python packages {#tbl-python-packages} {tbl-colwidths="[20,20]"}
+: Library versions {#tbl-python-packages} {tbl-colwidths="[20,20]"}
 
 The Jupyter notebooks are available from my GitHub repository. The results presented in this book should be reproducible if the libraries and modules have the same version numbers.
 
@@ -61,8 +59,8 @@ This book will be updated occasionally to fix typos, spelling and grammar mistak
 | 29 Dec 2023 | test version |
 | 26 Jan 2023 | various updates to draft |
 | 27 Apr 2024 | adding/removing example problems |
-| 1 May 2024 | rendering book with Quarto 1.4, 1st draft considered complete |
-| 3 Jun 2024 | incremental changes |
+| 1 May 2024 | rendering book with Quarto 1.4 |
+| Published date<br>show above | see @tbl-book-change-log |
 
 <!--
 ### Project ToDo List
@@ -101,10 +99,12 @@ After graduating from high school, my Dad asked me what I was going to study in 
 My first job after graduating from college was working as a civilian for the US Navy. For more than 40 years I have been designing electronic circuits for instrumentation and telemetry systems. I have five Patents and have published seven technical papers.
 
 ### License
-This work (includes python code, documentation, test circuits, etc.) is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.  
-Share — copy and redistribute the material in any medium or format  
-Adapt — remix, transform, and build upon the material for any purpose, even commercially.  
-https://creativecommons.org/licenses/by-sa/4.0/  
+This work (includes python code, documentation, test circuits, etc.) is licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/).  
+
+- Share — Copy and redistribute the material in any medium or format.  
+- Adapt — Remix, transform, and build upon the material for any purpose, even commercially.  
+- Attribution — You must give [appropriate credit](https://creativecommons.org/licenses/by-sa/4.0/#ref-appropriate-credit), provide a link to the license, and [indicate if changes were made](https://creativecommons.org/licenses/by-sa/4.0/#ref-indicate-changes). You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.  
+- ShareAlike — If you remix, transform, or build upon the material, you must distribute your contributions under the [same license](https://creativecommons.org/licenses/by-sa/4.0/#ref-same-license) as the original.  
 
 <img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" />
 

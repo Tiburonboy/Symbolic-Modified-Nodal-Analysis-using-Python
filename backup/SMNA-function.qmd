@@ -20,8 +20,8 @@ There is a limited amount of error checking performed. The number of items on ea
 The function takes one argument which is a text string that is the circuit’s netlist. The format of the netlist is very similar to the standard spice netlist and any of the required changes can be easily made with a text editor. The function returns six items.  
 
 1. report, a text string, which is the netlist report.
-2. df, a Pandas dataframe, which the circuit’s net list info loaded into a dataframe.
-3. df2, a Pandas dataframe, which contains the branches with unknown currents.
+2. df, a Pandas data frame, which the circuit’s net list info loaded into a data frame.
+3. df2, a Pandas data frame, which contains the branches with unknown currents.
 4. $A$, a SymPy matrix, which is (m+n) by (m+n) and is the combination of 4 smaller matrices, G, B, C, and D. These matrices were described in Chapters 2 and 3.
 5. $X$, a list that holds the unknown node voltages and the currents through the independent voltage sources.
 6. $Z$, a list that holds the independent voltage and current sources
@@ -72,7 +72,7 @@ L1 2 3 0.152
 print(net_list)
 ```
 
-Calling the function to generate MNA matricies:
+Calling the function to generate MNA matrices:
 
 ```{python}
 #| echo: true
@@ -90,7 +90,7 @@ The netlist information is put into a Pandas data frame. The column definitions 
 
 - element: type of element  
 - p node: positive node  
-- n node: negative node, for a current source, the arrow point terminal, LTspice puts the inductor phasing dot on this terminal  
+- n node: negative node, for a current source, the arrow point terminal, LTSpice puts the inductor phasing dot on this terminal  
 - cp node: controlling positive node of branch  
 - cn node: controlling negative node of branch  
 - Vout: opamp output node  
@@ -141,7 +141,15 @@ The $A$, $X$ and $Z$ matrices can be formulated in to network equations by the S
 ```{python}
 #| echo: true
 equ = Eq(A*X,Z)
-equ
+
+# reform X and Z into Matrix type for printing
+Xp = Matrix(X)
+Zp = Matrix(Z)
+temp = ''
+for i in range(len(X)):
+    temp += '${:s}$<br>'.format(latex(Eq((A*Xp)[i:i+1][0],Zp[i])))
+
+Markdown(temp)
 ```
 
 The symbols used for the network elements, node voltages, unknown currents and mutual inductance need to be created as SymPy symbols and be included in the global namespace.
@@ -152,7 +160,7 @@ The symbols used for the network elements, node voltages, unknown currents and m
 var(str(equ.free_symbols).replace('{','').replace('}',''))
 ```
 
-The symbolic solution is obtained by call calling the SymPy function solve, which algebraically solves equations and systems of equations.
+The symbolic solution is obtained by calling the SymPy function solve, which algebraically solves equations and systems of equations.
 
 ```{python}
 #| echo: true
@@ -224,18 +232,23 @@ The numerical values for the elements can be put into equations.
 
 ```{python}
 #| echo: false
-equ_values = equ.subs(element_values)
-equ_values
+NE = equ.subs(element_values)
+
+temp = ''
+for i in range(shape(NE.lhs)[0]):
+    temp += '${:s} = {:s}$<br>'.format(latex(NE.rhs[i]),latex(NE.lhs[i]))
+
+Markdown(temp)
 ```
 
 The network equations with actual values can then be solved by using SymPy’s solve function.
 
 ```{python}
 #| echo: false
-U = solve(equ_values,X)
+U = solve(NE,X)
 ```
 
-The solution equations:
+The solution to the network equations is:
 
 ```{python}
 #| echo: false
@@ -304,15 +317,20 @@ freq_Hz = 10 #Hz
 w = 2*np.pi*freq_Hz # radian frequency
 
 element_values[V1] = new_V1
-equ_Nw = equ.subs(element_values)
-equ_Nw = equ_Nw.subs({s:1j*w})
-equ_Nw  # display the equations
+NE_Nw = equ.subs(element_values)
+NE_Nw = NE_Nw.subs({s:1j*w})
+
+temp = ''
+for i in range(shape(NE_Nw.lhs)[0]):
+    temp += '${:s} = {:s}$<br>'.format(latex(NE_Nw.rhs[i]),latex(NE_Nw.lhs[i]))
+
+Markdown(temp)
 ```
 
 Again, we can use the SymPy function, solve, to get a solution for $V_1 = 10 sin(2 \pi 10 t + 30)$ and print the unknown voltages and currents.
 ```{python}
 #| echo: true
-U_Nw = solve(equ_Nw,X)
+U_Nw = solve(NE_Nw,X)
 
 table_header = ['unknown', 'mag','phase, deg']
 table_row = []

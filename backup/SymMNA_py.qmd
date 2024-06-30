@@ -5,8 +5,8 @@ format:
     code-fold: false
 jupyter: python3
 ---
-# SymMNA.py {#sec-SymMNA_py} 
-The code listing below is for the Python functions that implement the MNA algorithum.
+# SymMNA.py {#sec-SymMNA_py}  
+The code listing below is for the Python functions that implement the MNA algorithm.
 
 ```python
 {{< include SymMNA.py >}}

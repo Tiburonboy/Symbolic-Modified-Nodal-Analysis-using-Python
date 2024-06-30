@@ -1,15 +1,15 @@
 """Symbolic modified nodal analysis
-Last update: 30 Jan 2024
+Last update: 29 Jun 2024
 
 Description:
 The modified nodal analysis provides an algorithmic method for generating systems of independent equations for linear 
 circuit analysis.
 
 My code started initially by following Erik Cheever's Analysis of Resistive Circuits [1], which used Matlab code 
-to generate modified nodal equations. I somewhat followed his MATLAB file for resistors, capacitors, opamps and independent sources. 
+to generate modified nodal equations. I somewhat followed his MATLAB file for resistors, capacitors, Op Amps and independent sources. 
 The naming of the matrices follows his convention. The preprocessor and parser code was converted from my old C code. 
-The use of pandas for a data frame is new and sympy is used to do the math and the use of element 
-stamps is from [2].
+The use of pandas for a data frame is new and SymPy is used to do the math and the use of element 
+stamps are from [2].
 
 Inductors are being addressed in the D matrix. Erik's code puts inductors into the G matrix as 1/s/L.  
 My code puts the inductor contribution into the D matrix and the unknown current from the inductor into 
@@ -18,9 +18,13 @@ to be in the D matrix rather than the G matrix.
 
 References:
 1. [Analysis of  Resistive Circuits](http://www.swarthmore.edu/NatSci/echeeve1/Ref/mna/MNA1.html), retrieved October 6, 2017  
-2. [ECE 570 Session 3](http://www2.engr.arizona.edu/~ece570/session3.pdf), Computer Aided Engineering for Integrated Circuits, retreived November 13, 2023  
+2. [ECE 570 Session 3](http://www2.engr.arizona.edu/~ece570/session3.pdf), Computer Aided Engineering for Integrated Circuits, retrieved November 13, 2023  
 
-Usage:  See SMNA_func_test.py
+References use in the debugging of the Op Amp stamp:   
+3. [Design of Analog Circuits Through Symbolic Analysis](https://www.researchgate.net/publication/230617925_Design_of_Analog_Circuits_through_Symbolic_Analysis) edited by Mourad Fakhfakh, Esteban Tlelo-Cuautle, Francisco V. Fernandez, retrieved June29, 2024 
+4. [Computer Aided Design and Design Automation](https://www.gbv.de/dms/ilmenau/toc/585302871.PDF), edited by Wai-Kai Chen, retrieved June 29, 2024
+
+Example usage:  See SMNA_func_test.py
 """
 
 from sympy import *
@@ -67,12 +71,12 @@ def smna(net_list):
             circuit net list info loaded into a dataframe
     df2: pandas dataframe
             branches with unknown currents
-    A: sympy matrix
+    A: SymPy matrix
             The A matrix is (m+n) by (m+n) and is the combination of 4 smaller matrices, G, B, C, and D.
             The G matrix is n by n, where n is the number of nodes. The matrix is formed by the interconnections
             between the resistors, capacitors and VCCS type elements. In the original paper G is called Yr, 
             where Yr is a reduced form of the nodal matrix excluding the contributions due to voltage 
-            sources, current controlling elements, etc. In python row and columns are: G[row, column]
+            sources, current controlling elements, etc. In Python row and columns are: G[row, column]
             The B matrix is an n by m matrix with only 0, 1 and -1 elements, where n = number of nodes
             and m is the number of current unknowns, i_unk. There is one column for each unknown current.
             The code loop through all the branches and process elements that have stamps for the B matrix: 
@@ -101,7 +105,7 @@ def smna(net_list):
     num_v = 0    # number of independent voltage sources
     num_i = 0    # number of independent current sources
     i_unk = 0  # number of current unknowns
-    num_opamps = 0   # number of op amps
+    num_opamps = 0   # number of Op Amps
     num_vcvs = 0     # number of controlled sources of various types
     num_vccs = 0
     num_cccs = 0
@@ -199,11 +203,11 @@ def smna(net_list):
      data frame labels:
      - element: type of element  
      - p node: positive node  
-     - n node: negative node, for a current source, the arrow point terminal, LTspice 
+     - n node: negative node, for a current source, the arrow point terminal, LTSpice 
      puts the inductor phasing dot on this terminal  
      - cp node: controlling positive node of branch  
      - cn node: controlling negative node of branch  
-     - Vout: opamp output node  
+     - Vout: Op Amp output node  
      - value: value of element or voltage  
      - Vname: voltage source through which the controlling current flows. Need to 
      add a zero volt voltage source to the controlling branch.  
@@ -347,7 +351,7 @@ def smna(net_list):
     Solution - The following block of code was added to move voltage source types to the 
     beginning of the net list dataframe before any calculations are performed.''' 
 
-    # Check for position of voltages sources in the dataframe.
+    # Check for position of voltage sources in the dataframe.
     source_index = [] # keep track of voltage source row number
     other_index = [] # make a list of all other types
     for i in range(len(df)):
@@ -358,7 +362,7 @@ def smna(net_list):
         else:
             other_index.append(i)
 
-    df = df.reindex(source_index+other_index,copy=True) # re-order the data frame
+    df = df.reindex(source_index+other_index,copy=True) # reorder the data frame
     df.reset_index(drop=True, inplace=True) # renumber the index
 
     # count number of nodes
@@ -389,7 +393,7 @@ def smna(net_list):
     report = report+'number of inductors: {:d}\n'.format(num_ind)
     report = report+'number of independent voltage sources: {:d}\n'.format(num_v)
     report = report+'number of independent current sources: {:d}\n'.format(num_i)
-    report = report+'number of op amps: {:d}\n'.format(num_opamps)
+    report = report+'number of Op Amps: {:d}\n'.format(num_opamps)
     report = report+'number of E - VCVS: {:d}\n'.format(num_vcvs)
     report = report+'number of G - VCCS: {:d}\n'.format(num_vccs)
     report = report+'number of F - CCCS: {:d}\n'.format(num_cccs)
@@ -419,7 +423,7 @@ def smna(net_list):
     The matrix is formed by the interconnections between the resistors, 
     capacitors and VCCS type elements.  In the original paper G is called Yr, 
     where Yr is a reduced form of the nodal matrix excluding the contributions 
-    due to voltage sources, current controlling elements, etc.  In python row 
+    due to voltage sources, current controlling elements, etc.  In Python row 
     and columns are: G[row, column]'''
     for i in range(len(df)):  # process each row in the data frame
         n1 = df.loc[i,'p node']
@@ -470,7 +474,7 @@ def smna(net_list):
     one column for each unknown current. The code loop through all the branches 
     and process elements that have stamps for the B matrix:  
      - Voltage sources (V)  
-     - Opamps (O)  
+     - Op Amps (O)  
      - CCVS (H)  
      - CCCS (F)  
      - VCVS (E)  
@@ -483,7 +487,7 @@ def smna(net_list):
     for i in range(len(df)):
         n1 = df.loc[i,'p node']
         n2 = df.loc[i,'n node']
-        n_vout = df.loc[i,'Vout'] # node connected to op amp output
+        n_vout = df.loc[i,'Vout'] # node connected to Op Amp output
 
         # process elements with input to B matrix
         x = df.loc[i,'element'][0]   #get 1st letter of element name
@@ -499,7 +503,7 @@ def smna(net_list):
                 if n2 != 0:
                     B[n2-1] = -1
             sn += 1   #increment source count
-        if x == 'O':  # op amp type, output connection of the opamp goes in the B matrix
+        if x == 'O':  # Op Amp type, output connection of the Op Amp goes in the B matrix
             B[n_vout-1,sn] = 1
             sn += 1   # increment source count
         if (x == 'H') or (x == 'F'):  # H: ccvs, F: cccs,
@@ -556,16 +560,12 @@ def smna(net_list):
      - Inductors (L)  
 
      Op Amp elements
-     The op amp element is assumed to be an ideal op amp and use of this component is valid only when 
+     The Op Amp element is assumed to be an ideal Op Amp and use of this component is valid only when 
      used in circuits with a DC path (a short or a resistor) from the output terminal to the negative 
-     input terminal of the op amp. No error checking is provided and if the condition is violated, 
-     the results likely will be erroneous.   
+     input terminal of the Op Amp. No error checking is provided and if the condition is violated, 
+     the results likely will be erroneous. See [3][4].   
 
-     References use in the debugging of the opamp stamp:   
-     1. Design of Analog Circuits Through Symbolic Analysis, edited by Mourad Fakhfakh, Esteban Tlelo-Cuautle, Francisco V. Fernández   
-     2. Computer Aided Design and Design Automation, edited by Wai-Kai Chen  
-
-     find the the column position in the C and D matrix for controlled sources
+     Find the the column position in the C and D matrix for controlled sources
      needs to return the node numbers and branch number of controlling branch'''
     def find_vname(name):
         # need to walk through data frame and find these parameters
@@ -585,7 +585,7 @@ def smna(net_list):
         n2 = df.loc[i,'n node']
         cn1 = df.loc[i,'cp node'] # nodes for controlled sources
         cn2 = df.loc[i,'cn node']
-        n_vout = df.loc[i,'Vout'] # node connected to op amp output
+        n_vout = df.loc[i,'Vout'] # node connected to Op Amp output
 
         # process elements with input to B matrix
         x = df.loc[i,'element'][0]   #get 1st letter of element name
@@ -602,7 +602,7 @@ def smna(net_list):
                     C[n2-1] = -1
             sn += 1   #increment source count
 
-        if x == 'O':  # op amp type, input connections of the opamp go into the C matrix
+        if x == 'O':  # Op Amp type, input connections of the opamp go into the C matrix
             # C[sn,n_vout-1] = 1
             if i_unk > 1:  #is B greater than 1 by n?, O
                 # check to see if any terminal is grounded
@@ -683,8 +683,8 @@ def smna(net_list):
     Coupled inductors notes:  
     Can the K statement be anywhere in the net list, even before Lx and Ly?   
     12/6/2017 doing some debugging on with coupled inductors  
-    LTspice seems to put the phasing dot on the neg node when it generates the netlist   
-    This code uses M for mutual inductance, LTspice uses k for the coupling coefficient.'''  
+    LTSpice seems to put the phasing dot on the neg node when it generates the netlist   
+    This code uses M for mutual inductance, LTSpice uses k for the coupling coefficient.'''  
 
     # generate the D Matrix
     sn = 0   # count source number as code walks through the data frame
@@ -693,7 +693,7 @@ def smna(net_list):
         n2 = df.loc[i,'n node']
         #cn1 = df.loc[i,'cp node'] # nodes for controlled sources
         #cn2 = df.loc[i,'cn node']
-        #n_vout = df.loc[i,'Vout'] # node connected to op amp output
+        #n_vout = df.loc[i,'Vout'] # node connected to Op Amp output
 
         # process elements with input to D matrix
         x = df.loc[i,'element'][0]   #get 1st letter of element name
@@ -779,14 +779,14 @@ def smna(net_list):
     number of independent voltage sources. The I matrix is n by 1 and contains the sum of the currents
     through the passive elements into the corresponding node (either zero, or the sum of independent
     current sources). The Ev matrix is m by 1 and holds the values of the independent voltage sources.'''
-    Z = I[:] + Ev[:]  # the + operator in python concatenates the lists
+    Z = I[:] + Ev[:]  # the + operator in Python concatenates the lists
 
 
     ''' The X matrix is an (n+m) by 1 vector that holds the unknown quantities (node voltages and the currents through
     the independent voltage sources). The top n elements are the n node voltages. The bottom m elements represent the
     currents through the m independent voltage sources in the circuit. The V matrix is n by 1 and holds the unknown voltages.
     The J matrix is m by 1 and holds the unknown currents through the voltage sources '''
-    X = V[:] + J[:]  # the + operator in python concatenates the lists
+    X = V[:] + J[:]  # the + operator in Python concatenates the lists
 
     # The A matrix is (m+n) by (m+n) and will be developed as the combination of 4 smaller matrices, G, B, C, and D.
     n = num_nodes
