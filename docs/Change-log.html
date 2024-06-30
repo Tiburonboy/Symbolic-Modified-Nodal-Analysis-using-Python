@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.537">
+<meta name="generator" content="quarto-1.4.553">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -492,7 +492,7 @@ Table&nbsp;B.1: Code change log
 </tr>
 <tr class="odd">
 <td>8/19/2017</td>
-<td>Wrote some code to generate symbolic matrices, works ok, so heading down the sympy path. Basic debugging finished, but still need to verify some circuits using Ls and Cs.</td>
+<td>Wrote some code to generate symbolic matrices, works OK, so heading down the SymPy path. Basic debugging finished, but I still need to verify some circuits using Ls and Cs.</td>
 </tr>
 <tr class="even">
 <td>8/30/2017</td>
@@ -504,15 +504,15 @@ Table&nbsp;B.1: Code change log
 </tr>
 <tr class="even">
 <td>9/3/2017</td>
-<td>Added code to remove spice directives. Fixed orientation of current sources in I matrix. N2 is the arrow end of the current source.</td>
+<td>Added code to remove SPICE directives. Fixed orientation of current sources in the I matrix. N2 is the arrow end of the current source.</td>
 </tr>
 <tr class="odd">
 <td>9/5/2017</td>
-<td>After doing some verification testing with inductors and capacitors, it seems that inductors are not being treated correctly. According to some research, inductor stamp affects the B,C and D arrays. Erik Cheever’s code puts inductors into the G matrix as 1/s/L. LTspice results are different than the python code. Capacitors seem to work OK. Plan is to add controlled sources, then get inductors working.</td>
+<td>After doing some verification testing with inductors and capacitors, it seems that inductors are not being treated correctly. According to some research, inductor stamps affect the B,C and D arrays. Erik Cheever’s code puts inductors into the G matrix as 1/s/L. LTSpice results are different from the Python code. Capacitors seem to work OK. Plan is to add controlled sources, then get inductors working.</td>
 </tr>
 <tr class="even">
 <td>9/6/2017</td>
-<td>opamp_test_circuit_426 is not working. Results not the same as LTspice Chebyshev_LPF_1dB_4pole: cut off frequency not correct, other features look OK still need to debug opamps and inductors Adding: VCCS = G type branch element: G needs to be modified CCVS = H type branch element: B, C and D need to be modified</td>
+<td>opamp_test_circuit_426 is not working. Results not the same as LTSpice Chebyshev_LPF_1dB_4pole: cut off frequency not correct, other features look OK still need to debug Op Amps and inductors Adding: VCCS = G type branch element: G needs to be modified CCVS = H type branch element: B, C and D need to be modified</td>
 </tr>
 <tr class="odd">
 <td>9/10/2017</td>
@@ -524,11 +524,11 @@ Table&nbsp;B.1: Code change log
 </tr>
 <tr class="odd">
 <td>9/18/2017</td>
-<td>still debugging B matrix, looks like we don’t need find_vname() or df2. This is because a zero volt voltage source is add to the netlist in spice. need to add cccs type to the list of i_unk. Filled out some B matrices by hand and got the same answer as the code.</td>
+<td>still debugging B matrix, looks like we don’t need find_vname() or df2. This is because a zero volt voltage source is added to the netlist in SPICE. need to add CCCS type to the list of i_unk. Filled out some B matrices by hand and got the same answer as the code.</td>
 </tr>
 <tr class="even">
 <td>9/30/2017</td>
-<td>debugging B, C &amp; D matrices<br>vcvs is a E type element and sympy didn’t like it, fixed problem in parser by changing the lable E to Ea. Also changed the E matrix name to Ev. Code seems to run, just need to verify it. Need to find a new name for func1.</td>
+<td>debugging B, C &amp; D matrices<br>VCVS is a E type element and SymPy didn’t like it, but fixed the problem in parser by changing the label E to Ea. Also changed the E matrix name to Ev. Code seems to run, just need to verify it. Need to find a new name for func1.</td>
 </tr>
 <tr class="odd">
 <td>10/1/2017</td>
@@ -536,11 +536,11 @@ Table&nbsp;B.1: Code change log
 </tr>
 <tr class="even">
 <td>10/4/2017</td>
-<td>Fixed incrementing of sn in D matrix. D matrix needs to count all i_unks. In find_vnam() fixed col_num to return just the row number in df2.</td>
+<td>Fixed incrementing of sn in D matrix. The D matrix needs to count all i_unks. In find_vnam() fixed col_num to return just the row number in df2.</td>
 </tr>
 <tr class="odd">
 <td>10/5/2017</td>
-<td>Fixed E type in matrix C. Added cccs to i_unk count. Fixed E type in D. Fixed J matrix. need to look at the equations next, they don’t look correct.</td>
+<td>Fixed E type in matrix C. Added CCCS to i_unk count. Fixed E type in D. Fixed J matrix. I need to look at the equations next, they don’t look correct.</td>
 </tr>
 <tr class="even">
 <td>10/7/2017</td>
@@ -556,7 +556,7 @@ Table&nbsp;B.1: Code change log
 </tr>
 <tr class="odd">
 <td>11/30/2017</td>
-<td>Fixing C matrix for op amps, one test case ran OK<br><span class="citation" data-cites="Chen2018">Chen (<a href="References.html#ref-Chen2018" role="doc-biblioref">2018</a>)</span> and <span class="citation" data-cites="Fakhfakh2012">Fakhfakh, Tlelo-Cuautle, and Fernandez (<a href="References.html#ref-Fakhfakh2012" role="doc-biblioref">2012</a>)</span> were consulted during the debugging of the opamp stamp.</td>
+<td>Fixing the C matrix for op amps, one test case ran OK<br><span class="citation" data-cites="Chen2018">Chen (<a href="References.html#ref-Chen2018" role="doc-biblioref">2018</a>)</span> and <span class="citation" data-cites="Fakhfakh2012">Fakhfakh, Tlelo-Cuautle, and Fernandez (<a href="References.html#ref-Fakhfakh2012" role="doc-biblioref">2012</a>)</span> were consulted during the debugging of the opamp stamp.</td>
 </tr>
 <tr class="even">
 <td>12/2/2017</td>
@@ -568,11 +568,11 @@ Table&nbsp;B.1: Code change log
 </tr>
 <tr class="even">
 <td>18 Feb 2022</td>
-<td>Noticed a bug when independent voltage source is last line in net list, moving to 1st line in netlist generated what seems like correct equations. Investigation continues. For now, ordering the net list with sources first seems to work. Problem is with generation of the Ev and J matrices. In this version, I corrected some grammer and spelling errors.</td>
+<td>Noticed a bug when the independent voltage source is the last line in the netlist, moving to the 1st line in the netlist generates what seems like correct equations. Investigation continues. For now, ordering the net list with sources first seems to work. Problem is with generation of the Ev and J matrices. In this version, I corrected some grammar and spelling errors.</td>
 </tr>
 <tr class="odd">
 <td>11/14/2023</td>
-<td>New version of Sympy does not support non-Expr objects in a Matrix. Code to generate the circuit equations towards the end of the notebook produced an error. This line generated the error: <span class="math inline">\(equ[i] = Eq(eq\_temp,Z[i])\)</span>. See the note <a href="https://docs.sympy.org/latest/explanation/active-deprecations.html#deprecated-non-expr-in-matrix">here</a> for details. In SymPy 1.8 and earlier versions it was possible to put non-Expr elements in a Matrix and the matrix elements could be any arbitrary Python object. Corrections have been made in this notebook. At the time of dubugging this issue, I’m running sympy.__version__ = ‘1.11.1’</td>
+<td>New version of SymPy does not support non-Expr objects in a Matrix. Code to generate the circuit equations towards the end of the notebook produced an error. This line generated the error: <span class="math inline">\(equ[i] = Eq(eq\_temp,Z[i])\)</span>. See the note <a href="https://docs.sympy.org/latest/explanation/active-deprecations.html#deprecated-non-expr-in-matrix">here</a> for details. In SymPy 1.8 and earlier versions it was possible to put non-Expr elements in a Matrix and the matrix elements could be any arbitrary Python object. Corrections have been made in this notebook. At the time of debugging this issue, I’m running sympy.__version__ = ‘1.11.1’</td>
 </tr>
 <tr class="even">
 <td>29 Nov 2023</td>
@@ -584,7 +584,7 @@ Table&nbsp;B.1: Code change log
 </tr>
 <tr class="even">
 <td>1/16/2024</td>
-<td>created a function to implement smna, replaced warning print statements with raise Exception()</td>
+<td>created a function to implement SMNA, replaced warning print statements with raise Exception()</td>
 </tr>
 </tbody>
 </table>
@@ -616,11 +616,11 @@ Table&nbsp;B.2: Book project change log
 </tr>
 <tr class="even">
 <td>12/1/2023</td>
-<td>Around this time, posting numerious test/draft versions to github pages</td>
+<td>Around this time, posting numerous test/draft versions to GitHub pages</td>
 </tr>
 <tr class="odd">
 <td>5/1/2024</td>
-<td>Added chapter on mechanical system analoge</td>
+<td>Added chapter on mechanical system analog</td>
 </tr>
 <tr class="even">
 <td>5/15/2024</td>
@@ -629,6 +629,10 @@ Table&nbsp;B.2: Book project change log
 <tr class="odd">
 <td>6/03/2024</td>
 <td>Incremental updates</td>
+</tr>
+<tr class="even">
+<td>6/30/2024</td>
+<td>SMNA_example - correcting spelling, grammar and updating comments.<br>SymMNA - correcting spelling, grammar and updating comments.<br>Introduction - added example circuit and schematic.<br>references.bib - added url to two references.<br>2nd_order_BRF - rewrite, now calling the smna function.<br>Two Amplifier RIAA Pre-amp - correcting spelling, grammar and updating comments.<br>Various chapters - displaying network equations using LaTex vs.&nbsp;printing a SymPy matrix.</td>
 </tr>
 </tbody>
 </table>
@@ -639,10 +643,10 @@ Table&nbsp;B.2: Book project change log
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
 <div id="ref-Chen2018" class="csl-entry" role="listitem">
-Chen, W. 2018. <em>Computer Aided Design and Design Automation</em>. The Circuits and Filters Handbook, 3rd Edition. CRC Press.
+Chen, W. 2018. <em>Computer Aided Design and Design Automation</em>. The Circuits and Filters Handbook, 3rd Edition. CRC Press. <a href="https://www.gbv.de/dms/ilmenau/toc/585302871.PDF">https://www.gbv.de/dms/ilmenau/toc/585302871.PDF</a>.
 </div>
 <div id="ref-Fakhfakh2012" class="csl-entry" role="listitem">
-Fakhfakh, M., E. Tlelo-Cuautle, and F. Fernandez. 2012. <em>Design of Analog Circuits Through Symbolic Analysis</em>.
+Fakhfakh, M., E. Tlelo-Cuautle, and F. Fernandez. 2012. <em>Design of Analog Circuits Through Symbolic Analysis</em>. <a href="https://www.researchgate.net/publication/230617925_Design_of_Analog_Circuits_through_Symbolic_Analysis">https://www.researchgate.net/publication/230617925_Design_of_Analog_Circuits_through_Symbolic_Analysis</a>.
 </div>
 </div>
 
@@ -726,6 +730,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -760,7 +782,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -808,7 +834,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      return note.innerHTML;
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
     }
   }
   for (var i=0; i<xrefs.length; i++) {
@@ -1031,7 +1062,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./SymMNA_py.html" class="pagination-link  aria-label=" &lt;span="">
+      <a href="./SymMNA_py.html" class="pagination-link" aria-label="SymMNA.py">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">SymMNA.py</span></span>
       </a>          
   </div>

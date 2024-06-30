@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.537">
+<meta name="generator" content="quarto-1.4.553">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -470,7 +470,7 @@ window.Quarto = {
   <li><a href="#known-voltages-and-currents" id="toc-known-voltages-and-currents" class="nav-link" data-scroll-target="#known-voltages-and-currents"><span class="header-section-number">17.2.4</span> Known voltages and currents</a></li>
   <li><a href="#network-dataframe" id="toc-network-dataframe" class="nav-link" data-scroll-target="#network-dataframe"><span class="header-section-number">17.2.5</span> Network dataframe</a></li>
   <li><a href="#unknown-current-dataframe" id="toc-unknown-current-dataframe" class="nav-link" data-scroll-target="#unknown-current-dataframe"><span class="header-section-number">17.2.6</span> Unknown current dataframe</a></li>
-  <li><a href="#build-the-network-equation-matrix" id="toc-build-the-network-equation-matrix" class="nav-link" data-scroll-target="#build-the-network-equation-matrix"><span class="header-section-number">17.2.7</span> Build the network equation matrix</a></li>
+  <li><a href="#build-the-network-equations" id="toc-build-the-network-equations" class="nav-link" data-scroll-target="#build-the-network-equations"><span class="header-section-number">17.2.7</span> Build the network equations</a></li>
   </ul></li>
   <li><a href="#symbolic-solution" id="toc-symbolic-solution" class="nav-link" data-scroll-target="#symbolic-solution"><span class="header-section-number">17.3</span> Symbolic solution</a></li>
   <li><a href="#construct-a-dictionary-of-element-values" id="toc-construct-a-dictionary-of-element-values" class="nav-link" data-scroll-target="#construct-a-dictionary-of-element-values"><span class="header-section-number">17.4</span> Construct a dictionary of element values</a></li>
@@ -589,7 +589,7 @@ number of RLC (passive components): 5
 number of inductors: 4
 number of independent voltage sources: 0
 number of independent current sources: 4
-number of op amps: 0
+number of Op Amps: 0
 number of E - VCVS: 0
 number of G - VCCS: 0
 number of F - CCCS: 0
@@ -631,6 +631,7 @@ number of K - Coupled inductors: 0
 <div id="cell-18" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>network_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
+<div>
 <div>
 
 
@@ -774,12 +775,14 @@ number of K - Coupled inductors: 0
 </div>
 </div>
 </div>
+</div>
 </section>
 <section id="unknown-current-dataframe" class="level3" data-number="17.2.6">
 <h3 data-number="17.2.6" class="anchored" data-anchor-id="unknown-current-dataframe"><span class="header-section-number">17.2.6</span> Unknown current dataframe</h3>
 <div id="cell-20" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>i_unk_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
+<div>
 <div>
 
 
@@ -823,36 +826,33 @@ number of K - Coupled inductors: 0
 </div>
 </div>
 </div>
+</div>
 </section>
-<section id="build-the-network-equation-matrix" class="level3" data-number="17.2.7">
-<h3 data-number="17.2.7" class="anchored" data-anchor-id="build-the-network-equation-matrix"><span class="header-section-number">17.2.7</span> Build the network equation matrix</h3>
+<section id="build-the-network-equations" class="level3" data-number="17.2.7">
+<h3 data-number="17.2.7" class="anchored" data-anchor-id="build-the-network-equations"><span class="header-section-number">17.2.7</span> Build the network equations</h3>
 <div id="cell-22" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Put matrices into SymPy </span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> Matrix(X)</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>Z <span class="op">=</span> Matrix(Z)</span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>NE_sym <span class="op">=</span> Eq(A<span class="op">*</span>X,Z)</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>NE_sym</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="11">
-<p><span class="math inline">\(\displaystyle \left[\begin{matrix}- I_{L3} + I_{L4}\\I_{L1} + I_{L3}\\- I_{L2} + \frac{v_{3}}{R_{1}} - \frac{v_{4}}{R_{1}}\\- I_{L1} - \frac{v_{3}}{R_{1}} + \frac{v_{4}}{R_{1}}\\- I_{L1} L_{1} s + v_{2} - v_{4}\\- I_{L2} L_{2} s - v_{3}\\- I_{L3} L_{3} s - v_{1} + v_{2}\\- I_{L4} L_{4} s + v_{1}\end{matrix}\right] = \left[\begin{matrix}- I_{1} + I_{2}\\I_{1} - I_{4}\\- I_{3} + I_{4}\\0\\0\\0\\0\\0\end{matrix}\right]\)</span></p>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>NE_sym <span class="op">=</span> Eq(A<span class="op">*</span>X,Z)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-<div id="cell-23" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># turn the free symbols into SymPy variables</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>var(<span class="bu">str</span>(NE_sym.free_symbols).replace(<span class="st">'{'</span>,<span class="st">''</span>).replace(<span class="st">'}'</span>,<span class="st">''</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Turn the free symbols into SymPy variables.</p>
+<div id="cell-24" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>var(<span class="bu">str</span>(NE_sym.free_symbols).replace(<span class="st">'{'</span>,<span class="st">''</span>).replace(<span class="st">'}'</span>,<span class="st">''</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="12">
-<p><span class="math inline">\(\displaystyle \left( I_{L3}, \  v_{2}, \  R_{1}, \  I_{L4}, \  L_{4}, \  I_{L2}, \  L_{2}, \  I_{1}, \  I_{L1}, \  v_{3}, \  L_{1}, \  I_{2}, \  L_{3}, \  I_{4}, \  s, \  I_{3}, \  v_{1}, \  v_{4}\right)\)</span></p>
+<p><span class="math inline">\(\displaystyle \left( I_{L4}, \  I_{L1}, \  L_{3}, \  L_{2}, \  v_{1}, \  L_{1}, \  I_{1}, \  I_{L3}, \  v_{3}, \  R_{1}, \  v_{2}, \  L_{4}, \  I_{2}, \  s, \  I_{3}, \  I_{4}, \  I_{L2}, \  v_{4}\right)\)</span></p>
 </div>
 </div>
 </section>
 </section>
 <section id="symbolic-solution" class="level2" data-number="17.3">
 <h2 data-number="17.3" class="anchored" data-anchor-id="symbolic-solution"><span class="header-section-number">17.3</span> Symbolic solution</h2>
-<div id="cell-25" class="cell" data-execution_count="13">
+<div id="cell-26" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>U_sym <span class="op">=</span> solve(NE_sym,X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Display the symbolic solution</p>
-<div id="cell-27" class="cell" data-execution_count="14">
+<div id="cell-28" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> U_sym.keys():</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st"> = </span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(i),latex(U_sym[i]))</span>
@@ -865,7 +865,7 @@ number of K - Coupled inductors: 0
 </section>
 <section id="construct-a-dictionary-of-element-values" class="level2" data-number="17.4">
 <h2 data-number="17.4" class="anchored" data-anchor-id="construct-a-dictionary-of-element-values"><span class="header-section-number">17.4</span> Construct a dictionary of element values</h2>
-<div id="cell-29" class="cell" data-execution_count="15">
+<div id="cell-30" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>element_values <span class="op">=</span> SymMNA.get_part_values(network_df)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># display the component values</span></span>
@@ -886,45 +886,35 @@ I4 = 3.0</code></pre>
 </section>
 <section id="dc-operating-point" class="level2" data-number="17.5">
 <h2 data-number="17.5" class="anchored" data-anchor-id="dc-operating-point"><span class="header-section-number">17.5</span> DC operating point</h2>
-<div id="cell-31" class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>NE_sym</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="16">
-<p><span class="math inline">\(\displaystyle \left[\begin{matrix}- I_{L3} + I_{L4}\\I_{L1} + I_{L3}\\- I_{L2} + \frac{v_{3}}{R_{1}} - \frac{v_{4}}{R_{1}}\\- I_{L1} - \frac{v_{3}}{R_{1}} + \frac{v_{4}}{R_{1}}\\- I_{L1} L_{1} s + v_{2} - v_{4}\\- I_{L2} L_{2} s - v_{3}\\- I_{L3} L_{3} s - v_{1} + v_{2}\\- I_{L4} L_{4} s + v_{1}\end{matrix}\right] = \left[\begin{matrix}- I_{1} + I_{2}\\I_{1} - I_{4}\\- I_{3} + I_{4}\\0\\0\\0\\0\\0\end{matrix}\right]\)</span></p>
+<div id="cell-32" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>NE <span class="op">=</span> NE_sym.subs(element_values)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>NE_dc <span class="op">=</span> NE.subs({s:<span class="dv">0</span>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-<div id="cell-32" class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>NE <span class="op">=</span> NE_sym.subs(element_values)</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>NE_dc <span class="op">=</span> NE.subs({s:<span class="dv">0</span>})</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>NE_dc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Display the equations with numeric values.</p>
+<div id="cell-34" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(shape(NE_dc.lhs)[<span class="dv">0</span>]):</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st"> = </span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(NE_dc.rhs[i]),latex(NE_dc.lhs[i]))</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="17">
-<p><span class="math inline">\(\displaystyle \left[\begin{matrix}- I_{L3} + I_{L4}\\I_{L1} + I_{L3}\\- I_{L2} + 1.0 \cdot 10^{20} v_{3} - 1.0 \cdot 10^{20} v_{4}\\- I_{L1} - 1.0 \cdot 10^{20} v_{3} + 1.0 \cdot 10^{20} v_{4}\\v_{2} - v_{4}\\- v_{3}\\- v_{1} + v_{2}\\v_{1}\end{matrix}\right] = \left[\begin{matrix}-1.0\\-1.0\\-2.0\\0\\0\\0\\0\\0\end{matrix}\right]\)</span></p>
+<p><span class="math inline">\(-1.0 = - I_{L3} + I_{L4}\)</span><br><span class="math inline">\(-1.0 = I_{L1} + I_{L3}\)</span><br><span class="math inline">\(-2.0 = - I_{L2} + 1.0 \cdot 10^{20} v_{3} - 1.0 \cdot 10^{20} v_{4}\)</span><br><span class="math inline">\(0 = - I_{L1} - 1.0 \cdot 10^{20} v_{3} + 1.0 \cdot 10^{20} v_{4}\)</span><br><span class="math inline">\(0 = v_{2} - v_{4}\)</span><br><span class="math inline">\(0 = - v_{3}\)</span><br><span class="math inline">\(0 = - v_{1} + v_{2}\)</span><br><span class="math inline">\(0 = v_{1}\)</span><br></p>
 </div>
 </div>
-<div id="cell-33" class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>NE</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="18">
-<p><span class="math inline">\(\displaystyle \left[\begin{matrix}- I_{L3} + I_{L4}\\I_{L1} + I_{L3}\\- I_{L2} + 1.0 \cdot 10^{20} v_{3} - 1.0 \cdot 10^{20} v_{4}\\- I_{L1} - 1.0 \cdot 10^{20} v_{3} + 1.0 \cdot 10^{20} v_{4}\\- 5.0 I_{L1} s + v_{2} - v_{4}\\- 3.0 I_{L2} s - v_{3}\\- 1.0 I_{L3} s - v_{1} + v_{2}\\- 1.0 I_{L4} s + v_{1}\end{matrix}\right] = \left[\begin{matrix}-1.0\\-1.0\\-2.0\\0\\0\\0\\0\\0\end{matrix}\right]\)</span></p>
-</div>
-</div>
-<div id="cell-34" class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>U_dc <span class="op">=</span> solve(NE_dc,X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-35" class="cell" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>U_dc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="20">
-<p><span class="math inline">\(\displaystyle \left\{ I_{L1} : 0.0, \  I_{L2} : 2.0, \  I_{L3} : -1.0, \  I_{L4} : -2.0, \  v_{1} : 0.0, \  v_{2} : 0.0, \  v_{3} : 0.0, \  v_{4} : 0.0\right\}\)</span></p>
-</div>
+<p>Solve for voltages and currents.</p>
+<div id="cell-36" class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>U_dc <span class="op">=</span> solve(NE_dc,X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Display the numerical solution</p>
 <p>Six significant digits are displayed so that results can be compared to LTSpice.</p>
-<div id="cell-37" class="cell" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>table_header <span class="op">=</span> [<span class="st">'unknown'</span>, <span class="st">'mag'</span>]</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>table_row <span class="op">=</span> []</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, value <span class="kw">in</span> U_dc.items():</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    table_row.append([<span class="bu">str</span>(name),<span class="bu">float</span>(value)])</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tabulate(table_row, headers<span class="op">=</span>table_header,colalign <span class="op">=</span> (<span class="st">'left'</span>,<span class="st">'decimal'</span>),tablefmt<span class="op">=</span><span class="st">"simple"</span>,floatfmt<span class="op">=</span>(<span class="st">'5s'</span>,<span class="st">'.6f'</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-38" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>table_header <span class="op">=</span> [<span class="st">'unknown'</span>, <span class="st">'mag'</span>]</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>table_row <span class="op">=</span> []</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, value <span class="kw">in</span> U_dc.items():</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    table_row.append([<span class="bu">str</span>(name),<span class="bu">float</span>(value)])</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tabulate(table_row, headers<span class="op">=</span>table_header,colalign <span class="op">=</span> (<span class="st">'left'</span>,<span class="st">'decimal'</span>),tablefmt<span class="op">=</span><span class="st">"simple"</span>,floatfmt<span class="op">=</span>(<span class="st">'5s'</span>,<span class="st">'.6f'</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>unknown          mag
 ---------  ---------
@@ -956,31 +946,39 @@ I(I4):   3   device_current
 <section id="ac-analysis" class="level3" data-number="17.5.1">
 <h3 data-number="17.5.1" class="anchored" data-anchor-id="ac-analysis"><span class="header-section-number">17.5.1</span> AC analysis</h3>
 <p>Solve equations for <span class="math inline">\(\omega\)</span> equal to 1 radian per second, s = 1j. V1 is the AC source, magnitude of 10</p>
-<div id="cell-40" class="cell" data-execution_count="22">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>element_values[I2] <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>element_values[I3] <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>element_values[I4] <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>NE <span class="op">=</span> NE_sym.subs(element_values)</span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>NE_w1 <span class="op">=</span> NE.subs({s:<span class="ot">1j</span>})</span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>NE_w1  <span class="co"># display the equations</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="22">
-<p><span class="math inline">\(\displaystyle \left[\begin{matrix}- I_{L3} + I_{L4}\\I_{L1} + I_{L3}\\- I_{L2} + 1.0 \cdot 10^{20} v_{3} - 1.0 \cdot 10^{20} v_{4}\\- I_{L1} - 1.0 \cdot 10^{20} v_{3} + 1.0 \cdot 10^{20} v_{4}\\- 5.0 i I_{L1} + v_{2} - v_{4}\\- 3.0 i I_{L2} - v_{3}\\- 1.0 i I_{L3} - v_{1} + v_{2}\\- 1.0 i I_{L4} + v_{1}\end{matrix}\right] = \left[\begin{matrix}-2.0\\2.0\\0\\0\\0\\0\\0\\0\end{matrix}\right]\)</span></p>
+<div id="cell-41" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>element_values[I2] <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>element_values[I3] <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>element_values[I4] <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>NE <span class="op">=</span> NE_sym.subs(element_values)</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>NE_w1 <span class="op">=</span> NE.subs({s:<span class="ot">1j</span>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Display the equations with numeric values.</p>
+<div id="cell-43" class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(shape(NE_w1.lhs)[<span class="dv">0</span>]):</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st"> = </span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(NE_w1.rhs[i]),latex(NE_w1.lhs[i]))</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="21">
+<p><span class="math inline">\(-2.0 = - I_{L3} + I_{L4}\)</span><br><span class="math inline">\(2.0 = I_{L1} + I_{L3}\)</span><br><span class="math inline">\(0 = - I_{L2} + 1.0 \cdot 10^{20} v_{3} - 1.0 \cdot 10^{20} v_{4}\)</span><br><span class="math inline">\(0 = - I_{L1} - 1.0 \cdot 10^{20} v_{3} + 1.0 \cdot 10^{20} v_{4}\)</span><br><span class="math inline">\(0 = - 5.0 i I_{L1} + v_{2} - v_{4}\)</span><br><span class="math inline">\(0 = - 3.0 i I_{L2} - v_{3}\)</span><br><span class="math inline">\(0 = - 1.0 i I_{L3} - v_{1} + v_{2}\)</span><br><span class="math inline">\(0 = - 1.0 i I_{L4} + v_{1}\)</span><br></p>
 </div>
 </div>
-<div id="cell-41" class="cell" data-execution_count="23">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>U_w1 <span class="op">=</span> solve(NE_w1,X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Solve for voltages and currents.</p>
+<div id="cell-45" class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>U_w1 <span class="op">=</span> solve(NE_w1,X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Display the numerical solution</p>
 <p>Six significant digits are displayed so that results can be compared to LTSpice.</p>
-<div id="cell-43" class="cell" data-execution_count="24">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>table_header <span class="op">=</span> [<span class="st">'unknown'</span>, <span class="st">'mag'</span>,<span class="st">'phase, deg'</span>]</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>table_row <span class="op">=</span> []</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, value <span class="kw">in</span> U_w1.items():</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    table_row.append([<span class="bu">str</span>(name),<span class="bu">float</span>(<span class="bu">abs</span>(value)),<span class="bu">float</span>(arg(value)<span class="op">*</span><span class="dv">180</span><span class="op">/</span>np.pi)])</span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tabulate(table_row, headers<span class="op">=</span>table_header,colalign <span class="op">=</span> (<span class="st">'left'</span>,<span class="st">'decimal'</span>,<span class="st">'decimal'</span>),tablefmt<span class="op">=</span><span class="st">"simple"</span>,floatfmt<span class="op">=</span>(<span class="st">'5s'</span>,<span class="st">'.6f'</span>,<span class="st">'.6f'</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-47" class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>table_header <span class="op">=</span> [<span class="st">'unknown'</span>, <span class="st">'mag'</span>,<span class="st">'phase, deg'</span>]</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>table_row <span class="op">=</span> []</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, value <span class="kw">in</span> U_w1.items():</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    table_row.append([<span class="bu">str</span>(name),<span class="bu">float</span>(<span class="bu">abs</span>(value)),<span class="bu">float</span>(arg(value)<span class="op">*</span><span class="dv">180</span><span class="op">/</span>np.pi)])</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tabulate(table_row, headers<span class="op">=</span>table_header,colalign <span class="op">=</span> (<span class="st">'left'</span>,<span class="st">'decimal'</span>,<span class="st">'decimal'</span>),tablefmt<span class="op">=</span><span class="st">"simple"</span>,floatfmt<span class="op">=</span>(<span class="st">'5s'</span>,<span class="st">'.6f'</span>,<span class="st">'.6f'</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>unknown         mag    phase, deg
 ---------  --------  ------------
@@ -1014,23 +1012,31 @@ I(I4):  mag:          0 phase:          0°  device_current
 <section id="ac-sweep" class="level3" data-number="17.5.2">
 <h3 data-number="17.5.2" class="anchored" data-anchor-id="ac-sweep"><span class="header-section-number">17.5.2</span> AC Sweep</h3>
 <p>Looking at node 21 voltage and comparing the results with those obtained from LTSpice. The frequency sweep is from 0.01 Hz to 1 Hz.</p>
-<div id="cell-45" class="cell" data-execution_count="25">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>NE <span class="op">=</span> NE_sym.subs(element_values)</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>NE</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-49" class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>NE <span class="op">=</span> NE_sym.subs(element_values)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Display the equations with numeric values.</p>
+<div id="cell-51" class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(shape(NE.lhs)[<span class="dv">0</span>]):</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st"> = </span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(NE.rhs[i]),latex(NE.lhs[i]))</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="25">
-<p><span class="math inline">\(\displaystyle \left[\begin{matrix}- I_{L3} + I_{L4}\\I_{L1} + I_{L3}\\- I_{L2} + 1.0 \cdot 10^{20} v_{3} - 1.0 \cdot 10^{20} v_{4}\\- I_{L1} - 1.0 \cdot 10^{20} v_{3} + 1.0 \cdot 10^{20} v_{4}\\- 5.0 I_{L1} s + v_{2} - v_{4}\\- 3.0 I_{L2} s - v_{3}\\- 1.0 I_{L3} s - v_{1} + v_{2}\\- 1.0 I_{L4} s + v_{1}\end{matrix}\right] = \left[\begin{matrix}-2.0\\2.0\\0\\0\\0\\0\\0\\0\end{matrix}\right]\)</span></p>
+<p><span class="math inline">\(-2.0 = - I_{L3} + I_{L4}\)</span><br><span class="math inline">\(2.0 = I_{L1} + I_{L3}\)</span><br><span class="math inline">\(0 = - I_{L2} + 1.0 \cdot 10^{20} v_{3} - 1.0 \cdot 10^{20} v_{4}\)</span><br><span class="math inline">\(0 = - I_{L1} - 1.0 \cdot 10^{20} v_{3} + 1.0 \cdot 10^{20} v_{4}\)</span><br><span class="math inline">\(0 = - 5.0 I_{L1} s + v_{2} - v_{4}\)</span><br><span class="math inline">\(0 = - 3.0 I_{L2} s - v_{3}\)</span><br><span class="math inline">\(0 = - 1.0 I_{L3} s - v_{1} + v_{2}\)</span><br><span class="math inline">\(0 = - 1.0 I_{L4} s + v_{1}\)</span><br></p>
 </div>
 </div>
-<div id="cell-46" class="cell" data-execution_count="26">
+<p>Solve for voltages and currents.</p>
+<div id="cell-53" class="cell" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>U_ac <span class="op">=</span> solve(NE,X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="plot-the-voltage-at-node-2" class="level3" data-number="17.5.3">
 <h3 data-number="17.5.3" class="anchored" data-anchor-id="plot-the-voltage-at-node-2"><span class="header-section-number">17.5.3</span> Plot the voltage at node 2</h3>
-<div id="cell-48" class="cell" data-execution_count="27">
+<div id="cell-55" class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>H <span class="op">=</span> U_ac[v2]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-49" class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="28">
+<div id="cell-56" class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="28">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>num, denom <span class="op">=</span> fraction(H) <span class="co">#returns numerator and denominator</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="co"># convert symbolic to numpy polynomial</span></span>
@@ -1038,17 +1044,17 @@ I(I4):  mag:          0 phase:          0°  device_current
 <span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> np.array(Poly(denom, s).all_coeffs(), dtype<span class="op">=</span><span class="bu">float</span>)</span>
 <span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>system <span class="op">=</span> (a, b)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-50" class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="29">
+<div id="cell-57" class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="29">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co">#x = np.linspace(0.1*2*np.pi, 10*2*np.pi, 2000, endpoint=True)</span></span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.logspace(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">200</span>, endpoint<span class="op">=</span><span class="va">False</span>)<span class="op">*</span><span class="dv">2</span><span class="op">*</span>np.pi</span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>w, mag, phase <span class="op">=</span> signal.bode(system, w<span class="op">=</span>x) <span class="co"># returns: rad/s, mag in dB, phase in deg</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Load the csv file of node 10 voltage over the sweep range and plot along with the results obtained from SymPy.</p>
-<div id="cell-52" class="cell" data-execution_count="30">
+<div id="cell-59" class="cell" data-execution_count="30">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>fn <span class="op">=</span> <span class="st">'test_13.csv'</span> <span class="co"># data from LTSpice</span></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>LTSpice_data <span class="op">=</span> np.genfromtxt(fn, delimiter<span class="op">=</span><span class="st">','</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-53" class="cell" data-execution_count="31">
+<div id="cell-60" class="cell" data-execution_count="31">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># initaliaze some empty arrays</span></span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>frequency <span class="op">=</span> np.zeros(<span class="bu">len</span>(LTSpice_data))</span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>voltage <span class="op">=</span> np.zeros(<span class="bu">len</span>(LTSpice_data)).astype(<span class="bu">complex</span>)</span>
@@ -1064,7 +1070,7 @@ Using</p>
 <p>np.unwrap(2 * phase) / 2)</p>
 </blockquote>
 <p>to keep the pahse plots the same.</p>
-<div id="cell-55" class="cell" data-execution_count="32">
+<div id="cell-62" class="cell" data-execution_count="32">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>fig, ax1 <span class="op">=</span> plt.subplots()</span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>ax1.set_ylabel(<span class="st">'magnitude, dB'</span>)</span>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>ax1.set_xlabel(<span class="st">'frequency, Hz'</span>)</span>
@@ -1098,7 +1104,7 @@ Using</p>
 </div>
 </div>
 <p>The SymPy and LTSpice results overlay each other.</p>
-<div id="cell-57" class="cell" data-execution_count="33">
+<div id="cell-64" class="cell" data-execution_count="33">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>fig, ax1 <span class="op">=</span> plt.subplots()</span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>ax1.set_ylabel(<span class="st">'magnitude difference'</span>)</span>
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>ax1.set_xlabel(<span class="st">'frequency, Hz'</span>)</span>
@@ -1268,6 +1274,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   if (showAllCode) {
     showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -1302,7 +1326,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -1350,7 +1378,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      return note.innerHTML;
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
     }
   }
   for (var i=0; i<xrefs.length; i++) {
@@ -1573,12 +1606,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./test_12.html" class="pagination-link  aria-label=" &lt;span="" 12&lt;="" span&gt;"="">
+      <a href="./test_12.html" class="pagination-link" aria-label="Test 12">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Test 12</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./test_14.html" class="pagination-link" aria-label="<span class='chapter-number'>18</span>&nbsp; <span class='chapter-title'>Test 14</span>">
+      <a href="./test_14.html" class="pagination-link" aria-label="Test 14">
         <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Test 14</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.537">
+<meta name="generator" content="quarto-1.4.553">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -660,7 +660,7 @@ This is a high-entropy expression
 </section>
 <section id="facts" class="level2" data-number="30.5">
 <h2 data-number="30.5" class="anchored" data-anchor-id="facts"><span class="header-section-number">30.5</span> FACTS</h2>
-<p>FACTS is a circuit analysis method where the transfer function is determined by some simple techniques and the poles and zeros of the transfer function are relatable to parts of the circuit and thereby some insight is gained into the operation of the circuit. The FACTS technique does take some practice and proficiency to master. The main advantage seems to be is the analysis technique can be quickly done without using a computer to find the DC gain of the network, the time constants of the poles and zeros which can be directly written out as the system transfer function. The examples available on line use simple circuits of low order. Presummanlbly more detailed and complicated examples are available in <span class="citation" data-cites="basso2016">Basso (<a href="References.html#ref-basso2016" role="doc-biblioref">2016</a>)</span> and <span class="citation" data-cites="Vorpérian2020">Vorpérian (<a href="References.html#ref-Vorpérian2020" role="doc-biblioref">2020</a>)</span>.</p>
+<p>FACTS is a circuit analysis method where the transfer function is determined by some simple techniques and the poles and zeros of the transfer function are relatable to parts of the circuit and thereby some insight is gained into the operation of the circuit. The FACTS technique does take some practice and proficiency to master. The main advantage seems to be is the analysis technique can be quickly done without using a computer to find the DC gain of the network, the time constants of the poles and zeros which can be directly written out as the system transfer function. The examples available on line use simple circuits of low order. Presummanlbly more detailed and complicated examples are available in <a href="https://www.youtube.com/watch?v=uir9Js1l_r8">Fast Analytical Techniques for Electrical and Electronic Circuits</a>, <span class="citation" data-cites="basso2016">Basso (<a href="References.html#ref-basso2016" role="doc-biblioref">2016</a>)</span> and <span class="citation" data-cites="Vorpérian2020">Vorpérian (<a href="References.html#ref-Vorpérian2020" role="doc-biblioref">2011</a>)</span>.</p>
 <p>According to the open source FACTS liturature:</p>
 <blockquote class="blockquote">
 <p>The well-known and widely used methods of nodal or loop analysis, while effective for obtaining numerical solutions, are largely ineffective for deriving analytical solutions in symbolic form, except for simple circuits. Attempting to invert a matrix with symbolic entries, even for low-order matrices, results in tedious algebra and complex, high-entropy expressions that provide little meaningful insight.</p>
@@ -1034,13 +1034,13 @@ The voltage on node N is symplified with the chain of operators applied to the e
 <p><span class="math inline">\(\displaystyle \frac{500 \cdot \left(4 s^{6} + 9 s^{5} + 9006 s^{4} + 12001 s^{3} + 6003000 s^{2} + 3000000 s + 1000000000\right)}{4004 s^{6} + 5017009 s^{5} + 2020025006 s^{4} + 1009025015001 s^{3} + 2011013003000 s^{2} + 2005003000000 s + 1001000000000}\)</span></p>
 </div>
 </div>
-<p>The code below converst the SymPy equations into Numpy format. Extract the numerator and denominator polynomials so that the system can be defined in SciPy.</p>
+<p>The code below converst the SymPy equations into NumPy format. Extract the numerator and denominator polynomials so that the system can be defined in SciPy.</p>
 <div id="4e76ce6b-2bb5-4fcc-8c1c-9e3ed0188103" class="cell" data-tags="[]" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>H_num, H_denom <span class="op">=</span> fraction(H) <span class="co">#returns numerator and denominator</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The SciPy function, TransferFunction, represents the system as the continuous-time transfer function and takes as inputs the coeeficients of the numerator and denominator polynominals.</p>
 <div id="e27351c4-6121-4f2f-b696-4a2bfaf02acd" class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># convert symbolic to numpy polynomial</span></span>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># convert symbolic to NumPy polynomial</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> np.array(Poly(H_num, s).all_coeffs(), dtype<span class="op">=</span><span class="bu">float</span>)</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> np.array(Poly(H_denom, s).all_coeffs(), dtype<span class="op">=</span><span class="bu">float</span>)</span>
 <span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>sys <span class="op">=</span> signal.TransferFunction(a,b)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1426,7 +1426,7 @@ Vo = Z4/(Z4+Z2) (Z1 || (Z2+Z4))/(R1+Z1 || (Z2+Z4)) * Vi
 </div>
 <p>The SciPy function, TransferFunction, represents the system as the continuous-time transfer function and takes as inputs the coeeficients of the numerator and denominator polynominals.</p>
 <div id="32e394f4-531e-483c-ab79-9206cb5ce439" class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="56">
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># convert symbolic to numpy polynomial</span></span>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># convert symbolic to NumPy polynomial</span></span>
 <span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> np.array(Poly(H_franc_num, s).all_coeffs(), dtype<span class="op">=</span><span class="bu">float</span>)</span>
 <span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> np.array(Poly(H_franc_denom, s).all_coeffs(), dtype<span class="op">=</span><span class="bu">float</span>)</span>
 <span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>franc_sys <span class="op">=</span> signal.TransferFunction(a,b)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1838,7 +1838,7 @@ Figure&nbsp;30.3: Pi filter with out parasitics
 <section id="summary" class="level2" data-number="30.11">
 <h2 data-number="30.11" class="anchored" data-anchor-id="summary"><span class="header-section-number">30.11</span> Summary</h2>
 <ul>
-<li>FACTS solution is applicable to low order circuits</li>
+<li>FACTS method is applicable to low order circuits</li>
 <li>The assurtion that brute force is complicated and error prone is not true if computer algebra tools are used. The same proported advantages of using FACTS, that is, less math, less algebra and some insight into the circuit operation are available with SMNA, since the computer does all the heavy lifting.</li>
 <li>Python based symbolic MNA code provides an easy and less error prone method of obtaining solutions to network problems.</li>
 </ul>
@@ -2033,7 +2033,7 @@ H_1a
 ``` {.python .cell-code}
 H_1a_num, H_1a_denom = fraction(H_1a) #returns numerator and denominator
 
-# convert symbolic to numpy polynomial
+# convert symbolic to NumPy polynomial
 H_1a_a = np.array(Poly(H_1a_num, s).all_coeffs(), dtype=float)
 H_1a_b = np.array(Poly(H_1a_denom, s).all_coeffs(), dtype=float)
 H_1a_sys = signal.TransferFunction(H_1a_a,H_1a_b)
@@ -2707,7 +2707,7 @@ solve(d,s)
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
 <div id="ref-basso2016" class="csl-entry" role="listitem">
-Basso, Christophe. 2016. <em>Introduction to Fast Analytical Techniques: Application to Small-Signal Modeling</em>.
+Basso, Christophe. 2016. <span>“Introduction to Fast Analytical Techniques: Application to Small-Signal Modeling.”</span> 2016. <a href="https://www.powersimtof.com/Downloads/PPTs/Chris%20Basso%20APEC%20seminar%202016.pdf">https://www.powersimtof.com/Downloads/PPTs/Chris%20Basso%20APEC%20seminar%202016.pdf</a>.
 </div>
 <div id="ref-user347817" class="csl-entry" role="listitem">
 Franc. 2023. <span>“User Profile.”</span> <a href="https://electronics.stackexchange.com/users/347817/franc?tab=profile">https://electronics.stackexchange.com/users/347817/franc?tab=profile</a>.
@@ -2722,7 +2722,7 @@ Middlebrook, R. D. 1991. <span>“Low-Entropy Expressions: The Key to Design-Ori
 user15174. 2023. <span>“How to Find Transfer Function for This Pi-Filter Using FACTS Method with 6 Reactive Elements?”</span> <a href="https://electronics.stackexchange.com/questions/681002/how-to-find-transfer-function-for-this-pi-filter-using-facts-method-with-6-react/681087#681087">https://electronics.stackexchange.com/questions/681002/how-to-find-transfer-function-for-this-pi-filter-using-facts-method-with-6-react/681087#681087</a>.
 </div>
 <div id="ref-Vorpérian2020" class="csl-entry" role="listitem">
-Vorpérian, V. 2020. <em>Fast Analytical Techniques for Electrical and Electronic Circuits</em>.
+Vorpérian, Vatché. 2011. <em>Fast Analytical Techniques for Electrical and Electronic Circuits</em>. Cambridge University Press.
 </div>
 </div>
 </section>
@@ -2858,6 +2858,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   if (showAllCode) {
     showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -2892,7 +2910,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -2940,7 +2962,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      return note.innerHTML;
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
     }
   }
   for (var i=0; i<xrefs.length; i++) {
@@ -3163,12 +3190,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./Bridge-T.html" class="pagination-link  aria-label=" &lt;span="">
+      <a href="./Bridge-T.html" class="pagination-link" aria-label="Bridge-T">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Bridge-T</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./SIDO-low-pass-filter.html" class="pagination-link" aria-label="<span class='chapter-number'>31</span>&nbsp; <span class='chapter-title'>SIDO-low-pass-filter</span>">
+      <a href="./SIDO-low-pass-filter.html" class="pagination-link" aria-label="SIDO-low-pass-filter">
         <span class="nav-page-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">SIDO-low-pass-filter</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.537">
+<meta name="generator" content="quarto-1.4.553">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -447,8 +447,8 @@ Operational Amplifiers and Their Use in RC-Active-Network
 Synthesis.”</span> In. <a href="https://api.semanticscholar.org/CorpusID:64381922">https://api.semanticscholar.org/CorpusID:64381922</a>.
 </div>
 <div id="ref-basso2016" class="csl-entry" role="listitem">
-Basso, Christophe. 2016. <em>Introduction to Fast Analytical Techniques:
-Application to Small-Signal Modeling</em>.
+Basso, Christophe. 2016. <span>“Introduction to Fast Analytical
+Techniques: Application to Small-Signal Modeling.”</span> 2016. <a href="https://www.powersimtof.com/Downloads/PPTs/Chris%20Basso%20APEC%20seminar%202016.pdf">https://www.powersimtof.com/Downloads/PPTs/Chris%20Basso%20APEC%20seminar%202016.pdf</a>.
 </div>
 <div id="ref-Bruton1978" class="csl-entry" role="listitem">
 Bruton, L. 1978. <span>“Multiple-Amplifier RC-Active Filter Design with
@@ -464,11 +464,11 @@ Cheever, E. 2022. <span>“Linear Physical Systems Analysis.”</span> <a href="
 </div>
 <div id="ref-Chen2018" class="csl-entry" role="listitem">
 Chen, W. 2018. <em>Computer Aided Design and Design Automation</em>. The
-Circuits and Filters Handbook, 3rd Edition. CRC Press.
+Circuits and Filters Handbook, 3rd Edition. CRC Press. <a href="https://www.gbv.de/dms/ilmenau/toc/585302871.PDF">https://www.gbv.de/dms/ilmenau/toc/585302871.PDF</a>.
 </div>
 <div id="ref-Fakhfakh2012" class="csl-entry" role="listitem">
 Fakhfakh, M., E. Tlelo-Cuautle, and F. Fernandez. 2012. <em>Design of
-Analog Circuits Through Symbolic Analysis</em>.
+Analog Circuits Through Symbolic Analysis</em>. <a href="https://www.researchgate.net/publication/230617925_Design_of_Analog_Circuits_through_Symbolic_Analysis">https://www.researchgate.net/publication/230617925_Design_of_Analog_Circuits_through_Symbolic_Analysis</a>.
 </div>
 <div id="ref-user347817" class="csl-entry" role="listitem">
 Franc. 2023. <span>“User Profile.”</span> <a href="https://electronics.stackexchange.com/users/347817/franc?tab=profile">https://electronics.stackexchange.com/users/347817/franc?tab=profile</a>.
@@ -552,8 +552,8 @@ user69860. 2016. <span>“Nodal Analysis - Deriving Equations at Each
 Node.”</span> <a href="https://electronics.stackexchange.com/q/192420">https://electronics.stackexchange.com/q/192420</a>.
 </div>
 <div id="ref-Vorpérian2020" class="csl-entry" role="listitem">
-Vorpérian, V. 2020. <em>Fast Analytical Techniques for Electrical and
-Electronic Circuits</em>.
+Vorpérian, Vatché. 2011. <em>Fast Analytical Techniques for Electrical
+and Electronic Circuits</em>. Cambridge University Press.
 </div>
 <div id="ref-Williams1995" class="csl-entry" role="listitem">
 Williams, A., and F. Taylor. 1995. <em>Electronic Filter Design
@@ -647,6 +647,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -681,7 +699,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -729,7 +751,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      return note.innerHTML;
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
     }
   }
   for (var i=0; i<xrefs.length; i++) {
@@ -952,12 +979,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./mech-sys.html" class="pagination-link  aria-label=" &lt;span="" systems&lt;="" span&gt;"="">
+      <a href="./mech-sys.html" class="pagination-link" aria-label="Mechanical systems">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Mechanical systems</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./SymMNA_py.html" class="pagination-link" aria-label="<span class='chapter-number'>A</span>&nbsp; <span class='chapter-title'>SymMNA.py</span>">
+      <a href="./SymMNA_py.html" class="pagination-link" aria-label="SymMNA.py">
         <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">SymMNA.py</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
