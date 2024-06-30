@@ -41,5 +41,7 @@ The following table is a history of updates to the book project.
 | 5/1/2024 | Added chapter on mechanical system analog |
 | 5/15/2024 | Incremental changes to many chapters |
 | 6/03/2024 | Incremental updates |
-| 7/15/2024 | Introduction - rewrite of various paragraphs.<br>Two Amplifier RIAA Pre-amp - Correcting an embarrassing amount of spelling mistakes.<br>Various chapters - displaying network equations using LaTex vs. printing a SymPy matrix. |
+| 6/30/2024 | SMNA_example - correcting spelling, grammar and updating comments.<br>SymMNA - correcting spelling, grammar and updating comments.<br>Introduction - added example circuit and schematic.<br>references.bib - added url to two references.<br>2nd_order_BRF - rewrite, now calling the smna function.<br>Two Amplifier RIAA Pre-amp - correcting spelling, grammar and updating comments.<br>Various chapters - displaying network equations using LaTex vs. printing a SymPy matrix. |
 : Book project change log {#tbl-book-change-log} {tbl-colwidths="[15,85]"}
+
+
