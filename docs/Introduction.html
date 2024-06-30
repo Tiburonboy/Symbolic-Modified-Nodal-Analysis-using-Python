@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.537">
+<meta name="generator" content="quarto-1.4.553">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -508,130 +508,268 @@ window.Quarto = {
 </header>
 
 
-<p>Circuit analysis and theory are fundamental to electrical engineering and is usually one of the first topics taught to electrical engineering students. The purpose of this book is to describe a circuit analysis method called <a href="https://en.wikipedia.org/wiki/Modified_nodal_analysis">Modified Nodal Analysis</a> (MNA) implemented in Python and using the SymPy library. The Python programming language along with its packages and libraries provide powerful computational tools that make solving math problems extremely easy with just a few lines of code. SymPy and NumPy are the main libraries used to perform the types of circuit analysis problems described in this book. In this chapter the following Python libraries are used.</p>
-<div id="433cc19b" class="cell" data-execution_count="1">
+<p>Circuit analysis and theory are fundamental to electrical engineering and is usually one of the first topics taught to electrical engineering students. The purpose of this book is to describe a circuit analysis method called <a href="https://en.wikipedia.org/wiki/Modified_nodal_analysis">Modified Nodal Analysis</a> (MNA) implemented in Python and using the SymPy library. The Python programming language along with its packages and libraries provide powerful computational tools that make solving math problems extremely easy with just a few lines of code. SymPy and NumPy are the main libraries used to perform the types of circuit analysis problems described in this book.</p>
+<p>Symbolic Modified Nodal Analysis circuit analysis offers an alternative way to analyze electric circuits since the results are analytic expressions that describe the functionality of the circuit in terms of the circuit variables. The analytic expressions can, but not always, offer some insight into the behavior of the circuit.</p>
+<p>In this chapter, as well as in the remainder of this book, the following Python libraries are used.</p>
+<div id="a29077e6" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display, Markdown, Math, Latex</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sympy <span class="im">import</span> <span class="op">*</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> signal</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>init_printing()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> SymMNA</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>init_printing()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The <a href="https://docs.python.org/3/library/sys.html">sys</a> module provides access to some variables used or maintained by the interpreter and to functions that interact strongly with the interpreter. <a href="https://ipython.readthedocs.io/en/stable/api/generated/IPython.display.html">IPython.display</a> is a public API for display tools in <a href="https://ipython.org/">IPython</a>. <a href="https://www.sympy.org/en/index.html">SymPy</a> is a Python library for symbolic mathematics. <a href="https://scipy.org/">SciPy</a> is a collection of algorithms for scientific computing. <a href="https://matplotlib.org/">Matplotlib</a> is a comprehensive library for creating static, animated, and interactive visualizations in Python. <a href="https://numpy.org/">NumPy</a> is a package for scientific computing with Python. The function <a href="https://docs.sympy.org/latest/tutorials/intro-tutorial/printing.html">init_printing()</a> will automatically enable the best printer available in the Python environment.</p>
-<p>The following example shows some typical frequency domain circuit equations and the solution. Consider the following system of equations,</p>
-<p><span class="math inline">\(- C_{1} s v_{2} + v_{1} \left(C_{1} s + C_{2} s + \frac{1}{R_{3}}\right) = 0\)</span><br>
-<span class="math inline">\(- C_{1} s v_{1} + v_{2} \left(C_{1} s + \frac{1}{R_{2}}\right) - \frac{v_{3}}{R_{2}} = 0\)</span><br>
-<span class="math inline">\(I_{V1} - \frac{v_{2}}{R_{2}} + \frac{v_{3}}{R_{2}} = 0\)</span><br>
-<span class="math inline">\(v_{3} = V_{1}\)</span></p>
-<p>where, <span class="math inline">\(C_1\)</span> and <span class="math inline">\(C_2\)</span> are the capacitors in an electrical circuit, <span class="math inline">\(R_2\)</span> and <span class="math inline">\(R_3\)</span> are the resistors, <span class="math inline">\(v_1\)</span>, <span class="math inline">\(v_2\)</span> and <span class="math inline">\(v_3\)</span> are the unknown node voltages, <span class="math inline">\(V_1\)</span> is the input voltage source and <span class="math inline">\(I_{V1}\)</span> is the unknown current flowing through <span class="math inline">\(V_1\)</span>, can be entered into SymPy to get the equations in matrix form:</p>
-<div id="e67ff835" class="cell" data-execution_count="2">
+<p>The <a href="https://docs.python.org/3/library/sys.html">sys</a> module provides access to some variables used or maintained by the interpreter and to functions that interact strongly with the interpreter. <a href="https://ipython.readthedocs.io/en/stable/api/generated/IPython.display.html">IPython.display</a> is a public API for display tools in <a href="https://ipython.org/">IPython</a>. <a href="https://www.sympy.org/en/index.html">SymPy</a> is a Python library for symbolic mathematics. <a href="https://scipy.org/">SciPy</a> is a collection of algorithms for scientific computing. <a href="https://matplotlib.org/">Matplotlib</a> is a comprehensive library for creating static, animated, and interactive visualizations in Python. <a href="https://numpy.org/">NumPy</a> is a package for scientific computing with Python. The function SymMNA is described in <a href="SMNA-function.html" class="quarto-xref"><span>Chapter 4</span></a>. The function <a href="https://docs.sympy.org/latest/tutorials/intro-tutorial/printing.html">init_printing()</a> will automatically enable the best printer available in the Python environment.</p>
+<p>Consider the example circuit shown in <a href="#fig-Intro_circuit" class="quarto-xref">Figure&nbsp;<span>1.1</span></a>. This circuit has five branches and three nodes. There is a voltage source <span class="math inline">\(V_1\)</span>, which drives the circuit and each of the nodes is labeled along with the ground node.</p>
+<div id="fig-Intro_circuit" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-Intro_circuit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="Intro_circuit.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-Intro_circuit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.1: Example circuit
+</figcaption>
+</figure>
+</div>
+<!--
+The netlist for this circuit is:
+
+```
+V1 1 0 1
+R1 2 1 1
+L1 2 3 0.1
+C1 3 0 0.1
+C2 2 0 0.2
+```
+-->
+<p>For this circuit, the MNA code generates the following system of equations:</p>
+<div id="c70f084f" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="2">
-<p><span class="math inline">\(\displaystyle \left[\begin{matrix}- C_{1} s v_{2} + v_{1} \left(C_{1} s + C_{2} s + \frac{1}{R_{3}}\right)\\- C_{1} s v_{1} + v_{2} \left(C_{1} s + \frac{1}{R_{2}}\right) - \frac{v_{3}}{R_{2}}\\I_{V1} - \frac{v_{2}}{R_{2}} + \frac{v_{3}}{R_{2}}\\v_{3}\end{matrix}\right] = \left[\begin{matrix}0\\0\\0\\V_{1}\end{matrix}\right]\)</span></p>
+<p><span class="math inline">\(I_{V1} + \frac{v_{1}}{R_{1}} - \frac{v_{2}}{R_{1}} = 0\)</span><br><span class="math inline">\(I_{L1} + v_{2} \left(C_{2} s + \frac{1}{R_{1}}\right) - \frac{v_{1}}{R_{1}} = 0\)</span><br><span class="math inline">\(C_{1} s v_{3} - I_{L1} = 0\)</span><br><span class="math inline">\(v_{1} = V_{1}\)</span><br><span class="math inline">\(- I_{L1} L_{1} s + v_{2} - v_{3} = 0\)</span><br></p>
 </div>
 </div>
-<p>The system of equations can be easily solved to obtain a symbolic solution.</p>
-<div id="4330a611" class="cell" data-execution_count="3">
+<p>where, <span class="math inline">\(s\)</span> is the Laplace variable, <span class="math inline">\(C_1\)</span> and <span class="math inline">\(C_2\)</span> are capacitors, <span class="math inline">\(R_1\)</span> is a resistor, <span class="math inline">\(L_1\)</span> is an inductor, <span class="math inline">\(v_1\)</span>, <span class="math inline">\(v_2\)</span> and <span class="math inline">\(v_3\)</span> are the unknown node voltages, <span class="math inline">\(V_1\)</span> is the input voltage source, <span class="math inline">\(I_{V1}\)</span> is the unknown current flowing through <span class="math inline">\(V_1\)</span> and <span class="math inline">\(I_{L1}\)</span> is the unknown current flowing in <span class="math inline">\(L_1\)</span>. These equations can be easily solved by SymPy to obtain the unknown voltages and currents as analytic expressions.</p>
+<div id="38daf1ee" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="3">
-<p><span class="math inline">\(v_{1} = \frac{C_{1} R_{3} V_{1} s}{C_{1} C_{2} R_{2} R_{3} s^{2} + C_{1} R_{2} s + C_{1} R_{3} s + C_{2} R_{3} s + 1}\)</span><br><span class="math inline">\(v_{2} = \frac{C_{1} R_{3} V_{1} s + C_{2} R_{3} V_{1} s + V_{1}}{C_{1} C_{2} R_{2} R_{3} s^{2} + C_{1} R_{2} s + C_{1} R_{3} s + C_{2} R_{3} s + 1}\)</span><br><span class="math inline">\(v_{3} = V_{1}\)</span><br><span class="math inline">\(I_{V1} = \frac{- C_{1} C_{2} R_{3} V_{1} s^{2} - C_{1} V_{1} s}{C_{1} C_{2} R_{2} R_{3} s^{2} + C_{1} R_{2} s + C_{1} R_{3} s + C_{2} R_{3} s + 1}\)</span><br></p>
+<p><span class="math inline">\(v_{1} = V_{1}\)</span><br><span class="math inline">\(v_{2} = \frac{C_{1} L_{1} V_{1} s^{2} + V_{1}}{C_{1} C_{2} L_{1} R_{1} s^{3} + C_{1} L_{1} s^{2} + C_{1} R_{1} s + C_{2} R_{1} s + 1}\)</span><br><span class="math inline">\(v_{3} = \frac{V_{1}}{C_{1} C_{2} L_{1} R_{1} s^{3} + C_{1} L_{1} s^{2} + C_{1} R_{1} s + C_{2} R_{1} s + 1}\)</span><br><span class="math inline">\(I_{V1} = \frac{- C_{1} C_{2} L_{1} V_{1} s^{3} - C_{1} V_{1} s - C_{2} V_{1} s}{C_{1} C_{2} L_{1} R_{1} s^{3} + C_{1} L_{1} s^{2} + C_{1} R_{1} s + C_{2} R_{1} s + 1}\)</span><br><span class="math inline">\(I_{L1} = \frac{C_{1} V_{1} s}{C_{1} C_{2} L_{1} R_{1} s^{3} + C_{1} L_{1} s^{2} + C_{1} R_{1} s + C_{2} R_{1} s + 1}\)</span><br></p>
 </div>
 </div>
-<p>The solution for the voltage transfer function <span class="math inline">\(H_{sym} = v_2/v_3\)</span> is:</p>
-<div id="bdebc0ba" class="cell" data-execution_count="4">
+<p>Once the network equations are solved, SymPy can be used to obtain the analytic expression for a transfer function, since manipulation of equations is very easy. For example, SymPy can be used to the find the symbolic form of the impedance of the circuit as seen from the terminal of <span class="math inline">\(V_1\)</span>, <span class="math inline">\(Z(s)=\frac {v_1}{I_{V1}}\)</span>, which is:</p>
+<div id="5de63daf" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="4">
-<p><span class="math inline">\(\displaystyle \frac{C_{1} R_{3} s + C_{2} R_{3} s + 1}{C_{1} C_{2} R_{2} R_{3} s^{2} + C_{1} R_{2} s + C_{1} R_{3} s + C_{2} R_{3} s + 1}\)</span></p>
+<p><span class="math inline">\(\displaystyle \frac{C_{1} C_{2} L_{1} R_{1} s^{3} + C_{1} L_{1} s^{2} + C_{1} R_{1} s + C_{2} R_{1} s + 1}{s \left(C_{1} C_{2} L_{1} s^{2} + C_{1} + C_{2}\right)}\)</span></p>
 </div>
 </div>
-<p>The zeros of <span class="math inline">\(H_{sym}\)</span> are obtained by taking the numerator and solving for <span class="math inline">\(s\)</span>, the result is:</p>
-<div id="b6789fac" class="cell" data-execution_count="6">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="6">
-<p><span class="math inline">\(\displaystyle \left[ - \frac{1}{R_{3} \left(C_{1} + C_{2}\right)}\right]\)</span></p>
+<p>The numerator and denominator of <span class="math inline">\(Z(s)\)</span> can be extracted. The numerator is:</p>
+<div id="34fa5cb1" class="cell" data-execution_count="5">
+<div class="cell-output cell-output-display cell-output-markdown">
+<p><span class="math inline">\(\displaystyle C_{1} C_{2} L_{1} R_{1} s^{3} + C_{1} L_{1} s^{2} + C_{1} R_{1} s + C_{2} R_{1} s + 1\)</span></p>
 </div>
 </div>
-<p>The poles of <span class="math inline">\(H_{sym}\)</span> are obtained by taking the denominator and solving for <span class="math inline">\(s\)</span>. There are two solutions and the first is:</p>
-<div id="1413a19c" class="cell" data-execution_count="8">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="8">
-<p><span class="math inline">\(\displaystyle \frac{- C_{1} R_{2} - C_{1} R_{3} - C_{2} R_{3} - \sqrt{C_{1}^{2} R_{2}^{2} + 2 C_{1}^{2} R_{2} R_{3} + C_{1}^{2} R_{3}^{2} - 2 C_{1} C_{2} R_{2} R_{3} + 2 C_{1} C_{2} R_{3}^{2} + C_{2}^{2} R_{3}^{2}}}{2 C_{1} C_{2} R_{2} R_{3}}\)</span></p>
+<p>The denominator is:</p>
+<div id="37bfbafe" class="cell" data-execution_count="6">
+<div class="cell-output cell-output-display cell-output-markdown">
+<p><span class="math inline">\(\displaystyle s \left(C_{1} C_{2} L_{1} s^{2} + C_{1} + C_{2}\right)\)</span></p>
 </div>
 </div>
-<p>The second pole of <span class="math inline">\(H_{sym}\)</span> is:</p>
-<div id="0cf7fc83" class="cell" data-execution_count="9">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="9">
-<p><span class="math inline">\(\displaystyle \frac{- C_{1} R_{2} - C_{1} R_{3} - C_{2} R_{3} + \sqrt{C_{1}^{2} R_{2}^{2} + 2 C_{1}^{2} R_{2} R_{3} + C_{1}^{2} R_{3}^{2} - 2 C_{1} C_{2} R_{2} R_{3} + 2 C_{1} C_{2} R_{3}^{2} + C_{2}^{2} R_{3}^{2}}}{2 C_{1} C_{2} R_{2} R_{3}}\)</span></p>
+<p>SymPy can easily solve for the roots of the numerator and denominator. Since the numerator is a third order expression, the analytic solution is a bit long. Quarto will insert a slider bar for expressions wider than the text display width.</p>
+<div id="66faad51" class="cell" data-execution_count="7">
+<div class="cell-output cell-output-display cell-output-markdown">
+<p><span class="math inline">\(\displaystyle - \frac{\frac{1}{C_{2}^{2} R_{1}^{2}} - \frac{3 \left(C_{1} + C_{2}\right)}{C_{1} C_{2} L_{1}}}{3 \sqrt[3]{\frac{\sqrt{- 4 \left(\frac{1}{C_{2}^{2} R_{1}^{2}} - \frac{3 \left(C_{1} + C_{2}\right)}{C_{1} C_{2} L_{1}}\right)^{3} + \left(\frac{2}{C_{2}^{3} R_{1}^{3}} + \frac{27}{C_{1} C_{2} L_{1} R_{1}} - \frac{9 \left(C_{1} + C_{2}\right)}{C_{1} C_{2}^{2} L_{1} R_{1}}\right)^{2}}}{2} + \frac{1}{C_{2}^{3} R_{1}^{3}} + \frac{27}{2 C_{1} C_{2} L_{1} R_{1}} - \frac{9 \left(C_{1} + C_{2}\right)}{2 C_{1} C_{2}^{2} L_{1} R_{1}}}} - \frac{\sqrt[3]{\frac{\sqrt{- 4 \left(\frac{1}{C_{2}^{2} R_{1}^{2}} - \frac{3 \left(C_{1} + C_{2}\right)}{C_{1} C_{2} L_{1}}\right)^{3} + \left(\frac{2}{C_{2}^{3} R_{1}^{3}} + \frac{27}{C_{1} C_{2} L_{1} R_{1}} - \frac{9 \left(C_{1} + C_{2}\right)}{C_{1} C_{2}^{2} L_{1} R_{1}}\right)^{2}}}{2} + \frac{1}{C_{2}^{3} R_{1}^{3}} + \frac{27}{2 C_{1} C_{2} L_{1} R_{1}} - \frac{9 \left(C_{1} + C_{2}\right)}{2 C_{1} C_{2}^{2} L_{1} R_{1}}}}{3} - \frac{1}{3 C_{2} R_{1}}\)</span></p>
 </div>
 </div>
-<p>The following numerical values can be assigned to the component symbols.</p>
-<div id="f7df1adb" class="cell" data-execution_count="10">
-<div class="cell-output cell-output-stdout">
-<pre><code>R2 = 1000
+<div id="89d7b08f" class="cell" data-execution_count="8">
+<div class="cell-output cell-output-display cell-output-markdown">
+<p><span class="math inline">\(\displaystyle - \frac{\frac{1}{C_{2}^{2} R_{1}^{2}} - \frac{3 \left(C_{1} + C_{2}\right)}{C_{1} C_{2} L_{1}}}{3 \left(- \frac{1}{2} - \frac{\sqrt{3} i}{2}\right) \sqrt[3]{\frac{\sqrt{- 4 \left(\frac{1}{C_{2}^{2} R_{1}^{2}} - \frac{3 \left(C_{1} + C_{2}\right)}{C_{1} C_{2} L_{1}}\right)^{3} + \left(\frac{2}{C_{2}^{3} R_{1}^{3}} + \frac{27}{C_{1} C_{2} L_{1} R_{1}} - \frac{9 \left(C_{1} + C_{2}\right)}{C_{1} C_{2}^{2} L_{1} R_{1}}\right)^{2}}}{2} + \frac{1}{C_{2}^{3} R_{1}^{3}} + \frac{27}{2 C_{1} C_{2} L_{1} R_{1}} - \frac{9 \left(C_{1} + C_{2}\right)}{2 C_{1} C_{2}^{2} L_{1} R_{1}}}} - \frac{\left(- \frac{1}{2} - \frac{\sqrt{3} i}{2}\right) \sqrt[3]{\frac{\sqrt{- 4 \left(\frac{1}{C_{2}^{2} R_{1}^{2}} - \frac{3 \left(C_{1} + C_{2}\right)}{C_{1} C_{2} L_{1}}\right)^{3} + \left(\frac{2}{C_{2}^{3} R_{1}^{3}} + \frac{27}{C_{1} C_{2} L_{1} R_{1}} - \frac{9 \left(C_{1} + C_{2}\right)}{C_{1} C_{2}^{2} L_{1} R_{1}}\right)^{2}}}{2} + \frac{1}{C_{2}^{3} R_{1}^{3}} + \frac{27}{2 C_{1} C_{2} L_{1} R_{1}} - \frac{9 \left(C_{1} + C_{2}\right)}{2 C_{1} C_{2}^{2} L_{1} R_{1}}}}{3} - \frac{1}{3 C_{2} R_{1}}\)</span></p>
+</div>
+</div>
+<div id="96e3f1b9" class="cell" data-execution_count="9">
+<div class="cell-output cell-output-display cell-output-markdown">
+<p><span class="math inline">\(\displaystyle - \frac{\frac{1}{C_{2}^{2} R_{1}^{2}} - \frac{3 \left(C_{1} + C_{2}\right)}{C_{1} C_{2} L_{1}}}{3 \left(- \frac{1}{2} + \frac{\sqrt{3} i}{2}\right) \sqrt[3]{\frac{\sqrt{- 4 \left(\frac{1}{C_{2}^{2} R_{1}^{2}} - \frac{3 \left(C_{1} + C_{2}\right)}{C_{1} C_{2} L_{1}}\right)^{3} + \left(\frac{2}{C_{2}^{3} R_{1}^{3}} + \frac{27}{C_{1} C_{2} L_{1} R_{1}} - \frac{9 \left(C_{1} + C_{2}\right)}{C_{1} C_{2}^{2} L_{1} R_{1}}\right)^{2}}}{2} + \frac{1}{C_{2}^{3} R_{1}^{3}} + \frac{27}{2 C_{1} C_{2} L_{1} R_{1}} - \frac{9 \left(C_{1} + C_{2}\right)}{2 C_{1} C_{2}^{2} L_{1} R_{1}}}} - \frac{\left(- \frac{1}{2} + \frac{\sqrt{3} i}{2}\right) \sqrt[3]{\frac{\sqrt{- 4 \left(\frac{1}{C_{2}^{2} R_{1}^{2}} - \frac{3 \left(C_{1} + C_{2}\right)}{C_{1} C_{2} L_{1}}\right)^{3} + \left(\frac{2}{C_{2}^{3} R_{1}^{3}} + \frac{27}{C_{1} C_{2} L_{1} R_{1}} - \frac{9 \left(C_{1} + C_{2}\right)}{C_{1} C_{2}^{2} L_{1} R_{1}}\right)^{2}}}{2} + \frac{1}{C_{2}^{3} R_{1}^{3}} + \frac{27}{2 C_{1} C_{2} L_{1} R_{1}} - \frac{9 \left(C_{1} + C_{2}\right)}{2 C_{1} C_{2}^{2} L_{1} R_{1}}}}{3} - \frac{1}{3 C_{2} R_{1}}\)</span></p>
+</div>
+</div>
+<p>The are three zeros in the impedance function and from the expressions above, we can see what components are influencing the zeros. However, as you can see, these expressions are long and complex. It’s difficult to imagine what insights can be obtained from these analytic expressions.</p>
+<p>The roots of the denominator are:</p>
+<div id="b989353a" class="cell" data-execution_count="10">
+<div class="cell-output cell-output-display cell-output-markdown">
+<p><span class="math inline">\(\displaystyle \sqrt{\frac{- C_{1} - C_{2}}{C_{1} C_{2} L_{1}}}\)</span></p>
+</div>
+</div>
+<div id="9dc7a01d" class="cell" data-execution_count="11">
+<div class="cell-output cell-output-display cell-output-markdown">
+<p><span class="math inline">\(\displaystyle - \sqrt{- \frac{C_{1} + C_{2}}{C_{1} C_{2} L_{1}}}\)</span></p>
+</div>
+</div>
+<!--
+
+**OLD below here**
+
+The following example shows some typical frequency domain circuit equations and the solution. Consider the following system of equations,
+
+$- C_{1} s v_{2} + v_{1} \left(C_{1} s + C_{2} s + \frac{1}{R_{3}}\right) = 0$  
+$- C_{1} s v_{1} + v_{2} \left(C_{1} s + \frac{1}{R_{2}}\right) - \frac{v_{3}}{R_{2}} = 0$  
+$I_{V1} - \frac{v_{2}}{R_{2}} + \frac{v_{3}}{R_{2}} = 0$  
+$v_{3} = V_{1}$
+
+where, $C_1$ and $C_2$ are the capacitors in an electrical circuit, $R_2$ and $R_3$ are the resistors, $v_1$, $v_2$ and $v_3$ are the unknown node voltages, $V_1$ is the input voltage source and $I_{V1}$ is the unknown current flowing through $V_1$, can be entered into SymPy to get the equations in matrix form:
+
+::: {#4ed22a7d .cell execution_count=12}
+
+::: {.cell-output .cell-output-display .cell-output-markdown execution_count=12}
+$\displaystyle \left[\begin{matrix}- C_{1} s v_{2} + v_{1} \left(C_{1} s + C_{2} s + \frac{1}{R_{3}}\right)\\- C_{1} s v_{1} + v_{2} \left(C_{1} s + \frac{1}{R_{2}}\right) - \frac{v_{3}}{R_{2}}\\I_{V1} - \frac{v_{2}}{R_{2}} + \frac{v_{3}}{R_{2}}\\v_{3}\end{matrix}\right] = \left[\begin{matrix}0\\0\\0\\V_{1}\end{matrix}\right]$
+:::
+:::
+
+
+The system of equations can be easily solved to obtain a symbolic solution.
+
+::: {#a23acd6f .cell execution_count=13}
+
+::: {.cell-output .cell-output-display .cell-output-markdown execution_count=13}
+$v_{1} = \frac{C_{1} R_{3} V_{1} s}{C_{1} C_{2} R_{2} R_{3} s^{2} + C_{1} R_{2} s + C_{1} R_{3} s + C_{2} R_{3} s + 1}$<br>$v_{2} = \frac{C_{1} R_{3} V_{1} s + C_{2} R_{3} V_{1} s + V_{1}}{C_{1} C_{2} R_{2} R_{3} s^{2} + C_{1} R_{2} s + C_{1} R_{3} s + C_{2} R_{3} s + 1}$<br>$v_{3} = V_{1}$<br>$I_{V1} = \frac{- C_{1} C_{2} R_{3} V_{1} s^{2} - C_{1} V_{1} s}{C_{1} C_{2} R_{2} R_{3} s^{2} + C_{1} R_{2} s + C_{1} R_{3} s + C_{2} R_{3} s + 1}$<br>
+:::
+:::
+
+
+The solution for the voltage transfer function $H_{sym} = v_2/v_3$ is:
+
+::: {#607f4ab4 .cell execution_count=14}
+
+::: {.cell-output .cell-output-display .cell-output-markdown execution_count=14}
+$\displaystyle \frac{C_{1} R_{3} s + C_{2} R_{3} s + 1}{C_{1} C_{2} R_{2} R_{3} s^{2} + C_{1} R_{2} s + C_{1} R_{3} s + C_{2} R_{3} s + 1}$
+:::
+:::
+
+
+
+
+The zeros of $H_{sym}$ are obtained by taking the numerator and solving for $s$, the result is:
+
+::: {#f316d75c .cell execution_count=16}
+
+::: {.cell-output .cell-output-display .cell-output-markdown execution_count=16}
+$\displaystyle \left[ - \frac{1}{R_{3} \left(C_{1} + C_{2}\right)}\right]$
+:::
+:::
+
+
+
+
+The poles of $H_{sym}$ are obtained by taking the denominator and solving for $s$. There are two solutions and the first is:
+
+::: {#2374338f .cell execution_count=18}
+
+::: {.cell-output .cell-output-display .cell-output-markdown execution_count=18}
+$\displaystyle \frac{- C_{1} R_{2} - C_{1} R_{3} - C_{2} R_{3} - \sqrt{C_{1}^{2} R_{2}^{2} + 2 C_{1}^{2} R_{2} R_{3} + C_{1}^{2} R_{3}^{2} - 2 C_{1} C_{2} R_{2} R_{3} + 2 C_{1} C_{2} R_{3}^{2} + C_{2}^{2} R_{3}^{2}}}{2 C_{1} C_{2} R_{2} R_{3}}$
+:::
+:::
+
+
+The second pole of $H_{sym}$ is:
+
+::: {#9e0b2a1d .cell execution_count=19}
+
+::: {.cell-output .cell-output-display .cell-output-markdown execution_count=19}
+$\displaystyle \frac{- C_{1} R_{2} - C_{1} R_{3} - C_{2} R_{3} + \sqrt{C_{1}^{2} R_{2}^{2} + 2 C_{1}^{2} R_{2} R_{3} + C_{1}^{2} R_{3}^{2} - 2 C_{1} C_{2} R_{2} R_{3} + 2 C_{1} C_{2} R_{3}^{2} + C_{2}^{2} R_{3}^{2}}}{2 C_{1} C_{2} R_{2} R_{3}}$
+:::
+:::
+
+
+The following numerical values can be assigned to the component symbols.
+
+::: {#d076c14b .cell execution_count=20}
+
+::: {.cell-output .cell-output-stdout}
+```
+R2 = 1000
 R3 = 1000
 C1 = 1e-06
 C2 = 1e-05
-V1 = 1</code></pre>
-</div>
-</div>
-<p>The values can be substituted for the symbols and the following system equations are obtained:</p>
-<div id="831227dd" class="cell" data-execution_count="11">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="11">
-<p><span class="math inline">\(\displaystyle \left[\begin{matrix}- 1.0 \cdot 10^{-6} s v_{2} + v_{1} \cdot \left(1.1 \cdot 10^{-5} s + \frac{1}{1000}\right)\\- 1.0 \cdot 10^{-6} s v_{1} + v_{2} \cdot \left(1.0 \cdot 10^{-6} s + \frac{1}{1000}\right) - \frac{v_{3}}{1000}\\I_{V1} - \frac{v_{2}}{1000} + \frac{v_{3}}{1000}\\v_{3}\end{matrix}\right] = \left[\begin{matrix}0\\0\\0\\1\end{matrix}\right]\)</span></p>
-</div>
-</div>
-<p>The numerical solution to the system of equations is:</p>
-<div id="05617cb1" class="cell" data-execution_count="12">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="12">
-<p><span class="math inline">\(v_{1} = \frac{100.0 s}{s^{2} + 1200.0 s + 100000.0}\)</span><br><span class="math inline">\(v_{2} = \frac{1100.0 s + 100000.0}{s^{2} + 1200.0 s + 100000.0}\)</span><br><span class="math inline">\(v_{3} = 1.0\)</span><br><span class="math inline">\(I_{V1} = \frac{- s^{2} - 100.0 s}{1000.0 s^{2} + 1200000.0 s + 100000000.0}\)</span><br></p>
-</div>
-</div>
-<p>The frequency domain voltage transfer function <span class="math inline">\(H = v_2/v_3\)</span> can be obtained:</p>
-<div id="ccdb31c4" class="cell" data-execution_count="13">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="13">
-<p><span class="math inline">\(\displaystyle \frac{1100.0 s + 100000.0}{s^{2} + 1200.0 s + 100000.0}\)</span></p>
-</div>
-</div>
-<p>The poles and zeros of the frequency domain transfer function are plotted.</p>
-<div id="150758d5" class="cell" data-execution_count="15">
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Introduction_files/figure-html/cell-16-output-1.png" width="609" height="449" class="figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>The SciPy function <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.bode.html">bode</a> to plot the magnitude and phase of <span class="math inline">\(H\)</span>.</p>
-<div id="2e5e53b4" class="cell" data-execution_count="16">
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Introduction_files/figure-html/cell-17-output-1.png" width="652" height="451" class="figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>The SciPy functions <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.impulse2.html">impulse2</a> and <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.step2.html">step2</a> to plot the impulse and step response of the system.</p>
-<div id="8a344d64" class="cell" data-execution_count="17">
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Introduction_files/figure-html/cell-18-output-1.png" width="607" height="449" class="figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>The step response is shown below.</p>
-<div id="5c5f1c48" class="cell" data-execution_count="18">
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Introduction_files/figure-html/cell-19-output-1.png" width="594" height="449" class="figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Matrix and polynomial math can be performed with hardly any effort with the help of SymPy. The code used to perform the calculations above and display the results is embeded in this mark down document, but is hidden from display. The code can be examined by looking at the orginal markdown document for this chapter or the example and validation chapters later in this book.</p>
+V1 = 1
+```
+:::
+:::
+
+
+The values can be substituted for the symbols and the following system equations are obtained:
+
+::: {#11433cdd .cell execution_count=21}
+
+::: {.cell-output .cell-output-display .cell-output-markdown execution_count=21}
+$\displaystyle \left[\begin{matrix}- 1.0 \cdot 10^{-6} s v_{2} + v_{1} \cdot \left(1.1 \cdot 10^{-5} s + \frac{1}{1000}\right)\\- 1.0 \cdot 10^{-6} s v_{1} + v_{2} \cdot \left(1.0 \cdot 10^{-6} s + \frac{1}{1000}\right) - \frac{v_{3}}{1000}\\I_{V1} - \frac{v_{2}}{1000} + \frac{v_{3}}{1000}\\v_{3}\end{matrix}\right] = \left[\begin{matrix}0\\0\\0\\1\end{matrix}\right]$
+:::
+:::
+
+
+The numerical solution to the system of equations is:
+
+::: {#c5783ed1 .cell execution_count=22}
+
+::: {.cell-output .cell-output-display .cell-output-markdown execution_count=22}
+$v_{1} = \frac{100.0 s}{s^{2} + 1200.0 s + 100000.0}$<br>$v_{2} = \frac{1100.0 s + 100000.0}{s^{2} + 1200.0 s + 100000.0}$<br>$v_{3} = 1.0$<br>$I_{V1} = \frac{- s^{2} - 100.0 s}{1000.0 s^{2} + 1200000.0 s + 100000000.0}$<br>
+:::
+:::
+
+
+The frequency domain voltage transfer function $H = v_2/v_3$ can be obtained:
+
+::: {#265cea64 .cell execution_count=23}
+
+::: {.cell-output .cell-output-display .cell-output-markdown execution_count=23}
+$\displaystyle \frac{1100.0 s + 100000.0}{s^{2} + 1200.0 s + 100000.0}$
+:::
+:::
+
+
+
+
+The poles and zeros of the frequency domain transfer function are plotted.
+
+::: {#9e9190a6 .cell execution_count=25}
+
+::: {.cell-output .cell-output-display}
+![](Introduction_files/figure-html/cell-26-output-1.png){width=609 height=449}
+:::
+:::
+
+
+The SciPy function [bode](https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.bode.html) to plot the magnitude and phase of $H$.
+
+::: {#8cc3d117 .cell execution_count=26}
+
+::: {.cell-output .cell-output-display}
+![](Introduction_files/figure-html/cell-27-output-1.png){width=652 height=451}
+:::
+:::
+
+
+The SciPy functions [impulse2](https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.impulse2.html) and [step2](https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.step2.html) to plot the impulse and step response of the system.
+
+::: {#4f4ab26a .cell execution_count=27}
+
+::: {.cell-output .cell-output-display}
+![](Introduction_files/figure-html/cell-28-output-1.png){width=607 height=449}
+:::
+:::
+
+
+The step response is shown below.
+
+::: {#ef535ffc .cell execution_count=28}
+
+::: {.cell-output .cell-output-display}
+![](Introduction_files/figure-html/cell-29-output-1.png){width=594 height=449}
+:::
+:::
+
+
+-->
+<p>Matrix and polynomial math can be performed with hardly any effort with the help of SymPy. For some high order polynomials, SymPy does have trouble finding the symbolic roots. The code used to perform the calculations above and display the results is embedded in this markdown document, but is hidden from display. The code can be examined by looking at the original markdown document for this chapter or the example and validation chapters later in this book.</p>
 <section id="jupyterlab" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="jupyterlab"><span class="header-section-number">1.1</span> JupyterLab</h2>
-<p>All the validation and problem circuits are presented in JupyterLab notebooks and rendered into chapters by Quarto.</p>
+<p>All the validation and example problem circuits are presented in JupyterLab notebooks and rendered into chapters by Quarto.</p>
 <p><strong>Variable names</strong><br>
 I’ve tried to be consistent with the use of variable names throughout the Jupyter notebooks. Resistors, capacitors and inductors use R, L and C as reference designators. The names chosen for the other variables are listed in <a href="#tbl-variable-names" class="quarto-xref">Table&nbsp;<span>1.1</span></a></p>
 <div id="tbl-variable-names" class="quarto-float anchored">
@@ -713,19 +851,19 @@ Table&nbsp;1.1: Variable names
 <td>Capital letter C for capacitors</td>
 </tr>
 <tr class="even">
-<td>E</td>
+<td><span class="math inline">\(E_1, E_2,\)</span> …</td>
 <td>Voltage controlled voltage source (VCVS)</td>
 </tr>
 <tr class="odd">
-<td>F</td>
+<td><span class="math inline">\(F_1, F_2,\)</span> …</td>
 <td>Current controlled current source (CCCS)</td>
 </tr>
 <tr class="even">
-<td>G</td>
+<td><span class="math inline">\(G_1, G_2,\)</span> …</td>
 <td>Voltage controlled current source (VCCS)</td>
 </tr>
 <tr class="odd">
-<td>H</td>
+<td><span class="math inline">\(H_1, H_2,\)</span> …</td>
 <td>Current controlled voltage source (CCVS)</td>
 </tr>
 <tr class="even">
@@ -734,7 +872,7 @@ Table&nbsp;1.1: Variable names
 </tr>
 <tr class="odd">
 <td><span class="math inline">\(M_1, M_2,\)</span> …</td>
-<td>Mutual inductances</td>
+<td>Mutual inductance</td>
 </tr>
 <tr class="even">
 <td><span class="math inline">\(O_1, O_2,\)</span> …</td>
@@ -757,10 +895,11 @@ Table&nbsp;1.1: Variable names
 </div>
 </figure>
 </div>
+<p>Expressions generated by SymPy that have imaginary quantities will use <span class="math inline">\(i\)</span> for the imaginary number. Typically, electrical engineers will use <span class="math inline">\(j\)</span> for the imaginary number since <span class="math inline">\(i\)</span> is the variable used for electrical current. Depending on who generates the equation, either <span class="math inline">\(i\)</span> or <span class="math inline">\(j\)</span> might be used and the reader should short these out based on context. Usually, the variables used for current have a number, e.g.&nbsp;<span class="math inline">\(i_1\)</span> or <span class="math inline">\(i_2\)</span> and a lone <span class="math inline">\(i\)</span> would be the imaginary number.</p>
 <p><strong>Large exponents</strong><br>
 The values of the exponents can be very large in the numerical solution to the network equations when using real component values. Often you will see in engineering text books that the author uses normalized component values, where the values have been frequency and impedance scaled to a frequency of <span class="math inline">\(\omega = 1\)</span> and one of the resistors or other components normalized to a value of one. This keeps the numerical values obtained in the solution to the network equations from getting very large or small.</p>
 <p>Almost all platforms map Python floats to the IEEE754 double precision - 64 total bits. Using the sys package, the float information is reported as follows:</p>
-<div id="b01c2ed0" class="cell" data-execution_count="19">
+<div id="d9108a37" class="cell" data-execution_count="29">
 <div class="cell-output cell-output-stdout">
 <pre><code>max=1.7976931348623157e+308
  max_exp=1024
@@ -829,8 +968,61 @@ R6 7 6 44.2e3</code></pre>
 </section>
 <section id="pros-and-cons-of-mna" class="level2" data-number="1.5">
 <h2 data-number="1.5" class="anchored" data-anchor-id="pros-and-cons-of-mna"><span class="header-section-number">1.5</span> Pros and cons of MNA</h2>
-<p>The MNA approach is a suitable technique for hand analysis of small circuits as well as for computer analysis of larger circuits using the same algorithm as illustrated in this book. The only disadvantage of the MNA technique is that often additional equations are generated, when a smaller number would be sufficient. For students doing homework problems and solving sets of equations by hand, the extra equation or two, generated by the MNA technique makes matrix inversions much harder. Modern pocket scientific calculators that engineering students now use can solve sets of linear equations relatively easily. However, some effort is required to enter the equations into the calculator.</p>
+<p>The MNA approach is a suitable technique for hand analysis of small circuits as well as for computer analysis of larger circuits using the same algorithm as illustrated in this book. One disadvantage of the MNA technique is that often additional equations are generated, when a smaller number would be sufficient. For students doing homework problems and solving sets of equations by hand, the extra equation or two, generated by the MNA technique makes matrix inversions much harder.</p>
+<p>For example, the circuit in <a href="#fig-Intro_circuit" class="quarto-xref">Figure&nbsp;<span>1.1</span></a>, can be described by the following two mesh equations:</p>
+<div id="f8acf1ee" class="cell" data-execution_count="30">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="30">
+<p><span class="math inline">\(\displaystyle L_{1} s \left(i_{1} - i_{2}\right) + R_{1} i_{1} + \frac{i_{1} - i_{2}}{C_{1} s} = V_{1}\)</span></p>
+</div>
+</div>
+<div id="3cf4f0cb" class="cell" data-execution_count="31">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="31">
+<p><span class="math inline">\(\displaystyle L_{1} s \left(- i_{1} + i_{2}\right) + \frac{i_{2}}{C_{2} s} + \frac{- i_{1} + i_{2}}{C_{1} s} = 0\)</span></p>
+</div>
+</div>
+<p>where <span class="math inline">\(i_1\)</span> and <span class="math inline">\(i_2\)</span> are the unknown currents.</p>
+<p>The MNA procedure generated five equations, but one of them was trivial. Only two equations need to be solved to find the mesh currents, which are:</p>
+<div id="6fbd6c28" class="cell" data-execution_count="32">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="32">
+<p><span class="math inline">\(i_{1} = \frac{C_{1} C_{2} L_{1} V_{1} s^{3} + C_{1} V_{1} s + C_{2} V_{1} s}{C_{1} C_{2} L_{1} R_{1} s^{3} + C_{1} L_{1} s^{2} + C_{1} R_{1} s + C_{2} R_{1} s + 1}\)</span><br><span class="math inline">\(i_{2} = \frac{C_{1} C_{2} L_{1} V_{1} s^{3} + C_{2} V_{1} s}{C_{1} C_{2} L_{1} R_{1} s^{3} + C_{1} L_{1} s^{2} + C_{1} R_{1} s + C_{2} R_{1} s + 1}\)</span><br></p>
+</div>
+</div>
+<p>Modern pocket scientific calculators that engineering students now use can solve sets of linear equations relatively easily. However, some effort is required to enter the equations into the calculator.</p>
 <p>When a computer is used to generate the schematic for a circuit and the net list is exported to the Python code, the extra equations that the MNA approach generates is not a practical concern. Using the examples in this book as templates for problem solving makes the work flow very easy, which is the main benefit of using MNA.</p>
+<!--
+rewrite to include the following sections. Rewrite the start of the introduction to flow from intro to who, why and Prerequisites sections.  
+
+Make a new notebook for introduction circuit that yields more interesting graphs: MNA_other_circuits/intro_circuit.ipynb
+
+## Introduction
+
+Symbolic circuit analysis using Python
+This book will not teach you about machine learning, statistics or visualization.
+
+The goal is to teach you a set of tools, practices and project management techniques that should make your projects easier to reproduce, replicate and retrace. These tools and techniques can be used right from the start of your project at a minimal cost, such that once you�re done with the analysis, you�re also done with making the project reproducible. Your projects are going to be reproducible simply because they were engineered, from the start, to be reproducible.
+
+## Who is this book for?
+This book is for anyone that uses raw data to build any type of output based on that raw data. This can be a simple quarterly report for example, in which the data is used for tables and graphs, or a scientific article for a peer reviewed journal or even an interactive web application. It doesn�t matter, because the process is, at its core, always very similar:
+
+  Get the data;
+  Clean the data;
+  Write code to analyze the data;
+  Put the results into the final product.
+
+This book will already assume some familiarity with programming, and in particular the R programming language. However, if you�re comfortable with another programming language like Python, you could still learn a lot from reading this book. The tools presented in this book are specific to R, but there will always be an alternative for the language you prefer using, meaning that you could apply the advice from this book to your needs and preferences.
+
+## What is the aim of this book?
+The aim of this book is to make the process of analyzing data as reliable, retraceable, and reproducible as possible, and do this by design. This means that once you�re done with the analysis, you�re done. You don�t want to spend time, which you often don�t have anyways, to rewrite or refactor an analysis and make it reproducible after the fact. We both know that this is not going to happen. Once an analysis is done, it�s time to go to the next analysis. And if you need to rerun an older analysis (for example, because the data got updated), then you�ll simply figure it out at that point, right? That�s a problem for future you, right? Hopefully, future you will remember every quirk of your code and know which script to run at which point in the process, which comments are outdated and can be safely ignored, what features of the data need to be checked (and when they need to be checked), and so on� You better hope future you is a more diligent worker than you!
+
+Going forward, I�m going to refer to a project that is reproducible as a �reproducible analytical pipeline�, or RAP for short. There are only two ways to make such a RAP; either you are lucky enough to have someone on the team whose job is to turn your messy code into a RAP, or you do it yourself. And this second option is very likely the most common. The issue is, as stated above, that most of us simply don�t do it. We are always in the rush to get to the results, and don�t think about making the process reproducible. This is because we always think that making the process reproducible takes time and this time is better spent working on the analysis itself. But this is a misconception, for two reasons.
+
+The first reason is that employing the techniques that we are going to discuss in this book won�t actually take much time. As you will see, they�re not really things that you �add on top of the analysis�, but will be part of the analysis itself, and they will also help with managing the project. And some of these techniques will even save you time (especially testing) and headaches.
+
+## Prerequisites
+You should be comfortable with the R programming language. This book will assume that you have been using R for some projects already, and want to improve not only your knowledge of the language itself, but also how to successfully manage complex projects. Ideally, you should know about packages, how to install them, you should have written some functions already, know about loops and have some basic knowledge of data structures like lists. While this is not a book on visualization, we will be making some graphs using the {ggplot2} package, so if you�re familiar with that, that�s good. If not, no worries, visualization, data munging or data analysis is not the point of this book. Chapter 2, Before we start should help you gauge how easily you will be able to follow this book.
+
+Ideally, you should also not be afraid of not using Graphical User Interfaces (GUIs). While you can follow along using an IDE like RStudio, I will not be teaching any features from any program with a GUI. This is not to make things harder than they should be (quite the contrary actually) but because interacting graphically with a program is simply not reproducible. So our aim is to write code that can be executed non-interactively by a machine. This is because one necessary condition for a workflow to be reproducible and get referred to as a RAP, is for the workflow to be able to be executed by a machine, automatically, without any human intervention. This is the second lesson of building RAPs: there should be no human intervention needed to get the outputs once the RAP is started. If you achieve this, then your workflow is likely reproducible, or can at least be made reproducible much more easily than if it requires some special manipulation by a human somewhere in the loop.
+-->
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
@@ -923,6 +1115,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -957,7 +1167,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -1005,7 +1219,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      return note.innerHTML;
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
     }
   }
   for (var i=0; i<xrefs.length; i++) {
@@ -1228,12 +1447,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./Preface.html" class="pagination-link  aria-label=" preface"="">
+      <a href="./Preface.html" class="pagination-link" aria-label="Preface">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Preface</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./Theory.html" class="pagination-link" aria-label="<span class='chapter-number'>2</span>&nbsp; <span class='chapter-title'>Theory</span>">
+      <a href="./Theory.html" class="pagination-link" aria-label="Theory">
         <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Theory</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
