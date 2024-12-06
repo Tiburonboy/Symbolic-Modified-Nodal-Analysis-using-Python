@@ -5,7 +5,7 @@ project:
 book:
   title: "Symbolic Modified Nodal Analysis<br>using Python"
   author: "Tiburonboy"
-  date: "6/30/2024"
+  date: "12/6/2024"
   date-format: D MMMM YYYY
 
   chapters:
@@ -54,10 +54,27 @@ book:
 #        - double pendulum.ipynb
         - mech-sys.ipynb
 #        - rot mech sys.ipynb
+#        - Klon Centaur.ipynb
+#        - Klon Centaur part 1.ipynb
+        - Klon Centaur part 1.qmd
+# the following are place holders
+        - Klon Centaur part 2.qmd
+        - Klon Centaur part 3.qmd
+#        - Klon Centaur part 2.ipynb
+#        - scratchpad.ipynb        
+#        - Klon Centaur part 3.ipynb
+#        - Future example problems.qmd
+        - Wien bridge oscillator.qmd
+        - Flyback circuit.qmd
+        - Diode circuit.qmd
+        - Transistor circuit.qmd
+        - Bridged T-coil.qmd
     - References.qmd
   appendices:
     - SymMNA_py.qmd
     - Change-log.qmd
+    - Google Colab.qmd
+    - EasyEDA_schematic_editor.qmd
 
 format:
   html:

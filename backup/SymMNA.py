@@ -101,6 +101,8 @@ def smna(net_list):
 
     # initialize variables
     num_rlc = 0 # number of passive elements
+    num_res = 0 # number of resistors
+    num_cap = 0 # number of capacitors
     num_ind = 0 # number of inductors
     num_v = 0    # number of independent voltage sources
     num_i = 0    # number of independent current sources
@@ -144,6 +146,10 @@ def smna(net_list):
                 "had {:d} items and should only be 4".format(tk_cnt))
             num_rlc += 1
             branch_cnt += 1
+            if x == 'R':
+                num_res += 1            
+            if x == 'C':
+                num_cap += 1            
             if x == 'L':
                 num_ind += 1
         elif x == 'V':
@@ -390,6 +396,8 @@ def smna(net_list):
     i_unk = num_v+num_opamps+num_vcvs+num_ccvs+num_cccs+num_ind
     report = report+'number of unknown currents: {:d}\n'.format(i_unk)
     report = report+'number of RLC (passive components): {:d}\n'.format(num_rlc)
+    report = report+'number of resistors: {:d}\n'.format(num_res)    
+    report = report+'number of capacitors: {:d}\n'.format(num_cap)    
     report = report+'number of inductors: {:d}\n'.format(num_ind)
     report = report+'number of independent voltage sources: {:d}\n'.format(num_v)
     report = report+'number of independent current sources: {:d}\n'.format(num_i)
