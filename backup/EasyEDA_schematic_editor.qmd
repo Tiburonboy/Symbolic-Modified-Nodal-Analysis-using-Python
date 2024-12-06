@@ -1,0 +1,8 @@
+#  EasyEDA {#sec-EasyEDA_schematic_editor}
+
+Generating a netlist from a schematic can be facilitated by a schematic editor program. [EasyEDA](https://www.easyeda.com/) is an example of a web based schematic editor that is free and easy to use. Since it it web based, there is nothing to install.
+
+EasyEDA is an Electronic Design Automation (EDA) tool that enables hardware engineers to design, simulate, share - publicly and privately - and discuss schematics, simulations and printed circuit boards. EasyEDA allows the creation and editing of schematic diagrams, SPICE simulation of mixed analogue and digital circuits. A subscription-free membership is offered for public projects plus a limited number of private projects. The company is based in Shenzhen, China.
+
+A tutorial and [User Guide](https://docs.easyeda.com/en/) is available that explains how to draw a schematic and export a netlist.
+

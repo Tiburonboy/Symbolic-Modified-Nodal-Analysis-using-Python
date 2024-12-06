@@ -1,0 +1,5 @@
+# Bridged T-coil
+
+A circuit with a coupled inductor and a bridging capacitor.
+
+This page is a placeholder for the JupyterLab notebook. 

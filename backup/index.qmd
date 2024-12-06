@@ -29,7 +29,7 @@ This book was written in [R MarkDown](https://rmarkdown.rstudio.com/) using plai
 
 I don't have a proof reader or professional editor for this project. Instead, I'm relying on the LibreOffice spell checker and the grammar and spell checker of Google Docs to help me with this part of the writing process.
 
-Source code for this book is available [here](https://github.com/Tiburonboy/Symbolic-Modified-Nodal-Analysis-using-Python/tree/main/backup) and related material is located [here](https://github.com/Tiburonboy/Symbolic-modified-nodal-analysis)
+Source code for this book is available [here](https://github.com/Tiburonboy/Symbolic-Modified-Nodal-Analysis-using-Python/tree/main/backup) and related material is located [here](https://github.com/Tiburonboy/Symbolic-modified-nodal-analysis). Python code contained in this book can run in a browser-based environment, see @sec-google_colab. Additionally, online schematics editors are available, see @sec-EasyEDA_schematic_editor. By using web based tools, the reader is not required to install any programs.
 
 ### Python module version
 The following versions were used in this book.
@@ -57,7 +57,7 @@ This book will be updated occasionally to fix typos, spelling and grammar mistak
 | date | description |
 |:---------|:------------|
 | 29 Dec 2023 | test version |
-| 26 Jan 2023 | various updates to draft |
+| 26 Jan 2024 | various updates to draft |
 | 27 Apr 2024 | adding/removing example problems |
 | 1 May 2024 | rendering book with Quarto 1.4 |
 | Published date<br>show above | see @tbl-book-change-log |
@@ -94,7 +94,7 @@ This book is published under the pseudonym Tiburonboy.
 
 When I was about ten years old, my parents gave me an electronics kit for Christmas. It was a collection of resistors, capacitors, transistors and other assorted electronic components. The kit included about ten plans to build various circuits like an AM radio and audio oscillator. Ever since then I have been interested in radios and electronics.
 
-After graduating from high school, my Dad asked me what I was going to study in college and I told him mathematics. He suggested that I study electrical engineering since engineers were more in demand than mathematicians and electrical engineering was very math oriented. This turned out to be the best advice he gave me, because for the next 37 years my interest in electronics has turned into a very rewarding career as an electrical engineer.
+After graduating from high school, my Dad asked me what I was going to study in college and I told him mathematics. He suggested that I study electrical engineering since engineers were more in demand than mathematicians and electrical engineering was very math oriented. This turned out to be the best advice he gave me, because for the next 37 years my interest in electronics evolved into a very rewarding career as an electrical engineer.
 
 My first job after graduating from college was working as a civilian for the US Navy. For more than 40 years I have been designing electronic circuits for instrumentation and telemetry systems. I have five Patents and have published seven technical papers.
 
