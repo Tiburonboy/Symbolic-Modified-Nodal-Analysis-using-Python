@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.553">
+<meta name="generator" content="quarto-1.4.537">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -437,6 +437,54 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Mechanical systems</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Klon Centaur part 1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Klon Centaur, part 1</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Klon Centaur part 2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Klon Centaur, part 2</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Klon Centaur part 3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Klon Centaur, part 3</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Wien bridge oscillator.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">Wien bridge oscillator</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Flyback circuit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Flyback circuit</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Diode circuit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">Diode circuit</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Transistor circuit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Transistor circuit</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bridged T-coil.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">Bridged T-coil</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item">
@@ -464,6 +512,18 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="./Change-log.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Change Log</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Google Colab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Google Colab</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./EasyEDA_schematic_editor.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">EasyEDA</span></span></a>
   </div>
 </li>
       </ul>
@@ -511,7 +571,7 @@ window.Quarto = {
 <p>Circuit analysis and theory are fundamental to electrical engineering and is usually one of the first topics taught to electrical engineering students. The purpose of this book is to describe a circuit analysis method called <a href="https://en.wikipedia.org/wiki/Modified_nodal_analysis">Modified Nodal Analysis</a> (MNA) implemented in Python and using the SymPy library. The Python programming language along with its packages and libraries provide powerful computational tools that make solving math problems extremely easy with just a few lines of code. SymPy and NumPy are the main libraries used to perform the types of circuit analysis problems described in this book.</p>
 <p>Symbolic Modified Nodal Analysis circuit analysis offers an alternative way to analyze electric circuits since the results are analytic expressions that describe the functionality of the circuit in terms of the circuit variables. The analytic expressions can, but not always, offer some insight into the behavior of the circuit.</p>
 <p>In this chapter, as well as in the remainder of this book, the following Python libraries are used.</p>
-<div id="a29077e6" class="cell" data-execution_count="1">
+<div id="c12e9f56" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display, Markdown, Math, Latex</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sympy <span class="im">import</span> <span class="op">*</span></span>
@@ -545,59 +605,59 @@ C2 2 0 0.2
 ```
 -->
 <p>For this circuit, the MNA code generates the following system of equations:</p>
-<div id="c70f084f" class="cell" data-execution_count="2">
+<div id="3c1f00a9" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="2">
 <p><span class="math inline">\(I_{V1} + \frac{v_{1}}{R_{1}} - \frac{v_{2}}{R_{1}} = 0\)</span><br><span class="math inline">\(I_{L1} + v_{2} \left(C_{2} s + \frac{1}{R_{1}}\right) - \frac{v_{1}}{R_{1}} = 0\)</span><br><span class="math inline">\(C_{1} s v_{3} - I_{L1} = 0\)</span><br><span class="math inline">\(v_{1} = V_{1}\)</span><br><span class="math inline">\(- I_{L1} L_{1} s + v_{2} - v_{3} = 0\)</span><br></p>
 </div>
 </div>
 <p>where, <span class="math inline">\(s\)</span> is the Laplace variable, <span class="math inline">\(C_1\)</span> and <span class="math inline">\(C_2\)</span> are capacitors, <span class="math inline">\(R_1\)</span> is a resistor, <span class="math inline">\(L_1\)</span> is an inductor, <span class="math inline">\(v_1\)</span>, <span class="math inline">\(v_2\)</span> and <span class="math inline">\(v_3\)</span> are the unknown node voltages, <span class="math inline">\(V_1\)</span> is the input voltage source, <span class="math inline">\(I_{V1}\)</span> is the unknown current flowing through <span class="math inline">\(V_1\)</span> and <span class="math inline">\(I_{L1}\)</span> is the unknown current flowing in <span class="math inline">\(L_1\)</span>. These equations can be easily solved by SymPy to obtain the unknown voltages and currents as analytic expressions.</p>
-<div id="38daf1ee" class="cell" data-execution_count="3">
+<div id="8d75de56" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="3">
 <p><span class="math inline">\(v_{1} = V_{1}\)</span><br><span class="math inline">\(v_{2} = \frac{C_{1} L_{1} V_{1} s^{2} + V_{1}}{C_{1} C_{2} L_{1} R_{1} s^{3} + C_{1} L_{1} s^{2} + C_{1} R_{1} s + C_{2} R_{1} s + 1}\)</span><br><span class="math inline">\(v_{3} = \frac{V_{1}}{C_{1} C_{2} L_{1} R_{1} s^{3} + C_{1} L_{1} s^{2} + C_{1} R_{1} s + C_{2} R_{1} s + 1}\)</span><br><span class="math inline">\(I_{V1} = \frac{- C_{1} C_{2} L_{1} V_{1} s^{3} - C_{1} V_{1} s - C_{2} V_{1} s}{C_{1} C_{2} L_{1} R_{1} s^{3} + C_{1} L_{1} s^{2} + C_{1} R_{1} s + C_{2} R_{1} s + 1}\)</span><br><span class="math inline">\(I_{L1} = \frac{C_{1} V_{1} s}{C_{1} C_{2} L_{1} R_{1} s^{3} + C_{1} L_{1} s^{2} + C_{1} R_{1} s + C_{2} R_{1} s + 1}\)</span><br></p>
 </div>
 </div>
 <p>Once the network equations are solved, SymPy can be used to obtain the analytic expression for a transfer function, since manipulation of equations is very easy. For example, SymPy can be used to the find the symbolic form of the impedance of the circuit as seen from the terminal of <span class="math inline">\(V_1\)</span>, <span class="math inline">\(Z(s)=\frac {v_1}{I_{V1}}\)</span>, which is:</p>
-<div id="5de63daf" class="cell" data-execution_count="4">
+<div id="eb24a7ec" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="4">
 <p><span class="math inline">\(\displaystyle \frac{C_{1} C_{2} L_{1} R_{1} s^{3} + C_{1} L_{1} s^{2} + C_{1} R_{1} s + C_{2} R_{1} s + 1}{s \left(C_{1} C_{2} L_{1} s^{2} + C_{1} + C_{2}\right)}\)</span></p>
 </div>
 </div>
 <p>The numerator and denominator of <span class="math inline">\(Z(s)\)</span> can be extracted. The numerator is:</p>
-<div id="34fa5cb1" class="cell" data-execution_count="5">
+<div id="5bccdae2" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display cell-output-markdown">
 <p><span class="math inline">\(\displaystyle C_{1} C_{2} L_{1} R_{1} s^{3} + C_{1} L_{1} s^{2} + C_{1} R_{1} s + C_{2} R_{1} s + 1\)</span></p>
 </div>
 </div>
 <p>The denominator is:</p>
-<div id="37bfbafe" class="cell" data-execution_count="6">
+<div id="6cdd1361" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display cell-output-markdown">
 <p><span class="math inline">\(\displaystyle s \left(C_{1} C_{2} L_{1} s^{2} + C_{1} + C_{2}\right)\)</span></p>
 </div>
 </div>
 <p>SymPy can easily solve for the roots of the numerator and denominator. Since the numerator is a third order expression, the analytic solution is a bit long. Quarto will insert a slider bar for expressions wider than the text display width.</p>
-<div id="66faad51" class="cell" data-execution_count="7">
+<div id="bc3b9809" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display cell-output-markdown">
 <p><span class="math inline">\(\displaystyle - \frac{\frac{1}{C_{2}^{2} R_{1}^{2}} - \frac{3 \left(C_{1} + C_{2}\right)}{C_{1} C_{2} L_{1}}}{3 \sqrt[3]{\frac{\sqrt{- 4 \left(\frac{1}{C_{2}^{2} R_{1}^{2}} - \frac{3 \left(C_{1} + C_{2}\right)}{C_{1} C_{2} L_{1}}\right)^{3} + \left(\frac{2}{C_{2}^{3} R_{1}^{3}} + \frac{27}{C_{1} C_{2} L_{1} R_{1}} - \frac{9 \left(C_{1} + C_{2}\right)}{C_{1} C_{2}^{2} L_{1} R_{1}}\right)^{2}}}{2} + \frac{1}{C_{2}^{3} R_{1}^{3}} + \frac{27}{2 C_{1} C_{2} L_{1} R_{1}} - \frac{9 \left(C_{1} + C_{2}\right)}{2 C_{1} C_{2}^{2} L_{1} R_{1}}}} - \frac{\sqrt[3]{\frac{\sqrt{- 4 \left(\frac{1}{C_{2}^{2} R_{1}^{2}} - \frac{3 \left(C_{1} + C_{2}\right)}{C_{1} C_{2} L_{1}}\right)^{3} + \left(\frac{2}{C_{2}^{3} R_{1}^{3}} + \frac{27}{C_{1} C_{2} L_{1} R_{1}} - \frac{9 \left(C_{1} + C_{2}\right)}{C_{1} C_{2}^{2} L_{1} R_{1}}\right)^{2}}}{2} + \frac{1}{C_{2}^{3} R_{1}^{3}} + \frac{27}{2 C_{1} C_{2} L_{1} R_{1}} - \frac{9 \left(C_{1} + C_{2}\right)}{2 C_{1} C_{2}^{2} L_{1} R_{1}}}}{3} - \frac{1}{3 C_{2} R_{1}}\)</span></p>
 </div>
 </div>
-<div id="89d7b08f" class="cell" data-execution_count="8">
+<div id="a3db7f66" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display cell-output-markdown">
 <p><span class="math inline">\(\displaystyle - \frac{\frac{1}{C_{2}^{2} R_{1}^{2}} - \frac{3 \left(C_{1} + C_{2}\right)}{C_{1} C_{2} L_{1}}}{3 \left(- \frac{1}{2} - \frac{\sqrt{3} i}{2}\right) \sqrt[3]{\frac{\sqrt{- 4 \left(\frac{1}{C_{2}^{2} R_{1}^{2}} - \frac{3 \left(C_{1} + C_{2}\right)}{C_{1} C_{2} L_{1}}\right)^{3} + \left(\frac{2}{C_{2}^{3} R_{1}^{3}} + \frac{27}{C_{1} C_{2} L_{1} R_{1}} - \frac{9 \left(C_{1} + C_{2}\right)}{C_{1} C_{2}^{2} L_{1} R_{1}}\right)^{2}}}{2} + \frac{1}{C_{2}^{3} R_{1}^{3}} + \frac{27}{2 C_{1} C_{2} L_{1} R_{1}} - \frac{9 \left(C_{1} + C_{2}\right)}{2 C_{1} C_{2}^{2} L_{1} R_{1}}}} - \frac{\left(- \frac{1}{2} - \frac{\sqrt{3} i}{2}\right) \sqrt[3]{\frac{\sqrt{- 4 \left(\frac{1}{C_{2}^{2} R_{1}^{2}} - \frac{3 \left(C_{1} + C_{2}\right)}{C_{1} C_{2} L_{1}}\right)^{3} + \left(\frac{2}{C_{2}^{3} R_{1}^{3}} + \frac{27}{C_{1} C_{2} L_{1} R_{1}} - \frac{9 \left(C_{1} + C_{2}\right)}{C_{1} C_{2}^{2} L_{1} R_{1}}\right)^{2}}}{2} + \frac{1}{C_{2}^{3} R_{1}^{3}} + \frac{27}{2 C_{1} C_{2} L_{1} R_{1}} - \frac{9 \left(C_{1} + C_{2}\right)}{2 C_{1} C_{2}^{2} L_{1} R_{1}}}}{3} - \frac{1}{3 C_{2} R_{1}}\)</span></p>
 </div>
 </div>
-<div id="96e3f1b9" class="cell" data-execution_count="9">
+<div id="378b4755" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-display cell-output-markdown">
 <p><span class="math inline">\(\displaystyle - \frac{\frac{1}{C_{2}^{2} R_{1}^{2}} - \frac{3 \left(C_{1} + C_{2}\right)}{C_{1} C_{2} L_{1}}}{3 \left(- \frac{1}{2} + \frac{\sqrt{3} i}{2}\right) \sqrt[3]{\frac{\sqrt{- 4 \left(\frac{1}{C_{2}^{2} R_{1}^{2}} - \frac{3 \left(C_{1} + C_{2}\right)}{C_{1} C_{2} L_{1}}\right)^{3} + \left(\frac{2}{C_{2}^{3} R_{1}^{3}} + \frac{27}{C_{1} C_{2} L_{1} R_{1}} - \frac{9 \left(C_{1} + C_{2}\right)}{C_{1} C_{2}^{2} L_{1} R_{1}}\right)^{2}}}{2} + \frac{1}{C_{2}^{3} R_{1}^{3}} + \frac{27}{2 C_{1} C_{2} L_{1} R_{1}} - \frac{9 \left(C_{1} + C_{2}\right)}{2 C_{1} C_{2}^{2} L_{1} R_{1}}}} - \frac{\left(- \frac{1}{2} + \frac{\sqrt{3} i}{2}\right) \sqrt[3]{\frac{\sqrt{- 4 \left(\frac{1}{C_{2}^{2} R_{1}^{2}} - \frac{3 \left(C_{1} + C_{2}\right)}{C_{1} C_{2} L_{1}}\right)^{3} + \left(\frac{2}{C_{2}^{3} R_{1}^{3}} + \frac{27}{C_{1} C_{2} L_{1} R_{1}} - \frac{9 \left(C_{1} + C_{2}\right)}{C_{1} C_{2}^{2} L_{1} R_{1}}\right)^{2}}}{2} + \frac{1}{C_{2}^{3} R_{1}^{3}} + \frac{27}{2 C_{1} C_{2} L_{1} R_{1}} - \frac{9 \left(C_{1} + C_{2}\right)}{2 C_{1} C_{2}^{2} L_{1} R_{1}}}}{3} - \frac{1}{3 C_{2} R_{1}}\)</span></p>
 </div>
 </div>
 <p>The are three zeros in the impedance function and from the expressions above, we can see what components are influencing the zeros. However, as you can see, these expressions are long and complex. It’s difficult to imagine what insights can be obtained from these analytic expressions.</p>
 <p>The roots of the denominator are:</p>
-<div id="b989353a" class="cell" data-execution_count="10">
+<div id="b7a76fca" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-display cell-output-markdown">
 <p><span class="math inline">\(\displaystyle \sqrt{\frac{- C_{1} - C_{2}}{C_{1} C_{2} L_{1}}}\)</span></p>
 </div>
 </div>
-<div id="9dc7a01d" class="cell" data-execution_count="11">
+<div id="a5081070" class="cell" data-execution_count="11">
 <div class="cell-output cell-output-display cell-output-markdown">
 <p><span class="math inline">\(\displaystyle - \sqrt{- \frac{C_{1} + C_{2}}{C_{1} C_{2} L_{1}}}\)</span></p>
 </div>
@@ -615,7 +675,7 @@ $v_{3} = V_{1}$
 
 where, $C_1$ and $C_2$ are the capacitors in an electrical circuit, $R_2$ and $R_3$ are the resistors, $v_1$, $v_2$ and $v_3$ are the unknown node voltages, $V_1$ is the input voltage source and $I_{V1}$ is the unknown current flowing through $V_1$, can be entered into SymPy to get the equations in matrix form:
 
-::: {#4ed22a7d .cell execution_count=12}
+::: {#869d35b3 .cell execution_count=12}
 
 ::: {.cell-output .cell-output-display .cell-output-markdown execution_count=12}
 $\displaystyle \left[\begin{matrix}- C_{1} s v_{2} + v_{1} \left(C_{1} s + C_{2} s + \frac{1}{R_{3}}\right)\\- C_{1} s v_{1} + v_{2} \left(C_{1} s + \frac{1}{R_{2}}\right) - \frac{v_{3}}{R_{2}}\\I_{V1} - \frac{v_{2}}{R_{2}} + \frac{v_{3}}{R_{2}}\\v_{3}\end{matrix}\right] = \left[\begin{matrix}0\\0\\0\\V_{1}\end{matrix}\right]$
@@ -625,7 +685,7 @@ $\displaystyle \left[\begin{matrix}- C_{1} s v_{2} + v_{1} \left(C_{1} s + C_{2}
 
 The system of equations can be easily solved to obtain a symbolic solution.
 
-::: {#a23acd6f .cell execution_count=13}
+::: {#5f0b9695 .cell execution_count=13}
 
 ::: {.cell-output .cell-output-display .cell-output-markdown execution_count=13}
 $v_{1} = \frac{C_{1} R_{3} V_{1} s}{C_{1} C_{2} R_{2} R_{3} s^{2} + C_{1} R_{2} s + C_{1} R_{3} s + C_{2} R_{3} s + 1}$<br>$v_{2} = \frac{C_{1} R_{3} V_{1} s + C_{2} R_{3} V_{1} s + V_{1}}{C_{1} C_{2} R_{2} R_{3} s^{2} + C_{1} R_{2} s + C_{1} R_{3} s + C_{2} R_{3} s + 1}$<br>$v_{3} = V_{1}$<br>$I_{V1} = \frac{- C_{1} C_{2} R_{3} V_{1} s^{2} - C_{1} V_{1} s}{C_{1} C_{2} R_{2} R_{3} s^{2} + C_{1} R_{2} s + C_{1} R_{3} s + C_{2} R_{3} s + 1}$<br>
@@ -635,7 +695,7 @@ $v_{1} = \frac{C_{1} R_{3} V_{1} s}{C_{1} C_{2} R_{2} R_{3} s^{2} + C_{1} R_{2} 
 
 The solution for the voltage transfer function $H_{sym} = v_2/v_3$ is:
 
-::: {#607f4ab4 .cell execution_count=14}
+::: {#d7b64801 .cell execution_count=14}
 
 ::: {.cell-output .cell-output-display .cell-output-markdown execution_count=14}
 $\displaystyle \frac{C_{1} R_{3} s + C_{2} R_{3} s + 1}{C_{1} C_{2} R_{2} R_{3} s^{2} + C_{1} R_{2} s + C_{1} R_{3} s + C_{2} R_{3} s + 1}$
@@ -647,7 +707,7 @@ $\displaystyle \frac{C_{1} R_{3} s + C_{2} R_{3} s + 1}{C_{1} C_{2} R_{2} R_{3} 
 
 The zeros of $H_{sym}$ are obtained by taking the numerator and solving for $s$, the result is:
 
-::: {#f316d75c .cell execution_count=16}
+::: {#3655c6f1 .cell execution_count=16}
 
 ::: {.cell-output .cell-output-display .cell-output-markdown execution_count=16}
 $\displaystyle \left[ - \frac{1}{R_{3} \left(C_{1} + C_{2}\right)}\right]$
@@ -659,7 +719,7 @@ $\displaystyle \left[ - \frac{1}{R_{3} \left(C_{1} + C_{2}\right)}\right]$
 
 The poles of $H_{sym}$ are obtained by taking the denominator and solving for $s$. There are two solutions and the first is:
 
-::: {#2374338f .cell execution_count=18}
+::: {#8cd1eba3 .cell execution_count=18}
 
 ::: {.cell-output .cell-output-display .cell-output-markdown execution_count=18}
 $\displaystyle \frac{- C_{1} R_{2} - C_{1} R_{3} - C_{2} R_{3} - \sqrt{C_{1}^{2} R_{2}^{2} + 2 C_{1}^{2} R_{2} R_{3} + C_{1}^{2} R_{3}^{2} - 2 C_{1} C_{2} R_{2} R_{3} + 2 C_{1} C_{2} R_{3}^{2} + C_{2}^{2} R_{3}^{2}}}{2 C_{1} C_{2} R_{2} R_{3}}$
@@ -669,7 +729,7 @@ $\displaystyle \frac{- C_{1} R_{2} - C_{1} R_{3} - C_{2} R_{3} - \sqrt{C_{1}^{2}
 
 The second pole of $H_{sym}$ is:
 
-::: {#9e0b2a1d .cell execution_count=19}
+::: {#8e69011a .cell execution_count=19}
 
 ::: {.cell-output .cell-output-display .cell-output-markdown execution_count=19}
 $\displaystyle \frac{- C_{1} R_{2} - C_{1} R_{3} - C_{2} R_{3} + \sqrt{C_{1}^{2} R_{2}^{2} + 2 C_{1}^{2} R_{2} R_{3} + C_{1}^{2} R_{3}^{2} - 2 C_{1} C_{2} R_{2} R_{3} + 2 C_{1} C_{2} R_{3}^{2} + C_{2}^{2} R_{3}^{2}}}{2 C_{1} C_{2} R_{2} R_{3}}$
@@ -679,7 +739,7 @@ $\displaystyle \frac{- C_{1} R_{2} - C_{1} R_{3} - C_{2} R_{3} + \sqrt{C_{1}^{2}
 
 The following numerical values can be assigned to the component symbols.
 
-::: {#d076c14b .cell execution_count=20}
+::: {#ce13bfdd .cell execution_count=20}
 
 ::: {.cell-output .cell-output-stdout}
 ```
@@ -695,7 +755,7 @@ V1 = 1
 
 The values can be substituted for the symbols and the following system equations are obtained:
 
-::: {#11433cdd .cell execution_count=21}
+::: {#471a276f .cell execution_count=21}
 
 ::: {.cell-output .cell-output-display .cell-output-markdown execution_count=21}
 $\displaystyle \left[\begin{matrix}- 1.0 \cdot 10^{-6} s v_{2} + v_{1} \cdot \left(1.1 \cdot 10^{-5} s + \frac{1}{1000}\right)\\- 1.0 \cdot 10^{-6} s v_{1} + v_{2} \cdot \left(1.0 \cdot 10^{-6} s + \frac{1}{1000}\right) - \frac{v_{3}}{1000}\\I_{V1} - \frac{v_{2}}{1000} + \frac{v_{3}}{1000}\\v_{3}\end{matrix}\right] = \left[\begin{matrix}0\\0\\0\\1\end{matrix}\right]$
@@ -705,7 +765,7 @@ $\displaystyle \left[\begin{matrix}- 1.0 \cdot 10^{-6} s v_{2} + v_{1} \cdot \le
 
 The numerical solution to the system of equations is:
 
-::: {#c5783ed1 .cell execution_count=22}
+::: {#85107a2a .cell execution_count=22}
 
 ::: {.cell-output .cell-output-display .cell-output-markdown execution_count=22}
 $v_{1} = \frac{100.0 s}{s^{2} + 1200.0 s + 100000.0}$<br>$v_{2} = \frac{1100.0 s + 100000.0}{s^{2} + 1200.0 s + 100000.0}$<br>$v_{3} = 1.0$<br>$I_{V1} = \frac{- s^{2} - 100.0 s}{1000.0 s^{2} + 1200000.0 s + 100000000.0}$<br>
@@ -715,7 +775,7 @@ $v_{1} = \frac{100.0 s}{s^{2} + 1200.0 s + 100000.0}$<br>$v_{2} = \frac{1100.0 s
 
 The frequency domain voltage transfer function $H = v_2/v_3$ can be obtained:
 
-::: {#265cea64 .cell execution_count=23}
+::: {#3a1dc8aa .cell execution_count=23}
 
 ::: {.cell-output .cell-output-display .cell-output-markdown execution_count=23}
 $\displaystyle \frac{1100.0 s + 100000.0}{s^{2} + 1200.0 s + 100000.0}$
@@ -727,7 +787,7 @@ $\displaystyle \frac{1100.0 s + 100000.0}{s^{2} + 1200.0 s + 100000.0}$
 
 The poles and zeros of the frequency domain transfer function are plotted.
 
-::: {#9e9190a6 .cell execution_count=25}
+::: {#9df70f03 .cell execution_count=25}
 
 ::: {.cell-output .cell-output-display}
 ![](Introduction_files/figure-html/cell-26-output-1.png){width=609 height=449}
@@ -737,7 +797,7 @@ The poles and zeros of the frequency domain transfer function are plotted.
 
 The SciPy function [bode](https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.bode.html) to plot the magnitude and phase of $H$.
 
-::: {#8cc3d117 .cell execution_count=26}
+::: {#1222fa5d .cell execution_count=26}
 
 ::: {.cell-output .cell-output-display}
 ![](Introduction_files/figure-html/cell-27-output-1.png){width=652 height=451}
@@ -747,7 +807,7 @@ The SciPy function [bode](https://docs.scipy.org/doc/scipy/reference/generated/s
 
 The SciPy functions [impulse2](https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.impulse2.html) and [step2](https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.step2.html) to plot the impulse and step response of the system.
 
-::: {#4f4ab26a .cell execution_count=27}
+::: {#afa316fa .cell execution_count=27}
 
 ::: {.cell-output .cell-output-display}
 ![](Introduction_files/figure-html/cell-28-output-1.png){width=607 height=449}
@@ -757,7 +817,7 @@ The SciPy functions [impulse2](https://docs.scipy.org/doc/scipy/reference/genera
 
 The step response is shown below.
 
-::: {#ef535ffc .cell execution_count=28}
+::: {#d0432f28 .cell execution_count=28}
 
 ::: {.cell-output .cell-output-display}
 ![](Introduction_files/figure-html/cell-29-output-1.png){width=594 height=449}
@@ -899,7 +959,7 @@ Table&nbsp;1.1: Variable names
 <p><strong>Large exponents</strong><br>
 The values of the exponents can be very large in the numerical solution to the network equations when using real component values. Often you will see in engineering text books that the author uses normalized component values, where the values have been frequency and impedance scaled to a frequency of <span class="math inline">\(\omega = 1\)</span> and one of the resistors or other components normalized to a value of one. This keeps the numerical values obtained in the solution to the network equations from getting very large or small.</p>
 <p>Almost all platforms map Python floats to the IEEE754 double precision - 64 total bits. Using the sys package, the float information is reported as follows:</p>
-<div id="d9108a37" class="cell" data-execution_count="29">
+<div id="50880159" class="cell" data-execution_count="29">
 <div class="cell-output cell-output-stdout">
 <pre><code>max=1.7976931348623157e+308
  max_exp=1024
@@ -919,7 +979,7 @@ The values of the exponents can be very large in the numerical solution to the n
 <section id="practical-network-size-for-symbolic-solutions" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="practical-network-size-for-symbolic-solutions"><span class="header-section-number">1.2</span> Practical network size for symbolic solutions</h2>
 <p>Test circuit number 4, <a href="test_4.html" class="quarto-xref"><span>Chapter 8</span></a>, has 26 branches, 13 nodes, 18 resistors, 4 independent sources and 4 dependent sources. A symbolic solution for this problem was taking too long on my i3-8130U 2.20GHz computer, so I interrupted the kernel, and proceeded with a numerical solution, which can be solved quite quickly. The complexity of a circuit can be reduced by letting some components have the same value, for example <span class="math inline">\(R_1 = R_2 = R_3 = R\)</span>, which would reduce the number of symbols that are being manipulated.</p>
-<p>Another circuit, shown below, a 100 Hz low pass elliptic function filter, is an example of a circuit where the size of the symbolic expressions became too large and the number of terms too great to allow any reasonable interpenetration of the circuit’s operation. The Python kernel needed to be interrupted during the symbolic solution. After actual component values are substituted into the network equations a numerical solution was easily obtained by SymPy, see <a href="Elliptic-function-LPF.html" class="quarto-xref"><span>Chapter 26</span></a> for this circuit’s notebook.</p>
+<p>Another circuit, shown below, a 100 Hz low pass elliptic function filter, is an example of a circuit where the size of the symbolic expressions became too large and the number of terms too great to allow any reasonable interpenetration of the circuit’s operation. The Python kernel needed to be interrupted during the symbolic solution when running on my laptop, however, see <a href="Google Colab.html" class="quarto-xref"><span>Appendix C</span></a> for instructions about running a Jupyter notebook in Google Colab where a symbolic solution was obtained in about five seconds. After actual component values are substituted into the network equations a numerical solution was easily obtained by SymPy, see <a href="Elliptic-function-LPF.html" class="quarto-xref"><span>Chapter 26</span></a> for this circuit’s notebook.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="Elliptic-function-VCVS-LPF.png" class="img-fluid figure-img"></p>
@@ -964,25 +1024,25 @@ R6 7 6 44.2e3</code></pre>
 </section>
 <section id="state-variables" class="level2" data-number="1.4">
 <h2 data-number="1.4" class="anchored" data-anchor-id="state-variables"><span class="header-section-number">1.4</span> State variables</h2>
-<p>A topic that is sometimes included in engineering text books on circuit analysis is state variable analysis. State variable analysis is a method of describing the electrical network in terms of a set of first order differential equations, see <span class="citation" data-cites="Hayt1978">Hayt and Kemmerly (<a href="References.html#ref-Hayt1978" role="doc-biblioref">1978</a>)</span>, chapter 17 and <span class="citation" data-cites="Haykin1970">Haykin (<a href="References.html#ref-Haykin1970" role="doc-biblioref">1970</a>)</span>, chapter 2. The normal form of the state equations and the analysis approach relies on a network topology where energy storage elements, typically the capacitors and inductors, are placed in the network tree and equations are written in normal form. Deriving a of state equations is not is not included in the scope of this book. Typically there is a state equation for each inductor and capacitor, whereas the MNA approach writes network equations based primarily on unknown node voltages.</p>
+<p>A topic that is sometimes included in engineering text books on circuit analysis is state variable analysis. State variable analysis is a method of describing the electrical network in terms of a set of first order differential equations, see <span class="citation" data-cites="Hayt1978">Hayt and Kemmerly (<a href="References.html#ref-Hayt1978" role="doc-biblioref">1978</a>)</span>, chapter 17 and <span class="citation" data-cites="Haykin1970">Haykin (<a href="References.html#ref-Haykin1970" role="doc-biblioref">1970</a>)</span>, chapter 2. The normal form of the state equations and the analysis approach relies on a network topology where energy storage elements, typically the capacitors and inductors, are placed in the network tree and equations are written in normal form. Deriving a set of state equations is not is not included in the scope of this book. Typically there is a state equation for each inductor and capacitor, whereas the MNA approach writes network equations based primarily on unknown node voltages.</p>
 </section>
 <section id="pros-and-cons-of-mna" class="level2" data-number="1.5">
 <h2 data-number="1.5" class="anchored" data-anchor-id="pros-and-cons-of-mna"><span class="header-section-number">1.5</span> Pros and cons of MNA</h2>
 <p>The MNA approach is a suitable technique for hand analysis of small circuits as well as for computer analysis of larger circuits using the same algorithm as illustrated in this book. One disadvantage of the MNA technique is that often additional equations are generated, when a smaller number would be sufficient. For students doing homework problems and solving sets of equations by hand, the extra equation or two, generated by the MNA technique makes matrix inversions much harder.</p>
 <p>For example, the circuit in <a href="#fig-Intro_circuit" class="quarto-xref">Figure&nbsp;<span>1.1</span></a>, can be described by the following two mesh equations:</p>
-<div id="f8acf1ee" class="cell" data-execution_count="30">
+<div id="7d2a1a57" class="cell" data-execution_count="30">
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="30">
 <p><span class="math inline">\(\displaystyle L_{1} s \left(i_{1} - i_{2}\right) + R_{1} i_{1} + \frac{i_{1} - i_{2}}{C_{1} s} = V_{1}\)</span></p>
 </div>
 </div>
-<div id="3cf4f0cb" class="cell" data-execution_count="31">
+<div id="8702930c" class="cell" data-execution_count="31">
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="31">
 <p><span class="math inline">\(\displaystyle L_{1} s \left(- i_{1} + i_{2}\right) + \frac{i_{2}}{C_{2} s} + \frac{- i_{1} + i_{2}}{C_{1} s} = 0\)</span></p>
 </div>
 </div>
 <p>where <span class="math inline">\(i_1\)</span> and <span class="math inline">\(i_2\)</span> are the unknown currents.</p>
 <p>The MNA procedure generated five equations, but one of them was trivial. Only two equations need to be solved to find the mesh currents, which are:</p>
-<div id="6fbd6c28" class="cell" data-execution_count="32">
+<div id="60222b6a" class="cell" data-execution_count="32">
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="32">
 <p><span class="math inline">\(i_{1} = \frac{C_{1} C_{2} L_{1} V_{1} s^{3} + C_{1} V_{1} s + C_{2} V_{1} s}{C_{1} C_{2} L_{1} R_{1} s^{3} + C_{1} L_{1} s^{2} + C_{1} R_{1} s + C_{2} R_{1} s + 1}\)</span><br><span class="math inline">\(i_{2} = \frac{C_{1} C_{2} L_{1} V_{1} s^{3} + C_{2} V_{1} s}{C_{1} C_{2} L_{1} R_{1} s^{3} + C_{1} L_{1} s^{2} + C_{1} R_{1} s + C_{2} R_{1} s + 1}\)</span><br></p>
 </div>
@@ -1115,24 +1175,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -1167,11 +1209,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
+      return note.innerHTML;
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -1219,12 +1257,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
-      }
+      return note.innerHTML;
     }
   }
   for (var i=0; i<xrefs.length; i++) {
@@ -1447,12 +1480,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./Preface.html" class="pagination-link" aria-label="Preface">
+      <a href="./Preface.html" class="pagination-link  aria-label=" preface"="">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Preface</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./Theory.html" class="pagination-link" aria-label="Theory">
+      <a href="./Theory.html" class="pagination-link" aria-label="<span class='chapter-number'>2</span>&nbsp; <span class='chapter-title'>Theory</span>">
         <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Theory</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
