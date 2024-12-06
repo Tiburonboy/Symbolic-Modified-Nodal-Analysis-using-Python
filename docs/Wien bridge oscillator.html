@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Symbolic Modified Nodal Analysisusing Python - 32&nbsp; Super node</title>
+<title>Symbolic Modified Nodal Analysisusing Python - 40&nbsp; Wien bridge oscillator</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,61 +20,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -84,8 +30,8 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./Phasor-analysis.html" rel="next">
-<link href="./SIDO-low-pass-filter.html" rel="prev">
+<link href="./Flyback circuit.html" rel="next">
+<link href="./Klon Centaur part 3.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -123,35 +69,6 @@ div.csl-indent {
   }
 }</script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
@@ -164,7 +81,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Example-problems.html">Example problems</a></li><li class="breadcrumb-item"><a href="./Super-node.html"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Super node</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Example-problems.html">Example problems</a></li><li class="breadcrumb-item"><a href="./Wien bridge oscillator.html"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">Wien bridge oscillator</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -409,7 +326,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Super-node.html" class="sidebar-item-text sidebar-link active">
+  <a href="./Super-node.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Super node</span></span></a>
   </div>
 </li>
@@ -457,7 +374,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Wien bridge oscillator.html" class="sidebar-item-text sidebar-link">
+  <a href="./Wien bridge oscillator.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">Wien bridge oscillator</span></span></a>
   </div>
 </li>
@@ -534,27 +451,14 @@ window.Quarto = {
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#load-the-net-list" id="toc-load-the-net-list" class="nav-link active" data-scroll-target="#load-the-net-list"><span class="header-section-number">32.1</span> Load the net list</a></li>
-  <li><a href="#call-the-symbolic-modified-nodal-analysis-function" id="toc-call-the-symbolic-modified-nodal-analysis-function" class="nav-link" data-scroll-target="#call-the-symbolic-modified-nodal-analysis-function"><span class="header-section-number">32.2</span> Call the symbolic modified nodal analysis function</a>
-  <ul class="collapse">
-  <li><a href="#build-the-network-equation-matrix" id="toc-build-the-network-equation-matrix" class="nav-link" data-scroll-target="#build-the-network-equation-matrix"><span class="header-section-number">32.2.1</span> Build the network equation matrix</a></li>
-  </ul></li>
-  <li><a href="#symbolic-solution" id="toc-symbolic-solution" class="nav-link" data-scroll-target="#symbolic-solution"><span class="header-section-number">32.3</span> Symbolic solution</a></li>
-  <li><a href="#construct-a-dictionary-of-element-values" id="toc-construct-a-dictionary-of-element-values" class="nav-link" data-scroll-target="#construct-a-dictionary-of-element-values"><span class="header-section-number">32.4</span> Construct a dictionary of element values</a></li>
-  <li><a href="#numerical-solution" id="toc-numerical-solution" class="nav-link" data-scroll-target="#numerical-solution"><span class="header-section-number">32.5</span> Numerical solution</a></li>
-  </ul>
-</nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Example-problems.html">Example problems</a></li><li class="breadcrumb-item"><a href="./Super-node.html"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Super node</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Example-problems.html">Example problems</a></li><li class="breadcrumb-item"><a href="./Wien bridge oscillator.html"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">Wien bridge oscillator</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Super node</span></h1>
+<h1 class="title"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">Wien bridge oscillator</span></h1>
 </div>
 
 
@@ -571,182 +475,10 @@ window.Quarto = {
 </header>
 
 
-<div id="fig-super-node" class="quarto-figure quarto-figure-center quarto-float anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-super-node-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="Super-node.png" class="img-fluid figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-super-node-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;32.1: super node circuit
-</figcaption>
-</figure>
-</div>
-<p>A question posted on Electronics Stackexchange by <span class="citation" data-cites="Malek2020">Malek (<a href="References.html#ref-Malek2020" role="doc-biblioref">2020</a>)</span> asked:</p>
-<blockquote class="blockquote">
-<p>I have a circuit that I would like to convert into a conductance matrix for the node analysis by inspection method. I have, however, run into a problem. I have this 36V ideal voltage source with no resistance on its branch, which means that I cannot convert it into a current source with the Norton/Thenevin equivalent circuit theorem (or can I?). I have thought of making the third node connected to the voltage source dependent on the first node connected to the voltage source, i.e.&nbsp;v1 = v1 + 36. I have tried this method, but I do not get the correct values. Am I messing up? Is there no way to handle ideal voltage sources with the node analysis by inspection method?</p>
-</blockquote>
-<p>The MNA solution provided below can work directly with the circuit netlist and the concept of a super node is not required.</p>
-<p>The net list for <a href="test_1.html#fig-test_1" class="quarto-xref">Figure&nbsp;<span>5.1</span></a> was generated by LTSpice and show below:</p>
-<pre><code>V1 1 3 36
-I1 0 1 12
-I2 2 0 18
-I3 0 3 24
-R1 1 0 4
-R4 3 0 6
-R2 2 1 12
-R3 3 2 15</code></pre>
-<p>The following Python modules are used in this notebook.</p>
-<div id="cell-2" class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sympy <span class="im">import</span> <span class="op">*</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tabulate <span class="im">import</span> tabulate</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> signal</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> SymMNA</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display, Markdown, Math, Latex</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>init_printing()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<section id="load-the-net-list" class="level2" data-number="32.1">
-<h2 data-number="32.1" class="anchored" data-anchor-id="load-the-net-list"><span class="header-section-number">32.1</span> Load the net list</h2>
-<p>The netlist for the circuit is pasted into the code cell below. In Python a triple-quoted string includes whitespace, tabs and newlines. The newlines characters are needed to mark the end of each SPICE statement in the netlist.</p>
-<div id="cell-4" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>net_list <span class="op">=</span> <span class="st">'''</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="st">V1 1 3 36</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="st">I1 0 1 12</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="st">I2 2 0 18</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="st">I3 0 3 24</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="st">R1 1 0 4</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="st">R4 3 0 6</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="st">R2 2 1 12</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="st">R3 3 2 15</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="st">'''</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="call-the-symbolic-modified-nodal-analysis-function" class="level2" data-number="32.2">
-<h2 data-number="32.2" class="anchored" data-anchor-id="call-the-symbolic-modified-nodal-analysis-function"><span class="header-section-number">32.2</span> Call the symbolic modified nodal analysis function</h2>
-<div id="cell-6" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>report, network_df, i_unk_df, A, X, Z <span class="op">=</span> SymMNA.smna(net_list)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>The network equations for the circuit can be obtained from the A, X and Z values returned from the smna function. The A, X and Z are formuloated into equations and displayed below. Markdown is an IPython function and latex is a SymPy printing function.</p>
-<div id="cell-8" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># reform X and Z into Matrix type for printing</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>Xp <span class="op">=</span> Matrix(X)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>Zp <span class="op">=</span> Matrix(Z)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(X)):</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(Eq((A<span class="op">*</span>Xp)[i:i<span class="op">+</span><span class="dv">1</span>][<span class="dv">0</span>],Zp[i])))</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="4">
-<p><span class="math inline">\(I_{V1} + v_{1} \cdot \left(\frac{1}{R_{2}} + \frac{1}{R_{1}}\right) - \frac{v_{2}}{R_{2}} = I_{1}\)</span><br><span class="math inline">\(v_{2} \cdot \left(\frac{1}{R_{3}} + \frac{1}{R_{2}}\right) - \frac{v_{3}}{R_{3}} - \frac{v_{1}}{R_{2}} = - I_{2}\)</span><br><span class="math inline">\(- I_{V1} + v_{3} \cdot \left(\frac{1}{R_{4}} + \frac{1}{R_{3}}\right) - \frac{v_{2}}{R_{3}} = I_{3}\)</span><br><span class="math inline">\(v_{1} - v_{3} = V_{1}\)</span><br></p>
-</div>
-</div>
-<section id="build-the-network-equation-matrix" class="level3" data-number="32.2.1">
-<h3 data-number="32.2.1" class="anchored" data-anchor-id="build-the-network-equation-matrix"><span class="header-section-number">32.2.1</span> Build the network equation matrix</h3>
-<div id="cell-10" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Put matrices into SymPy </span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> Matrix(X)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>Z <span class="op">=</span> Matrix(Z)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>NE_sym <span class="op">=</span> Eq(A<span class="op">*</span>X,Z)</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>NE_sym</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="5">
-<p><span class="math inline">\(\displaystyle \left[\begin{matrix}I_{V1} + v_{1} \cdot \left(\frac{1}{R_{2}} + \frac{1}{R_{1}}\right) - \frac{v_{2}}{R_{2}}\\v_{2} \cdot \left(\frac{1}{R_{3}} + \frac{1}{R_{2}}\right) - \frac{v_{3}}{R_{3}} - \frac{v_{1}}{R_{2}}\\- I_{V1} + v_{3} \cdot \left(\frac{1}{R_{4}} + \frac{1}{R_{3}}\right) - \frac{v_{2}}{R_{3}}\\v_{1} - v_{3}\end{matrix}\right] = \left[\begin{matrix}I_{1}\\- I_{2}\\I_{3}\\V_{1}\end{matrix}\right]\)</span></p>
-</div>
-</div>
-<div id="cell-11" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># turn the free symbols into SymPy variables</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>var(<span class="bu">str</span>(NE_sym.free_symbols).replace(<span class="st">'{'</span>,<span class="st">''</span>).replace(<span class="st">'}'</span>,<span class="st">''</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="6">
-<p><span class="math inline">\(\displaystyle \left( I_{V1}, \  R_{3}, \  v_{2}, \  I_{2}, \  I_{1}, \  R_{2}, \  R_{4}, \  V_{1}, \  I_{3}, \  v_{3}, \  v_{1}, \  R_{1}\right)\)</span></p>
-</div>
-</div>
-</section>
-</section>
-<section id="symbolic-solution" class="level2" data-number="32.3">
-<h2 data-number="32.3" class="anchored" data-anchor-id="symbolic-solution"><span class="header-section-number">32.3</span> Symbolic solution</h2>
-<p>The newtork equations can be solved symbolically.</p>
-<div id="cell-13" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>U_sym <span class="op">=</span> solve(NE_sym,X)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># display the symbolic solution</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> U_sym.keys():</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st"> = </span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(i),latex(U_sym[i]))</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="7">
-<p><span class="math inline">\(v_{1} = \frac{I_{1} R_{1} R_{4} - I_{2} R_{1} R_{4} + I_{3} R_{1} R_{4} + R_{1} V_{1}}{R_{1} + R_{4}}\)</span><br><span class="math inline">\(v_{2} = \frac{I_{1} R_{1} R_{2} R_{4} + I_{1} R_{1} R_{3} R_{4} - I_{2} R_{1} R_{2} R_{3} - I_{2} R_{1} R_{2} R_{4} - I_{2} R_{1} R_{3} R_{4} - I_{2} R_{2} R_{3} R_{4} + I_{3} R_{1} R_{2} R_{4} + I_{3} R_{1} R_{3} R_{4} + R_{1} R_{3} V_{1} - R_{2} R_{4} V_{1}}{R_{1} R_{2} + R_{1} R_{3} + R_{2} R_{4} + R_{3} R_{4}}\)</span><br><span class="math inline">\(v_{3} = \frac{I_{1} R_{1} R_{4} - I_{2} R_{1} R_{4} + I_{3} R_{1} R_{4} - R_{4} V_{1}}{R_{1} + R_{4}}\)</span><br><span class="math inline">\(I_{V1} = \frac{I_{1} R_{1} R_{2} + I_{1} R_{1} R_{3} - I_{2} R_{1} R_{3} + I_{2} R_{2} R_{4} - I_{3} R_{2} R_{4} - I_{3} R_{3} R_{4} - R_{1} V_{1} - R_{2} V_{1} - R_{3} V_{1} - R_{4} V_{1}}{R_{1} R_{2} + R_{1} R_{3} + R_{2} R_{4} + R_{3} R_{4}}\)</span><br></p>
-</div>
-</div>
-</section>
-<section id="construct-a-dictionary-of-element-values" class="level2" data-number="32.4">
-<h2 data-number="32.4" class="anchored" data-anchor-id="construct-a-dictionary-of-element-values"><span class="header-section-number">32.4</span> Construct a dictionary of element values</h2>
-<div id="cell-15" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>element_values <span class="op">=</span> SymMNA.get_part_values(network_df)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>element_values</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="8">
-<p><span class="math inline">\(\displaystyle \left\{ I_{1} : 12.0, \  I_{2} : 18.0, \  I_{3} : 24.0, \  R_{1} : 4.0, \  R_{2} : 12.0, \  R_{3} : 15.0, \  R_{4} : 6.0, \  V_{1} : 36.0\right\}\)</span></p>
-</div>
-</div>
-</section>
-<section id="numerical-solution" class="level2" data-number="32.5">
-<h2 data-number="32.5" class="anchored" data-anchor-id="numerical-solution"><span class="header-section-number">32.5</span> Numerical solution</h2>
-<div id="cell-17" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>NE <span class="op">=</span> NE_sym.subs(element_values)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>NE</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="9">
-<p><span class="math inline">\(\displaystyle \left[\begin{matrix}I_{V1} + 0.333333333333333 v_{1} - 0.0833333333333333 v_{2}\\- 0.0833333333333333 v_{1} + 0.15 v_{2} - 0.0666666666666667 v_{3}\\- I_{V1} - 0.0666666666666667 v_{2} + 0.233333333333333 v_{3}\\v_{1} - v_{3}\end{matrix}\right] = \left[\begin{matrix}12.0\\-18.0\\24.0\\36.0\end{matrix}\right]\)</span></p>
-</div>
-</div>
-<div id="cell-18" class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>U <span class="op">=</span> solve(NE,X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Display the numerical solution. Six significant digits are displayed so that results can be compared to LTSpice.</p>
-<div id="cell-20" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>table_header <span class="op">=</span> [<span class="st">'unknown'</span>, <span class="st">'mag'</span>]</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>table_row <span class="op">=</span> []</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, value <span class="kw">in</span> U.items():</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    table_row.append([<span class="bu">str</span>(name),<span class="bu">float</span>(value)])</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tabulate(table_row, headers<span class="op">=</span>table_header,colalign <span class="op">=</span> (<span class="st">'left'</span>,<span class="st">'decimal'</span>),tablefmt<span class="op">=</span><span class="st">"simple"</span>,floatfmt<span class="op">=</span>(<span class="st">'5s'</span>,<span class="st">'.6f'</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>unknown           mag
----------  ----------
-v1          57.600000
-v2         -78.400000
-v3          21.600000
-I_V1       -13.733333</code></pre>
-</div>
-</div>
-<p>The node voltages and current through the sources are solved for. The Sympy generated solution matches the LTSpice results:</p>
-<pre><code>       --- Operating Point ---
-
-V(1):    2      voltage
-V(2):    4      voltage
-V(4):    -1.14286   voltage
-V(3):    6.28571    voltage
-V(5):    0      voltage
-I(F1):   -4     device_current
-I(I1):   9      device_current
-I(R2):   -2     device_current
-I(R3):   -7.42857   device_current
-I(R4):   2      device_current
-I(R1):   1.57143    device_current
-I(E1):   -11.4286   device_current
-I(V1):   0.428571   device_current
-I(V2):   -2     device_current</code></pre>
-<p>The results from LTSpice agree with the SymPy results.</p>
+<p>Analysis of a <a href="https://en.wikipedia.org/wiki/Wien_bridge_oscillator">Wien bridge oscillator</a> circuit.</p>
+<p>This page is a placeholder for the JupyterLab notebook.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
-<div id="ref-Malek2020" class="csl-entry" role="listitem">
-Malek, Ihdene. 2020. <span>“Eliminating Ideal Voltage Source for Node Analysis.”</span> Electrical Engineering Stack Exchange. <a href="https://electronics.stackexchange.com/q/479528">https://electronics.stackexchange.com/q/479528</a>.
-</div>
-</div>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -828,57 +560,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  const viewSource = window.document.getElementById('quarto-view-source') ||
-                     window.document.getElementById('quarto-code-tools-source');
-  if (viewSource) {
-    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-    viewSource.addEventListener("click", function(e) {
-      if (sourceUrl) {
-        // rstudio viewer pane
-        if (/\bcapabilities=\b/.test(window.location)) {
-          window.open(sourceUrl);
-        } else {
-          window.location.href = sourceUrl;
-        }
-      } else {
-        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-        modal.show();
-      }
-      return false;
-    });
-  }
-  function toggleCodeHandler(show) {
-    return function(e) {
-      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-      for (let i=0; i<detailsSrc.length; i++) {
-        const details = detailsSrc[i].parentElement;
-        if (show) {
-          details.open = true;
-        } else {
-          details.removeAttribute("open");
-        }
-      }
-      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-      const fromCls = show ? "hidden" : "unhidden";
-      const toCls = show ? "unhidden" : "hidden";
-      for (let i=0; i<cellCodeDivs.length; i++) {
-        const codeDiv = cellCodeDivs[i];
-        if (codeDiv.classList.contains(fromCls)) {
-          codeDiv.classList.remove(fromCls);
-          codeDiv.classList.add(toCls);
-        } 
-      }
-      return false;
-    }
-  }
-  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-  if (hideAllCode) {
-    hideAllCode.addEventListener("click", toggleCodeHandler(false));
-  }
-  const showAllCode = window.document.getElementById("quarto-show-all-code");
-  if (showAllCode) {
-    showAllCode.addEventListener("click", toggleCodeHandler(true));
-  }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -1184,13 +865,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./SIDO-low-pass-filter.html" class="pagination-link  aria-label=" &lt;span="">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">SIDO-low-pass-filter</span></span>
+      <a href="./Klon Centaur part 3.html" class="pagination-link  aria-label=" &lt;span="" centaur,="" part="" 3&lt;="" span&gt;"="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Klon Centaur, part 3</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./Phasor-analysis.html" class="pagination-link" aria-label="<span class='chapter-number'>33</span>&nbsp; <span class='chapter-title'>Phasor analysis</span>">
-        <span class="nav-page-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Phasor analysis</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./Flyback circuit.html" class="pagination-link" aria-label="<span class='chapter-number'>41</span>&nbsp; <span class='chapter-title'>Flyback circuit</span>">
+        <span class="nav-page-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Flyback circuit</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
