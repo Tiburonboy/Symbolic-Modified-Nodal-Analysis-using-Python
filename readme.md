@@ -9,3 +9,10 @@ This book is self published and being done without the benefit of a proofreader 
 A link to the book is here:  
 
 https://tiburonboy.github.io/Symbolic-Modified-Nodal-Analysis-using-Python/
+
+Folder contents
+
+| Folder | description |
+|---|---|
+| Backup | xxx |
+| Docs | xxx |
