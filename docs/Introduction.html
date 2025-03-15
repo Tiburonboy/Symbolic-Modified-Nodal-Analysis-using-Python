@@ -445,13 +445,13 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Klon Centaur part 2.html" class="sidebar-item-text sidebar-link">
+  <a href="./Klon Centaur part 2 temp.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Klon Centaur, part 2</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Klon Centaur part 3.html" class="sidebar-item-text sidebar-link">
+  <a href="./Klon Centaur part 3 temp.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Klon Centaur, part 3</span></span></a>
   </div>
 </li>
@@ -522,8 +522,14 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./SMNA_mobile.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">SMNA mobile</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./EasyEDA_schematic_editor.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">EasyEDA</span></span></a>
+ <span class="menu-text"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">EasyEDA</span></span></a>
   </div>
 </li>
       </ul>
@@ -571,7 +577,7 @@ window.Quarto = {
 <p>Circuit analysis and theory are fundamental to electrical engineering and is usually one of the first topics taught to electrical engineering students. The purpose of this book is to describe a circuit analysis method called <a href="https://en.wikipedia.org/wiki/Modified_nodal_analysis">Modified Nodal Analysis</a> (MNA) implemented in Python and using the SymPy library. The Python programming language along with its packages and libraries provide powerful computational tools that make solving math problems extremely easy with just a few lines of code. SymPy and NumPy are the main libraries used to perform the types of circuit analysis problems described in this book.</p>
 <p>Symbolic Modified Nodal Analysis circuit analysis offers an alternative way to analyze electric circuits since the results are analytic expressions that describe the functionality of the circuit in terms of the circuit variables. The analytic expressions can, but not always, offer some insight into the behavior of the circuit.</p>
 <p>In this chapter, as well as in the remainder of this book, the following Python libraries are used.</p>
-<div id="c12e9f56" class="cell" data-execution_count="1">
+<div id="683fa65f" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display, Markdown, Math, Latex</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sympy <span class="im">import</span> <span class="op">*</span></span>
@@ -605,59 +611,59 @@ C2 2 0 0.2
 ```
 -->
 <p>For this circuit, the MNA code generates the following system of equations:</p>
-<div id="3c1f00a9" class="cell" data-execution_count="2">
+<div id="d019f3b2" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="2">
 <p><span class="math inline">\(I_{V1} + \frac{v_{1}}{R_{1}} - \frac{v_{2}}{R_{1}} = 0\)</span><br><span class="math inline">\(I_{L1} + v_{2} \left(C_{2} s + \frac{1}{R_{1}}\right) - \frac{v_{1}}{R_{1}} = 0\)</span><br><span class="math inline">\(C_{1} s v_{3} - I_{L1} = 0\)</span><br><span class="math inline">\(v_{1} = V_{1}\)</span><br><span class="math inline">\(- I_{L1} L_{1} s + v_{2} - v_{3} = 0\)</span><br></p>
 </div>
 </div>
 <p>where, <span class="math inline">\(s\)</span> is the Laplace variable, <span class="math inline">\(C_1\)</span> and <span class="math inline">\(C_2\)</span> are capacitors, <span class="math inline">\(R_1\)</span> is a resistor, <span class="math inline">\(L_1\)</span> is an inductor, <span class="math inline">\(v_1\)</span>, <span class="math inline">\(v_2\)</span> and <span class="math inline">\(v_3\)</span> are the unknown node voltages, <span class="math inline">\(V_1\)</span> is the input voltage source, <span class="math inline">\(I_{V1}\)</span> is the unknown current flowing through <span class="math inline">\(V_1\)</span> and <span class="math inline">\(I_{L1}\)</span> is the unknown current flowing in <span class="math inline">\(L_1\)</span>. These equations can be easily solved by SymPy to obtain the unknown voltages and currents as analytic expressions.</p>
-<div id="8d75de56" class="cell" data-execution_count="3">
+<div id="48a69036" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="3">
 <p><span class="math inline">\(v_{1} = V_{1}\)</span><br><span class="math inline">\(v_{2} = \frac{C_{1} L_{1} V_{1} s^{2} + V_{1}}{C_{1} C_{2} L_{1} R_{1} s^{3} + C_{1} L_{1} s^{2} + C_{1} R_{1} s + C_{2} R_{1} s + 1}\)</span><br><span class="math inline">\(v_{3} = \frac{V_{1}}{C_{1} C_{2} L_{1} R_{1} s^{3} + C_{1} L_{1} s^{2} + C_{1} R_{1} s + C_{2} R_{1} s + 1}\)</span><br><span class="math inline">\(I_{V1} = \frac{- C_{1} C_{2} L_{1} V_{1} s^{3} - C_{1} V_{1} s - C_{2} V_{1} s}{C_{1} C_{2} L_{1} R_{1} s^{3} + C_{1} L_{1} s^{2} + C_{1} R_{1} s + C_{2} R_{1} s + 1}\)</span><br><span class="math inline">\(I_{L1} = \frac{C_{1} V_{1} s}{C_{1} C_{2} L_{1} R_{1} s^{3} + C_{1} L_{1} s^{2} + C_{1} R_{1} s + C_{2} R_{1} s + 1}\)</span><br></p>
 </div>
 </div>
 <p>Once the network equations are solved, SymPy can be used to obtain the analytic expression for a transfer function, since manipulation of equations is very easy. For example, SymPy can be used to the find the symbolic form of the impedance of the circuit as seen from the terminal of <span class="math inline">\(V_1\)</span>, <span class="math inline">\(Z(s)=\frac {v_1}{I_{V1}}\)</span>, which is:</p>
-<div id="eb24a7ec" class="cell" data-execution_count="4">
+<div id="f6d9193e" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="4">
 <p><span class="math inline">\(\displaystyle \frac{C_{1} C_{2} L_{1} R_{1} s^{3} + C_{1} L_{1} s^{2} + C_{1} R_{1} s + C_{2} R_{1} s + 1}{s \left(C_{1} C_{2} L_{1} s^{2} + C_{1} + C_{2}\right)}\)</span></p>
 </div>
 </div>
 <p>The numerator and denominator of <span class="math inline">\(Z(s)\)</span> can be extracted. The numerator is:</p>
-<div id="5bccdae2" class="cell" data-execution_count="5">
+<div id="33e6e6a6" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display cell-output-markdown">
 <p><span class="math inline">\(\displaystyle C_{1} C_{2} L_{1} R_{1} s^{3} + C_{1} L_{1} s^{2} + C_{1} R_{1} s + C_{2} R_{1} s + 1\)</span></p>
 </div>
 </div>
 <p>The denominator is:</p>
-<div id="6cdd1361" class="cell" data-execution_count="6">
+<div id="4958daa4" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display cell-output-markdown">
 <p><span class="math inline">\(\displaystyle s \left(C_{1} C_{2} L_{1} s^{2} + C_{1} + C_{2}\right)\)</span></p>
 </div>
 </div>
 <p>SymPy can easily solve for the roots of the numerator and denominator. Since the numerator is a third order expression, the analytic solution is a bit long. Quarto will insert a slider bar for expressions wider than the text display width.</p>
-<div id="bc3b9809" class="cell" data-execution_count="7">
+<div id="0c7047ac" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display cell-output-markdown">
 <p><span class="math inline">\(\displaystyle - \frac{\frac{1}{C_{2}^{2} R_{1}^{2}} - \frac{3 \left(C_{1} + C_{2}\right)}{C_{1} C_{2} L_{1}}}{3 \sqrt[3]{\frac{\sqrt{- 4 \left(\frac{1}{C_{2}^{2} R_{1}^{2}} - \frac{3 \left(C_{1} + C_{2}\right)}{C_{1} C_{2} L_{1}}\right)^{3} + \left(\frac{2}{C_{2}^{3} R_{1}^{3}} + \frac{27}{C_{1} C_{2} L_{1} R_{1}} - \frac{9 \left(C_{1} + C_{2}\right)}{C_{1} C_{2}^{2} L_{1} R_{1}}\right)^{2}}}{2} + \frac{1}{C_{2}^{3} R_{1}^{3}} + \frac{27}{2 C_{1} C_{2} L_{1} R_{1}} - \frac{9 \left(C_{1} + C_{2}\right)}{2 C_{1} C_{2}^{2} L_{1} R_{1}}}} - \frac{\sqrt[3]{\frac{\sqrt{- 4 \left(\frac{1}{C_{2}^{2} R_{1}^{2}} - \frac{3 \left(C_{1} + C_{2}\right)}{C_{1} C_{2} L_{1}}\right)^{3} + \left(\frac{2}{C_{2}^{3} R_{1}^{3}} + \frac{27}{C_{1} C_{2} L_{1} R_{1}} - \frac{9 \left(C_{1} + C_{2}\right)}{C_{1} C_{2}^{2} L_{1} R_{1}}\right)^{2}}}{2} + \frac{1}{C_{2}^{3} R_{1}^{3}} + \frac{27}{2 C_{1} C_{2} L_{1} R_{1}} - \frac{9 \left(C_{1} + C_{2}\right)}{2 C_{1} C_{2}^{2} L_{1} R_{1}}}}{3} - \frac{1}{3 C_{2} R_{1}}\)</span></p>
 </div>
 </div>
-<div id="a3db7f66" class="cell" data-execution_count="8">
+<div id="f1dc6bc0" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display cell-output-markdown">
 <p><span class="math inline">\(\displaystyle - \frac{\frac{1}{C_{2}^{2} R_{1}^{2}} - \frac{3 \left(C_{1} + C_{2}\right)}{C_{1} C_{2} L_{1}}}{3 \left(- \frac{1}{2} - \frac{\sqrt{3} i}{2}\right) \sqrt[3]{\frac{\sqrt{- 4 \left(\frac{1}{C_{2}^{2} R_{1}^{2}} - \frac{3 \left(C_{1} + C_{2}\right)}{C_{1} C_{2} L_{1}}\right)^{3} + \left(\frac{2}{C_{2}^{3} R_{1}^{3}} + \frac{27}{C_{1} C_{2} L_{1} R_{1}} - \frac{9 \left(C_{1} + C_{2}\right)}{C_{1} C_{2}^{2} L_{1} R_{1}}\right)^{2}}}{2} + \frac{1}{C_{2}^{3} R_{1}^{3}} + \frac{27}{2 C_{1} C_{2} L_{1} R_{1}} - \frac{9 \left(C_{1} + C_{2}\right)}{2 C_{1} C_{2}^{2} L_{1} R_{1}}}} - \frac{\left(- \frac{1}{2} - \frac{\sqrt{3} i}{2}\right) \sqrt[3]{\frac{\sqrt{- 4 \left(\frac{1}{C_{2}^{2} R_{1}^{2}} - \frac{3 \left(C_{1} + C_{2}\right)}{C_{1} C_{2} L_{1}}\right)^{3} + \left(\frac{2}{C_{2}^{3} R_{1}^{3}} + \frac{27}{C_{1} C_{2} L_{1} R_{1}} - \frac{9 \left(C_{1} + C_{2}\right)}{C_{1} C_{2}^{2} L_{1} R_{1}}\right)^{2}}}{2} + \frac{1}{C_{2}^{3} R_{1}^{3}} + \frac{27}{2 C_{1} C_{2} L_{1} R_{1}} - \frac{9 \left(C_{1} + C_{2}\right)}{2 C_{1} C_{2}^{2} L_{1} R_{1}}}}{3} - \frac{1}{3 C_{2} R_{1}}\)</span></p>
 </div>
 </div>
-<div id="378b4755" class="cell" data-execution_count="9">
+<div id="e8a14a6e" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-display cell-output-markdown">
 <p><span class="math inline">\(\displaystyle - \frac{\frac{1}{C_{2}^{2} R_{1}^{2}} - \frac{3 \left(C_{1} + C_{2}\right)}{C_{1} C_{2} L_{1}}}{3 \left(- \frac{1}{2} + \frac{\sqrt{3} i}{2}\right) \sqrt[3]{\frac{\sqrt{- 4 \left(\frac{1}{C_{2}^{2} R_{1}^{2}} - \frac{3 \left(C_{1} + C_{2}\right)}{C_{1} C_{2} L_{1}}\right)^{3} + \left(\frac{2}{C_{2}^{3} R_{1}^{3}} + \frac{27}{C_{1} C_{2} L_{1} R_{1}} - \frac{9 \left(C_{1} + C_{2}\right)}{C_{1} C_{2}^{2} L_{1} R_{1}}\right)^{2}}}{2} + \frac{1}{C_{2}^{3} R_{1}^{3}} + \frac{27}{2 C_{1} C_{2} L_{1} R_{1}} - \frac{9 \left(C_{1} + C_{2}\right)}{2 C_{1} C_{2}^{2} L_{1} R_{1}}}} - \frac{\left(- \frac{1}{2} + \frac{\sqrt{3} i}{2}\right) \sqrt[3]{\frac{\sqrt{- 4 \left(\frac{1}{C_{2}^{2} R_{1}^{2}} - \frac{3 \left(C_{1} + C_{2}\right)}{C_{1} C_{2} L_{1}}\right)^{3} + \left(\frac{2}{C_{2}^{3} R_{1}^{3}} + \frac{27}{C_{1} C_{2} L_{1} R_{1}} - \frac{9 \left(C_{1} + C_{2}\right)}{C_{1} C_{2}^{2} L_{1} R_{1}}\right)^{2}}}{2} + \frac{1}{C_{2}^{3} R_{1}^{3}} + \frac{27}{2 C_{1} C_{2} L_{1} R_{1}} - \frac{9 \left(C_{1} + C_{2}\right)}{2 C_{1} C_{2}^{2} L_{1} R_{1}}}}{3} - \frac{1}{3 C_{2} R_{1}}\)</span></p>
 </div>
 </div>
 <p>The are three zeros in the impedance function and from the expressions above, we can see what components are influencing the zeros. However, as you can see, these expressions are long and complex. It’s difficult to imagine what insights can be obtained from these analytic expressions.</p>
 <p>The roots of the denominator are:</p>
-<div id="b7a76fca" class="cell" data-execution_count="10">
+<div id="0c78ccd8" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-display cell-output-markdown">
 <p><span class="math inline">\(\displaystyle \sqrt{\frac{- C_{1} - C_{2}}{C_{1} C_{2} L_{1}}}\)</span></p>
 </div>
 </div>
-<div id="a5081070" class="cell" data-execution_count="11">
+<div id="704ce43b" class="cell" data-execution_count="11">
 <div class="cell-output cell-output-display cell-output-markdown">
 <p><span class="math inline">\(\displaystyle - \sqrt{- \frac{C_{1} + C_{2}}{C_{1} C_{2} L_{1}}}\)</span></p>
 </div>
@@ -675,7 +681,7 @@ $v_{3} = V_{1}$
 
 where, $C_1$ and $C_2$ are the capacitors in an electrical circuit, $R_2$ and $R_3$ are the resistors, $v_1$, $v_2$ and $v_3$ are the unknown node voltages, $V_1$ is the input voltage source and $I_{V1}$ is the unknown current flowing through $V_1$, can be entered into SymPy to get the equations in matrix form:
 
-::: {#869d35b3 .cell execution_count=12}
+::: {#3cb6d91f .cell execution_count=12}
 
 ::: {.cell-output .cell-output-display .cell-output-markdown execution_count=12}
 $\displaystyle \left[\begin{matrix}- C_{1} s v_{2} + v_{1} \left(C_{1} s + C_{2} s + \frac{1}{R_{3}}\right)\\- C_{1} s v_{1} + v_{2} \left(C_{1} s + \frac{1}{R_{2}}\right) - \frac{v_{3}}{R_{2}}\\I_{V1} - \frac{v_{2}}{R_{2}} + \frac{v_{3}}{R_{2}}\\v_{3}\end{matrix}\right] = \left[\begin{matrix}0\\0\\0\\V_{1}\end{matrix}\right]$
@@ -685,7 +691,7 @@ $\displaystyle \left[\begin{matrix}- C_{1} s v_{2} + v_{1} \left(C_{1} s + C_{2}
 
 The system of equations can be easily solved to obtain a symbolic solution.
 
-::: {#5f0b9695 .cell execution_count=13}
+::: {#7869655c .cell execution_count=13}
 
 ::: {.cell-output .cell-output-display .cell-output-markdown execution_count=13}
 $v_{1} = \frac{C_{1} R_{3} V_{1} s}{C_{1} C_{2} R_{2} R_{3} s^{2} + C_{1} R_{2} s + C_{1} R_{3} s + C_{2} R_{3} s + 1}$<br>$v_{2} = \frac{C_{1} R_{3} V_{1} s + C_{2} R_{3} V_{1} s + V_{1}}{C_{1} C_{2} R_{2} R_{3} s^{2} + C_{1} R_{2} s + C_{1} R_{3} s + C_{2} R_{3} s + 1}$<br>$v_{3} = V_{1}$<br>$I_{V1} = \frac{- C_{1} C_{2} R_{3} V_{1} s^{2} - C_{1} V_{1} s}{C_{1} C_{2} R_{2} R_{3} s^{2} + C_{1} R_{2} s + C_{1} R_{3} s + C_{2} R_{3} s + 1}$<br>
@@ -695,7 +701,7 @@ $v_{1} = \frac{C_{1} R_{3} V_{1} s}{C_{1} C_{2} R_{2} R_{3} s^{2} + C_{1} R_{2} 
 
 The solution for the voltage transfer function $H_{sym} = v_2/v_3$ is:
 
-::: {#d7b64801 .cell execution_count=14}
+::: {#6b7290c9 .cell execution_count=14}
 
 ::: {.cell-output .cell-output-display .cell-output-markdown execution_count=14}
 $\displaystyle \frac{C_{1} R_{3} s + C_{2} R_{3} s + 1}{C_{1} C_{2} R_{2} R_{3} s^{2} + C_{1} R_{2} s + C_{1} R_{3} s + C_{2} R_{3} s + 1}$
@@ -707,7 +713,7 @@ $\displaystyle \frac{C_{1} R_{3} s + C_{2} R_{3} s + 1}{C_{1} C_{2} R_{2} R_{3} 
 
 The zeros of $H_{sym}$ are obtained by taking the numerator and solving for $s$, the result is:
 
-::: {#3655c6f1 .cell execution_count=16}
+::: {#58baebc7 .cell execution_count=16}
 
 ::: {.cell-output .cell-output-display .cell-output-markdown execution_count=16}
 $\displaystyle \left[ - \frac{1}{R_{3} \left(C_{1} + C_{2}\right)}\right]$
@@ -719,7 +725,7 @@ $\displaystyle \left[ - \frac{1}{R_{3} \left(C_{1} + C_{2}\right)}\right]$
 
 The poles of $H_{sym}$ are obtained by taking the denominator and solving for $s$. There are two solutions and the first is:
 
-::: {#8cd1eba3 .cell execution_count=18}
+::: {#2d607a99 .cell execution_count=18}
 
 ::: {.cell-output .cell-output-display .cell-output-markdown execution_count=18}
 $\displaystyle \frac{- C_{1} R_{2} - C_{1} R_{3} - C_{2} R_{3} - \sqrt{C_{1}^{2} R_{2}^{2} + 2 C_{1}^{2} R_{2} R_{3} + C_{1}^{2} R_{3}^{2} - 2 C_{1} C_{2} R_{2} R_{3} + 2 C_{1} C_{2} R_{3}^{2} + C_{2}^{2} R_{3}^{2}}}{2 C_{1} C_{2} R_{2} R_{3}}$
@@ -729,7 +735,7 @@ $\displaystyle \frac{- C_{1} R_{2} - C_{1} R_{3} - C_{2} R_{3} - \sqrt{C_{1}^{2}
 
 The second pole of $H_{sym}$ is:
 
-::: {#8e69011a .cell execution_count=19}
+::: {#86753a35 .cell execution_count=19}
 
 ::: {.cell-output .cell-output-display .cell-output-markdown execution_count=19}
 $\displaystyle \frac{- C_{1} R_{2} - C_{1} R_{3} - C_{2} R_{3} + \sqrt{C_{1}^{2} R_{2}^{2} + 2 C_{1}^{2} R_{2} R_{3} + C_{1}^{2} R_{3}^{2} - 2 C_{1} C_{2} R_{2} R_{3} + 2 C_{1} C_{2} R_{3}^{2} + C_{2}^{2} R_{3}^{2}}}{2 C_{1} C_{2} R_{2} R_{3}}$
@@ -739,7 +745,7 @@ $\displaystyle \frac{- C_{1} R_{2} - C_{1} R_{3} - C_{2} R_{3} + \sqrt{C_{1}^{2}
 
 The following numerical values can be assigned to the component symbols.
 
-::: {#ce13bfdd .cell execution_count=20}
+::: {#cd01a6c9 .cell execution_count=20}
 
 ::: {.cell-output .cell-output-stdout}
 ```
@@ -755,7 +761,7 @@ V1 = 1
 
 The values can be substituted for the symbols and the following system equations are obtained:
 
-::: {#471a276f .cell execution_count=21}
+::: {#45e409f6 .cell execution_count=21}
 
 ::: {.cell-output .cell-output-display .cell-output-markdown execution_count=21}
 $\displaystyle \left[\begin{matrix}- 1.0 \cdot 10^{-6} s v_{2} + v_{1} \cdot \left(1.1 \cdot 10^{-5} s + \frac{1}{1000}\right)\\- 1.0 \cdot 10^{-6} s v_{1} + v_{2} \cdot \left(1.0 \cdot 10^{-6} s + \frac{1}{1000}\right) - \frac{v_{3}}{1000}\\I_{V1} - \frac{v_{2}}{1000} + \frac{v_{3}}{1000}\\v_{3}\end{matrix}\right] = \left[\begin{matrix}0\\0\\0\\1\end{matrix}\right]$
@@ -765,7 +771,7 @@ $\displaystyle \left[\begin{matrix}- 1.0 \cdot 10^{-6} s v_{2} + v_{1} \cdot \le
 
 The numerical solution to the system of equations is:
 
-::: {#85107a2a .cell execution_count=22}
+::: {#8520b53f .cell execution_count=22}
 
 ::: {.cell-output .cell-output-display .cell-output-markdown execution_count=22}
 $v_{1} = \frac{100.0 s}{s^{2} + 1200.0 s + 100000.0}$<br>$v_{2} = \frac{1100.0 s + 100000.0}{s^{2} + 1200.0 s + 100000.0}$<br>$v_{3} = 1.0$<br>$I_{V1} = \frac{- s^{2} - 100.0 s}{1000.0 s^{2} + 1200000.0 s + 100000000.0}$<br>
@@ -775,7 +781,7 @@ $v_{1} = \frac{100.0 s}{s^{2} + 1200.0 s + 100000.0}$<br>$v_{2} = \frac{1100.0 s
 
 The frequency domain voltage transfer function $H = v_2/v_3$ can be obtained:
 
-::: {#3a1dc8aa .cell execution_count=23}
+::: {#7d58ae23 .cell execution_count=23}
 
 ::: {.cell-output .cell-output-display .cell-output-markdown execution_count=23}
 $\displaystyle \frac{1100.0 s + 100000.0}{s^{2} + 1200.0 s + 100000.0}$
@@ -787,7 +793,7 @@ $\displaystyle \frac{1100.0 s + 100000.0}{s^{2} + 1200.0 s + 100000.0}$
 
 The poles and zeros of the frequency domain transfer function are plotted.
 
-::: {#9df70f03 .cell execution_count=25}
+::: {#f8dcb391 .cell execution_count=25}
 
 ::: {.cell-output .cell-output-display}
 ![](Introduction_files/figure-html/cell-26-output-1.png){width=609 height=449}
@@ -797,7 +803,7 @@ The poles and zeros of the frequency domain transfer function are plotted.
 
 The SciPy function [bode](https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.bode.html) to plot the magnitude and phase of $H$.
 
-::: {#1222fa5d .cell execution_count=26}
+::: {#2ec89fb8 .cell execution_count=26}
 
 ::: {.cell-output .cell-output-display}
 ![](Introduction_files/figure-html/cell-27-output-1.png){width=652 height=451}
@@ -807,7 +813,7 @@ The SciPy function [bode](https://docs.scipy.org/doc/scipy/reference/generated/s
 
 The SciPy functions [impulse2](https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.impulse2.html) and [step2](https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.step2.html) to plot the impulse and step response of the system.
 
-::: {#afa316fa .cell execution_count=27}
+::: {#e027617e .cell execution_count=27}
 
 ::: {.cell-output .cell-output-display}
 ![](Introduction_files/figure-html/cell-28-output-1.png){width=607 height=449}
@@ -817,7 +823,7 @@ The SciPy functions [impulse2](https://docs.scipy.org/doc/scipy/reference/genera
 
 The step response is shown below.
 
-::: {#d0432f28 .cell execution_count=28}
+::: {#0ca61a54 .cell execution_count=28}
 
 ::: {.cell-output .cell-output-display}
 ![](Introduction_files/figure-html/cell-29-output-1.png){width=594 height=449}
@@ -959,7 +965,7 @@ Table&nbsp;1.1: Variable names
 <p><strong>Large exponents</strong><br>
 The values of the exponents can be very large in the numerical solution to the network equations when using real component values. Often you will see in engineering text books that the author uses normalized component values, where the values have been frequency and impedance scaled to a frequency of <span class="math inline">\(\omega = 1\)</span> and one of the resistors or other components normalized to a value of one. This keeps the numerical values obtained in the solution to the network equations from getting very large or small.</p>
 <p>Almost all platforms map Python floats to the IEEE754 double precision - 64 total bits. Using the sys package, the float information is reported as follows:</p>
-<div id="50880159" class="cell" data-execution_count="29">
+<div id="8fbdf138" class="cell" data-execution_count="29">
 <div class="cell-output cell-output-stdout">
 <pre><code>max=1.7976931348623157e+308
  max_exp=1024
@@ -1030,19 +1036,19 @@ R6 7 6 44.2e3</code></pre>
 <h2 data-number="1.5" class="anchored" data-anchor-id="pros-and-cons-of-mna"><span class="header-section-number">1.5</span> Pros and cons of MNA</h2>
 <p>The MNA approach is a suitable technique for hand analysis of small circuits as well as for computer analysis of larger circuits using the same algorithm as illustrated in this book. One disadvantage of the MNA technique is that often additional equations are generated, when a smaller number would be sufficient. For students doing homework problems and solving sets of equations by hand, the extra equation or two, generated by the MNA technique makes matrix inversions much harder.</p>
 <p>For example, the circuit in <a href="#fig-Intro_circuit" class="quarto-xref">Figure&nbsp;<span>1.1</span></a>, can be described by the following two mesh equations:</p>
-<div id="7d2a1a57" class="cell" data-execution_count="30">
+<div id="cbefbad8" class="cell" data-execution_count="30">
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="30">
 <p><span class="math inline">\(\displaystyle L_{1} s \left(i_{1} - i_{2}\right) + R_{1} i_{1} + \frac{i_{1} - i_{2}}{C_{1} s} = V_{1}\)</span></p>
 </div>
 </div>
-<div id="8702930c" class="cell" data-execution_count="31">
+<div id="509e0760" class="cell" data-execution_count="31">
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="31">
 <p><span class="math inline">\(\displaystyle L_{1} s \left(- i_{1} + i_{2}\right) + \frac{i_{2}}{C_{2} s} + \frac{- i_{1} + i_{2}}{C_{1} s} = 0\)</span></p>
 </div>
 </div>
 <p>where <span class="math inline">\(i_1\)</span> and <span class="math inline">\(i_2\)</span> are the unknown currents.</p>
 <p>The MNA procedure generated five equations, but one of them was trivial. Only two equations need to be solved to find the mesh currents, which are:</p>
-<div id="60222b6a" class="cell" data-execution_count="32">
+<div id="5827892e" class="cell" data-execution_count="32">
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="32">
 <p><span class="math inline">\(i_{1} = \frac{C_{1} C_{2} L_{1} V_{1} s^{3} + C_{1} V_{1} s + C_{2} V_{1} s}{C_{1} C_{2} L_{1} R_{1} s^{3} + C_{1} L_{1} s^{2} + C_{1} R_{1} s + C_{2} R_{1} s + 1}\)</span><br><span class="math inline">\(i_{2} = \frac{C_{1} C_{2} L_{1} V_{1} s^{3} + C_{2} V_{1} s}{C_{1} C_{2} L_{1} R_{1} s^{3} + C_{1} L_{1} s^{2} + C_{1} R_{1} s + C_{2} R_{1} s + 1}\)</span><br></p>
 </div>
