@@ -445,13 +445,13 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Klon Centaur part 2.html" class="sidebar-item-text sidebar-link">
+  <a href="./Klon Centaur part 2 temp.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Klon Centaur, part 2</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Klon Centaur part 3.html" class="sidebar-item-text sidebar-link">
+  <a href="./Klon Centaur part 3 temp.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Klon Centaur, part 3</span></span></a>
   </div>
 </li>
@@ -522,8 +522,14 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./SMNA_mobile.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">SMNA mobile</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./EasyEDA_schematic_editor.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">EasyEDA</span></span></a>
+ <span class="menu-text"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">EasyEDA</span></span></a>
   </div>
 </li>
       </ul>
@@ -590,7 +596,7 @@ Figure&nbsp;36.1: The mechanical and electrical schematic for the mechanical sys
 </figcaption>
 </figure>
 </div>
-<p>The first example in <span class="citation" data-cites="Akbaba2022">Akbaba et al. (<a href="References.html#ref-Akbaba2022" role="doc-biblioref">2022</a>)</span>, is a translational mechanical system shown in <span class="quarto-unresolved-ref">?fig-translational-mech-sys-fig-1-2</span>. The mechaninical system consists of masses, springs, damping elements and sliding friction.</p>
+<p>The first example in <span class="citation" data-cites="Akbaba2022">Akbaba et al. (<a href="References.html#ref-Akbaba2022" role="doc-biblioref">2022</a>)</span>, is a translational mechanical system shown in <a href="#fig-Translational-mech-sys-fig-1-2" class="quarto-xref">Figure&nbsp;<span>36.1</span></a>. The mechaninical system consists of masses, springs, damping elements and sliding friction.</p>
 <p>The system parameters for mechanical system given in Figure 1 are:</p>
 <ul>
 <li>Mechanical Load Masses: M1 = 100 kg, M2 = 40 kg, M3 = 80 kg</li>
@@ -655,7 +661,7 @@ M = L
 (C1 = 500, C2 = 250, C33 = 150, C4 = 300, C5 = 200, C6 = 180, Ceq = k1 + k2 )
 --></p>
 <p>The element values in the net list have been set to one. In the code cells below, the correct values will be substituted into the network equations.</p>
-<div id="e95309c8-bcc6-4635-a386-9c799ffe9a5c" class="cell" data-execution_count="10">
+<div id="e95309c8-bcc6-4635-a386-9c799ffe9a5c" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>net_list <span class="op">=</span> <span class="st">'''</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="st">V1 1 0 1</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="st">C1 1 2 1</span></span>
@@ -676,7 +682,7 @@ M = L
 <span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="st">'''</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Generate and display the network equations.</p>
-<div id="19f2f168-fe51-470e-9947-70587cbd16bd" class="cell" data-execution_count="11">
+<div id="19f2f168-fe51-470e-9947-70587cbd16bd" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>report, network_df, df2, A, X, Z <span class="op">=</span> SymMNA.smna(net_list)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Put matricies into SymPy </span></span>
@@ -691,27 +697,27 @@ M = L
 <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(Eq((A<span class="op">*</span>X)[i:i<span class="op">+</span><span class="dv">1</span>][<span class="dv">0</span>],Z[i])))</span>
 <span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="11">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="3">
 <p><span class="math inline">\(C_{1} s v_{1} - C_{1} s v_{2} + I_{L1} + I_{V1} = 0\)</span><br><span class="math inline">\(- C_{1} s v_{1} + v_{2} \left(C_{1} s + \frac{1}{R_{1}}\right) = 0\)</span><br><span class="math inline">\(- I_{L1} + I_{L3} + v_{3} \left(Ceq s + \frac{1}{R_{3}}\right) + v_{4} \left(- Ceq s - \frac{1}{R_{3}}\right) = 0\)</span><br><span class="math inline">\(- C_{4} s v_{5} + v_{3} \left(- Ceq s - \frac{1}{R_{3}}\right) + v_{4} \left(C_{4} s + Ceq s + \frac{1}{R_{4}} + \frac{1}{R_{3}}\right) - \frac{v_{7}}{R_{4}} = 0\)</span><br><span class="math inline">\(- C_{4} s v_{4} - I_{L2} + v_{5} \left(C_{4} s + \frac{1}{R_{2}}\right) = 0\)</span><br><span class="math inline">\(I_{L2} + \frac{v_{6}}{R_{5}} - \frac{v_{8}}{R_{5}} = 0\)</span><br><span class="math inline">\(- C_{5} s v_{8} + v_{7} \left(C_{5} s + \frac{1}{R_{4}}\right) - \frac{v_{4}}{R_{4}} = 0\)</span><br><span class="math inline">\(- C_{5} s v_{7} + v_{8} \left(C_{5} s + \frac{1}{R_{7}} + \frac{1}{R_{5}}\right) - \frac{v_{11}}{R_{7}} - \frac{v_{6}}{R_{5}} = 0\)</span><br><span class="math inline">\(- C_{6} s v_{10} + C_{6} s v_{9} - I_{L3} = 0\)</span><br><span class="math inline">\(- C_{6} s v_{9} + v_{10} \left(C_{6} s + \frac{1}{R_{6}}\right) - \frac{v_{11}}{R_{6}} = 0\)</span><br><span class="math inline">\(v_{11} \cdot \left(\frac{1}{R_{7}} + \frac{1}{R_{6}}\right) - \frac{v_{8}}{R_{7}} - \frac{v_{10}}{R_{6}} = 0\)</span><br><span class="math inline">\(v_{1} = V_{1}\)</span><br><span class="math inline">\(- I_{L1} L_{1} s + v_{1} - v_{3} = 0\)</span><br><span class="math inline">\(- I_{L3} L_{3} s + v_{3} - v_{9} = 0\)</span><br><span class="math inline">\(- I_{L2} L_{2} s - v_{5} + v_{6} = 0\)</span><br></p>
 </div>
 </div>
 <p>As shown above MNA generated many equations and these would be difficult to solve by hand.</p>
 <p>The sysmbols generated by the Python code are extraced by the SymPy function free_symbols and then declared as SymPy variables.</p>
-<div id="63ecb455-f6a8-4282-87c5-40de1b28e9aa" class="cell" data-execution_count="12">
+<div id="63ecb455-f6a8-4282-87c5-40de1b28e9aa" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># turn the free symbols into SymPy variables</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>var(<span class="bu">str</span>(NE_sym.free_symbols).replace(<span class="st">'{'</span>,<span class="st">''</span>).replace(<span class="st">'}'</span>,<span class="st">''</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="12">
-<p><span class="math inline">\(\displaystyle \left( R_{5}, \  C_{6}, \  v_{3}, \  R_{6}, \  v_{11}, \  I_{L1}, \  L_{3}, \  L_{1}, \  V_{1}, \  R_{7}, \  I_{L2}, \  v_{5}, \  L_{2}, \  R_{1}, \  v_{10}, \  I_{V1}, \  v_{7}, \  s, \  R_{4}, \  C_{1}, \  v_{8}, \  Ceq, \  R_{2}, \  v_{9}, \  I_{L3}, \  R_{3}, \  v_{2}, \  v_{6}, \  v_{1}, \  C_{5}, \  v_{4}, \  C_{4}\right)\)</span></p>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="4">
+<p><span class="math inline">\(\displaystyle \left( I_{V1}, \  I_{L1}, \  v_{11}, \  L_{1}, \  v_{6}, \  R_{3}, \  v_{10}, \  v_{5}, \  C_{6}, \  v_{7}, \  I_{L2}, \  L_{2}, \  I_{L3}, \  v_{2}, \  R_{1}, \  Ceq, \  v_{4}, \  R_{6}, \  v_{3}, \  v_{9}, \  V_{1}, \  C_{4}, \  R_{2}, \  v_{8}, \  s, \  R_{5}, \  R_{7}, \  C_{5}, \  L_{3}, \  v_{1}, \  C_{1}, \  R_{4}\right)\)</span></p>
 </div>
 </div>
 <section id="symbolic-solution" class="level3" data-number="36.1.1">
 <h3 data-number="36.1.1" class="anchored" data-anchor-id="symbolic-solution"><span class="header-section-number">36.1.1</span> Symbolic solution</h3>
 <p>Since the circuit is large, a symbolic solution takes a long time, so code is commented out.</p>
-<div id="487638f6-8357-4595-b58d-f4326e55d38d" class="cell" data-execution_count="13">
+<div id="487638f6-8357-4595-b58d-f4326e55d38d" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#U_sym = solve(NE_sym,X)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Display the symbolic solution</p>
-<div id="a7e6246b-ec62-4381-a1ac-c710c0229ec7" class="cell" data-execution_count="14">
+<div id="a7e6246b-ec62-4381-a1ac-c710c0229ec7" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#temp = ''</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#for i in U_sym.keys():</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#    temp += '${:s} = {:s}$&lt;br&gt;'.format(latex(i),latex(U_sym[i]))</span></span>
@@ -722,20 +728,20 @@ M = L
 <section id="numerical-solution" class="level3" data-number="36.1.2">
 <h3 data-number="36.1.2" class="anchored" data-anchor-id="numerical-solution"><span class="header-section-number">36.1.2</span> Numerical solution</h3>
 <p>Built a dictionary of element values.</p>
-<div id="abb1a83a-b921-423e-8172-7ad1e7114695" class="cell" data-execution_count="15">
+<div id="abb1a83a-b921-423e-8172-7ad1e7114695" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> symbols(<span class="st">'t'</span>,positive<span class="op">=</span><span class="va">True</span>)  <span class="co"># t &gt; 0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="bb4aa61c-e2d6-4b6c-913b-16d8ec6c9c32" class="cell" data-execution_count="16">
+<div id="bb4aa61c-e2d6-4b6c-913b-16d8ec6c9c32" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>element_values <span class="op">=</span> SymMNA.get_part_values(network_df)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>element_values</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="16">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="8">
 <p><span class="math inline">\(\displaystyle \left\{ C_{1} : 1.0, \  C_{4} : 1.0, \  C_{5} : 1.0, \  C_{6} : 1.0, \  Ceq : 1.0, \  L_{1} : 1.0, \  L_{2} : 1.0, \  L_{3} : 1.0, \  R_{1} : 1.0, \  R_{2} : 1.0, \  R_{3} : 1.0, \  R_{4} : 1.0, \  R_{5} : 1.0, \  R_{6} : 1.0, \  R_{7} : 1.0, \  V_{1} : 1.0\right\}\)</span></p>
 </div>
 </div>
 <p>R’s</p>
 <p>(B1 = 80 N.s/m, B2 = 30 N.s/m, B3 = 50 N.s/m, B4 = 40 N.s/m, B5 = 10 N.s/m, B6 = 30 N.s/m, B7 = 20 N.s/m)</p>
 <p>(R1 = 80, R2 = 30, R3 = 50, R4 = 40, R5 = 10, R6 = 30, R7 = 20)</p>
-<div id="9c74daa4-c5f9-456a-ba57-a6a8a7bafe38" class="cell" data-execution_count="17">
+<div id="9c74daa4-c5f9-456a-ba57-a6a8a7bafe38" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>B1 <span class="op">=</span> <span class="dv">80</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>B2 <span class="op">=</span> <span class="dv">30</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>B3 <span class="op">=</span> <span class="dv">50</span></span>
@@ -754,7 +760,7 @@ M = L
 <p>L’s</p>
 <p>(M1 = 100 kg, M2 = 40 kg, M3 = 80 kg)</p>
 <p>(L1 = 100, L2 = 40, L3 = 80)</p>
-<div id="9aa176c5-c830-4a82-bb87-107c59f5cc6a" class="cell" data-execution_count="18">
+<div id="9aa176c5-c830-4a82-bb87-107c59f5cc6a" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>M1 <span class="op">=</span> <span class="dv">100</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>M2 <span class="op">=</span> <span class="dv">40</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>M3 <span class="op">=</span> <span class="dv">80</span></span>
@@ -766,7 +772,7 @@ M = L
 <p>1/K = C</p>
 <p>(K1 = 500 N/m, K2 = 250 N/m, K3 = 150 N/m, K4 = 300 N/m, K5 = 200 N/m, K6 = 180 N/m, Keq = k1 + k2 )</p>
 <p>(C1 = 500, C2 = 250, C3 = 150, C4 = 300, C5 = 200, C6 = 180, Ceq = k1 + k2 )</p>
-<div id="2c01fade-f338-4f83-a564-a92dec3f3ba1" class="cell" data-execution_count="19">
+<div id="2c01fade-f338-4f83-a564-a92dec3f3ba1" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>K1 <span class="op">=</span> <span class="dv">500</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>K2 <span class="op">=</span> <span class="dv">250</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>K3 <span class="op">=</span> <span class="dv">150</span></span>
@@ -781,26 +787,26 @@ M = L
 <span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>element_values[C6] <span class="op">=</span> <span class="dv">1</span><span class="op">/</span>K6</span>
 <span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>element_values[Ceq] <span class="op">=</span> <span class="dv">1</span><span class="op">/</span>Keq</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="4f822881-e94d-4c6b-9e7a-b078d5129e1b" class="cell" data-execution_count="20">
+<div id="4f822881-e94d-4c6b-9e7a-b078d5129e1b" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>element_values</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="20">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="12">
 <p><span class="math inline">\(\displaystyle \left\{ C_{1} : 0.002, \  C_{4} : 0.00333333333333333, \  C_{5} : 0.005, \  C_{6} : 0.00555555555555556, \  Ceq : 0.00133333333333333, \  L_{1} : 100, \  L_{2} : 40, \  L_{3} : 80, \  R_{1} : 80, \  R_{2} : 30, \  R_{3} : 50, \  R_{4} : 40, \  R_{5} : 10, \  R_{6} : 30, \  R_{7} : 20, \  V_{1} : 1.0\right\}\)</span></p>
 </div>
 </div>
 </section>
 <section id="mechanical-analogies" class="level3" data-number="36.1.3">
 <h3 data-number="36.1.3" class="anchored" data-anchor-id="mechanical-analogies"><span class="header-section-number">36.1.3</span> Mechanical Analogies</h3>
-<p><span class="citation" data-cites="Akbaba2022">Akbaba et al. (<a href="References.html#ref-Akbaba2022" role="doc-biblioref">2022</a>)</span> stated that the inductor current is equalivent to the velocity of the mass in a translational mechanical system. Displacement is equalivent to the charge in a capacitor. In the mechanical system shown in <span class="quarto-unresolved-ref">?fig-translational-mech-sys-fig-1-2</span>, we will look at the velocity of mass, M3, and its displacement in response to a step function. In the example, <span class="citation" data-cites="Akbaba2022">Akbaba et al. (<a href="References.html#ref-Akbaba2022" role="doc-biblioref">2022</a>)</span>, uses a dampled sinusoidal function as the driving force, here I’m going to drive the system with a step function. In the cell below, the dampled sinusoidal function is has been commented out and V1 is a unit step function.</p>
-<div id="07bd7799-0de4-4f95-99d8-290fe8de6503" class="cell" data-execution_count="21">
+<p><span class="citation" data-cites="Akbaba2022">Akbaba et al. (<a href="References.html#ref-Akbaba2022" role="doc-biblioref">2022</a>)</span> stated that the inductor current is equalivent to the velocity of the mass in a translational mechanical system. Displacement is equalivent to the charge in a capacitor. In the mechanical system shown in <a href="#fig-Translational-mech-sys-fig-1-2" class="quarto-xref">Figure&nbsp;<span>36.1</span></a>, we will look at the velocity of mass, M3, and its displacement in response to a step function. In the example, <span class="citation" data-cites="Akbaba2022">Akbaba et al. (<a href="References.html#ref-Akbaba2022" role="doc-biblioref">2022</a>)</span>, uses a dampled sinusoidal function as the driving force, here I’m going to drive the system with a step function. In the cell below, the dampled sinusoidal function is has been commented out and V1 is a unit step function.</p>
+<div id="07bd7799-0de4-4f95-99d8-290fe8de6503" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#element_values[V1] = laplace_transform(400*exp(-0.1*t)*sin(4*t), t, s)[0] # driving function in example</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>element_values[V1] <span class="op">=</span> laplace_transform(<span class="dv">1</span><span class="op">*</span>Heaviside(t), t, s)[<span class="dv">0</span>] <span class="co"># step function as a test</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>NE <span class="op">=</span> NE_sym.subs(element_values)</span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>NE</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="21">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="13">
 <p><span class="math inline">\(\displaystyle \left[\begin{matrix}I_{L1} + I_{V1} + 0.002 s v_{1} - 0.002 s v_{2}\\- 0.002 s v_{1} + v_{2} \cdot \left(0.002 s + \frac{1}{80}\right)\\- I_{L1} + I_{L3} + v_{3} \cdot \left(0.00133333333333333 s + \frac{1}{50}\right) + v_{4} \left(- 0.00133333333333333 s - \frac{1}{50}\right)\\- 0.00333333333333333 s v_{5} + v_{3} \left(- 0.00133333333333333 s - \frac{1}{50}\right) + v_{4} \cdot \left(0.00466666666666667 s + \frac{9}{200}\right) - \frac{v_{7}}{40}\\- I_{L2} - 0.00333333333333333 s v_{4} + v_{5} \cdot \left(0.00333333333333333 s + \frac{1}{30}\right)\\I_{L2} + \frac{v_{6}}{10} - \frac{v_{8}}{10}\\- 0.005 s v_{8} - \frac{v_{4}}{40} + v_{7} \cdot \left(0.005 s + \frac{1}{40}\right)\\- 0.005 s v_{7} - \frac{v_{11}}{20} - \frac{v_{6}}{10} + v_{8} \cdot \left(0.005 s + \frac{3}{20}\right)\\- I_{L3} - 0.00555555555555556 s v_{10} + 0.00555555555555556 s v_{9}\\- 0.00555555555555556 s v_{9} + v_{10} \cdot \left(0.00555555555555556 s + \frac{1}{30}\right) - \frac{v_{11}}{30}\\- \frac{v_{10}}{30} + \frac{v_{11}}{12} - \frac{v_{8}}{20}\\v_{1}\\- 100 I_{L1} s + v_{1} - v_{3}\\- 80 I_{L3} s + v_{3} - v_{9}\\- 40 I_{L2} s - v_{5} + v_{6}\end{matrix}\right] = \left[\begin{matrix}0\\0\\0\\0\\0\\0\\0\\0\\0\\0\\0\\\frac{1}{s}\\0\\0\\0\end{matrix}\right]\)</span></p>
 </div>
 </div>
-<div id="75d558a3-5b6b-4376-9b35-37f02159ae2b" class="cell" data-execution_count="22">
+<div id="75d558a3-5b6b-4376-9b35-37f02159ae2b" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>U <span class="op">=</span> solve(NE,X)</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
@@ -808,7 +814,7 @@ M = L
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st"> = </span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(i),latex(U[i]))</span>
 <span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="22">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="14">
 <p><span class="math inline">\(v_{1} = \frac{1}{s}\)</span><br><span class="math inline">\(v_{2} = \frac{4.0}{4.0 s + 25.0}\)</span><br><span class="math inline">\(v_{3} = \frac{96.0 s^{6} + 5028.0 s^{5} + 28443.0 s^{4} + 125715.0 s^{3} + 226350.0 s^{2} + 240300.0 s + 162000.0}{320.0 s^{8} + 5656.0 s^{7} + 25238.0 s^{6} + 124143.0 s^{5} + 250215.0 s^{4} + 451350.0 s^{3} + 240300.0 s^{2} + 162000.0 s}\)</span><br><span class="math inline">\(v_{4} = \frac{96.0 s^{6} + 2628.0 s^{5} + 22743.0 s^{4} + 82140.0 s^{3} + 199350.0 s^{2} + 172800.0 s + 162000.0}{320.0 s^{8} + 5656.0 s^{7} + 25238.0 s^{6} + 124143.0 s^{5} + 250215.0 s^{4} + 451350.0 s^{3} + 240300.0 s^{2} + 162000.0 s}\)</span><br><span class="math inline">\(v_{5} = \frac{96.0 s^{5} + 1668.0 s^{4} + 6063.0 s^{3} + 28710.0 s^{2} + 37350.0 s + 67500.0}{320.0 s^{7} + 5656.0 s^{6} + 25238.0 s^{5} + 124143.0 s^{4} + 250215.0 s^{3} + 451350.0 s^{2} + 240300.0 s + 162000.0}\)</span><br><span class="math inline">\(v_{6} = \frac{96.0 s^{5} + 2628.0 s^{4} + 22743.0 s^{3} + 64470.0 s^{2} + 105750.0 s + 67500.0}{320.0 s^{7} + 5656.0 s^{6} + 25238.0 s^{5} + 124143.0 s^{4} + 250215.0 s^{3} + 451350.0 s^{2} + 240300.0 s + 162000.0}\)</span><br><span class="math inline">\(v_{7} = \frac{96.0 s^{6} + 2628.0 s^{5} + 22983.0 s^{4} + 67440.0 s^{3} + 188190.0 s^{2} + 140400.0 s + 162000.0}{320.0 s^{8} + 5656.0 s^{7} + 25238.0 s^{6} + 124143.0 s^{5} + 250215.0 s^{4} + 451350.0 s^{3} + 240300.0 s^{2} + 162000.0 s}\)</span><br><span class="math inline">\(v_{8} = \frac{96.0 s^{5} + 2628.0 s^{4} + 22983.0 s^{3} + 68640.0 s^{2} + 114690.0 s + 84600.0}{320.0 s^{7} + 5656.0 s^{6} + 25238.0 s^{5} + 124143.0 s^{4} + 250215.0 s^{3} + 451350.0 s^{2} + 240300.0 s + 162000.0}\)</span><br><span class="math inline">\(v_{9} = \frac{96.0 s^{6} + 2628.0 s^{5} + 24483.0 s^{4} + 76515.0 s^{3} + 154350.0 s^{2} + 240300.0 s + 162000.0}{320.0 s^{8} + 5656.0 s^{7} + 25238.0 s^{6} + 124143.0 s^{5} + 250215.0 s^{4} + 451350.0 s^{3} + 240300.0 s^{2} + 162000.0 s}\)</span><br><span class="math inline">\(v_{10} = \frac{96.0 s^{5} + 2628.0 s^{4} + 24483.0 s^{3} + 71115.0 s^{2} + 145440.0 s + 129600.0}{320.0 s^{7} + 5656.0 s^{6} + 25238.0 s^{5} + 124143.0 s^{4} + 250215.0 s^{3} + 451350.0 s^{2} + 240300.0 s + 162000.0}\)</span><br><span class="math inline">\(v_{11} = \frac{96.0 s^{5} + 2628.0 s^{4} + 23583.0 s^{3} + 69630.0 s^{2} + 126990.0 s + 102600.0}{320.0 s^{7} + 5656.0 s^{6} + 25238.0 s^{5} + 124143.0 s^{4} + 250215.0 s^{3} + 451350.0 s^{2} + 240300.0 s + 162000.0}\)</span><br><span class="math inline">\(I_{V1} = \frac{- 320.0 s^{7} - 5912.0 s^{6} - 31286.0 s^{5} - 168111.0 s^{4} - 427825.0 s^{3} - 1029450.0 s^{2} - 1042800.0 s - 1287000.0}{25600.0 s^{8} + 612480.0 s^{7} + 4847040.0 s^{6} + 22550440.0 s^{5} + 82088700.0 s^{4} + 161215500.0 s^{3} + 244899000.0 s^{2} + 133110000.0 s + 81000000.0}\)</span><br><span class="math inline">\(I_{L1} = \frac{32.0 s^{5} + 556.0 s^{4} + 2021.0 s^{3} + 9570.0 s^{2} + 12450.0 s + 22500.0}{3200.0 s^{7} + 56560.0 s^{6} + 252380.0 s^{5} + 1241430.0 s^{4} + 2502150.0 s^{3} + 4513500.0 s^{2} + 2403000.0 s + 1620000.0}\)</span><br><span class="math inline">\(I_{L3} = \frac{60.0 s^{3} + 99.0 s^{2} + 1230.0 s + 1800.0}{640.0 s^{7} + 11312.0 s^{6} + 50476.0 s^{5} + 248286.0 s^{4} + 500430.0 s^{3} + 902700.0 s^{2} + 480600.0 s + 324000.0}\)</span><br><span class="math inline">\(I_{L2} = \frac{24.0 s^{3} + 417.0 s^{2} + 894.0 s + 1710.0}{320.0 s^{7} + 5656.0 s^{6} + 25238.0 s^{5} + 124143.0 s^{4} + 250215.0 s^{3} + 451350.0 s^{2} + 240300.0 s + 162000.0}\)</span><br></p>
 </div>
 </div>
@@ -816,30 +822,30 @@ M = L
 <section id="velocity-of-m_3" class="level3" data-number="36.1.4">
 <h3 data-number="36.1.4" class="anchored" data-anchor-id="velocity-of-m_3"><span class="header-section-number">36.1.4</span> Velocity of <span class="math inline">\(M_3\)</span></h3>
 <p>The current in L3 is equalivent to the velocity of <span class="math inline">\(M_3\)</span> and the following cells compute the current in the inductor. The current through L3 is symplified with the chain of operators applied to the expression; <a href="https://docs.sympy.org/latest/modules/simplify/simplify.html#sympy.simplify.simplify.nsimplify">nsimplify()</a>, <a href="https://docs.sympy.org/latest/modules/simplify/simplify.html#simplify">simplify()</a>, <a href="https://docs.sympy.org/latest/modules/core.html#sympy.core.function.expand">expand()</a> and <a href="https://docs.sympy.org/latest/modules/polys/reference.html#sympy.polys.rationaltools.together">together()</a>. This helps SymPy solve the inverse Laplace transform.</p>
-<div id="56d0a225-c333-4491-8c86-64c96976aae1" class="cell" data-execution_count="23">
+<div id="56d0a225-c333-4491-8c86-64c96976aae1" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>L3_current_s <span class="op">=</span> U[I_L3].nsimplify().simplify().expand().together()</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>L3_current_s</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="23">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="15">
 <p><span class="math inline">\(\displaystyle \frac{3 \cdot \left(20 s^{3} + 33 s^{2} + 410 s + 600\right)}{2 \cdot \left(320 s^{7} + 5656 s^{6} + 25238 s^{5} + 124143 s^{4} + 250215 s^{3} + 451350 s^{2} + 240300 s + 162000\right)}\)</span></p>
 </div>
 </div>
 <p>The inverse Laplace was taking too long, so the lines of code were commented out</p>
-<div id="99ac1171-617e-4269-b3fd-acae9ec41ff6" class="cell" data-execution_count="24">
+<div id="99ac1171-617e-4269-b3fd-acae9ec41ff6" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#L3_current = inverse_laplace_transform(L3_current_s, s, t)</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co">#L3_current</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Using NumPy to obtain the partial fraction expansion, convert back to the s domain and then take the inverse Laplace transform on each term.</p>
 <p>Extract the numerator and denominator and display.</p>
-<div id="3c2f9295-ceff-4088-8ca1-aefdb850748d" class="cell" data-execution_count="25">
+<div id="3c2f9295-ceff-4088-8ca1-aefdb850748d" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>n, d <span class="op">=</span> fraction(L3_current_s)</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> n.expand()</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>Markdown(<span class="st">'numerator: $</span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;denominator: $</span><span class="sc">{:s}</span><span class="st">$'</span>.<span class="bu">format</span>(latex(n),latex(d)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="25">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="17">
 <p>numerator: <span class="math inline">\(60 s^{3} + 99 s^{2} + 1230 s + 1800\)</span><br>denominator: <span class="math inline">\(640 s^{7} + 11312 s^{6} + 50476 s^{5} + 248286 s^{4} + 500430 s^{3} + 902700 s^{2} + 480600 s + 324000\)</span></p>
 </div>
 </div>
 <p>Each of the numerator terms can be put over the common denominator.</p>
-<div id="828492b8-dae3-4372-ae3a-8897b1e1faa6" class="cell" data-execution_count="26">
+<div id="828492b8-dae3-4372-ae3a-8897b1e1faa6" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>terms <span class="op">=</span> [a <span class="op">/</span> d <span class="cf">for</span> a <span class="kw">in</span> n.args]</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>display(terms)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown">
@@ -858,7 +864,7 @@ M = L
 <li>k: Coefficients of the direct polynomial term.</li>
 </ul>
 <p>When computing the inverse Laplace transform, the Coefficients (k) are ignored since these transform to a Dirac delta function, <span class="math inline">\(\delta (t)\)</span> and don’t need to be plotted.</p>
-<div id="bd3ae67c-9d1d-47b0-9f3b-eead592ee8d0" class="cell" data-execution_count="27">
+<div id="bd3ae67c-9d1d-47b0-9f3b-eead592ee8d0" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> []</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> p1 <span class="kw">in</span> terms:</span>
@@ -879,14 +885,14 @@ M = L
 </div>
 <p>Each of these terms came be converted to a function using SymPy’s <a href="https://docs.sympy.org/latest/modules/utilities/lambdify.html">lambdify</a> function.</p>
 <p>Define the values for the x-axis of the plot and put each one into an array for plotting.</p>
-<div id="17728b22-eedd-4096-9226-bfa5d874602c" class="cell" data-execution_count="28">
+<div id="17728b22-eedd-4096-9226-bfa5d874602c" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">50</span>, <span class="dv">2000</span>, endpoint<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>V_node2 <span class="op">=</span> np.zeros(<span class="bu">len</span>(x),dtype <span class="op">=</span> <span class="bu">complex</span>)</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> p <span class="kw">in</span> N:</span>
 <span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    V_node2 <span class="op">+=</span> lambdify(t, p)(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Plot the final combined result.</p>
-<div id="77dae12f-1cfa-49e0-925a-ceadda5411b3" class="cell" data-execution_count="63">
+<div id="77dae12f-1cfa-49e0-925a-ceadda5411b3" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Inductor current vs time'</span>)</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>plt.plot(x, np.real(V_node2),label<span class="op">=</span><span class="st">'i(t)'</span>)</span>
@@ -910,30 +916,30 @@ M = L
 <section id="displacement-of-m_3" class="level3" data-number="36.1.5">
 <h3 data-number="36.1.5" class="anchored" data-anchor-id="displacement-of-m_3"><span class="header-section-number">36.1.5</span> Displacement of <span class="math inline">\(M_3\)</span></h3>
 <p>The displacement of <span class="math inline">\(M_3\)</span> is equalavent to the charge on C6 which is proportional to the voltage difference between nodes 9 and 10.</p>
-<div id="c8247bd4-7f32-44b5-b979-4a8af38877b0" class="cell" data-execution_count="30">
+<div id="c8247bd4-7f32-44b5-b979-4a8af38877b0" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>C6_voltage_s <span class="op">=</span> (U[v9] <span class="op">-</span> U[v10]).nsimplify().simplify().expand().together()</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>C6_voltage_s</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="30">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="22">
 <p><span class="math inline">\(\displaystyle \frac{270 \cdot \left(20 s^{3} + 33 s^{2} + 410 s + 600\right)}{s \left(320 s^{7} + 5656 s^{6} + 25238 s^{5} + 124143 s^{4} + 250215 s^{3} + 451350 s^{2} + 240300 s + 162000\right)}\)</span></p>
 </div>
 </div>
 <p>The inverse Laplace was taking too long, so the lines of code were commented out</p>
-<div id="5700591e-e7e6-4b48-8f62-a87d28fc01b8" class="cell" data-execution_count="31">
+<div id="5700591e-e7e6-4b48-8f62-a87d28fc01b8" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#C6_voltage = inverse_laplace_transform(C6_voltage_s, s, t)</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co">#C6_voltage</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Using NumPy to obtain the partial fraction expansion, convert back to the s domain and then take the inverse Laplace transform on each term.</p>
 <p>Extract the numerator and denominator and display.</p>
-<div id="121458e4-7bf3-417c-829d-ea32211d6d45" class="cell" data-execution_count="32">
+<div id="121458e4-7bf3-417c-829d-ea32211d6d45" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>n, d <span class="op">=</span> fraction(C6_voltage_s)</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> n.expand()</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>Markdown(<span class="st">'numerator: $</span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;denominator: $</span><span class="sc">{:s}</span><span class="st">$'</span>.<span class="bu">format</span>(latex(n),latex(d)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="32">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="24">
 <p>numerator: <span class="math inline">\(5400 s^{3} + 8910 s^{2} + 110700 s + 162000\)</span><br>denominator: <span class="math inline">\(s \left(320 s^{7} + 5656 s^{6} + 25238 s^{5} + 124143 s^{4} + 250215 s^{3} + 451350 s^{2} + 240300 s + 162000\right)\)</span></p>
 </div>
 </div>
 <p>Each of the numerator terms can be put over the common denominator.</p>
-<div id="0ef4dc88-1b11-4117-a185-b045674a406c" class="cell" data-execution_count="33">
+<div id="0ef4dc88-1b11-4117-a185-b045674a406c" class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>terms <span class="op">=</span> [a <span class="op">/</span> d <span class="cf">for</span> a <span class="kw">in</span> n.args]</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>display(terms)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown">
@@ -941,7 +947,7 @@ M = L
 </div>
 </div>
 <p>The following code processes each of the terms obtained above.</p>
-<div id="e1e9845f-5349-40a1-bfb6-830049655662" class="cell" data-execution_count="34">
+<div id="e1e9845f-5349-40a1-bfb6-830049655662" class="cell" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> []</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> p1 <span class="kw">in</span> terms:</span>
@@ -962,14 +968,14 @@ M = L
 </div>
 <p>Each of these terms came be converted to a function using SymPy’s <a href="https://docs.sympy.org/latest/modules/utilities/lambdify.html">lambdify</a> function.</p>
 <p>Define the values for the x-axis of the plot and put each one into an array for plotting.</p>
-<div id="605bb2c9-3b19-4abb-b67e-e9a9269b31dd" class="cell" data-execution_count="35">
+<div id="605bb2c9-3b19-4abb-b67e-e9a9269b31dd" class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">50</span>, <span class="dv">2000</span>, endpoint<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>V_node2 <span class="op">=</span> np.zeros(<span class="bu">len</span>(x),dtype <span class="op">=</span> <span class="bu">complex</span>)</span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> p <span class="kw">in</span> N:</span>
 <span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    V_node2 <span class="op">+=</span> lambdify(t, p)(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Plot the final combined result.</p>
-<div id="399ec18e-479a-4673-8175-d94d770dd6d2" class="cell" data-execution_count="64">
+<div id="399ec18e-479a-4673-8175-d94d770dd6d2" class="cell" data-execution_count="28">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Voltage vs time'</span>)</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>plt.plot(x, np.real(V_node2),label<span class="op">=</span><span class="st">'v(t)'</span>)</span>
@@ -1022,7 +1028,7 @@ Figure&nbsp;36.4: Schematic
 </figure>
 </div>
 <p>Load the netlist. The value of <span class="math inline">\(V_L\)</span> is set to zero.</p>
-<div id="45411474" class="cell" data-execution_count="37">
+<div id="45411474" class="cell" data-execution_count="29">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>net_list <span class="op">=</span> <span class="st">'''</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="st">Va 1 0 1</span></span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="st">VL 14 0 0</span></span>
@@ -1047,7 +1053,7 @@ Figure&nbsp;36.4: Schematic
 <span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a><span class="st">'''</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Generate and display the network equations.</p>
-<div id="09612bbb-b5cb-45d6-8824-3052df7f62fe" class="cell" data-execution_count="38">
+<div id="09612bbb-b5cb-45d6-8824-3052df7f62fe" class="cell" data-execution_count="30">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>report, network_df, df2, A, X, Z <span class="op">=</span> SymMNA.smna(net_list)</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Put matricies into SymPy </span></span>
@@ -1062,25 +1068,25 @@ Figure&nbsp;36.4: Schematic
 <span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(Eq((A<span class="op">*</span>X)[i:i<span class="op">+</span><span class="dv">1</span>][<span class="dv">0</span>],Z[i])))</span>
 <span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="38">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="30">
 <p><span class="math inline">\(I_{La} + I_{Va} = 0\)</span><br><span class="math inline">\(I_{Ha} - I_{La} = 0\)</span><br><span class="math inline">\(- I_{Ha} + \frac{v_{3}}{Ra} = 0\)</span><br><span class="math inline">\(I_{Hm} + \frac{v_{4}}{Rmb} - \frac{v_{5}}{Rmb} = 0\)</span><br><span class="math inline">\(I_{Lm} - \frac{v_{4}}{Rmb} + \frac{v_{5}}{Rmb} = 0\)</span><br><span class="math inline">\(- I_{Lm} + \frac{v_{6}}{R_{1}} - \frac{v_{7}}{R_{1}} = 0\)</span><br><span class="math inline">\(I_{L1} - \frac{v_{6}}{R_{1}} + \frac{v_{7}}{R_{1}} = 0\)</span><br><span class="math inline">\(- I_{L1} - I_{V1} = 0\)</span><br><span class="math inline">\(C_{1} s v_{9} + I_{L2} + I_{V1} = 0\)</span><br><span class="math inline">\(- I_{L2} - I_{L5} = 0\)</span><br><span class="math inline">\(I_{L3} + I_{L6} = 0\)</span><br><span class="math inline">\(- I_{L3} + v_{12} \left(C_{2} s + \frac{1}{R_{4}}\right) - \frac{v_{13}}{R_{4}} = 0\)</span><br><span class="math inline">\(I_{L4} - \frac{v_{12}}{R_{4}} + \frac{v_{13}}{R_{4}} = 0\)</span><br><span class="math inline">\(- I_{L4} + I_{Vl} = 0\)</span><br><span class="math inline">\(v_{1} = Va\)</span><br><span class="math inline">\(v_{14} = Vl\)</span><br><span class="math inline">\(- v_{8} + v_{9} = V_{1}\)</span><br><span class="math inline">\(- I_{La} La s + v_{1} - v_{2} = 0\)</span><br><span class="math inline">\(- I_{Lm} Lm s + v_{5} - v_{6} = 0\)</span><br><span class="math inline">\(- I_{L1} L_{1} s + v_{7} - v_{8} = 0\)</span><br><span class="math inline">\(- I_{L2} L_{2} s - v_{10} + v_{9} = 0\)</span><br><span class="math inline">\(- I_{L5} L_{5} s - I_{L6} M_{1} s - v_{10} = 0\)</span><br><span class="math inline">\(- I_{L5} M_{1} s - I_{L6} L_{6} s + v_{11} = 0\)</span><br><span class="math inline">\(- I_{L3} L_{3} s + v_{11} - v_{12} = 0\)</span><br><span class="math inline">\(- I_{L4} L_{4} s + v_{13} - v_{14} = 0\)</span><br><span class="math inline">\(- I_{V1} ha + v_{2} - v_{3} = 0\)</span><br><span class="math inline">\(- I_{Va} hm + v_{4} = 0\)</span><br></p>
 </div>
 </div>
 <p>As shown above MNA generated many equations and these would be difficult to solve by hand.</p>
 <p>The sysmbols generated by the Python code are extraced by the SymPy function free_symbols and then declared as SymPy variables.</p>
-<div id="93fe8c33" class="cell" data-execution_count="39">
+<div id="93fe8c33" class="cell" data-execution_count="31">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># turn the free symbols into SymPy variables</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>var(<span class="bu">str</span>(NE_sym.free_symbols).replace(<span class="st">'{'</span>,<span class="st">''</span>).replace(<span class="st">'}'</span>,<span class="st">''</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="39">
-<p><span class="math inline">\(\displaystyle \left( v_{3}, \  I_{L1}, \  I_{Ha}, \  L_{3}, \  I_{V1}, \  R_{4}, \  I_{Lm}, \  I_{L6}, \  v_{12}, \  I_{L4}, \  v_{13}, \  L_{4}, \  C_{2}, \  v_{8}, \  La, \  Lm, \  ha, \  I_{Vl}, \  L_{5}, \  Rmb, \  I_{L5}, \  v_{2}, \  v_{1}, \  I_{Va}, \  v_{4}, \  M_{1}, \  L_{6}, \  v_{11}, \  Vl, \  hm, \  V_{1}, \  L_{1}, \  I_{La}, \  Ra, \  I_{L2}, \  v_{5}, \  L_{2}, \  Va, \  R_{1}, \  v_{14}, \  v_{10}, \  v_{7}, \  s, \  I_{Hm}, \  C_{1}, \  v_{9}, \  I_{L3}, \  v_{6}\right)\)</span></p>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="31">
+<p><span class="math inline">\(\displaystyle \left( I_{L4}, \  ha, \  I_{L1}, \  L_{1}, \  v_{14}, \  v_{6}, \  Rmb, \  L_{4}, \  v_{10}, \  hm, \  L_{5}, \  v_{2}, \  I_{Vl}, \  R_{1}, \  v_{12}, \  I_{Lm}, \  v_{8}, \  La, \  L_{6}, \  I_{Va}, \  I_{V1}, \  Ra, \  v_{13}, \  v_{11}, \  Vl, \  I_{Hm}, \  v_{5}, \  v_{7}, \  I_{L2}, \  L_{2}, \  I_{L5}, \  I_{L3}, \  I_{L6}, \  v_{4}, \  I_{La}, \  C_{2}, \  Lm, \  v_{3}, \  v_{9}, \  V_{1}, \  s, \  M_{1}, \  L_{3}, \  Va, \  v_{1}, \  C_{1}, \  R_{4}, \  I_{Ha}\right)\)</span></p>
 </div>
 </div>
 <p>Since the circuit is large, a symbolic solution takes a long time, so code is commented out.</p>
-<div id="276f191f" class="cell" data-execution_count="40">
+<div id="276f191f" class="cell" data-execution_count="32">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co">#U_sym = solve(NE_sym,X)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Display the symbolic solution</p>
-<div id="603eab0e" class="cell" data-execution_count="41">
+<div id="603eab0e" class="cell" data-execution_count="33">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co">#temp = ''</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="co">#for i in U_sym.keys():</span></span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="co">#    temp += '${:s} = {:s}$&lt;br&gt;'.format(latex(i),latex(U_sym[i]))</span></span>
@@ -1088,16 +1094,16 @@ Figure&nbsp;36.4: Schematic
 <span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Markdown(temp)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Built a dictionary of element values.</p>
-<div id="5e201a7d-b763-44a7-bb6e-6c886166199c" class="cell" data-execution_count="42">
+<div id="5e201a7d-b763-44a7-bb6e-6c886166199c" class="cell" data-execution_count="34">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>element_values <span class="op">=</span> SymMNA.get_part_values(network_df)</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>element_values</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="42">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="34">
 <p><span class="math inline">\(\displaystyle \left\{ C_{1} : 1.0, \  C_{2} : 1.0, \  K_{1} : 0.5, \  L_{1} : 1.0, \  L_{2} : 1.0, \  L_{3} : 1.0, \  L_{4} : 1.0, \  L_{5} : 1.0, \  L_{6} : 1.0, \  La : 1.0, \  Lm : 1.0, \  R_{1} : 1.0, \  R_{4} : 1.0, \  Ra : 1.0, \  Rmb : 1.0, \  V_{1} : 0.0, \  Va : 1.0, \  Vl : 0.0, \  ha : 1.0, \  hm : 1.0\right\}\)</span></p>
 </div>
 </div>
 <p>The mutual inductance between L1 and L2 is calculated from the coupling coeeficient.</p>
 <p><span class="math inline">\(M = k\sqrt{L_1L_2}\)</span></p>
-<div id="8b1f39e6-ff75-4766-b917-1d1c13e5e439" class="cell" data-execution_count="43">
+<div id="8b1f39e6-ff75-4766-b917-1d1c13e5e439" class="cell" data-execution_count="35">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>K1 <span class="op">=</span> symbols(<span class="st">'K1'</span>)</span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate the coupling constant from the mutual inductance</span></span>
@@ -1108,18 +1114,18 @@ Figure&nbsp;36.4: Schematic
 </div>
 </div>
 <p>Re-define the symbol <span class="math inline">\(t\)</span> for time and define <span class="math inline">\(V_a\)</span> to be a voltage step.</p>
-<div id="9f4420f8-dfa6-409e-af79-726f0433a653" class="cell" data-execution_count="44">
+<div id="9f4420f8-dfa6-409e-af79-726f0433a653" class="cell" data-execution_count="36">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> symbols(<span class="st">'t'</span>,positive<span class="op">=</span><span class="va">True</span>)  <span class="co"># t &gt; 0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="761c6a47-9403-4460-be3d-ef7795bf244f" class="cell" data-execution_count="45">
+<div id="761c6a47-9403-4460-be3d-ef7795bf244f" class="cell" data-execution_count="37">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>element_values[Va] <span class="op">=</span> laplace_transform(<span class="dv">1</span><span class="op">*</span>Heaviside(t), t, s)[<span class="dv">0</span>]</span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>NE <span class="op">=</span> NE_sym.subs(element_values)</span>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>NE</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="45">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="37">
 <p><span class="math inline">\(\displaystyle \left[\begin{matrix}I_{La} + I_{Va}\\I_{Ha} - I_{La}\\- I_{Ha} + 1.0 v_{3}\\I_{Hm} + 1.0 v_{4} - 1.0 v_{5}\\I_{Lm} - 1.0 v_{4} + 1.0 v_{5}\\- I_{Lm} + 1.0 v_{6} - 1.0 v_{7}\\I_{L1} - 1.0 v_{6} + 1.0 v_{7}\\- I_{L1} - I_{V1}\\I_{L2} + I_{V1} + 1.0 s v_{9}\\- I_{L2} - I_{L5}\\I_{L3} + I_{L6}\\- I_{L3} + v_{12} \cdot \left(1.0 s + 1.0\right) - 1.0 v_{13}\\I_{L4} - 1.0 v_{12} + 1.0 v_{13}\\- I_{L4} + I_{Vl}\\v_{1}\\v_{14}\\- v_{8} + v_{9}\\- 1.0 I_{La} s + v_{1} - v_{2}\\- 1.0 I_{Lm} s + v_{5} - v_{6}\\- 1.0 I_{L1} s + v_{7} - v_{8}\\- 1.0 I_{L2} s - v_{10} + v_{9}\\- 1.0 I_{L5} s - 0.5 I_{L6} s - v_{10}\\- 0.5 I_{L5} s - 1.0 I_{L6} s + v_{11}\\- 1.0 I_{L3} s + v_{11} - v_{12}\\- 1.0 I_{L4} s + v_{13} - v_{14}\\- 1.0 I_{V1} + v_{2} - v_{3}\\- 1.0 I_{Va} + v_{4}\end{matrix}\right] = \left[\begin{matrix}0\\0\\0\\0\\0\\0\\0\\0\\0\\0\\0\\0\\0\\0\\\frac{1}{s}\\0\\0\\0\\0\\0\\0\\0\\0\\0\\0\\0\\0\end{matrix}\right]\)</span></p>
 </div>
 </div>
-<div id="71d208bc-f088-4a79-9f8c-5efd208b19fb" class="cell" data-execution_count="46">
+<div id="71d208bc-f088-4a79-9f8c-5efd208b19fb" class="cell" data-execution_count="38">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>U <span class="op">=</span> solve(NE,X)</span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
@@ -1127,37 +1133,37 @@ Figure&nbsp;36.4: Schematic
 <span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st"> = </span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(i),latex(U[i]))</span>
 <span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="46">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="38">
 <p><span class="math inline">\(v_{1} = \frac{1}{s}\)</span><br><span class="math inline">\(v_{2} = \frac{30.0 s^{6} + 75.0 s^{5} + 122.0 s^{4} + 140.0 s^{3} + 95.0 s^{2} + 52.0 s + 12.0}{30.0 s^{8} + 90.0 s^{7} + 182.0 s^{6} + 231.0 s^{5} + 219.0 s^{4} + 135.0 s^{3} + 60.0 s^{2} + 12.0 s}\)</span><br><span class="math inline">\(v_{3} = \frac{30.0 s^{6} + 60.0 s^{5} + 107.0 s^{4} + 109.0 s^{3} + 79.0 s^{2} + 40.0 s + 8.0}{30.0 s^{8} + 90.0 s^{7} + 182.0 s^{6} + 231.0 s^{5} + 219.0 s^{4} + 135.0 s^{3} + 60.0 s^{2} + 12.0 s}\)</span><br><span class="math inline">\(v_{4} = \frac{- 30.0 s^{6} - 60.0 s^{5} - 107.0 s^{4} - 109.0 s^{3} - 79.0 s^{2} - 40.0 s - 8.0}{30.0 s^{8} + 90.0 s^{7} + 182.0 s^{6} + 231.0 s^{5} + 219.0 s^{4} + 135.0 s^{3} + 60.0 s^{2} + 12.0 s}\)</span><br><span class="math inline">\(v_{5} = \frac{- 30.0 s^{6} - 45.0 s^{5} - 92.0 s^{4} - 78.0 s^{3} - 63.0 s^{2} - 28.0 s - 4.0}{30.0 s^{8} + 90.0 s^{7} + 182.0 s^{6} + 231.0 s^{5} + 219.0 s^{4} + 135.0 s^{3} + 60.0 s^{2} + 12.0 s}\)</span><br><span class="math inline">\(v_{6} = \frac{- 15.0 s^{6} - 30.0 s^{5} - 61.0 s^{4} - 62.0 s^{3} - 51.0 s^{2} - 24.0 s - 4.0}{30.0 s^{8} + 90.0 s^{7} + 182.0 s^{6} + 231.0 s^{5} + 219.0 s^{4} + 135.0 s^{3} + 60.0 s^{2} + 12.0 s}\)</span><br><span class="math inline">\(v_{7} = \frac{- 15.0 s^{5} - 15.0 s^{4} - 46.0 s^{3} - 31.0 s^{2} - 35.0 s - 12.0}{30.0 s^{7} + 90.0 s^{6} + 182.0 s^{5} + 231.0 s^{4} + 219.0 s^{3} + 135.0 s^{2} + 60.0 s + 12.0}\)</span><br><span class="math inline">\(v_{8} = \frac{- 15.0 s^{3} - 15.0 s^{2} - 23.0 s - 8.0}{30.0 s^{7} + 90.0 s^{6} + 182.0 s^{5} + 231.0 s^{4} + 219.0 s^{3} + 135.0 s^{2} + 60.0 s + 12.0}\)</span><br><span class="math inline">\(v_{9} = \frac{- 15.0 s^{3} - 15.0 s^{2} - 23.0 s - 8.0}{30.0 s^{7} + 90.0 s^{6} + 182.0 s^{5} + 231.0 s^{4} + 219.0 s^{3} + 135.0 s^{2} + 60.0 s + 12.0}\)</span><br><span class="math inline">\(v_{10} = \frac{- 7.0 s^{3} - 7.0 s^{2} - 11.0 s - 4.0}{30.0 s^{7} + 90.0 s^{6} + 182.0 s^{5} + 231.0 s^{4} + 219.0 s^{3} + 135.0 s^{2} + 60.0 s + 12.0}\)</span><br><span class="math inline">\(v_{11} = \frac{2.0 s^{3} + 2.0 s^{2} + 4.0 s + 2.0}{30.0 s^{7} + 90.0 s^{6} + 182.0 s^{5} + 231.0 s^{4} + 219.0 s^{3} + 135.0 s^{2} + 60.0 s + 12.0}\)</span><br><span class="math inline">\(v_{12} = \frac{2.0 s + 2.0}{30.0 s^{7} + 90.0 s^{6} + 182.0 s^{5} + 231.0 s^{4} + 219.0 s^{3} + 135.0 s^{2} + 60.0 s + 12.0}\)</span><br><span class="math inline">\(v_{13} = \frac{2.0 s}{30.0 s^{7} + 90.0 s^{6} + 182.0 s^{5} + 231.0 s^{4} + 219.0 s^{3} + 135.0 s^{2} + 60.0 s + 12.0}\)</span><br><span class="math inline">\(v_{14} = 0.0\)</span><br><span class="math inline">\(I_{Va} = \frac{- 30.0 s^{6} - 60.0 s^{5} - 107.0 s^{4} - 109.0 s^{3} - 79.0 s^{2} - 40.0 s - 8.0}{30.0 s^{8} + 90.0 s^{7} + 182.0 s^{6} + 231.0 s^{5} + 219.0 s^{4} + 135.0 s^{3} + 60.0 s^{2} + 12.0 s}\)</span><br><span class="math inline">\(I_{Vl} = \frac{2.0}{30.0 s^{7} + 90.0 s^{6} + 182.0 s^{5} + 231.0 s^{4} + 219.0 s^{3} + 135.0 s^{2} + 60.0 s + 12.0}\)</span><br><span class="math inline">\(I_{V1} = \frac{15.0 s^{5} + 15.0 s^{4} + 31.0 s^{3} + 16.0 s^{2} + 12.0 s + 4.0}{30.0 s^{8} + 90.0 s^{7} + 182.0 s^{6} + 231.0 s^{5} + 219.0 s^{4} + 135.0 s^{3} + 60.0 s^{2} + 12.0 s}\)</span><br><span class="math inline">\(I_{La} = \frac{30.0 s^{6} + 60.0 s^{5} + 107.0 s^{4} + 109.0 s^{3} + 79.0 s^{2} + 40.0 s + 8.0}{30.0 s^{8} + 90.0 s^{7} + 182.0 s^{6} + 231.0 s^{5} + 219.0 s^{4} + 135.0 s^{3} + 60.0 s^{2} + 12.0 s}\)</span><br><span class="math inline">\(I_{Lm} = \frac{- 15.0 s^{5} - 15.0 s^{4} - 31.0 s^{3} - 16.0 s^{2} - 12.0 s - 4.0}{30.0 s^{8} + 90.0 s^{7} + 182.0 s^{6} + 231.0 s^{5} + 219.0 s^{4} + 135.0 s^{3} + 60.0 s^{2} + 12.0 s}\)</span><br><span class="math inline">\(I_{L1} = \frac{- 15.0 s^{5} - 15.0 s^{4} - 31.0 s^{3} - 16.0 s^{2} - 12.0 s - 4.0}{30.0 s^{8} + 90.0 s^{7} + 182.0 s^{6} + 231.0 s^{5} + 219.0 s^{4} + 135.0 s^{3} + 60.0 s^{2} + 12.0 s}\)</span><br><span class="math inline">\(I_{L2} = \frac{- 8.0 s^{3} - 8.0 s^{2} - 12.0 s - 4.0}{30.0 s^{8} + 90.0 s^{7} + 182.0 s^{6} + 231.0 s^{5} + 219.0 s^{4} + 135.0 s^{3} + 60.0 s^{2} + 12.0 s}\)</span><br><span class="math inline">\(I_{L5} = \frac{8.0 s^{3} + 8.0 s^{2} + 12.0 s + 4.0}{30.0 s^{8} + 90.0 s^{7} + 182.0 s^{6} + 231.0 s^{5} + 219.0 s^{4} + 135.0 s^{3} + 60.0 s^{2} + 12.0 s}\)</span><br><span class="math inline">\(I_{L6} = \frac{- 2.0 s^{2} - 2.0 s - 2.0}{30.0 s^{7} + 90.0 s^{6} + 182.0 s^{5} + 231.0 s^{4} + 219.0 s^{3} + 135.0 s^{2} + 60.0 s + 12.0}\)</span><br><span class="math inline">\(I_{L3} = \frac{2.0 s^{2} + 2.0 s + 2.0}{30.0 s^{7} + 90.0 s^{6} + 182.0 s^{5} + 231.0 s^{4} + 219.0 s^{3} + 135.0 s^{2} + 60.0 s + 12.0}\)</span><br><span class="math inline">\(I_{L4} = \frac{2.0}{30.0 s^{7} + 90.0 s^{6} + 182.0 s^{5} + 231.0 s^{4} + 219.0 s^{3} + 135.0 s^{2} + 60.0 s + 12.0}\)</span><br><span class="math inline">\(I_{Ha} = \frac{30.0 s^{6} + 60.0 s^{5} + 107.0 s^{4} + 109.0 s^{3} + 79.0 s^{2} + 40.0 s + 8.0}{30.0 s^{8} + 90.0 s^{7} + 182.0 s^{6} + 231.0 s^{5} + 219.0 s^{4} + 135.0 s^{3} + 60.0 s^{2} + 12.0 s}\)</span><br><span class="math inline">\(I_{Hm} = \frac{15.0 s^{5} + 15.0 s^{4} + 31.0 s^{3} + 16.0 s^{2} + 12.0 s + 4.0}{30.0 s^{8} + 90.0 s^{7} + 182.0 s^{6} + 231.0 s^{5} + 219.0 s^{4} + 135.0 s^{3} + 60.0 s^{2} + 12.0 s}\)</span><br></p>
 </div>
 </div>
 <section id="va-current" class="level3" data-number="36.2.1">
 <h3 data-number="36.2.1" class="anchored" data-anchor-id="va-current"><span class="header-section-number">36.2.1</span> Va current</h3>
 <p>The current from Va is symplified with the chain of operators applied to the expression; <a href="https://docs.sympy.org/latest/modules/simplify/simplify.html#sympy.simplify.simplify.nsimplify">nsimplify()</a>, <a href="https://docs.sympy.org/latest/modules/simplify/simplify.html#simplify">simplify()</a>, <a href="https://docs.sympy.org/latest/modules/core.html#sympy.core.function.expand">expand()</a> and <a href="https://docs.sympy.org/latest/modules/polys/reference.html#sympy.polys.rationaltools.together">together()</a>. This helps SymPy solve the inverse Laplace transform.</p>
-<div id="43c02a96-7f12-4564-a51d-49e1a7700f3d" class="cell" data-execution_count="47">
+<div id="43c02a96-7f12-4564-a51d-49e1a7700f3d" class="cell" data-execution_count="39">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>Va_current_s <span class="op">=</span> U[I_Va].nsimplify().simplify().expand().together()</span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>Va_current_s</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="47">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="39">
 <p><span class="math inline">\(\displaystyle \frac{- 30 s^{6} - 60 s^{5} - 107 s^{4} - 109 s^{3} - 79 s^{2} - 40 s - 8}{s \left(30 s^{7} + 90 s^{6} + 182 s^{5} + 231 s^{4} + 219 s^{3} + 135 s^{2} + 60 s + 12\right)}\)</span></p>
 </div>
 </div>
 <p>The inverse Laplace was taking too long, so the lines of code were commented out</p>
-<div id="1e56f379-be7f-42d5-a374-6cefb1b6abbb" class="cell" data-execution_count="48">
+<div id="1e56f379-be7f-42d5-a374-6cefb1b6abbb" class="cell" data-execution_count="40">
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Va_current = inverse_laplace_transform(Va_current_s, s, t)</span></span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Va_current</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Using NumPy to obtain the partial fraction expansion, convert back to the s domain and then take the inverse Laplace transform on each term.</p>
 <p>Extract the numerator and denominator and display.</p>
-<div id="d19e443a-a58d-401e-a89f-7e032b756e1c" class="cell" data-execution_count="49">
+<div id="d19e443a-a58d-401e-a89f-7e032b756e1c" class="cell" data-execution_count="41">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>n, d <span class="op">=</span> fraction(Va_current_s)</span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> n.expand()</span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>Markdown(<span class="st">'numerator: $</span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;denominator: $</span><span class="sc">{:s}</span><span class="st">$'</span>.<span class="bu">format</span>(latex(n),latex(d)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="49">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="41">
 <p>numerator: <span class="math inline">\(- 30 s^{6} - 60 s^{5} - 107 s^{4} - 109 s^{3} - 79 s^{2} - 40 s - 8\)</span><br>denominator: <span class="math inline">\(s \left(30 s^{7} + 90 s^{6} + 182 s^{5} + 231 s^{4} + 219 s^{3} + 135 s^{2} + 60 s + 12\right)\)</span></p>
 </div>
 </div>
 <p>Each of the numerator terms can be put over the common denominator.</p>
-<div id="2def2fec-03a3-430e-abff-f9408c4408e1" class="cell" data-execution_count="50">
+<div id="2def2fec-03a3-430e-abff-f9408c4408e1" class="cell" data-execution_count="42">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>terms <span class="op">=</span> [a <span class="op">/</span> d <span class="cf">for</span> a <span class="kw">in</span> n.args]</span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>display(terms)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown">
@@ -1165,7 +1171,7 @@ Figure&nbsp;36.4: Schematic
 </div>
 </div>
 <p>The following code processes each of the terms obtained above.</p>
-<div id="e8cb105f-f6ba-4c0b-925d-88c823ca716c" class="cell" data-execution_count="51">
+<div id="e8cb105f-f6ba-4c0b-925d-88c823ca716c" class="cell" data-execution_count="43">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> []</span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> p1 <span class="kw">in</span> terms:</span>
@@ -1186,14 +1192,14 @@ Figure&nbsp;36.4: Schematic
 </div>
 <p>Each of these terms came be converted to a function using SymPy’s <a href="https://docs.sympy.org/latest/modules/utilities/lambdify.html">lambdify</a> function.</p>
 <p>Define the values for the x-axis of the plot and put each one into an array for plotting.</p>
-<div id="a534a08d-c707-4549-91e3-6ff8e40ead81" class="cell" data-execution_count="52">
+<div id="a534a08d-c707-4549-91e3-6ff8e40ead81" class="cell" data-execution_count="44">
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">50</span>, <span class="dv">2000</span>, endpoint<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>Va_current <span class="op">=</span> np.zeros(<span class="bu">len</span>(x),dtype <span class="op">=</span> <span class="bu">complex</span>)</span>
 <span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> p <span class="kw">in</span> N:</span>
 <span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>    Va_current <span class="op">+=</span> lambdify(t, p)(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Plot the final combined result.</p>
-<div id="dcb9a6b6-76e2-477f-a3d3-4ba39426198d" class="cell" data-execution_count="53">
+<div id="dcb9a6b6-76e2-477f-a3d3-4ba39426198d" class="cell" data-execution_count="45">
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Current vs time'</span>)</span>
 <span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>plt.plot(x, np.real(Va_current),label<span class="op">=</span><span class="st">'I_Va(t)'</span>)</span>
@@ -1216,30 +1222,30 @@ Figure&nbsp;36.4: Schematic
 <section id="node-12-voltage" class="level3" data-number="36.2.2">
 <h3 data-number="36.2.2" class="anchored" data-anchor-id="node-12-voltage"><span class="header-section-number">36.2.2</span> Node 12 voltage</h3>
 <p>The voltage at node 12 is symplified with the chain of operators applied to the expression; <a href="https://docs.sympy.org/latest/modules/simplify/simplify.html#sympy.simplify.simplify.nsimplify">nsimplify()</a>, <a href="https://docs.sympy.org/latest/modules/simplify/simplify.html#simplify">simplify()</a>, <a href="https://docs.sympy.org/latest/modules/core.html#sympy.core.function.expand">expand()</a> and <a href="https://docs.sympy.org/latest/modules/polys/reference.html#sympy.polys.rationaltools.together">together()</a>. This helps SymPy solve the inverse Laplace transform.</p>
-<div id="bc3e788b-24a9-431b-b714-3f39e01c899d" class="cell" data-execution_count="54">
+<div id="bc3e788b-24a9-431b-b714-3f39e01c899d" class="cell" data-execution_count="46">
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>node12_voltage_s <span class="op">=</span> U[v12].nsimplify().simplify().expand().together()</span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>node12_voltage_s</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="54">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="46">
 <p><span class="math inline">\(\displaystyle \frac{2 \left(s + 1\right)}{30 s^{7} + 90 s^{6} + 182 s^{5} + 231 s^{4} + 219 s^{3} + 135 s^{2} + 60 s + 12}\)</span></p>
 </div>
 </div>
 <p>The inverse Laplace was taking too long, so the lines of code were commented out</p>
-<div id="d77f9576-96c1-476c-b016-c5c4539784d5" class="cell" data-execution_count="55">
+<div id="d77f9576-96c1-476c-b016-c5c4539784d5" class="cell" data-execution_count="47">
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co">#node12_voltage = inverse_laplace_transform(node12_voltage_s, s, t)</span></span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="co">#node12_voltage</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Using NumPy to obtain the partial fraction expansion, convert back to the s domain and then take the inverse Laplace transform on each term.</p>
 <p>Extract the numerator and denominator and display.</p>
-<div id="ef6ee67a-2cbe-49a0-8cda-d4d3039c9a6b" class="cell" data-execution_count="56">
+<div id="ef6ee67a-2cbe-49a0-8cda-d4d3039c9a6b" class="cell" data-execution_count="48">
 <div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>n, d <span class="op">=</span> fraction(node12_voltage_s)</span>
 <span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> n.expand()</span>
 <span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>Markdown(<span class="st">'numerator: $</span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;denominator: $</span><span class="sc">{:s}</span><span class="st">$'</span>.<span class="bu">format</span>(latex(n),latex(d)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="56">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="48">
 <p>numerator: <span class="math inline">\(2 s + 2\)</span><br>denominator: <span class="math inline">\(30 s^{7} + 90 s^{6} + 182 s^{5} + 231 s^{4} + 219 s^{3} + 135 s^{2} + 60 s + 12\)</span></p>
 </div>
 </div>
 <p>Each of the numerator terms can be put over the common denominator.</p>
-<div id="8f8c52ae-2911-43ef-992f-63eccb5c1aa5" class="cell" data-execution_count="57">
+<div id="8f8c52ae-2911-43ef-992f-63eccb5c1aa5" class="cell" data-execution_count="49">
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>terms <span class="op">=</span> [a <span class="op">/</span> d <span class="cf">for</span> a <span class="kw">in</span> n.args]</span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>display(terms)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown">
@@ -1247,7 +1253,7 @@ Figure&nbsp;36.4: Schematic
 </div>
 </div>
 <p>The following code processes each of the terms obtained above.</p>
-<div id="94d89bea-2a96-480f-9845-091f7c504572" class="cell" data-execution_count="58">
+<div id="94d89bea-2a96-480f-9845-091f7c504572" class="cell" data-execution_count="50">
 <div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> []</span>
 <span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> p1 <span class="kw">in</span> terms:</span>
@@ -1268,14 +1274,14 @@ Figure&nbsp;36.4: Schematic
 </div>
 <p>Each of these terms came be converted to a function using SymPy’s <a href="https://docs.sympy.org/latest/modules/utilities/lambdify.html">lambdify</a> function.</p>
 <p>Define the values for the x-axis of the plot and put each one into an array for plotting.</p>
-<div id="0bbffd7f-0c0c-4c08-be93-f31a148af3d6" class="cell" data-execution_count="59">
+<div id="0bbffd7f-0c0c-4c08-be93-f31a148af3d6" class="cell" data-execution_count="51">
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">50</span>, <span class="dv">2000</span>, endpoint<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>V_node12 <span class="op">=</span> np.zeros(<span class="bu">len</span>(x),dtype <span class="op">=</span> <span class="bu">complex</span>)</span>
 <span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> p <span class="kw">in</span> N:</span>
 <span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>    V_node12 <span class="op">+=</span> lambdify(t, p)(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Plot the final combined result.</p>
-<div id="0360f5eb-0835-4259-a67a-d50cc548fc64" class="cell" data-execution_count="65">
+<div id="0360f5eb-0835-4259-a67a-d50cc548fc64" class="cell" data-execution_count="52">
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Voltage vs time'</span>)</span>
 <span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>plt.plot(x, np.real(V_node12),label<span class="op">=</span><span class="st">'v12(t)'</span>)</span>

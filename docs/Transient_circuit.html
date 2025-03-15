@@ -425,13 +425,13 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Klon Centaur part 2.html" class="sidebar-item-text sidebar-link">
+  <a href="./Klon Centaur part 2 temp.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Klon Centaur, part 2</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Klon Centaur part 3.html" class="sidebar-item-text sidebar-link">
+  <a href="./Klon Centaur part 3 temp.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Klon Centaur, part 3</span></span></a>
   </div>
 </li>
@@ -502,8 +502,14 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./SMNA_mobile.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">SMNA mobile</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./EasyEDA_schematic_editor.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">EasyEDA</span></span></a>
+ <span class="menu-text"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">EasyEDA</span></span></a>
   </div>
 </li>
       </ul>
@@ -650,7 +656,7 @@ Figure&nbsp;28.1: Circuit schematic
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># turn the free symbols into SymPy variables</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>var(<span class="bu">str</span>(NE_sym.free_symbols).replace(<span class="st">'{'</span>,<span class="st">''</span>).replace(<span class="st">'}'</span>,<span class="st">''</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="6">
-<p><span class="math inline">\(\displaystyle \left( I_{V1}, \  R_{2}, \  L_{2}, \  v_{1}, \  v_{4}, \  v_{3}, \  I_{L3}, \  L_{1}, \  V_{1}, \  s, \  L_{3}, \  I_{L2}, \  v_{2}, \  R_{1}, \  C_{2}, \  v_{5}, \  I_{L1}\right)\)</span></p>
+<p><span class="math inline">\(\displaystyle \left( v_{5}, \  I_{V1}, \  L_{2}, \  I_{L3}, \  v_{2}, \  L_{1}, \  v_{1}, \  I_{L1}, \  s, \  I_{L2}, \  R_{1}, \  v_{4}, \  C_{2}, \  v_{3}, \  R_{2}, \  L_{3}, \  V_{1}\right)\)</span></p>
 </div>
 </div>
 <p>Built a dictionary of element values.</p>
@@ -742,7 +748,7 @@ Figure&nbsp;28.1: Circuit schematic
 </section>
 <section id="low-pass-filter-impulse-and-step-response" class="level3" data-number="28.4.3">
 <h3 data-number="28.4.3" class="anchored" data-anchor-id="low-pass-filter-impulse-and-step-response"><span class="header-section-number">28.4.3</span> Low pass filter impulse and step response</h3>
-<p>Use the SciPy functions <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.impulse2.html">impulse2</a> and <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.step2.html">step2</a> to plot the impulse and step response of the system.</p>
+<p>Use the SciPy functions <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.impulse.html">impulse</a> and <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.step.html">step</a> to plot the impulse and step response of the system.</p>
 <p>The <a href="https://en.wikipedia.org/wiki/Impulse_response">impulse</a> and <a href="https://en.wikipedia.org/wiki/Step_response">step response</a> of the filter are plotted below. Any linear, time-invariant is completely characterized by its impulse response. The transfer function is the Laplace transform of the impulse response. The impulse response defines the response of a linear time-invariant system for all frequencies.</p>
 <div id="7f9b473a-49a1-4e15-99c9-b0dcf0dd0839" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>plt.subplots(<span class="dv">1</span>,<span class="dv">2</span>,figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">5</span>))</span>
@@ -752,7 +758,7 @@ Figure&nbsp;28.1: Circuit schematic
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>)</span>
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># impulse response</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>t, y <span class="op">=</span> signal.impulse2(system,N<span class="op">=</span><span class="dv">500</span>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>t, y <span class="op">=</span> signal.impulse(system,N<span class="op">=</span><span class="dv">500</span>)</span>
 <span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>plt.plot(t<span class="op">/</span><span class="fl">1e-3</span>, y)</span>
 <span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Impulse response'</span>)</span>
 <span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'volts'</span>)</span>
@@ -762,7 +768,7 @@ Figure&nbsp;28.1: Circuit schematic
 <span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="co"># using subplot function and creating plot two</span></span>
 <span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>)</span>
 <span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>t, y <span class="op">=</span> signal.step2(system,N<span class="op">=</span><span class="dv">500</span>)</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>t, y <span class="op">=</span> signal.step(system,N<span class="op">=</span><span class="dv">500</span>)</span>
 <span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>plt.plot(t<span class="op">/</span><span class="fl">1e-3</span>, y)</span>
 <span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Step response'</span>)</span>
 <span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'volts'</span>)</span>
@@ -904,7 +910,7 @@ Figure&nbsp;28.1: Circuit schematic
 <div id="4cb3cdf5-396c-4b93-be02-6771c5e1265e" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>time_delay</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="24">
-<p><span class="math inline">\(\displaystyle \left[ s, \  s, \  0, \  0\right]\)</span></p>
+<p><span class="math inline">\(\displaystyle \left[ -5, \  -5, \  0, \  0\right]\)</span></p>
 </div>
 </div>
 <p>The time domain version of each of the terms is displayed below.</p>

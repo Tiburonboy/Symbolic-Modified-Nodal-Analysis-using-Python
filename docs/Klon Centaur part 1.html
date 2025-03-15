@@ -1755,8 +1755,7 @@ p2: -1.12 Hz</code></pre>
 </div>
 </div>
 <p>The square wave response shows about 10% overshoot and a settling time of about 1 second with no ringing. This is a result of series connection of C1 and C2 in the path which equate to a zero at DC and two low frequency poles at 1.1 and 1.6 Hz. The location of these poles result from the relatively large time constants produced by C2 and R3 as well as from C15 and R28.</p>
-<p>The step response of this path could be explored in more detail during prototype testing to investigate if the response is sonic.</p>
-<p>You would normally expect the step response to have no overshoot for what is essentially a pair of simple cascade RC high pass filters. You would expect the transient step response to be an exponential decay function, asymptotically approaching zero volts. The bypass network has three capacitors, C1, C2 and C15. This makes the circuit a third order system. From the plot above, we can see that there is some overshoot, but no ringing in the step response. This implies that the damping ratio is between 0.7 and 1. We can approximate the damping ratio by considering the two dominant poles of the system and ignoring the highest frequency pole.</p>
+<p>You would expect the transient step response to be an exponential decay function, asymptotically approaching zero volts. The bypass network has three capacitors, C1, C2 and C15. This makes the circuit a third order system. From the plot above, we can see that there is some overshoot, but no ringing in the step response. This implies that the damping ratio is between 0.7 and 1. We can approximate the damping ratio by considering the two dominant poles of the system and ignoring the highest frequency pole.</p>
 <p>As calculated above, the transfer function of the bypass circuit for P3 at 50% is <span class="math inline">\(H(s)\)</span>.</p>
 <div id="396e8839-cc07-4df1-b3c0-5209556ce6e2" class="cell" data-execution_count="203">
 <details class="code-fold">
@@ -2650,7 +2649,7 @@ Figure&nbsp;37.12: Treble path magnitude and phase response as a function of tre
 </div>
 </div>
 </div>
-<p>The step response has a rather long decay time and asymptomatically approaches zero and -1 indicating the DC gain is -1. There is a relatively large spike in the output at each square wave edge. This could be explored in more detail during prototype testing.</p>
+<p>The step response has a rather long decay time and asymptomatically approaches zero and -1 indicating the DC gain is -1.</p>
 <section id="group-delay-2" class="level4" data-number="37.10.6.1">
 <h4 data-number="37.10.6.1" class="anchored" data-anchor-id="group-delay-2"><span class="header-section-number">37.10.6.1</span> Group delay</h4>
 <p>The following python code calculates and plots the group delay. Notice that the scale for the vertical axis is msec.</p>
@@ -3194,7 +3193,7 @@ p3: -12.02 Hz</code></pre>
 </div>
 </div>
 </div>
-<p>The step response shows that the DC gain of the path is zero. There is a relatively large spike in the output at each square wave edge. This could be explored in more detail during prototype testing.</p>
+<p>The step response shows that the DC gain of the path is zero. There is a relatively large spike in the output at each square wave edge.</p>
 </section>
 <section id="group-delay-3" class="level4" data-number="37.11.1.4">
 <h4 data-number="37.11.1.4" class="anchored" data-anchor-id="group-delay-3"><span class="header-section-number">37.11.1.4</span> Group delay</h4>

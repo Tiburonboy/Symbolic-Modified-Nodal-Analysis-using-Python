@@ -448,13 +448,13 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Klon Centaur part 2.html" class="sidebar-item-text sidebar-link">
+  <a href="./Klon Centaur part 2 temp.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Klon Centaur, part 2</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Klon Centaur part 3.html" class="sidebar-item-text sidebar-link">
+  <a href="./Klon Centaur part 3 temp.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Klon Centaur, part 3</span></span></a>
   </div>
 </li>
@@ -525,8 +525,14 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./SMNA_mobile.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">SMNA mobile</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./EasyEDA_schematic_editor.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">EasyEDA</span></span></a>
+ <span class="menu-text"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">EasyEDA</span></span></a>
   </div>
 </li>
       </ul>
@@ -672,6 +678,8 @@ number of branches: 10
 number of nodes: 4
 number of unknown currents: 3
 number of RLC (passive components): 9
+number of resistors: 2
+number of capacitors: 4
 number of inductors: 3
 number of independent voltage sources: 0
 number of independent current sources: 1
@@ -930,7 +938,7 @@ number of K - Coupled inductors: 0
 <div id="cell-24" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>var(<span class="bu">str</span>(NE_sym.free_symbols).replace(<span class="st">'{'</span>,<span class="st">''</span>).replace(<span class="st">'}'</span>,<span class="st">''</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="12">
-<p><span class="math inline">\(\displaystyle \left( Rl, \  L_{4}, \  v_{1}, \  I_{L2}, \  v_{4}, \  v_{3}, \  I_{1}, \  I_{L6}, \  v_{2}, \  C_{3}, \  C_{1}, \  I_{L4}, \  s, \  C_{5}, \  C_{7}, \  L_{2}, \  Rs, \  L_{6}\right)\)</span></p>
+<p><span class="math inline">\(\displaystyle \left( I_{L4}, \  Rl, \  L_{6}, \  C_{7}, \  Rs, \  v_{1}, \  C_{3}, \  I_{L2}, \  L_{2}, \  I_{1}, \  C_{1}, \  s, \  C_{5}, \  I_{L6}, \  v_{4}, \  L_{4}, \  v_{3}, \  v_{2}\right)\)</span></p>
 </div>
 </div>
 </section>
@@ -1305,7 +1313,7 @@ Using</p>
 </section>
 <section id="impulse-and-step-response" class="level2" data-number="16.7">
 <h2 data-number="16.7" class="anchored" data-anchor-id="impulse-and-step-response"><span class="header-section-number">16.7</span> Impulse and step response</h2>
-<p>Use the SciPy functions <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.impulse2.html">impulse2</a> and <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.step2.html">step2</a> to plot the impulse and step response of the system.</p>
+<p>Use the SciPy functions <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.impulse.html">impulse</a> and <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.step.html">step</a> to plot the impulse and step response of the system.</p>
 <p>The <a href="https://en.wikipedia.org/wiki/Impulse_response">impulse</a> and <a href="https://en.wikipedia.org/wiki/Step_response">step response</a> of the filter are plotted below. Any linear, time-invariant is completely characterized by its impulse response. The transfer function is the Laplace transform of the impulse response. The impulse response defines the response of a linear time-invariant system for all frequencies.</p>
 <p>In electronic engineering and control theory, step response is the time behavior of the outputs of a general system when its inputs change from zero to one in a very short time.</p>
 <div id="cell-76" class="cell" data-execution_count="41">
@@ -1316,7 +1324,7 @@ Using</p>
 <span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>)</span>
 <span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a><span class="co"># impulse response</span></span>
-<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>t, y <span class="op">=</span> signal.impulse2(sys,N<span class="op">=</span><span class="dv">500</span>)</span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>t, y <span class="op">=</span> signal.impulse(sys,N<span class="op">=</span><span class="dv">500</span>)</span>
 <span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a>plt.plot(t<span class="op">/</span><span class="fl">1e-3</span>, y)</span>
 <span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Impulse response'</span>)</span>
 <span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'volts'</span>)</span>
@@ -1326,7 +1334,7 @@ Using</p>
 <span id="cb50-15"><a href="#cb50-15" aria-hidden="true" tabindex="-1"></a><span class="co"># using subplot function and creating plot two</span></span>
 <span id="cb50-16"><a href="#cb50-16" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>)</span>
 <span id="cb50-17"><a href="#cb50-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-18"><a href="#cb50-18" aria-hidden="true" tabindex="-1"></a>t, y <span class="op">=</span> signal.step2(sys,N<span class="op">=</span><span class="dv">500</span>)</span>
+<span id="cb50-18"><a href="#cb50-18" aria-hidden="true" tabindex="-1"></a>t, y <span class="op">=</span> signal.step(sys,N<span class="op">=</span><span class="dv">500</span>)</span>
 <span id="cb50-19"><a href="#cb50-19" aria-hidden="true" tabindex="-1"></a>plt.plot(t<span class="op">/</span><span class="fl">1e-3</span>, y)</span>
 <span id="cb50-20"><a href="#cb50-20" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Step response'</span>)</span>
 <span id="cb50-21"><a href="#cb50-21" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'volts'</span>)</span>
@@ -1348,16 +1356,14 @@ Using</p>
 <p>The following python code calculates and plots <a href="https://en.wikipedia.org/wiki/Group_delay_and_phase_delay#">group delay</a>. Frequency components of a signal are delayed when passed through a circuit and the signal delay will be different for the various frequencies unless the circuit has the property of being linear phase. The delay variation means that signals consisting of multiple frequency components will suffer distortion because these components are not delayed by the same amount of time at the output of the device.</p>
 <p>Group delay: <span class="math inline">\(\tau _{g}(\omega )=-\frac  {d\phi (\omega )}{d\omega }\)</span></p>
 <div id="cell-78" class="cell" data-execution_count="42">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co">#w_preamp, mag_preamp, phase_preamp = bp_sys.bode(w=x_axis_range)</span></span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'group delay'</span>)</span>
-<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>plt.semilogx(w<span class="op">/</span>(<span class="dv">2</span><span class="op">*</span>np.pi), <span class="op">-</span>np.gradient(phase<span class="op">*</span>np.pi<span class="op">/</span><span class="dv">180</span>)<span class="op">/</span>np.gradient(w),<span class="st">'-'</span>,label<span class="op">=</span><span class="st">'group delay'</span>)</span>
-<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Group delay, sec'</span>)</span>
-<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Frequency, Hz'</span>)</span>
-<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
-<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a>plt.grid()</span>
-<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'group delay'</span>)</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>plt.semilogx(w<span class="op">/</span>(<span class="dv">2</span><span class="op">*</span>np.pi), <span class="op">-</span>np.gradient(phase<span class="op">*</span>np.pi<span class="op">/</span><span class="dv">180</span>)<span class="op">/</span>np.gradient(w),<span class="st">'-'</span>,label<span class="op">=</span><span class="st">'group delay'</span>)</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Group delay, sec'</span>)</span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Frequency, Hz'</span>)</span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>plt.grid()</span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
