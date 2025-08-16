@@ -4,7 +4,7 @@ The following table is a history of the Python MNA code development.
 
 | Date | Event |
 |---|---|
-| 7/1/2015 | Python coding started, derived from my network.c code |
+| 7/1/2015 | Python coding started, derived from my ```network.c``` code |
 | 8/18/2017 | changed approach, now implementing a modified nodal analysis |
 | 8/19/2017| Wrote some code to generate symbolic matrices, works OK, so heading down the SymPy path. Basic debugging finished, but I still need to verify some circuits using Ls and Cs. |
 | 8/30/2017| Started to add code for Op Amps |
@@ -44,7 +44,8 @@ The following table is a history of updates to the book project.
 | 6/03/2024 | Incremental updates |
 | 6/30/2024 | SMNA_example - correcting spelling, grammar and updating comments.<br>SymMNA - correcting spelling, grammar and updating comments.<br>Introduction - added example circuit and schematic.<br>references.bib - added url to two references.<br>2nd_order_BRF - rewrite, now calling the smna function.<br>Two Amplifier RIAA Pre-amp - correcting spelling, grammar and updating comments.<br>Various chapters - displaying network equations using LaTex vs. printing a SymPy matrix. |
 | 11/20/2024 | Added: Future example problems, added reference to online tools for running Python and schematic capture (Google Colab and EasyEDA schematic editor). |
-| 12/6/2024 | Added Klon Centaur parts 1, 2, 3 chapter place holders; see note at end of part 1. <br>Added place holders for some future chapters. The place holders will make pushing changes to github.io easier. Fixed broken link in Mechanical systems chapter. |
+| 12/6/2024 | Added Klon Centaur parts 2, 3 chapter place holders; see note at end of part 1. Added place holders for future chapters. The place holders will make pushing changes to github.io easier.<br>Fixed broken link in Mechanical systems chapter. |
+| 8/16/2025 | SciPy functions impulse2 and step2 changed to impulse and step because in SciPy 1.13.0 impulse2 and step2 were removed.<br>Added appendix D and E.<br>Updates to Klon Centaur Parts 1, 2 & 3.<br>Updates to Chapter 2.<br>Updates to About This Book and Gemini generated cover.<br>Added Wien Bridge Oscillator. |
 : Book project change log {#tbl-book-change-log} {tbl-colwidths="[15,85]"}
 
 
