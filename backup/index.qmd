@@ -4,12 +4,12 @@
 - This book is posted for testing only. 
 :::    
 
-## About this book {.unnumbered}
+## About This Book {.unnumbered}
 This website is my online book - *Symbolic Modified Nodal Analysis using Python*. Symbolic circuit analysis is a circuit analysis method that derives network equations with the circuit elements represented by symbols and the topology of the circuit described by a netlist. [Python](https://en.wikipedia.org/wiki/Python_(programming_language)) is a general purpose programming language with a large standard library and packages.
 
-One of the first topics taught to electrical engineering students is basic electrical circuit analysis. This can be thought of as EE 101, and deals with circuit models not physical circuits. The current to voltage relationship for resistors is described by [Ohm’s law](https://en.wikipedia.org/wiki/Ohm%27s_law), $V=IR$, and current to voltage relationships for [capacitors](https://en.wikipedia.org/wiki/Capacitor) and [inductors](https://en.wikipedia.org/wiki/Inductor) can be described by the following differential equations:
-$$i(t) = C \frac {\mathrm d v(t)}{\mathrm d t}$$
-$$v(t)=L \frac {\mathrm d i(t)}{\mathrm d t}$$
+One of the first topics taught to electrical engineering students is basic electrical circuit analysis. This can be thought of as EE 101, and deals with circuit models not physical circuits. The voltage to current relationship for [resistors](https://en.wikipedia.org/wiki/Resistor) is described by [Ohm’s law](https://en.wikipedia.org/wiki/Ohm%27s_law), $v=iR$. The voltage to current relationships for [capacitors](https://en.wikipedia.org/wiki/Capacitor) and [inductors](https://en.wikipedia.org/wiki/Inductor) can be described by the following differential equations:
+$$v(t) = \frac{1}{C} \int_{t_0}^t i \mathrm d t+v(t_0)$$
+$$v=L \frac {\mathrm d i}{\mathrm d t}$$
 Since differential equations are used to model capacitors and inductors, EE 101 is usually taught after courses in calculus and differential equations. If an electrical network has several branches or loops, then there is a family of equations that describe the circuit, and these are a system of differential equations. Most of the problems presented in textbooks are relatively simple since developing the differential equations and solving them in the time domain with pencil and paper is laborious. After subjecting their students to the rigors of time domain analysis, professors introduce phasors and frequency domain analysis using Laplace transformed circuit elements. Here the problem turns into an algebra problem and students wonder why so much classroom effort was placed on obtaining solutions by solving differential equations.
 
 The circuit analysis technique presented in this book analyzes electrical circuits in the frequency domain. The inductors and capacitors in the circuit are replaced by their transformed values. Inductors are replace by their steady state Laplace value, $sL$, where L is the value of the inductor with units of henrys (named after [Joseph Henery](https://en.wikipedia.org/wiki/Joseph_Henry)) and $s$ is the [Laplace](https://en.wikipedia.org/wiki/Laplace_transform) variable equal to $j \omega$ where $j$ is the [imaginary number](https://en.wikipedia.org/wiki/Imaginary_number) and $\omega$ is the radian frequency. Capacitors in the circuit are replace by their steady state Laplace value, $\frac {1}{sC}$ where C is the value of the capacitor with units in farads (named after [Micheal Faraday](https://en.wikipedia.org/wiki/Michael_Faraday)).
@@ -31,7 +31,7 @@ I don't have a proof reader or professional editor for this project. Instead, I'
 
 Source code for this book is available [here](https://github.com/Tiburonboy/Symbolic-Modified-Nodal-Analysis-using-Python/tree/main/backup) and related material is located [here](https://github.com/Tiburonboy/Symbolic-modified-nodal-analysis). Python code contained in this book can run in a browser-based environment, see @sec-google_colab. Additionally, online schematics editors are available, see @sec-EasyEDA_schematic_editor. By using web based tools, the reader is not required to install any programs.
 
-### Python module version
+### Python Module Version
 The following versions were used in this book.
 
 | Package | version |
@@ -85,11 +85,16 @@ Since this project is still under construction, I have a list of to dos.
 - update status in /Quarto_projects/Symbolic-Modified-Nodal-Analysis-using-Python/draft_docs/To Do List.odt
 - [ ] non linear circuits, see YouTube [MNA Introduction](https://www.youtube.com/watch?v=BPapfxzwsmI&list=PLlsTHbFeR7v0QG8Q4l6oc7d---eKKSKTz)
 
-### Links to other projects
+### Links to Other Projects
 I have a blog called [Solving Engineering Problems using Python](https://tiburonboy.github.io/Solving-Engineering-Problems-using-Python/) where I post some of my Jupyter notebooks related to engineering problems and analysis. My financial analysis blog is located [here]()
+
+Synopsis  
+*Symbolic Modified Nodal Analysis using Python* is a draft textbook by Tiburonboy that teaches a method for analyzing electronic circuits. The book focuses on representing circuit elements with mathematical symbols and using a netlist to describe the circuit's layout. This approach, performed in the frequency domain, uses Python and open-source libraries to solve for circuit behavior. The text includes 15 code validation tests and various example problems and the accompanying code can be run in cloud-based environments like Google Colab. The author, an electrical engineer with over 40 years of experience, provides this resource for students and professionals under a Creative Commons license.
+
+Book cover was generated by Google Gemini.
 -->
 
-### About the author
+### About the Author
 This book is published under the pseudonym Tiburonboy.
 
 When I was about ten years old, my parents gave me an electronics kit for Christmas. It was a collection of resistors, capacitors, transistors and other assorted electronic components. The kit included about ten plans to build various circuits like an AM radio and audio oscillator. Ever since then I have been interested in radios and electronics.
@@ -97,6 +102,22 @@ When I was about ten years old, my parents gave me an electronics kit for Christ
 After graduating from high school, my Dad asked me what I was going to study in college and I told him mathematics. He suggested that I study electrical engineering since engineers were more in demand than mathematicians and electrical engineering was very math oriented. This turned out to be the best advice he gave me, because for the next 37 years my interest in electronics evolved into a very rewarding career as an electrical engineer.
 
 My first job after graduating from college was working as a civilian for the US Navy. For more than 40 years I have been designing electronic circuits for instrumentation and telemetry systems. I have five Patents and have published seven technical papers.
+
+### Feedback
+If you have complaints, find any errors, or have suggestions, send me an email at:  
+juan1543cabrillo@sudomail.com
+
+### BibTeX
+```
+@online{Tiburonboy2024, 
+    author = {Tiburonboy}, 
+    title = {Symbolic Modified Nodal Analysis using Python},
+    year = {2024},
+    url = {https://tiburonboy.github.io/Symbolic-Modified-Nodal-Analysis-using-Python/},
+    urldate = {2025-08-13}
+}
+
+```
 
 ### License
 This work (includes python code, documentation, test circuits, etc.) is licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/).  
@@ -107,4 +128,7 @@ This work (includes python code, documentation, test circuits, etc.) is licensed
 - ShareAlike — If you remix, transform, or build upon the material, you must distribute your contributions under the [same license](https://creativecommons.org/licenses/by-sa/4.0/#ref-same-license) as the original.  
 
 <img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" />
+
+
+
 

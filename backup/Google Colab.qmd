@@ -23,3 +23,5 @@ The basic steps to open and run a Jupyter notebook are as follows:
 
 There are alternatives to Colab such as [Kaggle](https://www.kaggle.com/), [Cocalc](https://cocalc.com/), [GitHub Codespaces](https://github.com/features/codespaces), [Anaconda Cloud](https://www.anaconda.com/products/notebooks) and [Deepnote](https://deepnote.com/) which can be used if the limitiations of Google's free or paid tiers are not acceptable.
 
+Google Colab can be run on a mobile device such as a mobile phone. @sec-SMNA_mobile is an example of a Jupyter notebook that can be uploaded to Colab and run to perform symbolic circuit analsys on a mobile device. Of course internet connectivity is required. The circuit shown in @fig-EasyEDA-example is used in @sec-SMNA_mobile.
+

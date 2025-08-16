@@ -3,9 +3,12 @@
 <!--
 Update this section to include typical topics in circuit analysis
 
-Can MNA equations be turned into state variable equations? See page Haykin page 59
+- Can MNA equations be turned into state variable equations? See page Haykin page 59
+- explore sympy and scipy state variable functions
+- consider a post talking about s-parameters
 
 ## Example problems
+In the chapters that follow, the MNA procedure is used to generate network equations from a circuit's netlist. Since these equations and the solutions can be generated automatically by SymPy, what follows are chapters with lots of equations. 
 -->
 
 The table below is a list of the example problems with a short discription.
@@ -31,7 +34,7 @@ The table below is a list of the example problems with a short discription.
 | Modeling Op Amps | Analysis of Op Amp model and stamp |
 | Op Amp circuits | Typical Op Amp circuits and the use of the Op Amp element type |
 | Mechanical systems | Electric circuit analogs for a translational and a rotational mechanical system |
-| Klon Centuar<br>&#x2022; part 1<br>&#x2022; part 2<br>&#x2022; part 3 | Analysis of the Klon Centuar guitar pedal<br>&#x2022; Introduction and Effects path linear analysis<br>&#x2022; Effects path non-linear analysis<br>&#x2022; Design Review and Reactive branch analysis |
+| Klon Centuar<br>&#x2022; part 1<br>&#x2022; part 2<br>&#x2022; part 3 | Analysis of the Klon Centuar guitar pedal<br>&#x2022; Introduction and effects path linear analysis<br>&#x2022; Effects path non-linear analysis<br>&#x2022; Design review and reactive branch analysis |
 | Wien bridge oscillator | Analysis of a [Wien bridge oscillator](https://en.wikipedia.org/wiki/Wien_bridge_oscillator) circuit |
 | [Flyback circuit](https://en.wikipedia.org/wiki/Flyback_converter) | Analysis of a flyback [switch mode power supply](https://en.wikipedia.org/wiki/Switched-mode_power_supply) |
 | Diode circuit | Circuit analysis with one or more diodes in the circuit |
