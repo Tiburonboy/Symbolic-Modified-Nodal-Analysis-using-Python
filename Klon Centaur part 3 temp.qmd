@@ -1,6 +1,0 @@
-# Klon Centaur, part 3
-
-This page is a placeholder for the JupyterLab notebook. The Python code in the notebook is mostly completed, but the narration needs to be written.
-
-Topics: Design Review, analysis of reactive branches
-
