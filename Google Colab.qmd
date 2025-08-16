@@ -1,0 +1,27 @@
+# Google Colab {#sec-google_colab}
+
+Google's Colab is a good choice for a web based tool that has a free tier and easy to use. Since it is web based, there is nothing to install. Colab can be used to run the Jupyter notebooks contained in this book. Colab can be useful to obtain symbolic solutions for large or complex networks that would take a long time to run on a typical home desktop or laptop. For example, in @sec-elliptic-function, obtaining a symbolic solution took a few seconds running in Colab, compared to several hours on my laptop. 
+
+Google Colab (short for Google Colaboratory) is a free cloud service provided by Google that allows users to write and execute Python code in a browser-based environment. A gmail account is needed to run Colab. There is a free tier of service which is sutable for running the Jupyter notebooks in this book, however the computing enviroment is not saved between sessions.
+<!--
+Key features of Google Colab include:
+
+- Colab is run in the browser and no setup or intsallation of Python or JupyterLab is required.
+- Colab provides free access to GPUs and TPUs (some limitations apply), which can significantly speed up symbolic computations, especially when obtaining symbolic solutions of equations generated from large networks.
+- Colab uses a Jupyter Notebook interface.
+- Colab notebooks can be saved to a Google Drive.
+-->
+
+The basic steps to open and run a Jupyter notebook are as follows:
+
+- Open colab at the url: [https://colab.research.google.com/](https://colab.research.google.com/).
+- Upload a Jupyter notebook from Google drive, github or local storage.
+  - On the left hand side pane, select the file icon, then select upload to session storage, then upload SymMNA.py. This needs to be done at the beginning of each session.
+- Cells for qmd and some markdown commands are not supported, but they can be ignored. Links to images will not work and need to be inserted using the menu at the top of the text cell (these broken links for the images can also be ignored).
+- Colab creates a new folder in your Google drive called "Colab Notebooks".
+- The Colab computing enviroment is not saved in the free tier.
+
+There are alternatives to Colab such as [Kaggle](https://www.kaggle.com/), [Cocalc](https://cocalc.com/), [GitHub Codespaces](https://github.com/features/codespaces), [Anaconda Cloud](https://www.anaconda.com/products/notebooks) and [Deepnote](https://deepnote.com/) which can be used if the limitiations of Google's free or paid tiers are not acceptable.
+
+Google Colab can be run on a mobile device such as a mobile phone. @sec-SMNA_mobile is an example of a Jupyter notebook that can be uploaded to Colab and run to perform symbolic circuit analsys on a mobile device. Of course internet connectivity is required. The circuit shown in @fig-EasyEDA-example is used in @sec-SMNA_mobile.
+

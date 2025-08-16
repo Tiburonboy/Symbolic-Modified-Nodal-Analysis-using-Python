@@ -1,0 +1,54 @@
+# Future example problems
+
+A list of possible future examples.
+
+: {tbl-colwidths="[30,70]"}  
+
+| Circuit Description | notes |
+|:---|:---|
+| Wien bridge oscillator | Analysis of a [Wien bridge oscillator](https://en.wikipedia.org/wiki/Wien_bridge_oscillator) circuit. |
+| [Flyback circuit](https://en.wikipedia.org/wiki/Flyback_converter) | Analysis of a flyback [switch mode power supply](https://en.wikipedia.org/wiki/Switched-mode_power_supply) |
+| Diode circuit | Circuit analysis with one or more diodes in the circuit |
+| Transistor circuit | Circuit analysis with one or more transistors in the circuit |
+| [Bridged T-coil](https://en.wikipedia.org/wiki/Bridged_T_delay_equaliser) | A circuit with a coupled inductor and a bridging capacitor |
+
+<!--
+<br>
+<br>
+
+| Wien bridge oscillator | https://en.wikipedia.org/wiki/Wien_bridge_oscillator <br>Simple circuit <br>not so easy to make osc in LTSpice. Notebook started |
+| Flyback circuit | Boost switch mode power supply (notebook not started) |
+| Switched mode power supply | Do the LED driver fly back circuit, <br>see Analog Devices power management tools, <br>https://www.analog.com/en/design-center/design-tools-and-calculators/power-management-tools.html |
+When this example is completed add a comment in into about LTI circuits [Linear time-invariant system](https://en.wikipedia.org/wiki/Linear_time-invariant_system)
+
+| T-coil | A circuit with a coupled inductor and a bridging capacitor |
+
+A T-coil uses a coupled inductor with a bridging capacitor to develop a constant impedance. Historically T-coils were used in wide band vacuum tube amplifiers and today they are commonly used in Transient Voltage Suppression (TVS) circuits.
+
+references
+
+https://www.electronicdesign.com/technologies/analog/article/21807815/whats-all-this-t-coil-stuff-anyhow
+
+https://raytroop.github.io/2022/03/17/tcoil/
+
+https://www.mathworks.com/help/msblks/ug/analyze-t-coil-circuit.html
+
+https://ocw.snu.ac.kr/sites/default/files/NOTE/Lec%2010%20-%20Bandwidth%20Extension%20Techniques.pdf
+
+https://www.seas.ucla.edu/brweb/papers/Journals/BRFall15TCoil.pdf
+
+
+## Future example problems
+
+: table caption {tbl-colwidths="[30,70]"}  
+
+| Circuit Description | notes |
+|:---|:---|
+| Active filters | move to other blog, Several of these started [Sallen–Key topology](https://en.wikipedia.org/wiki/Sallen%E2%80%93Key_topology) |
+| Active inductor, Nullors, Gyrators, NICs, Current Conveyor | Where are these used?<br>Controlled Sources, Nullors, Active Gain Devices, Impedance Converters and Inverters (Gyrators, NICs, Current Conveyors)<br>See Op Amp circuit #2 or #2HP  See Haydak Chapter 13, for RC-NIC and RC gyrator filters  |
+| Switched mode power supply | Do the LED driver fly back circuit, <br>see Analog Devices power management tools, <br>https://www.analog.com/en/design-center/design-tools-and-calculators/power-management-tools.html |
+| Diode circuit | Get network equations with R in place of diode and then substitute equations for diode in python |
+| Transistor circuit | Get network equations with R’s in place of transistor and then substitute equations in python<br>Or look at an Op Amp model that can have C in the feedback loop |
+| Tone control circuit | see [link](https://sound-au.com/project27.htm) |
+-->
+

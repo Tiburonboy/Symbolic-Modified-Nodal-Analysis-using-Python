@@ -1,0 +1,43 @@
+# Example problems {#sec-Problems .unnumbered}
+
+<!--
+Update this section to include typical topics in circuit analysis
+
+- Can MNA equations be turned into state variable equations? See page Haykin page 59
+- explore sympy and scipy state variable functions
+- consider a post talking about s-parameters
+
+## Example problems
+In the chapters that follow, the MNA procedure is used to generate network equations from a circuit's netlist. Since these equations and the solutions can be generated automatically by SymPy, what follows are chapters with lots of equations. 
+-->
+
+The table below is a list of the example problems with a short discription.
+
+: {tbl-colwidths="[30,70]"}
+
+| Title | Circuit Description |
+|:---|:---|
+| Two amplifier RIAA Phono Preamp | A circuit for a phono preamp is analyzed. |
+| Two port parameters | Two port parameters are derived from the circuit's netlist. |
+| Thevenin equivalent circuit | The Thevenin equivalent circuit is obtained from a netlist. |
+| State variable filter | Network equations for a [state variable filter](https://en.wikipedia.org/wiki/State_variable_filter) are obtained from the netlist which are solved in symbolic form. |
+| Superposition | A circuit to illustrate superposition and polyphase circuit analysis. |
+| 2nd order BRF | Walk through of the NMA code |
+| Elliptic Function LPF | A circuit too complex for quick symbolic solution |
+| Initial conditions | Voltage on the capacitor and current in the inductor at t=0 |
+| Transient circuit | Examining the transient response of a circuit |
+| Bridge T | Initial conditions and transient solution |
+| Pi Filter | Transfer function using the FACTS method |
+| SIDO filter | Deriving the symbolic transfer function of a filter |
+| Super node | Analysis of a circuit with a super node |
+| Phasor analysis | Analysis of a circuit with phasor elements |
+| Modeling Op Amps | Analysis of Op Amp model and stamp |
+| Op Amp circuits | Typical Op Amp circuits and the use of the Op Amp element type |
+| Mechanical systems | Electric circuit analogs for a translational and a rotational mechanical system |
+| Klon Centuar<br>&#x2022; part 1<br>&#x2022; part 2<br>&#x2022; part 3 | Analysis of the Klon Centuar guitar pedal<br>&#x2022; Introduction and effects path linear analysis<br>&#x2022; Effects path non-linear analysis<br>&#x2022; Design review and reactive branch analysis |
+| Wien bridge oscillator | Analysis of a [Wien bridge oscillator](https://en.wikipedia.org/wiki/Wien_bridge_oscillator) circuit |
+| [Flyback circuit](https://en.wikipedia.org/wiki/Flyback_converter) | Analysis of a flyback [switch mode power supply](https://en.wikipedia.org/wiki/Switched-mode_power_supply) |
+| Diode circuit | Circuit analysis with one or more diodes in the circuit |
+| Transistor circuit | Circuit analysis with one or more transistors in the circuit |
+| [Bridged T-coil](https://en.wikipedia.org/wiki/Bridged_T_delay_equaliser) | A circuit with a coupled inductor and a bridging capacitor |
+

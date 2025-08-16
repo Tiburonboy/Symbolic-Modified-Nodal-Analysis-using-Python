@@ -1,0 +1,51 @@
+# Change Log {#sec-Change-log}
+
+The following table is a history of the Python MNA code development.
+
+| Date | Event |
+|---|---|
+| 7/1/2015 | Python coding started, derived from my ```network.c``` code |
+| 8/18/2017 | changed approach, now implementing a modified nodal analysis |
+| 8/19/2017| Wrote some code to generate symbolic matrices, works OK, so heading down the SymPy path. Basic debugging finished, but I still need to verify some circuits using Ls and Cs. |
+| 8/30/2017| Started to add code for Op Amps |
+| 9/1/2017| Code added to process Op Amps |
+| 9/3/2017| Added code to remove SPICE directives. Fixed orientation of current sources in the I matrix. N2 is the arrow end of the current source. |
+| 9/5/2017| After doing some verification testing with inductors and capacitors, it seems that inductors are not being treated correctly.  According to some research, inductor stamps affect the B,C and D arrays.  Erik Cheever's code puts inductors into the G matrix as 1/s/L.  LTSpice  results are different from the Python code.  Capacitors seem to work OK. Plan is to add controlled sources, then get inductors working. |
+| 9/6/2017| Op Amp_test_circuit_426 is not working.  Results not the same as LTSpice Chebyshev_LPF_1dB_4pole: cut off frequency not correct, other features look OK still need to debug Op Amps and inductors Adding: VCCS = G type branch element: G needs to be modified CCVS = H type branch element: B, C and D need to be modified |
+| 9/10/2017| researching formulation of B matrix what about a network with only 1 current source?  The B, C and D matrix would be 0 by 0. Think about changing the name of the G matrix to Yr, to keep same as used in @Ho1975.<br>CCVS = H type branch element: B, C and D need to be modified<br>CCCS = F type branch element: B, C and D need to be modified<br>VCCS = G type branch element: G needs to be modified<br>VCVS = E type branch element: B and C need to be modified<br>For CCCS = F type branch elements and CCVS = H type branch elements, need to add a zero volt voltage source to the net list through which the current flows.  It is necessary to add to the net list one extra voltage source for every F and H type element. |
+| 9/12/2017| still working on the B matrix |
+| 9/18/2017| still debugging B matrix, looks like we don't need find_vname() or df2.  This is because a zero volt voltage source is added to the netlist in SPICE. need to add CCCS type to the list of i_unk. Filled out some B matrices by hand and got the same answer as the code. |
+| 9/30/2017| debugging B, C & D matrices<br>VCVS is a E type element and SymPy didn't like it, but fixed the problem in parser by changing the label E to Ea.  Also changed the E matrix name to Ev.  Code seems to run, just need to verify it.  Need to find a new name for func1. |
+| 10/1/2017| Cleaning up comments and notes. |
+| 10/4/2017| Fixed incrementing of sn in D matrix.  The D matrix needs to count all i_unks.  In find_vnam() fixed col_num to return just the row number in df2. |
+| 10/5/2017| Fixed E type in matrix C.  Added CCCS to i_unk count.  Fixed E type in D.  Fixed J matrix. I need to look at the equations next, they don't look correct. |
+| 10/7/2017| Updates to the comments. Verifying equations with hand generated KCL equations.  Fixed H type in D. |
+| 10/9/2017| Still verifying code.  Fixed F type in C.  Still need to verify Op Amps, inductors and capacitors. |
+| 11/19/2017| Fixing some documentation. |
+| 11/30/2017| Fixing the C matrix for Op Amps, one test case ran OK<br>@Chen2018 and @Fakhfakh2012 were consulted during the debugging of the Op Amp stamp.|
+| 12/2/2017| Added code for coupled inductors, not tested yet. |
+| 12/6/2017| Testing code for coupled inductors. Changes made to D matrix code. test_circuit_9 seems to give the correct results. |
+| 18 Feb 2022| Noticed a bug when the independent voltage source is the last line in the netlist, moving to the 1st line in the netlist generates what seems like correct equations.  Investigation continues.  For now, ordering the net list with sources first seems to work. Problem is with generation of the Ev and J matrices. In this version, I corrected some grammar and spelling errors. |
+| 11/14/2023| New version of SymPy does not support non-Expr objects in a Matrix. Code to generate the circuit equations towards the end of the notebook produced an error. This line generated the error:  $equ[i] = Eq(eq\_temp,Z[i])$. See the note [here](https://docs.sympy.org/latest/explanation/active-deprecations.html#deprecated-non-expr-in-matrix) for details. In SymPy 1.8 and earlier versions it was possible to put non-Expr elements in a Matrix and the matrix elements could be any arbitrary Python object. Corrections have been made in this notebook. At the time of debugging this issue, I'm running sympy.__version__  = '1.11.1' |
+| 29 Nov 2023| Problem - When the D matrix is built, independent voltage sources are processed in the data frame order when building the D matrix. If the voltage source followed element L, H, F, K types in the netlist, a row was inserted that put the voltage source in a different row in relation to its position in the Ev matrix. This would cause the node attached to the terminal of the voltage source to be zero volts.<br>Solution - added code to move voltage source types to the beginning of the net list dataframe before any calculations are performed. |
+| 1/9/2024| Code for building matrix A was not including matrix D if i_unk == 1. The following line of code is new: $A[n,n] = D[0]$ also with a comment. Added verification tests test_14 and test_15 for the case of i_unk == 1 and 0. |
+| 1/16/2024 | created a function to implement SMNA, replaced warning print statements with raise Exception() |
+| 7/31/2024 | added code to count number of resistors and capacitors in network and include count in report |
+: Code change log {#tbl-code-change-log} {tbl-colwidths="[15,85]"}
+
+The following table is a history of updates to the book project.
+
+| Date | Event |
+|---|---|
+| 9/1/2023 | Around this time, testing Quarto, started this book project |
+| 12/1/2023 | Around this time, posting numerous test/draft versions to GitHub pages |
+| 5/1/2024 | Added chapter on mechanical system analog |
+| 5/15/2024 | Incremental changes to many chapters |
+| 6/03/2024 | Incremental updates |
+| 6/30/2024 | SMNA_example - correcting spelling, grammar and updating comments.<br>SymMNA - correcting spelling, grammar and updating comments.<br>Introduction - added example circuit and schematic.<br>references.bib - added url to two references.<br>2nd_order_BRF - rewrite, now calling the smna function.<br>Two Amplifier RIAA Pre-amp - correcting spelling, grammar and updating comments.<br>Various chapters - displaying network equations using LaTex vs. printing a SymPy matrix. |
+| 11/20/2024 | Added: Future example problems, added reference to online tools for running Python and schematic capture (Google Colab and EasyEDA schematic editor). |
+| 12/6/2024 | Added Klon Centaur parts 2, 3 chapter place holders; see note at end of part 1. Added place holders for future chapters. The place holders will make pushing changes to github.io easier.<br>Fixed broken link in Mechanical systems chapter. |
+| 8/16/2025 | SciPy functions impulse2 and step2 changed to impulse and step because in SciPy 1.13.0 impulse2 and step2 were removed.<br>Added appendix D and E.<br>Updates to Klon Centaur Parts 1, 2 & 3.<br>Updates to Chapter 2.<br>Updates to About This Book and Gemini generated cover.<br>Added Wien Bridge Oscillator. |
+: Book project change log {#tbl-book-change-log} {tbl-colwidths="[15,85]"}
+
+
