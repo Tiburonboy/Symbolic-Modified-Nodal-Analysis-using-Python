@@ -1,4 +1,0 @@
-# Appendices {#sec-Appendices .unnumbered}
-
-- Appendix
-- Bibliography
