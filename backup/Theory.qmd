@@ -97,6 +97,8 @@ The orientation of the inductors is determined by the first node, which is consi
 
 $$M = k\sqrt{L_1L_2}$$ {#eq-net_M}
 
+See @sec-example and @sec-test_6 for example circuits that have coupled inductors and the code to calculate $M$ and substitute a numerical value into the symbolic network equations.
+
 ### Independent sources
 Independent sources are formatted as if they are DC sources, even if the source is intended to be an AC source. The value of the source or its type, AC or DC, doesn't matter when seeking a symbolic solution. The numeric value of the source can be changed when doing a numerical analysis, by following the procedures illustrated in the test or problem circuits. A voltage source is described by the following line.   
 ```VXX N+ N- VALUE```    
@@ -143,4 +145,4 @@ The Op Amp element is assumed to be an ideal Op Amp and the voltage at the input
 3. Change Op Amp reference designators, for example U1 to O1 (capitol letter O, not zero).  
 4. Voltage sources and current sources need to be set to zero in some cases. See test circuits and problem circuits for examples.  
 5. Call the function smna(net_list). Follow the example in @sec-SMNA-func.
-6. See the test and problem circuits for examples on how to use Python to do circuit analysis.  
+6. See the test and problem chapters for examples on how to use Python and MNA for symbolic and numerical circuit analysis.  

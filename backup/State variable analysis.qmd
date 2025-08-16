@@ -1,0 +1,15 @@
+# State variable analysis
+
+Some ideas concerning how to handle state variable analysis.
+
+This page is a placeholder for the JupyterLab notebook. 
+
+<!--
+
+https://ee.sharif.edu/~faez/chpt19.pdf
+
+https://home.cc.umanitoba.ca/~gole/ECE_7310/notes_files/lecture2.pdf
+
+
+-->
+

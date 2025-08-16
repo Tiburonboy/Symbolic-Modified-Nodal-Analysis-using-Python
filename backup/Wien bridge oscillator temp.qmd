@@ -1,0 +1,74 @@
+# Wien bridge oscillator
+
+Analysis of a [Wien bridge oscillator](https://en.wikipedia.org/wiki/Wien_bridge_oscillator) circuit.
+
+This page is a placeholder.
+
+<!--
+There are two versions of the Wien bridge oscillator
+
+/home/jeff32/Documents/JupyterLab/Node Analysis/MNA_problem_circuits/Wien bridge oscillator.ipynb
+
+LTSpice Schematic is here: 
+/home/jeff32/Documents/Solving Electrical Engineering Problems with Python Blog/MNA Problem Circuits/Wien bridge oscillator
+
+As I remember, Wien bridge oscillator v1.asc was hard to get to oscillate. 
+
+
+Older version is here: /home/jeff32/Documents/JupyterLab/Circuit analysis/Wien Bridge Oscillator.ipynb
+Rename this version as old after review.
+
+Seems like this osc needs the feedback diodes.
+
+
+A Wien bridge oscillator is a type of electronic oscillator circuit that generates sine waves. It's renowned for its ability to produce very low-distortion, stable sine wave outputs, particularly in audio frequency ranges.
+
+Here's a breakdown of its key characteristics and how it works:
+
+**Core Components and Principle:**
+
+* **Wien Bridge:** The heart of the oscillator is a frequency-selective bridge circuit, originally developed by Max Wien in 1891 for impedance measurements. This bridge typically consists of four resistors and two capacitors.
+* **RC Network:** Within the bridge, there's a specific "lead-lag" RC (resistor-capacitor) network. This network provides positive feedback to an amplifier.
+    * At very low frequencies, the series capacitor acts like an open circuit, blocking the signal.
+    * At very high frequencies, the parallel capacitor acts like a short circuit, shorting out the signal.
+    * At a specific "resonant frequency" ($f_r$), the phase shift through this RC network is 0 degrees, and the output voltage reaches a maximum (typically one-third of the input voltage if R1=R2=R and C1=C2=C). This is the frequency at which the oscillator will operate.
+    * The formula for this resonant frequency is often given as: $f_r = \frac{1}{2\pi RC}$ (when R1=R2=R and C1=C2=C).
+* **Amplifier:** The Wien bridge is typically coupled with a high-gain, non-inverting amplifier (often an operational amplifier or op-amp). The amplifier provides the necessary gain to compensate for the signal loss in the RC network and ensure sustained oscillations.
+* **Positive Feedback:** The output of the amplifier is fed back to the non-inverting input of the amplifier through the Wien bridge network. For sustained oscillation, the total phase shift around the loop (amplifier + feedback network) must be 0 degrees (or a multiple of 360 degrees), and the loop gain must be equal to or slightly greater than one. Since the non-inverting amplifier provides 0 degrees of phase shift, the Wien bridge network must also provide 0 degrees of phase shift at the oscillation frequency.
+* **Automatic Gain Control (AGC):** A crucial element for achieving low distortion and stable amplitude in Wien bridge oscillators is an amplitude stabilization mechanism, often using a component with a non-linear resistance, such as an incandescent lamp or diodes. As the output amplitude increases, the resistance of this component changes, which in turn adjusts the amplifier's gain, keeping the output amplitude constant and preventing clipping (which would introduce distortion). William Hewlett famously used an incandescent lamp for AGC in his groundbreaking HP 200A audio oscillator.
+
+**How it Works (Simplified):**
+
+1.  **Startup:** When the circuit is powered on, random noise is present. Some of this noise will be at or near the resonant frequency of the Wien bridge.
+2.  **Amplification and Feedback:** The amplifier amplifies this noise. The Wien bridge network then feeds a portion of this amplified signal back to the amplifier's input.
+3.  **Frequency Selection:** Only the frequency at which the Wien bridge network has zero phase shift (its resonant frequency) will be reinforced by the positive feedback. Other frequencies will experience a phase shift and/or attenuation, causing them to die out.
+4.  **Amplitude Stabilization:** As the oscillation builds up, the AGC mechanism (e.g., the incandescent lamp's resistance increasing with temperature) reduces the amplifier's gain until the loop gain is precisely unity. This prevents the oscillations from growing indefinitely and becoming distorted.
+5.  **Sustained Oscillation:** The circuit settles into a stable, low-distortion sine wave oscillation at the resonant frequency of the Wien bridge.
+
+**Advantages:**
+
+* **Low Distortion:** Capable of producing very pure sine waves with low total harmonic distortion.
+* **Good Frequency Stability:** Relatively stable frequency output.
+* **Wide Frequency Range:** Can generate a large range of frequencies, especially suitable for audio frequency applications (typically 20 Hz to 1 MHz).
+* **Easy to Tune:** The frequency can be easily varied by changing the values of the resistors or capacitors in the bridge, often using ganged variable components.
+* **Simplicity:** Can be implemented with relatively few components, particularly with modern op-amps.
+* **No Inductors:** Unlike LC oscillators, it doesn't require bulky and expensive inductors, making it more practical for lower frequencies.
+
+**Disadvantages:**
+
+* **Limited High-Frequency Operation:** While good for audio, it generally cannot generate very high frequencies (e.g., in the RF range) due to limitations of the amplifier and parasitic effects of RC components at high frequencies.
+* **Requires Gain Control:** Proper amplitude stabilization is crucial for low distortion, adding a layer of complexity.
+* **Component Matching:** For optimal performance, the RC components in the bridge network often need to be closely matched.
+
+**Applications:**
+
+* **Audio Oscillators:** Widely used in audio frequency generators and test equipment due to their low distortion.
+* **Function Generators:** Used as the core sine wave generator in many function generators.
+* **Distortion Testing:** Ideal for testing the distortion of power amplifiers, as they provide a clean input signal.
+* **Clock Signals:** Can be used to generate stable clock signals for various circuits.
+* **Excitation for AC Bridges:** Used as a precise AC source for bridge circuits in measurement applications.
+
+In summary, the Wien bridge oscillator is a fundamental and highly effective circuit for generating high-quality sine waves, particularly in the audio frequency spectrum, and holds a significant place in the history of electronics, notably with Hewlett-Packard's first product being a Wien bridge oscillator.
+
+
+-->
