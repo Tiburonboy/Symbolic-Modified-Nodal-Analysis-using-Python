@@ -65,5 +65,7 @@ The first four chapters describe my implementation of symbolic circuit analysis 
 
 @sec-google_colab provides instructions about running the code contained in this book in Google's Colab. All that is needed is a gmail account.
 
+@sec-SMNA_mobile is a JupyterLab notebook that can be used as a template for circuit analysis using Colab on a mobile device.
+
 @sec-EasyEDA_schematic_editor provides a link to an web based schematic editor program than can be used to generate schematics and a netlist from a schematic.
 

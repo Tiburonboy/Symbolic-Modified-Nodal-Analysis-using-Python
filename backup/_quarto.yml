@@ -5,7 +5,8 @@ project:
 book:
   title: "Symbolic Modified Nodal Analysis<br>using Python"
   author: "Tiburonboy"
-  date: "12/6/2024"
+  cover-image: cover_v2.png
+  date: "8/16/2025"
   date-format: D MMMM YYYY
 
   chapters:
@@ -18,17 +19,17 @@ book:
     - part: Validation-tests.qmd
       chapters:
         - test_1.ipynb
-        - test_2.ipynb   
-        - test_3.ipynb  
-        - test_4.ipynb  
-        - test_5.ipynb  
-        - test_6.ipynb  
-        - test_7.ipynb  
-        - test_8.ipynb  
-        - test_9.ipynb  
-        - test_10.ipynb  
-        - test_11.ipynb  
-        - test_12.ipynb  
+        - test_2.ipynb
+        - test_3.ipynb
+        - test_4.ipynb
+        - test_5.ipynb
+        - test_6.ipynb
+        - test_7.ipynb
+        - test_8.ipynb
+        - test_9.ipynb
+        - test_10.ipynb
+        - test_11.ipynb
+        - test_12.ipynb
         - test_13.ipynb
         - test_14.ipynb
         - test_15.ipynb
@@ -43,7 +44,6 @@ book:
         - Elliptic-function-LPF.ipynb
         - Initial_conditions.ipynb
         - Transient_circuit.ipynb
-#        - T-coil.ipynb
         - Bridge-T.ipynb
         - Pi-Filter.ipynb
         - SIDO-low-pass-filter.ipynb
@@ -51,29 +51,25 @@ book:
         - Phasor-analysis.ipynb
         - Modeling Op Amps.ipynb
         - Op Amp circuits.ipynb
-#        - double pendulum.ipynb
         - mech-sys.ipynb
-#        - rot mech sys.ipynb
-#        - Klon Centaur.ipynb
-#        - Klon Centaur part 1.ipynb
-        - Klon Centaur part 1.qmd
-# the following are place holders
-        - Klon Centaur part 2.qmd
-        - Klon Centaur part 3.qmd
-#        - Klon Centaur part 2.ipynb
-#        - scratchpad.ipynb        
-#        - Klon Centaur part 3.ipynb
-#        - Future example problems.qmd
-        - Wien bridge oscillator.qmd
+        - Klon Centaur part 1.ipynb
+        - Klon Centaur part 2v0.ipynb
+        - Klon Centaur part 3v1.ipynb
+#        - Klon Centaur part 2 temp.qmd
+#        - Klon Centaur part 3 temp.qmd
+        - Wien bridge oscillator.ipynb
+#        - Wien bridge oscillator temp.qmd
         - Flyback circuit.qmd
         - Diode circuit.qmd
         - Transistor circuit.qmd
-        - Bridged T-coil.qmd
+        - Bridged T-coil temp.qmd
+#        - Bridged-T-coil_v2.ipynb
     - References.qmd
   appendices:
     - SymMNA_py.qmd
     - Change-log.qmd
     - Google Colab.qmd
+    - SMNA_mobile.ipynb
     - EasyEDA_schematic_editor.qmd
 
 format:
