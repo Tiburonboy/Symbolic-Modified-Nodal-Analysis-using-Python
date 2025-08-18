@@ -1440,14 +1440,14 @@ Figure&nbsp;45.6: RC-common_source ref_amp
 </section>
 <section id="common-source-amplifier-with-bridge-t-coil" class="level3" data-number="45.3.2">
 <h3 data-number="45.3.2" class="anchored" data-anchor-id="common-source-amplifier-with-bridge-t-coil"><span class="header-section-number">45.3.2</span> Common-Source Amplifier with Bridge T-Coil</h3>
-<p>In <a href="#fig-CS-T-Coil" class="quarto-xref">Figure&nbsp;<span>45.7</span></a>, the FET has been replaced by a dependent current source and the component values are set to one. Later the actual values will be substituted into the design equations.</p>
+<p>In <a href="#fig-CS-T-Coil" class="quarto-xref">Figure&nbsp;<span>45.7</span></a>, the FET has been replaced by a current source and the component values are set to one. Later the actual values will be substituted into the design equations.</p>
 <div id="fig-CS-T-Coil" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-CS-T-Coil-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="CS-T-Coil.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-CS-T-Coil-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;45.7: Common source amplifier with a Bridged T-coil circuit model.
+Figure&nbsp;45.7: Common source amplifier with a Bridged T-coil circuit.
 </figcaption>
 </figure>
 </div>
@@ -1730,13 +1730,95 @@ Figure&nbsp;45.7: Common source amplifier with a Bridged T-coil circuit model.
 <p>The quality factor, <span class="math inline">\(Q=\frac{\sqrt{\frac{1}{C \left(C R^{2} - 4 M\right)}} \left(C R^{2} - 4 M\right)}{R}\)</span></p>
 </div>
 </div>
+<p>For second order systems, the quality factor (Q) is a dimensionless parameter that describes the behavior of a system. A higher Q factor indicates less damping, while a lower Q factor indicates more damping.</p>
 <ul>
-<li>A system with low quality factor (Q &lt; ⁠1/2⁠) is said to be over damped. Such a system doesn’t oscillate at all, but when displaced from its equilibrium steady-state output it returns to it by exponential decay, approaching the steady state value asymptotically. It has an impulse response that is the sum of two decaying exponential functions with different rates of decay. As the quality factor decreases the slower decay mode becomes stronger relative to the faster mode and dominates the system’s response resulting in a slower system. A second-order low-pass filter with a very low quality factor has a nearly first-order step response; the system’s output responds to a step input by slowly rising toward an asymptote.</li>
-<li>A system with high quality factor (Q &gt; ⁠1/2⁠) is said to be under damped. Under damped systems combine oscillation at a specific frequency with a decay of the amplitude of the signal. Under damped systems with a low quality factor (a little above Q = ⁠1/2⁠) may oscillate only once or a few times before dying out. As the quality factor increases, the relative amount of damping decreases. A high-quality bell rings with a single pure tone for a very long time after being struck. A purely oscillatory system, such as a bell that rings forever, has an infinite quality factor. More generally, the output of a second-order low-pass filter with a very high quality factor responds to a step input by quickly rising above, oscillating around, and eventually converging to a steady-state value.</li>
-<li>A system with an intermediate quality factor (Q = ⁠1/2⁠) is said to be critically damped. Like an over damped system, the output does not oscillate, and does not overshoot its steady-state output (i.e., it approaches a steady-state asymptote). Like an under damped response, the output of such a system responds quickly to a unit step input. Critical damping results in the fastest response (approach to the final value) possible without overshoot. Real system specifications usually allow some overshoot for a faster initial response or require a slower initial response to provide a safety margin against overshoot.</li>
+<li>Underdamped, <span class="math inline">\(Q \gt 0.5\)</span> or <span class="math inline">\(\zeta \lt 0.5\)</span>: The system’s output will oscillate before settling at its final value. A higher Q means the oscillations will be more pronounced and take longer to die out. Think of a plucked guitar string; it vibrates for a long time because it has a high Q.</li>
+<li>Critically Damped, <span class="math inline">\(Q=0.5\)</span> or <span class="math inline">\(\zeta=0.5\)</span>: The system reaches its final value as quickly as possible without any oscillation or overshoot. This is often the desired behavior for control systems, as it provides a fast and stable response.</li>
+<li>Overdamped, <span class="math inline">\(Q \lt 0.5\)</span> or <span class="math inline">\(\zeta \gt 0.5\)</span>: The system’s response is sluggish and approaches the final value slowly without any oscillation.</li>
 </ul>
-<p>The damping ratio is given by <span class="math inline">\(\zeta\)</span> which is:</p>
-<p><span class="math inline">\(\zeta=\frac {1}{2Q}\)</span></p>
+<!--
+
+- A system with low quality factor (Q < ⁠1/2⁠) is said to be over damped. Such a system doesn't oscillate at all, but when displaced from its equilibrium steady-state output it returns to it by exponential decay, approaching the steady state value asymptotically. It has an impulse response that is the sum of two decaying exponential functions with different rates of decay. As the quality factor decreases the slower decay mode becomes stronger relative to the faster mode and dominates the system's response resulting in a slower system. A second-order low-pass filter with a very low quality factor has a nearly first-order step response; the system's output responds to a step input by slowly rising toward an asymptote.
+- A system with high quality factor (Q > ⁠1/2⁠) is said to be under damped. Under damped systems combine oscillation at a specific frequency with a decay of the amplitude of the signal. Under damped systems with a low quality factor (a little above Q = ⁠1/2⁠) may oscillate only once or a few times before dying out. As the quality factor increases, the relative amount of damping decreases. A high-quality bell rings with a single pure tone for a very long time after being struck. A purely oscillatory system, such as a bell that rings forever, has an infinite quality factor. More generally, the output of a second-order low-pass filter with a very high quality factor responds to a step input by quickly rising above, oscillating around, and eventually converging to a steady-state value.
+- A system with an intermediate quality factor (Q = ⁠1/2⁠) is said to be critically damped. Like an over damped system, the output does not oscillate, and does not overshoot its steady-state output (i.e., it approaches a steady-state asymptote). Like an under damped response, the output of such a system responds quickly to a unit step input. Critical damping results in the fastest response (approach to the final value) possible without overshoot. Real system specifications usually allow some overshoot for a faster initial response or require a slower initial response to provide a safety margin against overshoot.
+
+The damping ratio is given by $\zeta$ which is:
+
+$\zeta=\frac {1}{2Q}$
+
+In the context of second-order systems, the quality factor (Q) is a dimensionless parameter that describes the behavior of a system, particularly how underdamped an oscillator or resonator is. It essentially quantifies the amount of damping in the system. A higher Q factor indicates less damping, while a lower Q factor indicates more damping.
+
+For second-order systems, the quality factor is inversely related to the damping ratio (ζ). The damping ratio is another parameter that describes how the system's output responds to a change in input. The relationship is given by:
+
+This relationship allows us to categorize the behavior of a second-order system based on its Q factor:
+
+Q>0.5 (ζ<0.5) - Underdamped: The system's output will oscillate before settling at its final value. A higher Q means the oscillations will be more pronounced and take longer to die out. Think of a plucked guitar string; it vibrates for a long time because it has a high Q.
+
+Q=0.5 (ζ=0.5) - Critically Damped: The system reaches its final value as quickly as possible without any oscillation or overshoot. This is often the desired behavior for control systems, as it provides a fast and stable response.
+
+Q<0.5 (ζ>0.5) - Overdamped: The system's response is sluggish and approaches the final value slowly without any oscillation.
+
+The zeta that maximized bandwidth 
+
+The damping ratio ($\zeta$) that maximizes the bandwidth of a second-order system is approximately **0.707** (or $1/\sqrt{2}$). This specific value corresponds to a **Butterworth response**, which is characterized by a maximally flat frequency response in the passband, meaning there is no overshoot or peaking.
+
+***
+
+### Why 0.707?
+
+In a second-order system, the frequency response is a trade-off between speed and stability.
+
+* **Underdamped systems ($\zeta < 1$)** have a high-frequency peak in their response, but they also have a higher bandwidth. The peak, however, can lead to instability and undesirable oscillations.
+* **Overdamped systems ($\zeta > 1$)** are very stable, but they have a very low bandwidth, resulting in a sluggish and slow response.
+
+The value $\zeta = 0.707$ represents the optimal balance.  At this damping ratio, the system's frequency response is flat up to its cutoff frequency, which is also its natural frequency ($\omega_n$). This provides the widest possible bandwidth without any resonant peak or overshoot, ensuring both a fast and stable response.
+
+The bandwidth of a second-order system is defined by the frequency at which the magnitude of the frequency response drops to -3 dB (approximately 70.7% of its maximum value). For the $\zeta = 0.707$ case, this -3 dB frequency is exactly equal to the system's natural frequency ($\omega_n$). Any damping ratio lower than 0.707 will cause a peak in the frequency response, while a higher damping ratio will reduce the bandwidth.
+
+This video provides a more detailed explanation of the relationship between resonant frequency, resonant peak, and bandwidth in second-order control systems. [Resonant Frequency, Resonant Peak, and Bandwidth of Second Order Control System](https://www.youtube.com/watch?v=1-xhawNPDmQ)
+http://googleusercontent.com/youtube_content/1
+
+
+maximally flat envelope delay (MFED)
+Maximally Flat Envelope Delay (MFED), also known as **maximally flat group delay**, is a characteristic of a filter or system where the **group delay is as constant and flat as possible over a specified range of frequencies**, typically from zero up to the filter's cutoff frequency. 
+
+This is achieved by ensuring that as many derivatives as possible of the group delay with respect to frequency are zero at a specific point, usually the origin ($ω = 0$).
+
+---
+
+### Why It Matters
+
+When a signal, especially a complex one like a digital pulse or a modulated waveform, passes through a filter, different frequency components of the signal can be delayed by different amounts of time. This phenomenon, called **group delay distortion**, can cause the output signal to be a distorted version of the input, resulting in problems like:
+
+* **Signal smearing and ringing**: The original signal's shape is blurred, and new, unwanted oscillations (ringing) may appear.
+* **Inter-symbol interference**: In digital communication, the distorted signal can overlap with subsequent signals, making it difficult to read the data.
+* **Poor sound quality**: In audio systems, different frequencies reaching the listener at different times can degrade the fidelity of the sound.
+
+A filter with a maximally flat envelope delay minimizes this distortion. Since all frequency components within its passband are delayed by roughly the same amount, the output signal's shape remains faithful to the input, just shifted in time.
+
+The **Bessel filter** is the most common example of a filter designed with the primary goal of achieving a maximally flat group delay response. While it may not have the sharpest cutoff or the flattest amplitude response in the passband compared to a Butterworth or Chebyshev filter, its superior phase linearity makes it ideal for applications that prioritize signal integrity over frequency selectivity, such as:
+
+* **Audio crossovers**
+* **Pulse-shaping filters** in data transmission
+* **Medical equipment** like ECG machines where signal shape is critical 🩺
+
+
+what damping ratio gives maximally flat envelope delay (MFED)
+
+The damping ratio ($\zeta$) that gives a maximally flat envelope delay (MFED) varies depending on the order of the system, but for a second-order system, the value is approximately **0.866** (or $\sqrt{3}/2$). This is the characteristic damping ratio of a **Bessel filter**, which is specifically designed to have a maximally flat group delay in its passband.
+
+---
+
+### The Difference between MFED and Maximally Flat Magnitude
+
+It's crucial to distinguish between a **maximally flat envelope delay** (Bessel filter) and a **maximally flat magnitude response** (Butterworth filter). They are two different design goals for a filter, each with its own optimal damping ratio.
+
+* **Maximally Flat Magnitude (Butterworth Filter)**: This design prioritizes a flat frequency response in the passband, ensuring all frequencies are passed with equal gain. The damping ratio for a second-order Butterworth filter is **0.707** ($1/\sqrt{2}$). This value prevents any peaking or overshoot in the frequency response, providing a smooth transition into the stopband. However, this comes at the cost of a non-linear phase response, which introduces group delay distortion.
+
+* **Maximally Flat Envelope Delay (Bessel Filter)**: This design prioritizes a flat group delay response, ensuring all frequencies within the passband are delayed by the same amount. The damping ratio for a second-order Bessel filter is **0.866**. This preserves the shape of a complex signal, preventing distortion like ringing or smearing, which is vital for applications like pulse shaping or audio.  While the Bessel filter excels in time-domain performance, its frequency response has a much slower and less sharp roll-off compared to other filters.
+
+
+-->
 <div id="f10b20e9-76e0-49b0-aafd-0a74890235ed" class="cell" data-execution_count="62">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>zeta <span class="op">=</span> (<span class="dv">1</span><span class="op">/</span>(<span class="dv">2</span><span class="op">*</span>quality_factor)).simplify()</span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>Markdown(<span class="st">'The damping ratio, $\zeta=</span><span class="sc">{:s}</span><span class="st">$'</span>.<span class="bu">format</span>(latex(zeta)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1744,7 +1826,11 @@ Figure&nbsp;45.7: Common source amplifier with a Bridged T-coil circuit model.
 <p>The damping ratio, <span class="math inline">\(\zeta=\frac{R}{2 \sqrt{\frac{1}{C \left(C R^{2} - 4 M\right)}} \left(C R^{2} - 4 M\right)}\)</span></p>
 </div>
 </div>
-<p>At this point we can substitute in some numerical values. A <span class="math inline">\(\zeta = \sqrt{0.5}\)</span> is used in the design since this will give the maximum rise time and minimal overshoot in the transient response.</p>
+<p>The damping ratio (<span class="math inline">\(\zeta\)</span>) that maximizes the bandwidth of a second-order system is <span class="math inline">\(1/\sqrt{2}\)</span>. This specific value corresponds to a Butterworth response, which is characterized by a maximally flat frequency response in the passband.</p>
+<p>Another criteria used in Bridged T-coil design is Maximally Flat Envelope Delay (MFED), also known as maximally flat group delay. This occurs when the system’s group delay is as constant or flat as possible over a range of frequencies, typically from zero up to the filter’s cutoff frequency. The damping ratio (<span class="math inline">\(\zeta\)</span>) that gives a MFED for a second-order system is <span class="math inline">\(\zeta=\sqrt{3}/2\)</span>. This is the damping ratio of a Bessel filter, which is specifically designed to have a maximally flat group delay in its passband.</p>
+<p>The choice between maximum bandwidth or maximally flat group delay depends on design goals. If maximum bandwidth is desired, then <span class="math inline">\(\zeta = 1/\sqrt{2}\)</span> should be used. If minimal intersymbol interference is the design goal, then <span class="math inline">\(\zeta=\sqrt{3}/2\)</span> would be used.</p>
+<p>At this point we can substitute in some numerical values.</p>
+<p>A <span class="math inline">\(\zeta = \sqrt{0.5}\)</span> is used in the design since this will give the maximum rise time and minimal overshoot in the transient response.</p>
 <p>For <span class="math inline">\(\zeta = \sqrt{0.5}\)</span>, <span class="math inline">\(R=1000\)</span> and <span class="math inline">\(C=100pF\)</span>, solve for <span class="math inline">\(M\)</span>.</p>
 <div id="dcd6a29e-5968-4247-9af1-409557a13173" class="cell" data-execution_count="63">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>Cn <span class="op">=</span> <span class="fl">100e-12</span></span>
