@@ -14,5 +14,5 @@ Folder contents
 
 | Folder | description |
 |---|---|
-| backup | Copies of source files for the book. A subfolder contains the LTSpice schematic files. |
+| backup | Source files for the book. ~~A subfolder contains the LTSpice schematic files.~~ |
 | docs | book html and png files |
