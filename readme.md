@@ -10,9 +10,3 @@ A link to the book is here:
 
 https://tiburonboy.github.io/Symbolic-Modified-Nodal-Analysis-using-Python/
 
-Folder contents
-
-| Folder | description |
-|---|---|
-| backup | Source files for the book. ~~A subfolder contains the LTSpice schematic files.~~ |
-| docs | book html and png files |
