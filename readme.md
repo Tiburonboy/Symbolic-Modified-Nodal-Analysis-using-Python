@@ -3,10 +3,11 @@ This book is self published and being done without the benefit of a proofreader 
 > [!NOTE]  
 > Last update: 16 Aug 2025  
 > - This book is a draft copy, many sections are still under construction.  
+> - An editorial review had not been conducted on this project.
 > - Spelling and grammar checks have not been completed.  
 > - This book is posted for testing only.  
 
-A link to the book is here:  
+A link to the GitHub pages HTML book is here:  
 
 https://tiburonboy.github.io/Symbolic-Modified-Nodal-Analysis-using-Python/
 
