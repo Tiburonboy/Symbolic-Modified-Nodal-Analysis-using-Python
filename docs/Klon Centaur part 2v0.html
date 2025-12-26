@@ -604,14 +604,15 @@ window.Quarto = {
 </header>
 
 
-<p>Last update: 26 July 2025</p>
-<p>In this notebook, LTSpice will be used to analyze the operation of the pedal using device models for the Op Amps and diodes. The Op Amp and diode device models describe the nonlinear operation of these devices and LTSpice is capable of performing nonlinear analysis, something that the Python MNA can’t do.</p>
+<p>In this chapter, LTSpice will be used to analyze the operation of the pedal using device models for the Op Amps and diodes. The Op Amp and diode device models describe the nonlinear operation of these devices and LTSpice is capable of performing nonlinear analysis, something that the Python MNA can’t do.</p>
 <p>The results from LTSpice are saved as a comma separated value (<em>csv</em>) file and imported into this notebook for plotting and comparison with the Python results. <a href="#fig-Klon-Centaur_v2_sch" class="quarto-xref">Figure&nbsp;<span>26.1</span></a> shows the schematic used in the LTSpice analysis. The circuit is a redrawn version of Martin Chittum’s Klon Centaur schematic shown in <a href="Klon Centaur part 1.html#fig-Chittum_Klon_sch" class="quarto-xref">Figure&nbsp;<span>25.2</span></a> except that the ICL7660 and its associated components have been replaced by fixed voltage sources, <span class="math inline">\(V2\)</span>, <span class="math inline">\(V3\)</span>, <span class="math inline">\(V4\)</span> and <span class="math inline">\(V5\)</span>.</p>
 <p>The motivating reason for employing LTSpice for this part of the analysis is to explore the effects of the non-linear components. The Diodes, <span class="math inline">\(D_2\)</span> and <span class="math inline">\(D_3\)</span>, are the primary components that introduce distortion into the signal path. Under the combined conditions of moderate gain setting on <span class="math inline">\(P_1\)</span> and relatively large drive input, the Op Amp <span class="math inline">\(U_{1B}\)</span> can be driven into saturation. When this occurs the output tone will be a combination of non-linearities produced by the clipping of the signal by the Op Amp as the signal levels are driven beyond the power supply rails for <span class="math inline">\(U_{1B}\)</span> and the signal limiting resulting from the diodes.</p>
 <p>Given the mystic and alleged magical ability of some types of Germanium diodes to produce superior musical sounds, it seems that Op Amp saturation should be avoided, otherwise the sound will be muddled and negating the point and argument for “special” Germanium diodes.</p>
 <p>The analysis presented in this chapter will start with a description of the schematic in <a href="Klon Centaur part 1.html#fig-Chittum_Klon_sch" class="quarto-xref">Figure&nbsp;<span>25.2</span></a>. The Op Amps and Germanium diodes are discussed. Then LTSpice was used to do a parameter sweep where the input signal level was varied from 0.1 volts to 1.5 volts while the gain was varied from 1<span class="math inline">\(\Omega\)</span> to 99 k<span class="math inline">\(\Omega\)</span>. The voltages at various points in the circuit were plotted versus these parameters. Next the circuit was examined with sinusoidal input signals of various amplitudes and the harmonic content of the diode limiting was examined. Actual musical signals were also used as input to the simulation since LTSpice has the ability to read <em>wav</em> files. Finally a comparison of LTSpice results versious Python MNA circuit analysis results is presented to validate the Python MNA analysis.</p>
 <p>The following Python modules are used in this notebook.</p>
 <!--
+
+Last update: 26 July 2025  
 
 $\large{\color {red} {\text{Note for author:}}}$
 
@@ -635,7 +636,7 @@ ToDo
   
 
 -->
-<div id="97b4256d-9962-49d7-beff-8265d55b7cdb" class="cell" data-execution_count="50">
+<div id="97b4256d-9962-49d7-beff-8265d55b7cdb" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sympy <span class="im">import</span> <span class="op">*</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> signal</span>
