@@ -1,0 +1,1724 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>9&nbsp; Mutual Inductance – Symbolic Modified Nodal Analysis&lt;br&gt;using Python</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./Initial_conditions.html" rel="next">
+<link href="./Transient_analysis.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-d6667c7b59069bf82d0268b148e64a53.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Mutual_inductance.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Mutual Inductance</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Symbolic Modified Nodal Analysis<br>using Python</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/Tiburonboy/Symbolic-Modified-Nodal-Analysis-using-Python" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Preface.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Basic_concepts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Basic Concepts</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Modified_Nodal_Analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Modified Nodal Analysis</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./MNA_with_python.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">MNA with Python</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Resistive_networks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Resistive Networks</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./RLC_networks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">RLC Networks</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Transfer_function.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Transfer Function</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Transient_analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Transient Analysis</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Mutual_inductance.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Mutual Inductance</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Initial_conditions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Initial conditions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./Example-problems.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Example problems</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Two port parameters.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Two port parameters</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Thevenin equivalent circuit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Thevenin equivalent circuit</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./State-variable-filter.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">State Variable Filter</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Superposition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Superposition</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./2nd_order_BRF.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">2nd Order BRF</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Elliptic-function-LPF.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Elliptic Function LPF</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bridge-T.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Bridge-T</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Pi-Filter.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Pi Filter</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./SIDO-low-pass-filter.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">SIDO-low-pass-filter</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Super-node.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Super node</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Modeling Op Amps.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Modeling Op Amps</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Op Amp circuits.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Op Amp circuits</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Two amplifier RIAA Phono Preamp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Two amplifier RIAA phono preamp</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mech-sys.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Mechanical systems</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Klon Centaur part 1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Klon Centaur, part 1</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Klon Centaur part 2v0.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Klon Centaur, part 2</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Klon Centaur part 3v1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Klon Centaur, part 3</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Wien bridge oscillator.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Wien Bridge Oscillator</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Diode Circuit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Diode Circuit</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bridged-T-coil_v2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Bridged T Coil</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./Validation-tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Validation Tests</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Test 1</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Test 2</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Test 3</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Test 4</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Test 5</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Test 6</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_7.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Test 7</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_8.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Test 8</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_9.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Test 9</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_10.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">Test 10</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_11.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Test 11</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_12.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">Test 12</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_13.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Test 13</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_14.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">Test 14</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_15.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">Test 15</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./References.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./SymMNA_py.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">SymMNA.py</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Change-log.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Change Log</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Google Colab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Google Colab</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./SMNA_mobile.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">SMNA mobile</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./EasyEDA_schematic_editor.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">EasyEDA</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./History_of_Electric_Circuit_Analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">F</span>&nbsp; <span class="chapter-title">History of Electric Circuit Analysis</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Quick_ref.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">G</span>&nbsp; <span class="chapter-title">Quick Reference</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Project_notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">H</span>&nbsp; <span class="chapter-title">Project Notes</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#coupling-coefficient" id="toc-coupling-coefficient" class="nav-link active" data-scroll-target="#coupling-coefficient"><span class="header-section-number">9.1</span> Coupling Coefficient</a></li>
+  <li><a href="#test-circuits" id="toc-test-circuits" class="nav-link" data-scroll-target="#test-circuits"><span class="header-section-number">9.2</span> Test Circuits</a></li>
+  <li><a href="#example-circuit-1" id="toc-example-circuit-1" class="nav-link" data-scroll-target="#example-circuit-1"><span class="header-section-number">9.3</span> Example Circuit 1</a>
+  <ul class="collapse">
+  <li><a href="#mutual-inductance" id="toc-mutual-inductance" class="nav-link" data-scroll-target="#mutual-inductance"><span class="header-section-number">9.3.1</span> Mutual inductance</a></li>
+  </ul></li>
+  <li><a href="#example-circuit-2" id="toc-example-circuit-2" class="nav-link" data-scroll-target="#example-circuit-2"><span class="header-section-number">9.4</span> Example Circuit 2</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">9.5</span> Summary</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="sec-mutual_inductance" class="quarto-section-identifier"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Mutual Inductance</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><a href="https://en.wikipedia.org/wiki/Inductance#Mutual_inductance">Mutual inductance</a> is an electromagnetic phenomenon that quantifies the degree to which a time varying electric current in one coil induces a voltage in another coil through the interaction of their magnetic fields. This effect, often termed mutual induction, arises because the changing current in the first coil generates a magnetic flux, some fraction of which links with the turns of the second coil. The magnitude of mutual inductance depends entirely on the geometric arrangement of the two coils, including their relative orientation, distance, size, number of turns, and the magnetic permeability of the medium between them. It is the fundamental operating principle behind transformers and various other coupled circuits used for intentional energy transfer or signal coupling. The SI unit is the Henry (H).</p>
+<p>A coupled inductor has two or more windings that are connected by a magnetic circuit. Coupled inductors transfer energy from one winding to a different winding usually through a commonly used core. The efficiency of the magnetic coupling between both the windings is defined by the coupling factor k or by mutual inductance.</p>
+<p>The Dot Convention is a graphical method used to indicate on electrical schematics to indicate the polarity of the voltage induced by mutual inductance when writing Kirchhoff’s Voltage Law (KVL) equations. The convention uses a small dot placed at one terminal of each coupled coil. The placement of the dot indicates the relative direction of the windings around the core. If a current <span class="math inline">\(i_1\)</span> enters the dotted terminal of one coil, it induces a voltage in the second coil <span class="math inline">\(v_2\)</span> that is positive at the dotted terminal of the second coil.</p>
+<section id="coupling-coefficient" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="coupling-coefficient"><span class="header-section-number">9.1</span> Coupling Coefficient</h2>
+<p>The coupling coefficient, <span class="math inline">\(K\)</span>, is a dimensionless value between 0 and 1 that quantifies the fraction of magnetic flux from one winding that links the other and is typically measured indirectly through inductance measurements. The most common and accurate method involves using an LCR meter to measure two specific inductance values on a winding (e.g., the primary, <span class="math inline">\(L_p\)</span>): the open-circuit inductance (<span class="math inline">\(L_{open}\)</span>), which is the self-inductance of the primary winding with the secondary winding open-circuited, and the short-circuit inductance (<span class="math inline">\(L_{short}\)</span>), which is the inductance measured across the primary when the secondary winding is short-circuited. The short-circuit inductance represents the leakage inductance (<span class="math inline">\(L_{leak}\)</span>) seen from the primary side. The coupling coefficient is then calculated using the formula: <span class="math inline">\(k = \sqrt{1 - \frac{L_{short}}{L_{open}}}\)</span>. This technique leverages the fact that perfect coupling (<span class="math inline">\(k=1\)</span>) would result in zero leakage and therefore zero short-circuit inductance, whereas poor coupling (<span class="math inline">\(k \ll 1\)</span>) results in <span class="math inline">\(L_{short}\)</span> approaching <span class="math inline">\(L_{open}\)</span>.</p>
+<p>The coupling constant and the mutual inductance are related by the equation:</p>
+<p><span class="math inline">\(k = \frac {M}{\sqrt{L_1 \times L_2}}\)</span></p>
+<p>Where k is the coupling coefficient and in spice the value of k can be from -1 to +1 to account for a negative phase relation. Phase dots are drawn on the schematic to indicate the relative direction of the windings. In LTspice the phase dots are associated with the negative terminal of the winding.</p>
+<!--
+
+## Ideal transformer
+An ideal transformer is a hypothetical (theoretical) model of a transformer used in electrical engineering to simplify analysis by assuming perfect operation with no energy losses.  While no real-world transformer can achieve this ideal state, practical transformers, especially large iron-core units, can come very close.
+
+The model is defined by four primary characteristics:
+
+1. Zero Winding Resistance: The primary and secondary coils have zero ohmic resistance ($R=0$). This means there are no copper losses ($I^2R$ losses) in the windings, and the induced EMFs ($E_1$ and $E_2$) are equal to the terminal voltages ($V_1$ and $V_2$).
+1. No Core Losses: The core material has no hysteresis or eddy current losses, meaning no energy is dissipated as heat within the core.
+1. Infinite Core Permeability: The magnetic core has infinite permeability ($\mu \rightarrow \infty$). This allows the required magnetic flux ($\Phi$) to be established with virtually zero magnetizing current ($I_\mu \approx 0$).
+1. Perfect Magnetic Coupling: There is zero leakage flux ($k=1$). This means that all the magnetic flux produced by the primary winding is perfectly coupled to (links with) the secondary winding.
+
+Due to the absence of all these losses, the central defining principle of an ideal transformer is 100% efficiency. This perfect efficiency leads to simple and direct relationships between the voltages ($V$), currents ($I$), and the number of turns ($N$), governed by the turns ratio ($n$):
+
+$$\frac{V_s}{V_p} = \frac{N_s}{N_p} = n$$
+
+$$\frac{I_p}{I_s} = \frac{N_s}{N_p} = n$$
+
+These equations show that the voltage ratio is directly proportional to the turns ratio, while the current ratio is inversely proportional.
+
+## Reflected Impedance
+Reflected impedance is a key concept in the analysis of magnetically coupled circuits, most notably transformers. It represents the apparent impedance that a load connected to the secondary side of a transformer "presents" or "reflects" back to the primary side. Essentially, when a current is drawn by the load ($Z_{load}$) on the secondary winding, the resulting current on the primary side is determined not only by the primary's own impedance but also by the load's influence, which is mathematically transformed by the turns ratio of the transformer. The source connected to the primary side acts as if the load were directly connected, but with a modified value.
+
+The value of the reflected impedance is proportional to the actual load impedance and the square of the transformer's turns ratio. For an ideal transformer, the reflected impedance ($Z_{reflected}$) is calculated as:
+
+$$Z_{reflected} = \left(\frac{N_p}{N_s}\right)^2 \cdot Z_{load}$$
+
+Where:
+
+- $Z_{reflected}$ is the impedance seen looking into the primary terminals due to the secondary load.
+- $N_p$ is the number of turns in the primary winding.
+- $N_s$ is the number of turns in the secondary winding.
+- $Z_{load}$ is the actual load impedance connected to the secondary.
+
+If the turns ratio $n$ is defined as $n =\frac{N_p}{N_s}$, the formula simplifies to:
+
+$$Z_{reflected} = n^2 \cdot Z_{load}$$
+
+## Turns Ratio
+The turns ratio of a transformer, which is the ratio of the number of turns in the primary winding ($N_p$) to the number of turns in the secondary winding ($N_s$), is most accurately determined by measuring the ratio of the voltages across the windings.  The fundamental relationship for an ideal transformer is given by $N_p / N_s = V_p / V_s$, where $V_p$ is the primary voltage and $V_s$ is the secondary voltage. 
+
+Alternatively, for simple diagnostics or hobbyist applications, a low-voltage AC source and two AC voltmeters (multimeters) can be used, ensuring the transformer is completely disconnected from the mains supply and applying a safe, low AC voltage to one winding (e.g., the high-voltage winding) while measuring the resulting voltage on the other winding. The measured ratio of the applied voltage to the induced voltage, $\text{Ratio} = V_p / V_s$, serves as a close approximation of the turns ratio.
+
+The following Python libraries are used in this chapter.
+
+
+To calculate the transformer turns ratio from winding inductance, you rely on the fundamental principle that inductance is proportional to the square of the number of turns.
+
+In an ideal transformer (where both windings share the same magnetic core and flux), the relationship between the primary inductance $L_p$, secondary inductance $L_s$, and their respective turns ($N_p$,$N_s$) is:
+
+$$\frac{L_s}{L_p}=\left(\frac{N_s}{N_p}\right)^2$$
+
+### The Calculation Formula
+
+To find the turns ratio (n), which is typically defined as the ratio of secondary turns to primary turns $\frac{N_s}{N_p}$, use the square root of the inductance ratio:
+
+$$n=\frac{N_s}{N_p}=\sqrt{\frac{L_s}{L_p}}$$
+
+
+### Step-by-Step Guide
+
+1. Measure the Inductances: Use an LCR meter to measure the inductance of the primary winding $L_p$ and the secondary winding $L_s$. Ensure the other winding is left open-circuited during each measurement.
+1. Divide the Values: Divide the secondary inductance by the primary inductance.
+1. Calculate the Square Root: The square root of that result is your turns ratio.
+
+Example: If your primary inductance  is 10 mH and your secondary inductance  is 40 mH:
+
+- Ratio = $40/10=4$
+- Turns Ratio $(n) = \sqrt{4}=2$
+- This means the transformer has a 1:2 turns ratio (it is a step-up transformer).
+
+### Important Practical Considerations
+
+While the theoretical formula is straightforward, "real-world" factors can affect the accuracy of this calculation:
+
+- Core Coupling (k): The formula assumes perfect coupling (k=1). If the coils are loosely coupled, the measured inductance ratio may not perfectly match the physical turns ratio.
+- Measurement Frequency: Inductance can vary with frequency due to core material properties. Always measure both windings at the same frequency (typically the intended operating frequency of the transformer, e.g., 100 Hz or 1 kHz).
+- Permeability & Saturation: If you use a very low-voltage LCR meter, the magnetic core may be operating at a different permeability than it would at its rated power voltage, slightly shifting the inductance values.
+
+-->
+<p>The following models are used in the chapter.</p>
+<div id="0583a283-0a86-4908-bb9f-65f7743ccd26" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;jupyter&quot;,&quot;value&quot;:{&quot;outputs_hidden&quot;:false}}" data-execution_count="19">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sympy <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tabulate <span class="im">import</span> tabulate</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> signal</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> SymMNA</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display, Markdown, Math, Latex</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>init_printing()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The functions <code>polar2rec</code> and <code>rec2polar</code> perform conversion between rectangular notation and magnitude and phase notation.</p>
+<div id="53cccf12-31d7-40ee-bf92-6a46b2fc43f5" class="cell" data-execution_count="20">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> polar2rec(mag, ang, units<span class="op">=</span><span class="st">'deg'</span>):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">''' polar to rectangular conversion</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">        mag: float</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">            magnitude of the time invarient sinusudial signal</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">        ang: float</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">            the angle of the time invarient sinusudial signal</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">        units: string</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">            if units is set to deg, and is in degrees not radians</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">        returns: complex</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">            rectangular corrdinates of voltage vector</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">    '''</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> units <span class="op">==</span> <span class="st">'deg'</span>:</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        ang <span class="op">=</span> ang <span class="op">*</span> np.pi <span class="op">/</span> <span class="dv">180</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> mag <span class="op">*</span> np.exp(<span class="ot">1j</span> <span class="op">*</span> ang)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rec2polar(value):</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="co">'''rectangular to polar conversion</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co">    value: complex float</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co">    returns:</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co">        magnitude, phase (in degrees)</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co">    '''</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">float</span>(<span class="bu">abs</span>(value)), <span class="bu">float</span>(arg(value)<span class="op">*</span><span class="dv">180</span><span class="op">/</span>np.pi)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="test-circuits" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="test-circuits"><span class="header-section-number">9.2</span> Test Circuits</h2>
+<p>Add circuits to illustrate the concepts above.</p>
+<ul>
+<li>basic circuit to illustrate calculation of <span class="math inline">\(M\)</span> from <span class="math inline">\(K\)</span> and measured values</li>
+<li>transformer circuit where turns ratio is specified (<span class="math inline">\(N1\)</span> and <span class="math inline">\(N2\)</span> or <span class="math inline">\(1:2\)</span>)</li>
+</ul>
+</section>
+<section id="example-circuit-1" class="level2" data-number="9.3">
+<h2 data-number="9.3" class="anchored" data-anchor-id="example-circuit-1"><span class="header-section-number">9.3</span> Example Circuit 1</h2>
+<p>The circuit shown in <a href="#fig-mutual_inductance" class="quarto-xref">Figure&nbsp;<span>9.1</span></a> …</p>
+<p>In this example mutual inductance is examined.</p>
+<div id="fig-mutual_inductance" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-mutual_inductance-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="Mutual_inductance.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mutual_inductance-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9.1: Schematic for mutual inductance
+</figcaption>
+</figure>
+</div>
+<p>The netlist generated by LTSpice is pasted into the cell below and some edits were made to remove the inductor series resistance and the independent sources are set to their DC values. The componet values are set to 1 for now. Later the phasor quantities will be substituted.</p>
+<div id="f97bb2a6-8132-4dbb-b338-92a34a53d5cd" class="cell" data-execution_count="21">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>net_list <span class="op">=</span> <span class="st">'''</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="st">V1 1 0 1</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="st">R1 3 1 1</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="st">R2 2 0 1</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="st">L1 3 0 1</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="st">L2 2 0 1</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="st">R3 3 0 1</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="st">K L1 L2 1</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="st">'''</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The network equations are generated from the netlist and displayed below.</p>
+<div id="175c5231-8edc-4cbe-8589-2cb8e6fa2f73" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>report, network_df, df2, A, X, Z <span class="op">=</span> SymMNA.smna(net_list)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Put matricies into SymPy </span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> Matrix(X)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>Z <span class="op">=</span> Matrix(Z)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>NE_sym <span class="op">=</span> Eq(A<span class="op">*</span>X,Z)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># generate markdown text to display the network equations.</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(X)):</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(Eq((A<span class="op">*</span>X)[i:i<span class="op">+</span><span class="dv">1</span>][<span class="dv">0</span>],Z[i])))</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="4">
+<p><span class="math inline">\(I_{V1} + \frac{v_{1}}{R_{1}} - \frac{v_{3}}{R_{1}} = 0\)</span><br><span class="math inline">\(I_{L2} + \frac{v_{2}}{R_{2}} = 0\)</span><br><span class="math inline">\(I_{L1} + v_{3} \cdot \left(\frac{1}{R_{3}} + \frac{1}{R_{1}}\right) - \frac{v_{1}}{R_{1}} = 0\)</span><br><span class="math inline">\(v_{1} = V_{1}\)</span><br><span class="math inline">\(- I_{L1} L_{1} s - I_{L2} M s + v_{3} = 0\)</span><br><span class="math inline">\(- I_{L1} M s - I_{L2} L_{2} s + v_{2} = 0\)</span><br></p>
+</div>
+</div>
+<p>The sysmbols generated by the Python code are extraced by the SymPy function free_symbols and then declared as SymPy variables. Then the equations are solved and the results are displayed.</p>
+<div id="6761d3c9-fa01-4730-b4cd-273851cee9ea" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># turn the free symbols into SymPy variables</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>var(<span class="bu">str</span>(NE_sym.free_symbols).replace(<span class="st">'{'</span>,<span class="st">''</span>).replace(<span class="st">'}'</span>,<span class="st">''</span>))</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># The newtork equations can be solved symbolically. </span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>U_sym <span class="op">=</span> solve(NE_sym,X)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># display the symbolic solution</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> U_sym.keys():</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st"> = </span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(i),latex(U_sym[i]))</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="5">
+<p><span class="math inline">\(v_{1} = V_{1}\)</span><br><span class="math inline">\(v_{2} = \frac{M R_{2} R_{3} V_{1} s}{L_{1} L_{2} R_{1} s^{2} + L_{1} L_{2} R_{3} s^{2} + L_{1} R_{1} R_{2} s + L_{1} R_{2} R_{3} s + L_{2} R_{1} R_{3} s - M^{2} R_{1} s^{2} - M^{2} R_{3} s^{2} + R_{1} R_{2} R_{3}}\)</span><br><span class="math inline">\(v_{3} = \frac{L_{1} L_{2} R_{3} V_{1} s^{2} + L_{1} R_{2} R_{3} V_{1} s - M^{2} R_{3} V_{1} s^{2}}{L_{1} L_{2} R_{1} s^{2} + L_{1} L_{2} R_{3} s^{2} + L_{1} R_{1} R_{2} s + L_{1} R_{2} R_{3} s + L_{2} R_{1} R_{3} s - M^{2} R_{1} s^{2} - M^{2} R_{3} s^{2} + R_{1} R_{2} R_{3}}\)</span><br><span class="math inline">\(I_{V1} = \frac{- L_{1} L_{2} V_{1} s^{2} - L_{1} R_{2} V_{1} s - L_{2} R_{3} V_{1} s + M^{2} V_{1} s^{2} - R_{2} R_{3} V_{1}}{L_{1} L_{2} R_{1} s^{2} + L_{1} L_{2} R_{3} s^{2} + L_{1} R_{1} R_{2} s + L_{1} R_{2} R_{3} s + L_{2} R_{1} R_{3} s - M^{2} R_{1} s^{2} - M^{2} R_{3} s^{2} + R_{1} R_{2} R_{3}}\)</span><br><span class="math inline">\(I_{L1} = \frac{L_{2} R_{3} V_{1} s + R_{2} R_{3} V_{1}}{L_{1} L_{2} R_{1} s^{2} + L_{1} L_{2} R_{3} s^{2} + L_{1} R_{1} R_{2} s + L_{1} R_{2} R_{3} s + L_{2} R_{1} R_{3} s - M^{2} R_{1} s^{2} - M^{2} R_{3} s^{2} + R_{1} R_{2} R_{3}}\)</span><br><span class="math inline">\(I_{L2} = - \frac{M R_{3} V_{1} s}{L_{1} L_{2} R_{1} s^{2} + L_{1} L_{2} R_{3} s^{2} + L_{1} R_{1} R_{2} s + L_{1} R_{2} R_{3} s + L_{2} R_{1} R_{3} s - M^{2} R_{1} s^{2} - M^{2} R_{3} s^{2} + R_{1} R_{2} R_{3}}\)</span><br></p>
+</div>
+</div>
+<p>Since <span class="math inline">\(L1\)</span> and <span class="math inline">\(L2\)</span> have been declared as being linked magnetically by the SPICE statement, <code>K L1 L2 1</code>, the mutual coupling is accounted for by the variable <span class="math inline">\(M\)</span> which must be calculated as shown below.</p>
+<div id="19fed0d4-473e-46d5-b061-b088afa22698" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># a dictionary is created for the element values and the numerical values are assigned.</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>element_values <span class="op">=</span> SymMNA.get_part_values(network_df)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>element_values[V1] <span class="op">=</span> polar2rec(<span class="dv">10</span>, <span class="dv">0</span>, units<span class="op">=</span><span class="st">'deg'</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>element_values[R1] <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>element_values[R2] <span class="op">=</span> <span class="dv">4</span><span class="op">+</span><span class="ot">4j</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>element_values[R3] <span class="op">=</span> <span class="dv">6</span><span class="op">-</span><span class="ot">8j</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="mutual-inductance" class="level3" data-number="9.3.1">
+<h3 data-number="9.3.1" class="anchored" data-anchor-id="mutual-inductance"><span class="header-section-number">9.3.1</span> Mutual inductance</h3>
+<p>In <a href="#fig-mutual_inductance" class="quarto-xref">Figure&nbsp;<span>9.1</span></a>, the all values shown in the schematic have been entered as “1”, so the values used in the calculations are now assigned. In the netlist, <code>K1 L1 L2 1</code> specifies that L1 and L2 are connected by a magnetic circuit. If <span class="math inline">\(K\)</span> was specified we would calculate the value of <span class="math inline">\(M\)</span>.</p>
+<p>In this example, let’s assume the inductance is across <span class="math inline">\(L_1\)</span> is measured when <span class="math inline">\(L_2\)</span> is shorted and open; and the inductance of <span class="math inline">\(L_2\)</span> is measured when <span class="math inline">\(L1\)</span> is open. The measured values are recorded below and the transformer coupling coefficient, <span class="math inline">\(K_{meas}\)</span> is calculated from the measurments.</p>
+<div id="fe52b588-8e91-46d4-b01b-49db5e8af018" class="cell" data-execution_count="66">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>L1_open <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>L1_short <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>L2_open <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>K_meas <span class="op">=</span> sqrt(<span class="dv">1</span><span class="op">-</span>L1_short<span class="op">/</span>L1_open)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'K_meas=</span><span class="sc">{</span>K_meas<span class="sc">:0.3f}</span><span class="ss">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>K_meas=0.577</code></pre>
+</div>
+</div>
+<p>The measured inductance values and the calculated value for <span class="math inline">\(K\)</span> is inserted into the Python dictionary which holds the numeric element values.</p>
+<div id="06cfe8e3-07ae-4e0b-9ac9-4da46663750f" class="cell" data-execution_count="67">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>element_values[L1] <span class="op">=</span> L1_open</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>element_values[L2] <span class="op">=</span> L2_open</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Below, <span class="math inline">\(M\)</span> is calculated and added to the element value dictionary.</p>
+<div id="01961bb8-afc7-4b5c-afc3-72061e218303" class="cell" data-execution_count="68">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>K <span class="op">=</span> symbols(<span class="st">'K'</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>element_values[K] <span class="op">=</span> K_meas</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate the coupling constant from the mutual inductance</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>element_values[M] <span class="op">=</span> element_values[K]<span class="op">*</span>np.sqrt(element_values[L1] <span class="op">*</span>element_values[L2])</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'mutual inductance, M1 = </span><span class="sc">{:.9f}</span><span class="st">'</span>.<span class="bu">format</span>(element_values[M]))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>mutual inductance, M1 = 1.414213562</code></pre>
+</div>
+</div>
+<p>Display the equations for <span class="math inline">\(\omega=1\)</span>.</p>
+<div id="25b9ce94-3102-4edd-9e47-f9ab22c0ee39" class="cell" data-execution_count="69">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>freq <span class="op">=</span> <span class="dv">1</span> <span class="co"># Hz</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>omega <span class="op">=</span> <span class="dv">2</span><span class="op">*</span>np.pi<span class="op">*</span>freq</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="6ae82009-2ee5-4f3b-8198-0d676ef87342" class="cell" data-execution_count="70">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>NE <span class="op">=</span> NE_sym.subs(element_values)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>NE <span class="op">=</span> NE.subs({s:<span class="ot">1j</span><span class="op">*</span>omega})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="e08fbb67-473b-4c3d-b26e-3283786e1472" class="cell" data-execution_count="61">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(shape(NE.lhs)[<span class="dv">0</span>]):</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st"> = </span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(NE.rhs[i]),latex(NE.lhs[i]))</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="61">
+<p><span class="math inline">\(0 = I_{V1} + \frac{v_{1}}{10} - \frac{v_{3}}{10}\)</span><br><span class="math inline">\(0 = I_{L2} + 0.03125 v_{2} \cdot \left(4.0 - 4.0 i\right)\)</span><br><span class="math inline">\(0 = I_{L1} - \frac{v_{1}}{10} + v_{3} \cdot \left(\frac{1}{10} + 0.01 \cdot \left(6.0 + 8.0 i\right)\right)\)</span><br><span class="math inline">\(10.0 = v_{1}\)</span><br><span class="math inline">\(0 = - 18.8495559215388 i I_{L1} - 8.88576587631673 i I_{L2} + v_{3}\)</span><br><span class="math inline">\(0 = - 8.88576587631673 i I_{L1} - 12.5663706143592 i I_{L2} + v_{2}\)</span><br></p>
+</div>
+</div>
+<p>Solve the network equations and display the results.</p>
+<div id="65336b4a-45ad-45ab-a49f-35bbb027421b" class="cell" data-execution_count="62">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>U <span class="op">=</span> solve(NE,X)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>table_header <span class="op">=</span> [<span class="st">'unknown'</span>, <span class="st">'mag'</span>,<span class="st">'phase, deg'</span>]</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>table_row <span class="op">=</span> []</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, value <span class="kw">in</span> U.items():</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    table_row.append([<span class="bu">str</span>(name),<span class="bu">float</span>(<span class="bu">abs</span>(value)),<span class="bu">float</span>(arg(value)<span class="op">*</span><span class="dv">180</span><span class="op">/</span>np.pi)])</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tabulate(table_row, headers<span class="op">=</span>table_header,colalign <span class="op">=</span> (<span class="st">'left'</span>,<span class="st">'decimal'</span>,<span class="st">'decimal'</span>),tablefmt<span class="op">=</span><span class="st">"simple"</span>,floatfmt<span class="op">=</span>(<span class="st">'5s'</span>,<span class="st">'.6f'</span>,<span class="st">'.6f'</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>unknown          mag    phase, deg
+---------  ---------  ------------
+v1         10.000000      0.000000
+v2          1.237956    -30.793053
+v3          6.038688     -3.702067
+I_V1        0.399300   -174.396256
+I_L1        0.419727    -89.367478
+I_L2        0.218842    104.206947</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="example-circuit-2" class="level2" data-number="9.4">
+<h2 data-number="9.4" class="anchored" data-anchor-id="example-circuit-2"><span class="header-section-number">9.4</span> Example Circuit 2</h2>
+<p>The circuit shown in …</p>
+<!--
+
+## Measurements
+
+### Turns ratio
+write a paragraph describing how to measure the turns ratio on a transformer
+
+The turns ratio of a transformer, which is the ratio of the number of turns in the primary winding ($N_p$) to the number of turns in the secondary winding ($N_s$), is most accurately determined by measuring the ratio of the voltages across the windings.  The fundamental relationship for an ideal transformer is given by $N_p / N_s = V_p / V_s$, where $V_p$ is the primary voltage and $V_s$ is the secondary voltage. 
+
+Alternatively, for simple diagnostics or hobbyist applications, a low-voltage AC source and two AC voltmeters (multimeters) can be used, ensuring the transformer is completely disconnected from the mains supply and applying a safe, low AC voltage to one winding (e.g., the high-voltage winding) while measuring the resulting voltage on the other winding. The measured ratio of the applied voltage to the induced voltage, $\text{Ratio} = V_p / V_s$, serves as a close approximation of the turns ratio.
+
+
+### Winding Inductance
+write a paragraph describing how to measure the Winding Inductance on a transformer
+
+The winding inductance of a transformer is a critical parameter that dictates its performance, especially at different frequencies.  To measure the inductance ($L$), you must use a specialized instrument, typically an **LCR meter** or an inductance bridge, which is capable of applying a small AC test voltage at a specific frequency and measuring the impedance, then calculating the inductance. The measurement is performed with the transformer winding isolated (all other windings open-circuited). You connect the LCR meter's leads across the terminals of the winding you wish to test (e.g., the primary or secondary). It is crucial to set the test frequency on the LCR meter to match the transformer's operating conditions or a standard test frequency (such as 1 kHz for small signal transformers, or 120 Hz/100 Hz for power magnetic components) because the inductance is frequency-dependent due to factors like core permeability and winding capacitance. The resulting measurement, displayed in Henrys ($H$), represents the **self-inductance** of that specific winding, which is essential for determining the magnetizing impedance and predicting the low-frequency response of the transformer.
+
+
+### Transformer coupling coefficient
+write a paragraph describing how to measure the Transformer coupling coefficient
+
+The transformer coupling coefficient, $k$, is a dimensionless value between 0 and 1 that quantifies the fraction of magnetic flux from one winding that links the other, and is typically measured indirectly through inductance measurements.  The most common and accurate method involves using an LCR meter to measure two specific inductance values on a winding (e.g., the primary, $L_p$): the **open-circuit inductance** ($L_{open}$), which is the self-inductance of the primary winding with the secondary winding open-circuited, and the **short-circuit inductance** ($L_{short}$), which is the inductance measured across the primary when the secondary winding is short-circuited. The short-circuit inductance represents the leakage inductance ($L_{leak}$) seen from the primary side. The coupling coefficient is then calculated using the formula: $k = \sqrt{1 - \frac{L_{short}}{L_{open}}}$. This technique leverages the fact that perfect coupling ($k=1$) would result in zero leakage and therefore zero short-circuit inductance, whereas poor coupling ($k \ll 1$) results in $L_{short}$ approaching $L_{open}$.
+
+
+::: {#22222982-1d19-4f67-b1ce-4e9659b60e10 .cell execution_count=13}
+``` {.python .cell-code}
+U[I_V1]
+```
+
+::: {.cell-output .cell-output-display .cell-output-markdown execution_count=13}
+$\displaystyle -0.391426869761981 - 0.0881256183805034 i$
+:::
+:::
+
+
+::: {#b706dc84-411e-4283-8bb6-bc88fccda7f8 .cell execution_count=14}
+``` {.python .cell-code}
+U[v3]
+```
+
+::: {.cell-output .cell-output-display .cell-output-markdown execution_count=14}
+$\displaystyle 6.08573130238019 - 0.881256183805034 i$
+:::
+:::
+
+
+::: {#9f8df281-f03d-40de-a48f-112483aa93fd .cell execution_count=15}
+``` {.python .cell-code}
+N(U[v3]/U[I_V1])
+```
+
+::: {.cell-output .cell-output-display .cell-output-markdown execution_count=15}
+$\displaystyle -14.3150794469593 + 5.47428288082865 i$
+:::
+:::
+
+
+-->
+</section>
+<section id="summary" class="level2" data-number="9.5">
+<h2 data-number="9.5" class="anchored" data-anchor-id="summary"><span class="header-section-number">9.5</span> Summary</h2>
+<p>Comments …</p>
+<!--
+
+## Circuit 2
+
+::: {#f3a9147b-72f6-4643-92db-fd4681c1bc68 .cell execution_count=16}
+``` {.python .cell-code}
+net_list = '''
+V1 1 0 1
+R1 2 1 1
+R3 3 0 1
+L1 2 0 1
+L2 3 6 1
+R2 2 0 1
+R4 4 0 1
+L3 4 6 1
+R5 5 0 1
+L4 5 6 1
+K3 L1 L4 1
+K2 L1 L3 1
+K1 L1 L2 1
+K4 L2 L3 1
+K5 L2 L4 1
+K6 L3 L4 1
+K7 L3 L2 1
+'''
+```
+:::
+
+
+The network equations are generated from the netlist and displayed below.
+
+::: {#1746bee4-776b-4d25-912a-b181f0bf8a3e .cell execution_count=17}
+``` {.python .cell-code}
+report, network_df, df2, A, X, Z = SymMNA.smna(net_list)
+
+# Put matricies into SymPy 
+X = Matrix(X)
+Z = Matrix(Z)
+
+NE_sym = Eq(A*X,Z)
+
+# generate markdown text to display the network equations.
+temp = ''
+for i in range(len(X)):
+    temp += '${:s}$<br>'.format(latex(Eq((A*X)[i:i+1][0],Z[i])))
+
+Markdown(temp)
+```
+
+::: {.cell-output .cell-output-display .cell-output-markdown execution_count=17}
+$I_{V1} + \frac{v_{1}}{R_{1}} - \frac{v_{2}}{R_{1}} = 0$<br>$I_{L1} + v_{2} \cdot \left(\frac{1}{R_{2}} + \frac{1}{R_{1}}\right) - \frac{v_{1}}{R_{1}} = 0$<br>$I_{L2} + \frac{v_{3}}{R_{3}} = 0$<br>$I_{L3} + \frac{v_{4}}{R_{4}} = 0$<br>$I_{L4} + \frac{v_{5}}{R_{5}} = 0$<br>$- I_{L2} - I_{L3} - I_{L4} = 0$<br>$v_{1} = V_{1}$<br>$- I_{L1} L_{1} s - I_{L2} M_{1} s - I_{L3} M_{2} s - I_{L4} M_{3} s + v_{2} = 0$<br>$- I_{L1} M_{1} s - I_{L2} L_{2} s + I_{L3} \left(- M_{4} s - M_{7} s\right) - I_{L4} M_{5} s + v_{3} - v_{6} = 0$<br>$- I_{L1} M_{2} s + I_{L2} \left(- M_{4} s - M_{7} s\right) - I_{L3} L_{3} s - I_{L4} M_{6} s + v_{4} - v_{6} = 0$<br>$- I_{L1} M_{3} s - I_{L2} M_{5} s - I_{L3} M_{6} s - I_{L4} L_{4} s + v_{5} - v_{6} = 0$<br>
+:::
+:::
+
+
+The sysmbols generated by the Python code are extraced by the SymPy function free_symbols and then declared as SymPy variables. Then the equations are solved and the results are displayed.
+
+::: {#d3fb4b22-235f-4ce9-8f0a-d3b8cf007306 .cell execution_count=18}
+``` {.python .cell-code}
+# turn the free symbols into SymPy variables
+var(str(NE_sym.free_symbols).replace('{','').replace('}',''))
+```
+
+::: {.cell-output .cell-output-display .cell-output-markdown execution_count=18}
+$\displaystyle \left( v_{1}, \  v_{2}, \  R_{5}, \  v_{4}, \  M_{2}, \  L_{2}, \  V_{1}, \  M_{3}, \  M_{6}, \  I_{L1}, \  L_{3}, \  L_{1}, \  M_{1}, \  I_{V1}, \  I_{L4}, \  I_{L3}, \  M_{7}, \  R_{2}, \  I_{L2}, \  R_{4}, \  v_{6}, \  M_{5}, \  v_{3}, \  R_{1}, \  M_{4}, \  v_{5}, \  s, \  R_{3}, \  L_{4}\right)$
+:::
+:::
+
+
+%%time
+# The newtork equations can be solved symbolically. 
+U_sym = solve(NE_sym,X)
+
+# display the symbolic solution
+temp = ''
+for i in U_sym.keys():
+    temp += '${:s} = {:s}$<br>'.format(latex(i),latex(U_sym[i]))
+
+Markdown(temp)
+
+::: {#e1ca77b9-db1b-4a8a-a52c-9b3128ed23b1 .cell execution_count=19}
+``` {.python .cell-code}
+# a dictionary is created for the element values and the numerical values are assigned.
+element_values = SymMNA.get_part_values(network_df)
+
+element_values[V1] = polar2rec(10, 0, units='deg')
+
+element_values[R1] = 10
+element_values[R2] = 4+3j
+element_values[R3] = 5+5j
+element_values[R4] = 3-5j
+element_values[R5] = 7+1j
+
+```
+:::
+
+
+### Mutual inductance
+In the netlist, the line below specifies that L3 and L4 are connected by a magnetic circuit.
+> K1 L1 L2 0.1
+
+K1 identifies the mutual inductance between two inductors, L1 and L2. k is the coefficient of coupling. 
+
+A coupled inductor has two or more windings that are connected by a magnetic circuit. Coupled inductors transfer energy from one winding to a different winding usually through a commonly used core. The efficiency of the magnetic coupling between both the windings is defined by the coupling factor k or by mutual inductance.
+
+The coupling constant and the [mutual inductance](https://en.wikipedia.org/wiki/Inductance#Mutual_inductance) are related by the equation:
+
+$k = \frac {M}{\sqrt{L_1 \times L_2}}$
+
+Where k is the coupling coefficient and in spice the value of k can be from -1 to +1 to account for a negative phase relation. Phase dots are drawn on the schematic to indicate the relative direction of the windings. In LTspice the phase dots are associated with the negative terminal of the winding. 
+
+What about turns ratio?
+
+```
+K1 L1 L2 1
+K2 L1 L3 1
+K3 L1 L4 1
+K4 L2 L3 1
+K5 L2 L4 1
+K6 L3 L4 1
+K7 L3 L2 1
+```
+
+::: {#da5529f6-c19c-4c77-8980-d5ef931d67c8 .cell execution_count=20}
+``` {.python .cell-code}
+element_values[L1] = 3
+element_values[L2] = 2
+element_values[L3] = 5
+element_values[L4] = 7
+```
+:::
+
+
+::: {#a7074938-1f8c-485b-96cd-a9adfe888cd6 .cell execution_count=21}
+``` {.python .cell-code}
+K1, K2, K3, K4, K5, K6, K7  = symbols('K1 K2 K3 K4 K5 K6 K7')
+element_values[K1] = 0.9
+element_values[K2] = 0.8
+element_values[K3] = 0.7
+element_values[K4] = 0.6
+element_values[K5] = 0.7
+element_values[K6] = 0.8
+element_values[K7] = 0.9
+# calculate the coupling constant from the mutual inductance
+'''
+K1 L1 L2 1
+K2 L1 L3 1
+K3 L1 L4 1
+K4 L2 L3 1
+K5 L2 L4 1
+K6 L3 L4 1
+K7 L3 L2 1
+'''
+element_values[M1] = element_values[K1]*np.sqrt(element_values[L1]*element_values[L2])
+element_values[M2] = element_values[K2]*np.sqrt(element_values[L1]*element_values[L3])
+element_values[M3] = element_values[K3]*np.sqrt(element_values[L1]*element_values[L4])
+
+element_values[M4] = element_values[K4]*np.sqrt(element_values[L2]*element_values[L3])
+element_values[M5] = element_values[K5]*np.sqrt(element_values[L2]*element_values[L4])
+element_values[M6] = element_values[K6]*np.sqrt(element_values[L3]*element_values[L4])
+element_values[M7] = element_values[K7]*np.sqrt(element_values[L3]*element_values[L2])
+
+
+
+print('mutual inductance, M1 = {:.9f}'.format(element_values[M1]))
+
+print('mutual inductance, M2 = {:.9f}'.format(element_values[M2]))
+print('mutual inductance, M3 = {:.9f}'.format(element_values[M3]))
+print('mutual inductance, M4 = {:.9f}'.format(element_values[M4]))
+print('mutual inductance, M5 = {:.9f}'.format(element_values[M5]))
+print('mutual inductance, M6 = {:.9f}'.format(element_values[M6]))
+print('mutual inductance, M7 = {:.9f}'.format(element_values[M7]))
+
+```
+
+::: {.cell-output .cell-output-stdout}
+```
+mutual inductance, M1 = 2.204540769
+mutual inductance, M2 = 3.098386677
+mutual inductance, M3 = 3.207802986
+mutual inductance, M4 = 1.897366596
+mutual inductance, M5 = 2.619160171
+mutual inductance, M6 = 4.732863826
+mutual inductance, M7 = 2.846049894
+```
+:::
+:::
+
+
+Display the equations for $\omega=1$.
+
+::: {#c49a836a-5e2f-4352-b3b2-15668956ef2e .cell execution_count=22}
+``` {.python .cell-code}
+freq = 1 # Hz
+omega = 2*np.pi*freq
+```
+:::
+
+
+::: {#b72aff7f-af48-4695-abe1-d77863c994a5 .cell execution_count=23}
+``` {.python .cell-code}
+NE = NE_sym.subs(element_values)
+NE = NE.subs({s:1j*omega})
+```
+:::
+
+
+::: {#d1b47375-8b1b-4f12-9ef4-cdb84f959bd2 .cell execution_count=24}
+``` {.python .cell-code}
+temp = ''
+for i in range(shape(NE.lhs)[0]):
+    temp += '${:s} = {:s}$<br>'.format(latex(NE.rhs[i]),latex(NE.lhs[i]))
+
+Markdown(temp)
+```
+
+::: {.cell-output .cell-output-display .cell-output-markdown execution_count=24}
+$0 = I_{V1} + \frac{v_{1}}{10} - \frac{v_{2}}{10}$<br>$0 = I_{L1} - \frac{v_{1}}{10} + v_{2} \cdot \left(\frac{1}{10} + 0.04 \cdot \left(4.0 - 3.0 i\right)\right)$<br>$0 = I_{L2} + 0.02 v_{3} \cdot \left(5.0 - 5.0 i\right)$<br>$0 = I_{L3} + 0.0294117647058824 v_{4} \cdot \left(3.0 + 5.0 i\right)$<br>$0 = I_{L4} + 0.02 v_{5} \cdot \left(7.0 - 1.0 i\right)$<br>$0 = - I_{L2} - I_{L3} - I_{L4}$<br>$10.0 = v_{1}$<br>$0 = - 18.8495559215388 i I_{L1} - 13.8515381657481 i I_{L2} - 19.4677376446733 i I_{L3} - 20.1552205929094 i I_{L4} + v_{2}$<br>$0 = - 13.8515381657481 i I_{L1} - 12.5663706143592 i I_{L2} - 29.8037647973883 i I_{L3} - 16.4566687019546 i I_{L4} + v_{3} - v_{6}$<br>$0 = - 19.4677376446733 i I_{L1} - 29.8037647973883 i I_{L2} - 31.4159265358979 i I_{L3} - 29.737460455419 i I_{L4} + v_{4} - v_{6}$<br>$0 = - 20.1552205929094 i I_{L1} - 16.4566687019546 i I_{L2} - 29.737460455419 i I_{L3} - 43.9822971502571 i I_{L4} + v_{5} - v_{6}$<br>
+:::
+:::
+
+
+Solve the network equations and display the results.
+
+::: {#03580320-e15b-40f6-ba22-99e464eda019 .cell execution_count=25}
+``` {.python .cell-code}
+U = solve(NE,X)
+
+table_header = ['unknown', 'mag','phase, deg']
+table_row = []
+
+for name, value in U.items():
+    table_row.append([str(name),float(abs(value)),float(arg(value)*180/np.pi)])
+
+print(tabulate(table_row, headers=table_header,colalign = ('left','decimal','decimal'),tablefmt="simple",floatfmt=('5s','.6f','.6f')))
+```
+
+::: {.cell-output .cell-output-stdout}
+```
+unknown          mag    phase, deg
+---------  ---------  ------------
+v1         10.000000      0.000000
+v2          3.192975     33.287048
+v3          0.175734    -60.276373
+v4          0.295150     49.408774
+v5          0.233149    -38.688513
+v6          3.022861   -146.530819
+I_V1        0.753743    166.556016
+I_L1        0.165777    -54.722500
+I_L2        0.024853     74.723627
+I_L3        0.050618    -71.554982
+I_L4        0.032972    133.181385
+```
+:::
+:::
+
+
+-->
+<!--
+
+The history of the inductor and transformer is fundamentally rooted in the discovery of electromagnetic induction in the 1830s.  Michael Faraday in England, and independently Joseph Henry in America (whose name is honored by the unit of inductance, the henry), discovered that a changing magnetic field could induce an electric current in a nearby wire. Faraday’s "induction ring" of 1831, consisting of two coils wrapped around an iron ring, is recognized as the first prototype transformer, demonstrating the principle of energy transfer between circuits without a direct connection. This led to early induction coils (or spark coils), developed by Nicholas Callan and others, which used intermittent current to generate high voltages. However, the first commercially viable transformer for alternating current (AC) power distribution was not developed until the mid-1880s by Hungarian engineers Miksa Déri, Károly Zipernowsky, and Ottó Bláthy (the ZBD team), and soon after by William Stanley working for George Westinghouse in the United States, cementing the AC power system that relies on these devices to efficiently step voltage up or down for transmission and distribution.
+
+
+That's a great follow-up! While both inductors and transformers are essential passive components that utilize the principle of electromagnetic induction and are often constructed with coiled wire around a core, their core functions and configurations in a circuit are distinct.
+
+The main difference lies in what they do with the energy:
+
+## Inductor (The Energy Storer)
+An inductor is primarily a single-coil component used to store energy temporarily in a magnetic field.
+
+* Function: To oppose changes in current flow. When the current changes, the inductor generates a voltage (electromotive force, or EMF) that opposes that change (Lenz's Law).
+* Energy Use: It acts as an energy storage device, similar to how a capacitor stores energy in an electric field, but the inductor stores energy in a magnetic field. It then releases this energy back into the circuit when the current attempts to drop.
+* Structure: Typically consists of a single winding (coil) around a core (or air). Inductors designed for energy storage, such as those used in switching power supplies (DC-DC converters), often include an air gap in the core to prevent saturation and increase the amount of energy they can store. 
+* Applications: Used for filtering (blocking AC while allowing DC to pass—a "choke"), energy storage in power supplies, and in tuned circuits (LC filters).
+
+## Transformer (The Energy Transferrer and Converter)
+A transformer is primarily a component used to transfer energy and change voltage/current levels between two or more separate circuits.
+
+* Function: To efficiently transfer AC electrical energy from one circuit (the primary winding) to another (the secondary winding) via mutual magnetic induction.
+* Energy Use: It does not store energy; it converts and transfers it nearly instantaneously. The ratio of turns between the primary and secondary coils (the turns ratio) determines if the voltage is stepped up (increased) or stepped down (decreased).
+* Structure: Consists of two or more separate windings on a common magnetic core. An ideal transformer core is typically solid and gapless to ensure maximum coupling between the coils and efficient energy transfer. 
+* Applications: Essential for power transmission (stepping up voltage for long-distance lines, stepping down for residential use), charging devices (power adapters), and providing electrical isolation between circuits.
+
+
+
+### Key Comparison Table
+
+| Feature | Inductor | Transformer |
+| :--- | :--- | :--- |
+| **Primary Goal** | **Store** energy in a magnetic field. | **Transfer** energy between circuits. |
+| **Coil Configuration** | **Single** winding (coil). | **Two or more** windings (primary & secondary). |
+| **Circuit Path** | Used **within** a single circuit path. | Used to link **two separate** circuits. |
+| **Voltage Change** | Does **not** step voltage up or down. | **Can** step voltage up or down based on turns ratio. |
+| **Core Design** | Often includes a gap to allow for magnetic energy storage. | Typically a gapless, high-permeability core for maximum flux coupling. |
+
+Understanding this distinction—**storage (inductor)** versus **transfer/conversion (transformer)**—is key to understanding their roles in electronics and electrical power systems.
+
+
+
+
+### Importance (Impedance Matching)
+
+The primary importance of reflected impedance is its use in **impedance matching**.
+
+* By selecting the correct turns ratio ($N_p/N_s$), a transformer can make a load with one impedance value ($Z_{load}$) appear to the source (on the primary side) as a completely different impedance ($Z_{reflected}$).
+* According to the Maximum Power Transfer Theorem, for a source to deliver maximum power to a load, the load impedance should equal the complex conjugate of the source impedance. Transformers use the reflected impedance principle to achieve this matching in power systems and audio (e.g., matching a low-impedance speaker to a high-impedance vacuum tube amplifier) and RF circuits.
+
+The concept of reflected impedance is fundamental because it allows the entire transformer circuit to be simplified into a single, equivalent primary-side circuit, making complex analysis much easier.
+
+
+-->
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./Transient_analysis.html" class="pagination-link" aria-label="Transient Analysis">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Transient Analysis</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./Initial_conditions.html" class="pagination-link" aria-label="Initial conditions">
+        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Initial conditions</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

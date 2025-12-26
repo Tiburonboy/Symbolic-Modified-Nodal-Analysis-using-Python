@@ -1,0 +1,1740 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>6&nbsp; RLC Networks – Symbolic Modified Nodal Analysis&lt;br&gt;using Python</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./Transfer_function.html" rel="next">
+<link href="./Resistive_networks.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-d6667c7b59069bf82d0268b148e64a53.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./RLC_networks.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">RLC Networks</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Symbolic Modified Nodal Analysis<br>using Python</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/Tiburonboy/Symbolic-Modified-Nodal-Analysis-using-Python" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Preface.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Basic_concepts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Basic Concepts</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Modified_Nodal_Analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Modified Nodal Analysis</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./MNA_with_python.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">MNA with Python</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Resistive_networks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Resistive Networks</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./RLC_networks.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">RLC Networks</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Transfer_function.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Transfer Function</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Transient_analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Transient Analysis</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Mutual_inductance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Mutual Inductance</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Initial_conditions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Initial conditions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./Example-problems.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Example problems</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Two port parameters.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Two port parameters</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Thevenin equivalent circuit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Thevenin equivalent circuit</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./State-variable-filter.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">State Variable Filter</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Superposition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Superposition</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./2nd_order_BRF.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">2nd Order BRF</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Elliptic-function-LPF.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Elliptic Function LPF</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bridge-T.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Bridge-T</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Pi-Filter.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Pi Filter</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./SIDO-low-pass-filter.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">SIDO-low-pass-filter</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Super-node.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Super node</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Modeling Op Amps.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Modeling Op Amps</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Op Amp circuits.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Op Amp circuits</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Two amplifier RIAA Phono Preamp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Two amplifier RIAA phono preamp</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mech-sys.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Mechanical systems</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Klon Centaur part 1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Klon Centaur, part 1</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Klon Centaur part 2v0.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Klon Centaur, part 2</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Klon Centaur part 3v1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Klon Centaur, part 3</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Wien bridge oscillator.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Wien Bridge Oscillator</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Diode Circuit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Diode Circuit</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bridged-T-coil_v2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Bridged T Coil</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./Validation-tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Validation Tests</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Test 1</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Test 2</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Test 3</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Test 4</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Test 5</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Test 6</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_7.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Test 7</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_8.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Test 8</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_9.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Test 9</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_10.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">Test 10</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_11.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Test 11</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_12.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">Test 12</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_13.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Test 13</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_14.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">Test 14</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_15.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">Test 15</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./References.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./SymMNA_py.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">SymMNA.py</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Change-log.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Change Log</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Google Colab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Google Colab</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./SMNA_mobile.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">SMNA mobile</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./EasyEDA_schematic_editor.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">EasyEDA</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./History_of_Electric_Circuit_Analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">F</span>&nbsp; <span class="chapter-title">History of Electric Circuit Analysis</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Quick_ref.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">G</span>&nbsp; <span class="chapter-title">Quick Reference</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Project_notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">H</span>&nbsp; <span class="chapter-title">Project Notes</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#sec-rlc_circuit_1" id="toc-sec-rlc_circuit_1" class="nav-link active" data-scroll-target="#sec-rlc_circuit_1"><span class="header-section-number">6.1</span> RLC Circuit 1</a></li>
+  <li><a href="#sec-rlc_circuit_2" id="toc-sec-rlc_circuit_2" class="nav-link" data-scroll-target="#sec-rlc_circuit_2"><span class="header-section-number">6.2</span> RLC Circuit 2</a></li>
+  <li><a href="#phasor-analysis" id="toc-phasor-analysis" class="nav-link" data-scroll-target="#phasor-analysis"><span class="header-section-number">6.3</span> Phasor Analysis</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">6.4</span> Summary</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="sec-rlc-networks" class="quarto-section-identifier"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">RLC Networks</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<!--
+
+Last update: 24 Dec 2025
+
+:::{.callout-note}  
+- Some of the narration in this notebook was generated by Google's Gemini, then modified by me.  
+- This chapter is an early draft document
+  - spell and grammar checking has not been completed 
+  - posted for test purposes  
+  - text in bold red are notes for the author
+- This chapter is written as a test chapter for a printed book.
+
+:::
+
+-->
+<p>An <strong>RLC</strong> network is an electrical circuit composed of passive components: Resistors (<span class="math inline">\(R\)</span>), Inductors (<span class="math inline">\(L\)</span>), and Capacitors (<span class="math inline">\(C\)</span>), as well as dependent and independent sources. This chapter presents the analysis of example RLC networks using MNA and Python. These examples will illustrate application of the code to find the node voltages for these circuits.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 90%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Example</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Circuit 1</td>
+<td style="text-align: left;">A circuit having one voltage source and three resistors, one capactor and one inductor.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Circuit 2</td>
+<td style="text-align: left;">A circuit having a mix of components.</td>
+</tr>
+</tbody>
+</table>
+<p>The following Python libraries are used in this notebook.</p>
+<div id="f0159295-93ab-4b9f-95c2-155ba9bd5eff" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;jupyter&quot;,&quot;value&quot;:{&quot;outputs_hidden&quot;:false}}" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sympy <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tabulate <span class="im">import</span> tabulate</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> signal</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> SymMNA</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display, Markdown, Math, Latex</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>init_printing()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="sec-rlc_circuit_1" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="sec-rlc_circuit_1"><span class="header-section-number">6.1</span> RLC Circuit 1</h2>
+<p>The circuit shown in the schematic below contains three resistors, one capacitor, one inductor and one independent voltage source. The nodes have been numbered and the reference node is indicated by the ground symbol. The schematic was drawn using LTSpice and the netlist was expored and copied into the code cell below.</p>
+<p>The circuit is a typical of circuits found in circuit analysis text books. The independed voltage source spans nodes 1 and 2. Typically, these nodes would be considred a super-node when applying KCL to obtain a set of network equations. When using the MNA procedure, extra equations are generated to deal with voltage sourses that span circuit nodes.</p>
+<!--
+
+Many of the RCL chapters will have the same analysis sections.
+
+Need a new example circuit.
+
+- Introduction
+- Schematic
+- circuit description
+- Netlist
+
+
+- Symbolic Network equations
+- Solution to symbolic equations
+- Numerical solution
+- Topic specific sections
+
+-->
+<div id="fig-rlc_network_1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rlc_network_1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="RLC_network_1.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rlc_network_1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6.1: RLC circuit 1
+</figcaption>
+</figure>
+</div>
+<p>The netlist is loaded as a string and applied to the variable.</p>
+<div id="a74f1b24-8526-4199-b12e-fc2553559016" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>net_list <span class="op">=</span> <span class="st">'''</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="st">R1 1 0 3</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="st">R2 3 2 7</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="st">R3 3 0 11</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="st">C 3 1 0.5</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="st">L 2 0 1</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="st">V 1 2 2</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="st">'''</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The netlist is passed to the function <code>SymMNA.smna(net_list)</code> to generate the MNA matrices.</p>
+<div id="a592ce6f-373f-4819-bf2e-d144a62f9b6b" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>report, network_df, i_unk_df, A, X, Z <span class="op">=</span> SymMNA.smna(net_list)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The matrices are converted to SymPy types and the symbolic network equations are displayed using markdown.</p>
+<div id="8cea38fe-aa6f-43d1-a9ee-1a14f463425a" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Put matrices into SymPy </span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> Matrix(X)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>Z <span class="op">=</span> Matrix(Z)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>NE_sym <span class="op">=</span> Eq(A<span class="op">*</span>X,Z)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(X)):</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(Eq((A<span class="op">*</span>X)[i:i<span class="op">+</span><span class="dv">1</span>][<span class="dv">0</span>],Z[i])))</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="4">
+<p><span class="math inline">\(- C s v_{3} + I_{V} + v_{1} \left(C s + \frac{1}{R_{1}}\right) = 0\)</span><br><span class="math inline">\(I_{L} - I_{V} + \frac{v_{2}}{R_{2}} - \frac{v_{3}}{R_{2}} = 0\)</span><br><span class="math inline">\(- C s v_{1} + v_{3} \left(C s + \frac{1}{R_{3}} + \frac{1}{R_{2}}\right) - \frac{v_{2}}{R_{2}} = 0\)</span><br><span class="math inline">\(v_{1} - v_{2} = V\)</span><br><span class="math inline">\(- I_{L} L s + v_{2} = 0\)</span><br></p>
+</div>
+</div>
+<p>Turn the free symbols into SymPy variables.</p>
+<div id="ae6b4365-d7e2-4a02-88d1-c1188764ecec" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>var(<span class="bu">str</span>(NE_sym.free_symbols).replace(<span class="st">'{'</span>,<span class="st">''</span>).replace(<span class="st">'}'</span>,<span class="st">''</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="5">
+<p><span class="math inline">\(\displaystyle \left( L, \  v_{2}, \  R_{2}, \  I_{V}, \  v_{1}, \  s, \  R_{3}, \  V, \  R_{1}, \  v_{3}, \  I_{L}, \  C\right)\)</span></p>
+</div>
+</div>
+<p>The SymPy function <code>solve</code> is used to solve the system of equations. The magic function <code>%%time</code> is used to measure the time it takes to generate a solution. For the circuit shown in <a href="#fig-rlc_network_1" class="quarto-xref">Figure&nbsp;<span>6.1</span></a>, a few hundred milli seconds is needed on my i3 processor.</p>
+<div id="17014d2b-e767-4f1e-9bba-5e5a1bf9deb9" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>U_sym <span class="op">=</span> solve(NE_sym,X)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>CPU times: user 132 ms, sys: 118 µs, total: 132 ms
+Wall time: 171 ms</code></pre>
+</div>
+</div>
+<p>The node voltages in symbolic form are displayed below.</p>
+<div id="31e17acc-9cf4-474c-9315-5b842fe8d92a" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> U_sym.keys():</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st"> = </span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(i),latex(U_sym[i]))</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="7">
+<p><span class="math inline">\(v_{1} = \frac{C R_{1} R_{2} R_{3} V s + L R_{1} V s + R_{1} R_{2} V + R_{1} R_{3} V}{C L R_{1} R_{2} s^{2} + C L R_{2} R_{3} s^{2} + C R_{1} R_{2} R_{3} s + L R_{1} s + L R_{2} s + L R_{3} s + R_{1} R_{2} + R_{1} R_{3}}\)</span><br><span class="math inline">\(v_{2} = \frac{- C L R_{1} R_{2} V s^{2} - C L R_{2} R_{3} V s^{2} - L R_{2} V s - L R_{3} V s}{C L R_{1} R_{2} s^{2} + C L R_{2} R_{3} s^{2} + C R_{1} R_{2} R_{3} s + L R_{1} s + L R_{2} s + L R_{3} s + R_{1} R_{2} + R_{1} R_{3}}\)</span><br><span class="math inline">\(v_{3} = \frac{C R_{1} R_{2} R_{3} V s - L R_{3} V s}{C L R_{1} R_{2} s^{2} + C L R_{2} R_{3} s^{2} + C R_{1} R_{2} R_{3} s + L R_{1} s + L R_{2} s + L R_{3} s + R_{1} R_{2} + R_{1} R_{3}}\)</span><br><span class="math inline">\(I_{V} = \frac{- C L R_{1} V s^{2} - C L R_{3} V s^{2} - C R_{1} R_{2} V s - C R_{1} R_{3} V s - C R_{2} R_{3} V s - L V s - R_{2} V - R_{3} V}{C L R_{1} R_{2} s^{2} + C L R_{2} R_{3} s^{2} + C R_{1} R_{2} R_{3} s + L R_{1} s + L R_{2} s + L R_{3} s + R_{1} R_{2} + R_{1} R_{3}}\)</span><br><span class="math inline">\(I_{L} = \frac{- C R_{1} R_{2} V s - C R_{2} R_{3} V s - R_{2} V - R_{3} V}{C L R_{1} R_{2} s^{2} + C L R_{2} R_{3} s^{2} + C R_{1} R_{2} R_{3} s + L R_{1} s + L R_{2} s + L R_{3} s + R_{1} R_{2} + R_{1} R_{3}}\)</span><br></p>
+</div>
+</div>
+<p>The function <code>SymMNA.get_part_values</code> is used to build a dictionary of component values from the netlist dataframe and the values are printed below.</p>
+<div id="6e4e5c36-e4ef-4c6f-9c6f-3edc194b42ad" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>element_values <span class="op">=</span> SymMNA.get_part_values(network_df)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># display the component values</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k,v <span class="kw">in</span> element_values.items():</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'</span><span class="sc">{:s}</span><span class="st"> = </span><span class="sc">{:s}</span><span class="st">'</span>.<span class="bu">format</span>(<span class="bu">str</span>(k), <span class="bu">str</span>(v)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>V = 2.0
+R1 = 3.0
+R2 = 7.0
+R3 = 11.0
+C = 0.5
+L = 1.0</code></pre>
+</div>
+</div>
+<p>Substitute numerical values in place of the symbolic reference designators and display the equations with numeric values.</p>
+<div id="f22ec43c-173b-4b53-b8f6-6886219e7a9f" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>NE <span class="op">=</span> NE_sym.subs(element_values)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(shape(NE.lhs)[<span class="dv">0</span>]):</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st"> = </span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(NE.rhs[i]),latex(NE.lhs[i]))</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="9">
+<p><span class="math inline">\(0 = I_{V} - 0.5 s v_{3} + v_{1} \cdot \left(0.5 s + 0.333333333333333\right)\)</span><br><span class="math inline">\(0 = I_{L} - I_{V} + 0.142857142857143 v_{2} - 0.142857142857143 v_{3}\)</span><br><span class="math inline">\(0 = - 0.5 s v_{1} - 0.142857142857143 v_{2} + v_{3} \cdot \left(0.5 s + 0.233766233766234\right)\)</span><br><span class="math inline">\(2.0 = v_{1} - v_{2}\)</span><br><span class="math inline">\(0 = - 1.0 I_{L} s + v_{2}\)</span><br></p>
+</div>
+</div>
+<p>Use the <code>solve</code> function to obtain the expressions for the node voltages and unknown currents.</p>
+<div id="16616c7d-e10f-4b8d-984b-300ff6b11af2" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;jupyter&quot;,&quot;value&quot;:{&quot;outputs_hidden&quot;:false}}" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>U <span class="op">=</span> solve(NE,X)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="69c32d7c-9a2d-478c-86c3-63eff33b8553" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> U.keys():</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st"> = </span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(i),latex(U[i]))</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="11">
+<p><span class="math inline">\(v_{1} = \frac{474.0 s + 216.0}{98.0 s^{2} + 273.0 s + 108.0}\)</span><br><span class="math inline">\(v_{2} = \frac{- 196.0 s^{2} - 72.0 s}{98.0 s^{2} + 273.0 s + 108.0}\)</span><br><span class="math inline">\(v_{3} = \frac{418.0 s}{98.0 s^{2} + 273.0 s + 108.0}\)</span><br><span class="math inline">\(I_{V} = \frac{- 28.0 s^{2} - 266.0 s - 72.0}{98.0 s^{2} + 273.0 s + 108.0}\)</span><br><span class="math inline">\(I_{L} = \frac{- 196.0 s - 72.0}{98.0 s^{2} + 273.0 s + 108.0}\)</span><br></p>
+</div>
+</div>
+<p>The expressions above contain the Laplace variable, <span class="math inline">\(s=j\omega\)</span>.</p>
+<p>The circuit’s node voltages and unknwon currents can be solved for at individual frequencies. In the code cell below, a frequency of 1 Hz is used to evaluate the equations at a particular frequency. The frequency in Hz must be converted to radians/s as shown below.</p>
+<div id="d744b151-e8e1-4294-9274-fc4f6747a057" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>freq <span class="op">=</span> <span class="dv">1</span> <span class="co"># Hz</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>omega <span class="op">=</span> <span class="dv">2</span><span class="op">*</span>np.pi<span class="op">*</span>freq</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'frequency = </span><span class="sc">{</span>omega<span class="sc">:0.2f}</span><span class="ss"> radians/s'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>frequency = 6.28 radians/s</code></pre>
+</div>
+</div>
+<p>The element values are inserted in to the newtork equatons and <span class="math inline">\(j\omega\)</span> is also substituded into the equations. Notice that <span class="math inline">\(1j\)</span> is being used as the imaginary operator.</p>
+<div id="08708060-24bf-4cda-89f5-dd352dd0054c" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>NE <span class="op">=</span> NE_sym.subs(element_values)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>NE_w1 <span class="op">=</span> NE.subs({s:<span class="ot">1j</span><span class="op">*</span>omega})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The code below displays the equations with numeric values. Notice that Python and SymPy have generated a solution which use <span class="math inline">\(i\)</span> as the imaginary operator.</p>
+<div id="006a00e7-b121-4e10-9d1b-c5160787751b" class="cell" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(shape(NE_w1.lhs)[<span class="dv">0</span>]):</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st"> = </span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(NE_w1.rhs[i]),latex(NE_w1.lhs[i]))</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="14">
+<p><span class="math inline">\(0 = I_{V} + v_{1} \cdot \left(0.333333333333333 + 3.14159265358979 i\right) - 3.14159265358979 i v_{3}\)</span><br><span class="math inline">\(0 = I_{L} - I_{V} + 0.142857142857143 v_{2} - 0.142857142857143 v_{3}\)</span><br><span class="math inline">\(0 = - 3.14159265358979 i v_{1} - 0.142857142857143 v_{2} + v_{3} \cdot \left(0.233766233766234 + 3.14159265358979 i\right)\)</span><br><span class="math inline">\(2.0 = v_{1} - v_{2}\)</span><br><span class="math inline">\(0 = - 6.28318530717959 i I_{L} + v_{2}\)</span><br></p>
+</div>
+</div>
+<p>Again using <code>solve</code> to obtain solutions for voltages and currents.</p>
+<div id="b6df8dd6-f1da-41ff-8c86-8b193787c0d3" class="cell" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>U_w1 <span class="op">=</span> solve(NE_w1,X)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The code cell below tabulates the results for the node voltages and unknown currents as magnitude and phase values. Six significant digits are displayed so that results can be compared to solutions obtained from LTSpice.</p>
+<div id="97cbe125-135b-40ff-97f7-5d1cd1de7fdc" class="cell" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>table_header <span class="op">=</span> [<span class="st">'unknown'</span>, <span class="st">'mag'</span>,<span class="st">'phase, deg'</span>]</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>table_row <span class="op">=</span> []</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, value <span class="kw">in</span> U_w1.items():</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    table_row.append([<span class="bu">str</span>(name),<span class="bu">float</span>(<span class="bu">abs</span>(value)),<span class="bu">float</span>(arg(value)<span class="op">*</span><span class="dv">180</span><span class="op">/</span>np.pi)])</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tabulate(table_row, headers<span class="op">=</span>table_header,colalign <span class="op">=</span> (<span class="st">'left'</span>,<span class="st">'decimal'</span>,<span class="st">'decimal'</span>),tablefmt<span class="op">=</span><span class="st">"simple"</span>,floatfmt<span class="op">=</span>(<span class="st">'5s'</span>,<span class="st">'.6f'</span>,<span class="st">'.6f'</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>unknown         mag    phase, deg
+---------  --------  ------------
+v1         0.722388    -69.630838
+v2         1.875123   -158.828643
+v3         0.635373    -65.482650
+I_V        0.475375    146.246200
+I_L        0.298435    111.171357</code></pre>
+</div>
+</div>
+</section>
+<section id="sec-rlc_circuit_2" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="sec-rlc_circuit_2"><span class="header-section-number">6.2</span> RLC Circuit 2</h2>
+<p>The circuit shown below is a more complex circuit containing dependent sources, which would make the circuit analysis a bit difficult to tackle manually with pencil and paper.</p>
+<div id="fig-rlc_network_2b" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rlc_network_2b-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="RLC_network_2b.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rlc_network_2b-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6.2: RLC circuit 2
+</figcaption>
+</figure>
+</div>
+<p>The netlist is loaded as a string and applied to the variable.</p>
+<div id="5383bff1-5cf9-4a34-af75-c4235f3d339a" class="cell" data-execution_count="17">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>net_list <span class="op">=</span> <span class="st">'''</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="st">R2 4 3 2</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="st">R1 0 6 5</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="st">C 6 5 0.5</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="st">L 1 2 3</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="st">V1 4 1 1</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="st">F 0 1 V2 2</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="st">V2 4 5 0</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="st">R3 0 1 3</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="st">E 2 3 1 6 1</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="st">'''</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="co"># generate the MNA matrices. </span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>report, network_df, i_unk_df, A, X, Z <span class="op">=</span> SymMNA.smna(net_list)</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Put matrices into SymPy </span></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> Matrix(X)</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>Z <span class="op">=</span> Matrix(Z)</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a><span class="co"># assemble the system of equations</span></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>NE_sym <span class="op">=</span> Eq(A<span class="op">*</span>X,Z)</span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a><span class="co"># turn the free symbols into SymPy variables.</span></span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a>var(<span class="bu">str</span>(NE_sym.free_symbols).replace(<span class="st">'{'</span>,<span class="st">''</span>).replace(<span class="st">'}'</span>,<span class="st">''</span>))</span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a><span class="co"># display the network equations</span></span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(X)):</span>
+<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(Eq((A<span class="op">*</span>X)[i:i<span class="op">+</span><span class="dv">1</span>][<span class="dv">0</span>],Z[i])))</span>
+<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-31"><a href="#cb21-31" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="17">
+<p><span class="math inline">\(- I_{F} + I_{L} - I_{V1} + \frac{v_{1}}{R_{3}} = 0\)</span><br><span class="math inline">\(I_{Ea} - I_{L} = 0\)</span><br><span class="math inline">\(- I_{Ea} + \frac{v_{3}}{R_{2}} - \frac{v_{4}}{R_{2}} = 0\)</span><br><span class="math inline">\(I_{V1} + I_{V2} - \frac{v_{3}}{R_{2}} + \frac{v_{4}}{R_{2}} = 0\)</span><br><span class="math inline">\(C s v_{5} - C s v_{6} - I_{V2} = 0\)</span><br><span class="math inline">\(- C s v_{5} + v_{6} \left(C s + \frac{1}{R_{1}}\right) = 0\)</span><br><span class="math inline">\(- v_{1} + v_{4} = V_{1}\)</span><br><span class="math inline">\(v_{4} - v_{5} = V_{2}\)</span><br><span class="math inline">\(- I_{L} L s + v_{1} - v_{2} = 0\)</span><br><span class="math inline">\(I_{F} - I_{V2} f = 0\)</span><br><span class="math inline">\(- ea v_{1} + ea v_{6} + v_{2} - v_{3} = 0\)</span><br></p>
+</div>
+</div>
+<p>Notice that the symbole <code>ea</code> is being used as the gain for the VCVS componet <span class="math inline">\(E\)</span> in <a href="#fig-rlc_network_2b" class="quarto-xref">Figure&nbsp;<span>6.2</span></a>. This is because SymPy uses the symbol <span class="math inline">\(e\)</span> for the Euler value.</p>
+<p>Us the <code>solve</code> function to obtain the expressions for the node voltages and unknown currents. The node voltages in symbolic form are displayed below.</p>
+<div id="0288ec7f-f301-42f8-8bbb-f6e02fe40520" class="cell" data-execution_count="18">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>U_sym <span class="op">=</span> solve(NE_sym,X)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> U_sym.keys():</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st"> = </span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(i),latex(U_sym[i]))</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="18">
+<p><span class="math inline">\(v_{1} = \frac{- C R_{3} V_{1} f s + C R_{3} V_{1} s + C R_{3} V_{2} f s - C R_{3} V_{2} s}{- C R_{1} s + C R_{3} f s - C R_{3} s - 1}\)</span><br><span class="math inline">\(v_{2} = \frac{C L R_{1} V_{1} ea s^{2} - C L R_{1} V_{1} s^{2} - C L R_{1} V_{2} ea s^{2} - C L R_{3} V_{1} ea f s^{2} + C L R_{3} V_{1} ea s^{2} + C L R_{3} V_{2} ea f s^{2} - C L R_{3} V_{2} ea s^{2} + C L R_{3} V_{2} f s^{2} - C L R_{3} V_{2} s^{2} - C R_{2} R_{3} V_{1} f s + C R_{2} R_{3} V_{1} s + C R_{2} R_{3} V_{2} f s - C R_{2} R_{3} V_{2} s - L V_{1} s}{- C L R_{1} s^{2} + C L R_{3} f s^{2} - C L R_{3} s^{2} - C R_{1} R_{2} s + C R_{2} R_{3} f s - C R_{2} R_{3} s - L s - R_{2}}\)</span><br><span class="math inline">\(v_{3} = \frac{- C L R_{1} V_{1} s^{2} + C L R_{3} V_{2} f s^{2} - C L R_{3} V_{2} s^{2} - C R_{1} R_{2} V_{1} ea s + C R_{1} R_{2} V_{2} ea s + C R_{2} R_{3} V_{1} ea f s - C R_{2} R_{3} V_{1} ea s - C R_{2} R_{3} V_{1} f s + C R_{2} R_{3} V_{1} s - C R_{2} R_{3} V_{2} ea f s + C R_{2} R_{3} V_{2} ea s + C R_{2} R_{3} V_{2} f s - C R_{2} R_{3} V_{2} s - L V_{1} s}{- C L R_{1} s^{2} + C L R_{3} f s^{2} - C L R_{3} s^{2} - C R_{1} R_{2} s + C R_{2} R_{3} f s - C R_{2} R_{3} s - L s - R_{2}}\)</span><br><span class="math inline">\(v_{4} = \frac{- C R_{1} V_{1} s + C R_{3} V_{2} f s - C R_{3} V_{2} s - V_{1}}{- C R_{1} s + C R_{3} f s - C R_{3} s - 1}\)</span><br><span class="math inline">\(v_{5} = \frac{- C R_{1} V_{1} s + C R_{1} V_{2} s - V_{1} + V_{2}}{- C R_{1} s + C R_{3} f s - C R_{3} s - 1}\)</span><br><span class="math inline">\(v_{6} = \frac{- C R_{1} V_{1} s + C R_{1} V_{2} s}{- C R_{1} s + C R_{3} f s - C R_{3} s - 1}\)</span><br><span class="math inline">\(I_{V1} = \frac{C L V_{1} s^{2} - C L V_{2} s^{2} - C R_{1} V_{1} ea s + C R_{1} V_{1} s + C R_{1} V_{2} ea s + C R_{2} V_{1} s - C R_{2} V_{2} s + C R_{3} V_{1} ea f s - C R_{3} V_{1} ea s - C R_{3} V_{1} f s + C R_{3} V_{1} s - C R_{3} V_{2} ea f s + C R_{3} V_{2} ea s + V_{1}}{- C L R_{1} s^{2} + C L R_{3} f s^{2} - C L R_{3} s^{2} - C R_{1} R_{2} s + C R_{2} R_{3} f s - C R_{2} R_{3} s - L s - R_{2}}\)</span><br><span class="math inline">\(I_{V2} = \frac{- C V_{1} s + C V_{2} s}{- C R_{1} s + C R_{3} f s - C R_{3} s - 1}\)</span><br><span class="math inline">\(I_{L} = \frac{- C R_{1} V_{1} ea s + C R_{1} V_{1} s + C R_{1} V_{2} ea s + C R_{3} V_{1} ea f s - C R_{3} V_{1} ea s - C R_{3} V_{1} f s + C R_{3} V_{1} s - C R_{3} V_{2} ea f s + C R_{3} V_{2} ea s + V_{1}}{- C L R_{1} s^{2} + C L R_{3} f s^{2} - C L R_{3} s^{2} - C R_{1} R_{2} s + C R_{2} R_{3} f s - C R_{2} R_{3} s - L s - R_{2}}\)</span><br><span class="math inline">\(I_{F} = \frac{- C V_{1} f s + C V_{2} f s}{- C R_{1} s + C R_{3} f s - C R_{3} s - 1}\)</span><br><span class="math inline">\(I_{Ea} = \frac{- C R_{1} V_{1} ea s + C R_{1} V_{1} s + C R_{1} V_{2} ea s + C R_{3} V_{1} ea f s - C R_{3} V_{1} ea s - C R_{3} V_{1} f s + C R_{3} V_{1} s - C R_{3} V_{2} ea f s + C R_{3} V_{2} ea s + V_{1}}{- C L R_{1} s^{2} + C L R_{3} f s^{2} - C L R_{3} s^{2} - C R_{1} R_{2} s + C R_{2} R_{3} f s - C R_{2} R_{3} s - L s - R_{2}}\)</span><br></p>
+</div>
+</div>
+<p>Numerical valuses can be substituded into the equations.</p>
+<div id="0c10b0d6-9886-4da1-9174-83b40d07c2f1" class="cell" data-execution_count="19">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>element_values <span class="op">=</span> SymMNA.get_part_values(network_df)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co"># substitute numerical values</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>NE <span class="op">=</span> NE_sym.subs(element_values)</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="co"># solve and display</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>U <span class="op">=</span> solve(NE,X)</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> U.keys():</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st"> = </span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(i),latex(U[i]))</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="19">
+<p><span class="math inline">\(v_{1} = \frac{3.0 s}{2.0 s + 2.0}\)</span><br><span class="math inline">\(v_{2} = \frac{9.0 s^{2} + 12.0 s}{6.0 s^{2} + 10.0 s + 4.0}\)</span><br><span class="math inline">\(v_{3} = \frac{15.0 s^{2} + 16.0 s}{6.0 s^{2} + 10.0 s + 4.0}\)</span><br><span class="math inline">\(v_{4} = \frac{5.0 s + 2.0}{2.0 s + 2.0}\)</span><br><span class="math inline">\(v_{5} = \frac{5.0 s + 2.0}{2.0 s + 2.0}\)</span><br><span class="math inline">\(v_{6} = \frac{5.0 s}{2.0 s + 2.0}\)</span><br><span class="math inline">\(I_{V1} = \frac{- 3.0 s^{2} - 2.0 s - 2.0}{6.0 s^{2} + 10.0 s + 4.0}\)</span><br><span class="math inline">\(I_{V2} = \frac{s}{2.0 s + 2.0}\)</span><br><span class="math inline">\(I_{L} = - \frac{1}{3.0 s^{2} + 5.0 s + 2.0}\)</span><br><span class="math inline">\(I_{F} = \frac{s}{s + 1.0}\)</span><br><span class="math inline">\(I_{Ea} = - \frac{1}{3.0 s^{2} + 5.0 s + 2.0}\)</span><br></p>
+</div>
+</div>
+<p>The circuit’s node voltages and unknwon currents can be solved for at individual frequencies. In the code cell below, a frequency of 1 Hz is used to evaluate the equations at a particular frequency.</p>
+<div id="a7badabf-ea66-494e-9207-ae525adc80a2" class="cell" data-execution_count="20">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>freq <span class="op">=</span> <span class="dv">1</span> <span class="co"># Hz</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>omega <span class="op">=</span> <span class="dv">2</span><span class="op">*</span>np.pi<span class="op">*</span>freq</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>NE <span class="op">=</span> NE_sym.subs(element_values)</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>NE_w1 <span class="op">=</span> NE.subs({s:<span class="ot">1j</span><span class="op">*</span>omega})</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>U_w1 <span class="op">=</span> solve(NE_w1,X)</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>table_header <span class="op">=</span> [<span class="st">'unknown'</span>, <span class="st">'mag'</span>,<span class="st">'phase, deg'</span>]</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>table_row <span class="op">=</span> []</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, value <span class="kw">in</span> U_w1.items():</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>    table_row.append([<span class="bu">str</span>(name),<span class="bu">float</span>(<span class="bu">abs</span>(value)),<span class="bu">float</span>(arg(value)<span class="op">*</span><span class="dv">180</span><span class="op">/</span>np.pi)])</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tabulate(table_row, headers<span class="op">=</span>table_header,colalign <span class="op">=</span> (<span class="st">'left'</span>,<span class="st">'decimal'</span>,<span class="st">'decimal'</span>),tablefmt<span class="op">=</span><span class="st">"simple"</span>,floatfmt<span class="op">=</span>(<span class="st">'5s'</span>,<span class="st">'.6f'</span>,<span class="st">'.6f'</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>unknown         mag    phase, deg
+---------  --------  ------------
+v1         1.481356      9.043061
+v2         1.505890      3.118858
+v3         2.490273      5.464698
+v4         2.473924      5.400414
+v5         2.473924      5.400414
+v6         2.468926      9.043061
+I_V1       0.485540   -171.060180
+I_V2       0.493785      9.043061
+I_L        0.008292     15.099672
+I_F        0.987570      9.043061
+I_Ea       0.008292     15.099672</code></pre>
+</div>
+</div>
+</section>
+<section id="phasor-analysis" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="phasor-analysis"><span class="header-section-number">6.3</span> Phasor Analysis</h2>
+<p>In this example the use of phasors is examined. Phasor analysis is a fundamental technique in electrical engineering used to simplify the steady-state analysis of Alternating Current (AC) circuits by converting time-varying sinusoidal voltage and current signals into complex numbers, known as phasors.</p>
+<p>A phasor represents the signal’s magnitude (amplitude) and its phase angle, effectively transforming the complex differential equations required for time-domain analysis into simple algebraic equations in the frequency domain. This algebraic simplification allows engineers to easily apply DC circuit analysis laws, like Ohm’s Law and Kirchhoff’s Laws, to AC components (resistors, inductors, and capacitors) by representing them with a complex quantity called impedance (<span class="math inline">\(Z\)</span>). The origin of the phasor concept is attributed primarily to Charles Proteus Steinmetz, who, working at General Electric in the late 19th century, formalized the use of complex numbers to analyze AC systems, building upon the operational calculus work of Oliver Heaviside.</p>
+<div id="fig-phasor" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-phasor-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="Phasor-analysis.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-phasor-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6.3: impedance for element values
+</figcaption>
+</figure>
+</div>
+<p>The functions <code>polar2rec</code> and <code>rec2polar</code> perform conversion between rectangular notation and magnitude and phase notation.</p>
+<div id="56bdde47-5185-4480-b2f7-68ef8e7a8e4c" class="cell" data-execution_count="21">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> polar2rec(mag, ang, units<span class="op">=</span><span class="st">'deg'</span>):</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">''' polar to rectangular conversion</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co">        mag: float</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co">            magnitude of the time invarient sinusudial signal</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co">        ang: float</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="co">            the angle of the time invarient sinusudial signal</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="co">        units: string</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="co">            if units is set to deg, and is in degrees not radians</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="co">        returns: complex</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="co">            rectangular corrdinates of voltage vector</span></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a><span class="co">    '''</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> units <span class="op">==</span> <span class="st">'deg'</span>:</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>        ang <span class="op">=</span> ang <span class="op">*</span> np.pi <span class="op">/</span> <span class="dv">180</span></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> mag <span class="op">*</span> np.exp(<span class="ot">1j</span> <span class="op">*</span> ang)</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rec2polar(value):</span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>    <span class="co">'''rectangular to polar conversion</span></span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a><span class="co">    value: complex float</span></span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a><span class="co">    returns:</span></span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a><span class="co">        magnitude, phase (in degrees)</span></span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a><span class="co">    '''</span></span>
+<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">float</span>(<span class="bu">abs</span>(value)), <span class="bu">float</span>(arg(value)<span class="op">*</span><span class="dv">180</span><span class="op">/</span>np.pi)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The netlist generated by LTSpice is pasted into the cell below and some edits were made to remove the inductor series resistance and the independent sources are set to their DC values. The componet values are set to 1 for now. Later the phasor quantities will be substituted.</p>
+<div id="0d08ae53-7d82-4389-91be-f6217363b9cc" class="cell" data-execution_count="38">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>net_list <span class="op">=</span> <span class="st">'''</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="st">V1 1 0 1</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="st">V2 0 3 1</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="st">V3 5 0 1</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="st">R1 2 1 1</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="st">R2 4 2 1</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="st">R3 3 2 1</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="st">R4 0 4 1</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="st">R5 5 4 1</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="st">'''</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The network equations are generated from the netlist and displayed below.</p>
+<div id="99049771-d078-4d28-8761-903ee7e1d12c" class="cell" data-execution_count="39">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>report, network_df, df2, A, X, Z <span class="op">=</span> SymMNA.smna(net_list)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Put matricies into SymPy </span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> Matrix(X)</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>Z <span class="op">=</span> Matrix(Z)</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>NE_sym <span class="op">=</span> Eq(A<span class="op">*</span>X,Z)</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="co"># generate markdown text to display the network equations.</span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(X)):</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(Eq((A<span class="op">*</span>X)[i:i<span class="op">+</span><span class="dv">1</span>][<span class="dv">0</span>],Z[i])))</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="39">
+<p><span class="math inline">\(I_{V1} + \frac{v_{1}}{R_{1}} - \frac{v_{2}}{R_{1}} = 0\)</span><br><span class="math inline">\(v_{2} \cdot \left(\frac{1}{R_{3}} + \frac{1}{R_{2}} + \frac{1}{R_{1}}\right) - \frac{v_{3}}{R_{3}} - \frac{v_{4}}{R_{2}} - \frac{v_{1}}{R_{1}} = 0\)</span><br><span class="math inline">\(- I_{V2} - \frac{v_{2}}{R_{3}} + \frac{v_{3}}{R_{3}} = 0\)</span><br><span class="math inline">\(v_{4} \cdot \left(\frac{1}{R_{5}} + \frac{1}{R_{4}} + \frac{1}{R_{2}}\right) - \frac{v_{5}}{R_{5}} - \frac{v_{2}}{R_{2}} = 0\)</span><br><span class="math inline">\(I_{V3} - \frac{v_{4}}{R_{5}} + \frac{v_{5}}{R_{5}} = 0\)</span><br><span class="math inline">\(v_{1} = V_{1}\)</span><br><span class="math inline">\(- v_{3} = V_{2}\)</span><br><span class="math inline">\(v_{5} = V_{3}\)</span><br></p>
+</div>
+</div>
+<p>The sysmbols generated by the Python code are extraced by the SymPy function free_symbols and then declared as SymPy variables. Then the equations are solved and the results are displayed.</p>
+<div id="20ef7f3f-7239-47a2-bb55-5bdfd2c30174" class="cell" data-execution_count="40">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># turn the free symbols into SymPy variables</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>var(<span class="bu">str</span>(NE_sym.free_symbols).replace(<span class="st">'{'</span>,<span class="st">''</span>).replace(<span class="st">'}'</span>,<span class="st">''</span>))</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co"># The newtork equations can be solved symbolically. </span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>U_sym <span class="op">=</span> solve(NE_sym,X)</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="co"># display the symbolic solution</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> U_sym.keys():</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st"> = </span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(i),latex(U_sym[i]))</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="40">
+<p><span class="math inline">\(v_{1} = V_{1}\)</span><br><span class="math inline">\(v_{2} = \frac{- R_{1} R_{2} R_{4} V_{2} - R_{1} R_{2} R_{5} V_{2} + R_{1} R_{3} R_{4} V_{3} - R_{1} R_{4} R_{5} V_{2} + R_{2} R_{3} R_{4} V_{1} + R_{2} R_{3} R_{5} V_{1} + R_{3} R_{4} R_{5} V_{1}}{R_{1} R_{2} R_{4} + R_{1} R_{2} R_{5} + R_{1} R_{3} R_{4} + R_{1} R_{3} R_{5} + R_{1} R_{4} R_{5} + R_{2} R_{3} R_{4} + R_{2} R_{3} R_{5} + R_{3} R_{4} R_{5}}\)</span><br><span class="math inline">\(v_{3} = - V_{2}\)</span><br><span class="math inline">\(v_{4} = \frac{R_{1} R_{2} R_{4} V_{3} + R_{1} R_{3} R_{4} V_{3} - R_{1} R_{4} R_{5} V_{2} + R_{2} R_{3} R_{4} V_{3} + R_{3} R_{4} R_{5} V_{1}}{R_{1} R_{2} R_{4} + R_{1} R_{2} R_{5} + R_{1} R_{3} R_{4} + R_{1} R_{3} R_{5} + R_{1} R_{4} R_{5} + R_{2} R_{3} R_{4} + R_{2} R_{3} R_{5} + R_{3} R_{4} R_{5}}\)</span><br><span class="math inline">\(v_{5} = V_{3}\)</span><br><span class="math inline">\(I_{V1} = \frac{- R_{2} R_{4} V_{1} - R_{2} R_{4} V_{2} - R_{2} R_{5} V_{1} - R_{2} R_{5} V_{2} - R_{3} R_{4} V_{1} + R_{3} R_{4} V_{3} - R_{3} R_{5} V_{1} - R_{4} R_{5} V_{1} - R_{4} R_{5} V_{2}}{R_{1} R_{2} R_{4} + R_{1} R_{2} R_{5} + R_{1} R_{3} R_{4} + R_{1} R_{3} R_{5} + R_{1} R_{4} R_{5} + R_{2} R_{3} R_{4} + R_{2} R_{3} R_{5} + R_{3} R_{4} R_{5}}\)</span><br><span class="math inline">\(I_{V2} = \frac{- R_{1} R_{4} V_{2} - R_{1} R_{4} V_{3} - R_{1} R_{5} V_{2} - R_{2} R_{4} V_{1} - R_{2} R_{4} V_{2} - R_{2} R_{5} V_{1} - R_{2} R_{5} V_{2} - R_{4} R_{5} V_{1} - R_{4} R_{5} V_{2}}{R_{1} R_{2} R_{4} + R_{1} R_{2} R_{5} + R_{1} R_{3} R_{4} + R_{1} R_{3} R_{5} + R_{1} R_{4} R_{5} + R_{2} R_{3} R_{4} + R_{2} R_{3} R_{5} + R_{3} R_{4} R_{5}}\)</span><br><span class="math inline">\(I_{V3} = \frac{- R_{1} R_{2} V_{3} - R_{1} R_{3} V_{3} - R_{1} R_{4} V_{2} - R_{1} R_{4} V_{3} - R_{2} R_{3} V_{3} + R_{3} R_{4} V_{1} - R_{3} R_{4} V_{3}}{R_{1} R_{2} R_{4} + R_{1} R_{2} R_{5} + R_{1} R_{3} R_{4} + R_{1} R_{3} R_{5} + R_{1} R_{4} R_{5} + R_{2} R_{3} R_{4} + R_{2} R_{3} R_{5} + R_{3} R_{4} R_{5}}\)</span><br></p>
+</div>
+</div>
+<p>A dictionary is created for the element values and the numerical values are assigned.</p>
+<div id="ef35c88f-9b10-4e01-a121-6dd9b273925b" class="cell" data-execution_count="41">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>element_values <span class="op">=</span> SymMNA.get_part_values(network_df)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>element_values[V1] <span class="op">=</span> polar2rec(<span class="dv">10</span>, <span class="dv">0</span>, units<span class="op">=</span><span class="st">'deg'</span>)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>element_values[V2] <span class="op">=</span> polar2rec(<span class="dv">10</span>, <span class="dv">30</span>, units<span class="op">=</span><span class="st">'deg'</span>)</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>element_values[V3] <span class="op">=</span> polar2rec(<span class="dv">5</span>, <span class="dv">0</span>, units<span class="op">=</span><span class="st">'deg'</span>)</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>element_values[R1] <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>element_values[R2] <span class="op">=</span> <span class="dv">4</span><span class="op">+</span><span class="ot">4j</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>element_values[R3] <span class="op">=</span> <span class="ot">5j</span></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>element_values[R4] <span class="op">=</span> <span class="dv">6</span><span class="op">-</span><span class="ot">8j</span></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>element_values[R5] <span class="op">=</span> <span class="dv">5</span></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>NE <span class="op">=</span> NE_sym.subs(element_values)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Display the equations for <span class="math inline">\(\omega=1\)</span>.</p>
+<div id="d8a28aee-8c17-4cb2-8030-982ba8029841" class="cell" data-execution_count="42">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(shape(NE.lhs)[<span class="dv">0</span>]):</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st"> = </span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(NE.rhs[i]),latex(NE.lhs[i]))</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="42">
+<p><span class="math inline">\(0 = I_{V1} + \frac{v_{1}}{10} - \frac{v_{2}}{10}\)</span><br><span class="math inline">\(0 = - \frac{v_{1}}{10} + v_{2} \cdot \left(\frac{1}{10} - 0.2 i + 0.03125 \cdot \left(4.0 - 4.0 i\right)\right) + 0.2 i v_{3} - 0.03125 v_{4} \cdot \left(4.0 - 4.0 i\right)\)</span><br><span class="math inline">\(0 = - I_{V2} + 0.2 i v_{2} - 0.2 i v_{3}\)</span><br><span class="math inline">\(0 = - 0.03125 v_{2} \cdot \left(4.0 - 4.0 i\right) + v_{4} \cdot \left(\frac{1}{5} + 0.03125 \cdot \left(4.0 - 4.0 i\right) + 0.01 \cdot \left(6.0 + 8.0 i\right)\right) - \frac{v_{5}}{5}\)</span><br><span class="math inline">\(0 = I_{V3} - \frac{v_{4}}{5} + \frac{v_{5}}{5}\)</span><br><span class="math inline">\(10.0 = v_{1}\)</span><br><span class="math inline">\(8.66025403784439 + 5.0 i = - v_{3}\)</span><br><span class="math inline">\(5.0 = v_{5}\)</span><br></p>
+</div>
+</div>
+<p>Solve the network equations and display the results.</p>
+<div id="5eb7ca43-09c7-4397-930b-05f2459c2608" class="cell" data-execution_count="43">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>U <span class="op">=</span> solve(NE,X)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>table_header <span class="op">=</span> [<span class="st">'unknown'</span>, <span class="st">'mag'</span>,<span class="st">'phase, deg'</span>]</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>table_row <span class="op">=</span> []</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, value <span class="kw">in</span> U.items():</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>    table_row.append([<span class="bu">str</span>(name),<span class="bu">float</span>(<span class="bu">abs</span>(value)),<span class="bu">float</span>(arg(value)<span class="op">*</span><span class="dv">180</span><span class="op">/</span>np.pi)])</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tabulate(table_row, headers<span class="op">=</span>table_header,colalign <span class="op">=</span> (<span class="st">'left'</span>,<span class="st">'decimal'</span>,<span class="st">'decimal'</span>),tablefmt<span class="op">=</span><span class="st">"simple"</span>,floatfmt<span class="op">=</span>(<span class="st">'5s'</span>,<span class="st">'.6f'</span>,<span class="st">'.6f'</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>unknown          mag    phase, deg
+---------  ---------  ------------
+v1         10.000000      0.000000
+v2          4.574219    124.771754
+v3         10.000000   -150.000000
+v4          3.594255     41.498814
+v5          5.000000      0.000000
+I_V1        1.315666    163.405921
+I_V2        2.128974    145.354766
+I_V3        0.663289    134.101376</code></pre>
+</div>
+</div>
+</section>
+<section id="summary" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="summary"><span class="header-section-number">6.4</span> Summary</h2>
+<p>In this chapter three RLC circuits were analyized using MNA with Python. The main points illustrated are:</p>
+<ul>
+<li>Network equations are easily generated and solutions can be found for almost any linear circuit.</li>
+<li>Results are the same as from the LTSpice simulations.</li>
+<li>The use of phasors were explored in circuit 3.</li>
+</ul>
+<!--
+
+An **RLC circuit** is an electrical circuit composed of three fundamental passive components: a **R**esistor ($R$), an **I**nductor ($L$), and a **C**apacitor ($C$), as well as dependednt and independent sources and Op Amps.
+
+These components can be connected in **series** or **parallel** and are typically driven by an alternating current (AC) source. RLC circuits are essential because they exhibit **resonance** and **damping** behaviors, which are critical for applications like tuning radio receivers, filtering signals, and generating oscillations.
+
+## Components and Their Function
+
+| Component | Symbol | Function | Key Behavior in AC Circuits |
+| --- | --- | --- | --- |
+| **Resistor** | $R$ | **Dissipates** electrical energy as heat, limiting current flow. | The voltage is **in-phase** with the current. Its opposition to current is constant and is called **resistance** ($R$). |
+| **Inductor** | $L$ | **Stores** energy in a **magnetic field** and opposes changes in current. | The voltage **leads** the current by $90^{\circ}$. Its frequency-dependent opposition is called **inductive reactance** ($X_L$). |
+| **Capacitor** | $C$ | **Stores** energy in an **electric field** and opposes changes in voltage. | The voltage **lags** the current by $90^{\circ}$. Its frequency-dependent opposition is called **capacitive reactance** ($X_C$). |
+
+## Key Characteristics of RLC Circuits
+
+### Resonance
+Resonance is the most important characteristic of an RLC circuit. It occurs at a specific frequency, the **resonant frequency** ($f_0$ or $\omega_0$), where the opposing effects of the inductor and capacitor perfectly cancel each other out:
+
+$$X_L = X_C$$
+
+The resonant angular frequency ($\omega_0$) is given by:
+
+$$\omega_0 = \frac{1}{\sqrt{LC}}$$
+
+At resonance, the circuit's overall opposition to current, known as **impedance** ($Z$), is purely resistive.
+
+### Impedance
+Impedance ($Z$) is the total opposition to the flow of alternating current. It is calculated using the components' values and the driving frequency. For a **series** RLC circuit, the impedance is:
+
+$$Z = \sqrt{R^2 + (X_L - X_C)^2}$$
+
+### Damping
+The resistor ($R$) in the circuit is responsible for **damping** (dissipating) the oscillations that occur due to the energy exchange between the inductor and capacitor. The resistance determines how quickly the oscillations decay in the absence of an external source.
+
+## Series vs. Parallel RLC Circuits
+
+RLC circuits are broadly classified by how their components are connected:
+
+| Characteristic | Series RLC Circuit | Parallel RLC Circuit |
+| :--- | :--- | :--- |
+| **Component Connection** | All components are on a single path. | All components are connected across the same voltage. |
+| **Current/Voltage Rule** | **Current** is the same through all components. | **Voltage** is the same across all components. |
+| **Behavior at Resonance** | **Minimum Impedance ($Z$)** (maximum current). | **Maximum Impedance ($Z$)** (minimum current from the source). |
+| **Typical Application** | **Band-pass filters** (tuning circuits), allowing a specific frequency to pass easily. | **Band-stop** or **notch filters**, blocking a specific frequency. |
+
+## Chapter outline
+
+consider using a different circuit for each topic and these could be seperate chapters
+
+- Introduction 
+  - symbolic and numerical analysis
+  - example circuit, why this one?
+- Steady State AC analysis, $s=j\omega$
+  - with $\omega=0$ and $\omega \ne 0$
+  - phasor analysis
+    - See example: [AC Circuit Analysis Question (Nodal or Mesh)](https://electronics.stackexchange.com/questions/756899/ac-circuit-analysis-question-nodal-or-mesh)
+  - superposition
+  - polyphase
+
+- Complex Frequency, AC analysis with source equal to $\mathcal{L} \{sin(\omega t)\}=\frac{\omega}{s^2+\omega^2}$ and $\mathcal{L}\{ sin (\omega t + \theta )\}  = \frac{\omega \cdot cos \theta}{\omega ^2 + s^2} + \frac{s \cdot sin \theta}{\omega ^2 + s^2}$
+ - definition of complex frequency
+- Transfer Function
+  - poles and zeros
+  - frequency response
+  - impulse and step response
+
+- Transient Analysis with source(s) equal to $\mathcal{L} \{ u(t) \}=\frac{1}{s}$
+  - See Initial Conditions Test Jigs notebook
+- Initial Conditions
+  - capacitor with initial voltage
+  - inductor with initial current - see initial condition test jig notebook, might want to view this problem in terms of energy storage and what does this look like in the Laplace domain.
+  - Laplace implies that the function does not exist prior to $t=0$, therefore the initial condition of a current prior to this is not defined for an inductor. The initial condition is a magnetic flux, not a current. But this seems to work for a capacitor when defining the initial voltage by using $u(t)$ in series with the capacitor. I think the reason is that the steady state current or voltage associated with an inductor's initial conditions is not modeled correctly by inserting a $u(t)$ current or voltage source.
+- State Vector Analysis
+
+$sin(at+b)=\frac{s \cdot sin(b)+a \cdot cos(b)}{s^2+a^2}$
+
+$\mathcal{L} \{sin(\omega t)\}=\frac{\omega}{s^2+\omega^2}$
+
+$\mathcal{L} \{cos(\omega t)\}=\frac{s}{s^2+\omega^2}$
+
+Problem equation below here?
+
+$\mathcal{L} \{sin(\omega t + \theta)\}  = \frac{\omega \cdot cos \theta}{\omega ^2 + s^2} + \frac{s \cdot sin \theta}{\omega ^2 + s^2}$
+
+The one below works
+
+$sin(at+b)=\frac{s \cdot sin(b)+a \cdot cos(b)}{s^2+a^2}$
+
+$25 \angle{32}$
+
+
+Comprehensive Paper Outline: RLC Circuits
+
+- Introduction  
+  - **Definition of RLC Circuits:** Electrical circuits consisting of a Resistor ($R$), Inductor ($L$), and Capacitor ($C$) connected in series or parallel.  
+  - **Historical Context:** Briefly mention the importance of RLC circuits in the development of radio and electrical engineering.  
+  - **Scope and Importance:** Highlight their role as fundamental second-order circuits essential for filtering, tuning, and oscillation.  
+  - **Thesis Statement (Example):** This paper analyzes the fundamental behavior of RLC circuits, demonstrating how the interplay between $R$, $L$, and $C$ governs the critical phenomena of resonance and damping, making them indispensable in modern electronics.
+- Fundamental Components and AC Behavior
+  - **The Resistor (R):**  
+    - Function: Energy dissipation (Ohm's Law: $V = IR$).  
+    - AC Behavior: Voltage and current are **in-phase** ($\phi = 0^{\circ}$).  
+  - **The Inductor (L):**
+    - Function: Energy storage in a magnetic field; opposition to current change.
+    - Inductive Reactance ($X_L$): $X_L = \omega L$. (Increases with frequency).
+    - AC Behavior: Voltage **leads** current by $90^{\circ}$.
+  - **The Capacitor (C):**
+    - Function: Energy storage in an electric field; opposition to voltage change.
+    - Capacitive Reactance ($X_C$): $X_C = \frac{1}{\omega C}$. (Decreases with frequency).
+    - AC Behavior: Voltage **lags** current by $90^{\circ}$.
+  - **Impedance (Z):** The complex measure of total opposition to AC current flow, combining resistance and reactance.
+- Steady-State AC Analysis: Frequency Response
+    - **The Series RLC Circuit:**
+        - Schematic and Kirchhoff's Voltage Law (KVL) application. 
+    - Shutterstock    
+        - Calculating Total Impedance: $Z = \sqrt{R^2 + (X_L - X_C)^2}$.
+        - Phase Angle ($\phi$): $\phi = \arctan\left(\frac{X_L - X_C}{R}\right)$.
+    - **The Parallel RLC Circuit:**
+        - Schematic and Kirchhoff's Current Law (KCL) application.
+        - Analyzing Admittance ($Y = 1/Z$).
+    - **Resonance Phenomenon:**
+        - Condition for Resonance: $X_L = X_C$.
+        - Resonant Frequency: $\omega_0 = \frac{1}{\sqrt{LC}}$.
+        - Series Resonance Characteristics: Minimum $Z$ (maximum current).
+        - Parallel Resonance Characteristics: Maximum $Z$ (minimum current).
+- Transient Analysis: Damping and Natural Response
+    - **The Governing Differential Equation:** Deriving the second-order differential equation for circuit voltage or current (e.g., in a series circuit using KVL).
+    - **The Damping Factor and Natural Frequency:**
+        - Damping Ratio ($\zeta$) and Neper Frequency ($\alpha$).
+        - Undamped Natural Frequency ($\omega_n$).
+    - **Types of Response (Damping):**
+        - **Overdamped** ($\zeta > 1$): Slow, non-oscillatory decay.
+        - **Critically Damped** ($\zeta = 1$): Fastest return to steady-state without oscillation.
+        - **Underdamped** ($\zeta < 1$): Oscillatory decay (ringing).
+        - **Undamped** ($\zeta = 0$): Sustained oscillation (ideal $LC$ circuit).
+- Performance Metrics and Practical Considerations
+    - **Bandwidth ($\beta$):** The range of frequencies passed by the circuit.
+    - **Quality Factor (Q-Factor):**
+        - Definition: A measure of the circuit's selectivity (how narrow the resonance peak is).
+        - Formula (Series): $Q = \frac{\omega_0 L}{R}$. (Higher $Q$ means sharper selectivity).
+    - **Energy Storage and Exchange:** How energy oscillates between the magnetic field (L) and electric field (C).
+    - **Non-Ideal Components:** Discussion of parasitic resistance and its impact on Q-factor.
+- Key Applications of RLC Circuits
+    - **Filters:**
+        - Band-Pass Filter (Series RLC).
+        - Band-Stop Filter (Parallel RLC).
+        - High-Pass and Low-Pass filters (using $R$, $L$, and $C$ combinations).
+    - **Tuning Circuits:** The foundation of radio and TV receivers for selecting a specific frequency signal (e.g., AM/FM radio tuning).
+    - **Oscillators:** Creating circuits that generate continuous, stable sinusoidal waveforms (e.g., Hartley and Colpitts oscillators).
+    - **Control Systems:** Using RLC circuits for stabilization and transient response control.
+- Conclusion  
+    - **Summary of Findings:** Briefly reiterate the roles of $R$, $L$, and $C$ and the significance of resonance and damping.
+    - **Limitations:** Briefly discuss the complexity of analysis in highly non-linear or non-ideal scenarios.
+    - **Future Outlook:** Mention the continuing importance of RLC circuit concepts in high-frequency applications (RF), power electronics, and integrated circuit design.
+- References
+    - List of all sources used.
+
+Phase analysis, particularly **phasor analysis**, is a fundamental technique used in electrical engineering to simplify the analysis of **Alternating Current (AC) circuits** in a **steady-state** condition. In AC circuits containing components like inductors and capacitors, the voltage and current waveforms are often **out of phase**, meaning their peaks and zero crossings don't occur at the same time. This phase difference is crucial for understanding circuit behavior, especially related to the **power factor** and energy efficiency.
+
+### The Role of Phasors in AC Analysis
+
+Analyzing time-varying sinusoidal waveforms (like those in AC) using calculus (differential equations) is complex. Phasor analysis replaces these time-domain functions with a much simpler, fixed representation called a **phasor**. A phasor is a **complex number** that captures the two essential, time-invariant characteristics of a sinusoidal waveform: its **magnitude** (amplitude) and its **phase angle** ($\Phi$). The phasor representation is typically written in polar form as $\mathbf{V} = V_m \angle \Phi$ for voltage or $\mathbf{I} = I_m \angle \Phi$ for current. 
+
+### Simplifying Circuit Calculations
+
+By transforming the circuit from the time-domain to the **phasor domain**, the differential equations that govern the circuit become simple **algebraic equations**. Resistors, inductors, and capacitors are replaced by their **impedance** ($\mathbf{Z}$), which is a complex number representing the total opposition to current flow. For example, an inductor's impedance is $\mathbf{Z}_L = j\omega L$, and a capacitor's is $\mathbf{Z}_C = \frac{1}{j\omega C}$, where $\omega$ is the angular frequency. Once in the phasor domain, standard **DC circuit analysis techniques** like Ohm's Law ($\mathbf{V} = \mathbf{I}\mathbf{Z}$), Kirchhoff's Laws, Nodal Analysis, and Mesh Analysis can be applied using complex number arithmetic to easily solve for unknown voltages and currents. The final phasor results are then converted back to the time-domain to get the actual, instantaneous voltage and current waveforms. This transformation significantly streamlines the calculation process for linear AC circuits operating at a single frequency.
+
+The originator of **phasor analysis** (or the phasor transform) for **electric circuits** was **Charles Proteus Steinmetz** in the late 19th century.
+
+## Key Details
+
+* **Inventor:** **Charles Proteus Steinmetz** (1865–1923), a German-American mathematician and electrical engineer.
+* **Context:** Steinmetz introduced the phasor method, which he initially called the "symbolic method," around **1893**.
+* **Significance:** His work revolutionized the analysis of **Alternating Current (AC) circuits**. Before phasors, analyzing AC circuits using time-domain differential equations was complicated and time-consuming. Steinmetz's method simplified the process by representing sinusoidal quantities (like voltage and current) as **complex numbers (phasors)**, which allows for algebraic solutions in the frequency domain.
+* **Inspiration:** Steinmetz's work was inspired, in part, by the operational calculus developed by **Oliver Heaviside**.
+
+-->
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./Resistive_networks.html" class="pagination-link" aria-label="Resistive Networks">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Resistive Networks</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./Transfer_function.html" class="pagination-link" aria-label="Transfer Function">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Transfer Function</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

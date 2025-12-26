@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.537">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Symbolic Modified Nodal Analysisusing Python - 1&nbsp; Introduction</title>
+<title>1&nbsp; Introduction – Symbolic Modified Nodal Analysis&lt;br&gt;using Python</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,40 +19,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 /* CSS for citations */
 div.csl-bib-body { }
@@ -84,17 +50,19 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./Theory.html" rel="next">
+<link href="./Basic_concepts.html" rel="next">
 <link href="./Preface.html" rel="prev">
-<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-d6667c7b59069bf82d0268b148e64a53.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -123,7 +91,7 @@ div.csl-indent {
   }
 }</script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script type="text/javascript">
@@ -137,7 +105,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -155,19 +123,19 @@ window.Quarto = {
 
 </head>
 
-<body class="nav-sidebar floating">
+<body class="nav-sidebar floating quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Introduction.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -177,9 +145,14 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      </a>
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Symbolic Modified Nodal Analysis<br>using Python</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/Tiburonboy/Symbolic-Modified-Nodal-Analysis-using-Python" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -192,7 +165,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">About This Book</span></a>
+ <span class="menu-text">Welcome</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -209,274 +182,286 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Theory.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Theory</span></span></a>
+  <a href="./Basic_concepts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Basic Concepts</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./SMNA_example.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">SMNA Example</span></span></a>
+  <a href="./Modified_Nodal_Analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Modified Nodal Analysis</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./SMNA-function.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">SMNA function</span></span></a>
+  <a href="./MNA_with_python.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">MNA with Python</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Resistive_networks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Resistive Networks</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./RLC_networks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">RLC Networks</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Transfer_function.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Transfer Function</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Transient_analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Transient Analysis</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Mutual_inductance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Mutual Inductance</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Initial_conditions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Initial conditions</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./Validation-tests.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Validation tests</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <a href="./Example-problems.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Example problems</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./test_1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Test 1</span></span></a>
+  <a href="./Two port parameters.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Two port parameters</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./test_2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Test 2</span></span></a>
+  <a href="./Thevenin equivalent circuit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Thevenin equivalent circuit</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./test_3.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Test 3</span></span></a>
+  <a href="./State-variable-filter.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">State Variable Filter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./test_4.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Test 4</span></span></a>
+  <a href="./Superposition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Superposition</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./test_5.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Test 5</span></span></a>
+  <a href="./2nd_order_BRF.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">2nd Order BRF</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./test_6.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Test 6</span></span></a>
+  <a href="./Elliptic-function-LPF.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Elliptic Function LPF</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./test_7.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Test 7</span></span></a>
+  <a href="./Bridge-T.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Bridge-T</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./test_8.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Test 8</span></span></a>
+  <a href="./Pi-Filter.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Pi Filter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./test_9.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Test 9</span></span></a>
+  <a href="./SIDO-low-pass-filter.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">SIDO-low-pass-filter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./test_10.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Test 10</span></span></a>
+  <a href="./Super-node.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Super node</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./test_11.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Test 11</span></span></a>
+  <a href="./Modeling Op Amps.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Modeling Op Amps</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./test_12.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Test 12</span></span></a>
+  <a href="./Op Amp circuits.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Op Amp circuits</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./test_13.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Test 13</span></span></a>
+  <a href="./Two amplifier RIAA Phono Preamp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Two amplifier RIAA phono preamp</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./test_14.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Test 14</span></span></a>
+  <a href="./mech-sys.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Mechanical systems</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./test_15.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Test 15</span></span></a>
+  <a href="./Klon Centaur part 1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Klon Centaur, part 1</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Klon Centaur part 2v0.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Klon Centaur, part 2</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Klon Centaur part 3v1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Klon Centaur, part 3</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Wien bridge oscillator.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Wien Bridge Oscillator</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Diode Circuit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Diode Circuit</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bridged-T-coil_v2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Bridged T Coil</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./Example-problems.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Example problems</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <a href="./Validation-tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Validation Tests</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Two amplifier RIAA Phono Preamp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Two amplifier RIAA phono preamp</span></span></a>
+  <a href="./test_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Test 1</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Two port parameters.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Two port parameters</span></span></a>
+  <a href="./test_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Test 2</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Thevenin equivalent circuit.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Thevenin equivalent circuit</span></span></a>
+  <a href="./test_3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Test 3</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./State-variable-filter.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">State Variable Filter</span></span></a>
+  <a href="./test_4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Test 4</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Superposition.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Superposition</span></span></a>
+  <a href="./test_5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Test 5</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./2nd_order_BRF.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">2nd Order BRF</span></span></a>
+  <a href="./test_6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Test 6</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Elliptic-function-LPF.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Elliptic Function LPF</span></span></a>
+  <a href="./test_7.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Test 7</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Initial_conditions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Initial conditions</span></span></a>
+  <a href="./test_8.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Test 8</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Transient_circuit.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Transient circuit</span></span></a>
+  <a href="./test_9.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Test 9</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Bridge-T.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Bridge-T</span></span></a>
+  <a href="./test_10.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">Test 10</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Pi-Filter.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Pi Filter</span></span></a>
+  <a href="./test_11.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Test 11</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./SIDO-low-pass-filter.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">SIDO-low-pass-filter</span></span></a>
+  <a href="./test_12.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">Test 12</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Super-node.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Super node</span></span></a>
+  <a href="./test_13.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Test 13</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Phasor-analysis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Phasor analysis</span></span></a>
+  <a href="./test_14.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">Test 14</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Modeling Op Amps.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Modeling Op Amps</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./Op Amp circuits.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Op Amp circuits</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./mech-sys.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Mechanical systems</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./Klon Centaur part 1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Klon Centaur, part 1</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./Klon Centaur part 2v0.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Klon Centaur, part 2</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./Klon Centaur part 3v1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Klon Centaur, part 3</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./Boost Converter temp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Boost Converter</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./Diode circuit.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">Diode Circuit</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./Transistor circuit.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Transistor Circuit</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./Bridged-T-coil_v2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">Bridged T Coil</span></span></a>
+  <a href="./test_15.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">Test 15</span></span></a>
   </div>
 </li>
       </ul>
@@ -489,9 +474,9 @@ window.Quarto = {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text">Appendices</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -526,6 +511,24 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">EasyEDA</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./History_of_Electric_Circuit_Analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">F</span>&nbsp; <span class="chapter-title">History of Electric Circuit Analysis</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Quick_ref.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">G</span>&nbsp; <span class="chapter-title">Quick Reference</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Project_notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">H</span>&nbsp; <span class="chapter-title">Project Notes</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -538,11 +541,14 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#jupyterlab" id="toc-jupyterlab" class="nav-link active" data-scroll-target="#jupyterlab"><span class="header-section-number">1.1</span> JupyterLab</a></li>
-  <li><a href="#practical-network-size-for-symbolic-solutions" id="toc-practical-network-size-for-symbolic-solutions" class="nav-link" data-scroll-target="#practical-network-size-for-symbolic-solutions"><span class="header-section-number">1.2</span> Practical network size for symbolic solutions</a></li>
-  <li><a href="#linear-and-nonlinear-circuits" id="toc-linear-and-nonlinear-circuits" class="nav-link" data-scroll-target="#linear-and-nonlinear-circuits"><span class="header-section-number">1.3</span> Linear and nonlinear circuits</a></li>
-  <li><a href="#state-variables" id="toc-state-variables" class="nav-link" data-scroll-target="#state-variables"><span class="header-section-number">1.4</span> State variables</a></li>
-  <li><a href="#pros-and-cons-of-mna" id="toc-pros-and-cons-of-mna" class="nav-link" data-scroll-target="#pros-and-cons-of-mna"><span class="header-section-number">1.5</span> Pros and cons of MNA</a></li>
+  <li><a href="#what-is-circuit-analysis-and-who-is-this-book-for" id="toc-what-is-circuit-analysis-and-who-is-this-book-for" class="nav-link active" data-scroll-target="#what-is-circuit-analysis-and-who-is-this-book-for"><span class="header-section-number">1.1</span> What Is Circuit Analysis and Who Is This Book For?</a></li>
+  <li><a href="#who-is-this-book-not-for" id="toc-who-is-this-book-not-for" class="nav-link" data-scroll-target="#who-is-this-book-not-for"><span class="header-section-number">1.2</span> Who Is This Book Not For?</a></li>
+  <li><a href="#assumptions" id="toc-assumptions" class="nav-link" data-scroll-target="#assumptions"><span class="header-section-number">1.3</span> Assumptions</a></li>
+  <li><a href="#why-not-just-use-spice-or-some-other-program" id="toc-why-not-just-use-spice-or-some-other-program" class="nav-link" data-scroll-target="#why-not-just-use-spice-or-some-other-program"><span class="header-section-number">1.4</span> Why Not Just Use SPICE or Some Other Program?</a></li>
+  <li><a href="#why-use-symbolic-circuit-analysis" id="toc-why-use-symbolic-circuit-analysis" class="nav-link" data-scroll-target="#why-use-symbolic-circuit-analysis"><span class="header-section-number">1.5</span> Why Use Symbolic Circuit Analysis?</a></li>
+  <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started"><span class="header-section-number">1.6</span> Getting Started</a></li>
+  <li><a href="#about-the-math" id="toc-about-the-math" class="nav-link" data-scroll-target="#about-the-math"><span class="header-section-number">1.7</span> About the Math</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">1.8</span> Summary</a></li>
   </ul>
 </nav>
     </div>
@@ -551,7 +557,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-Introduction" class="quarto-section-identifier"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></h1>
+<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></h1>
 </div>
 
 
@@ -568,572 +574,300 @@ window.Quarto = {
 </header>
 
 
-<p>Circuit analysis and theory are fundamental to electrical engineering and is usually one of the first topics taught to electrical engineering students. The purpose of this book is to describe a circuit analysis method called <a href="https://en.wikipedia.org/wiki/Modified_nodal_analysis">Modified Nodal Analysis</a> (MNA) implemented in Python and using the SymPy library. The Python programming language along with its packages and libraries provide powerful computational tools that make solving math problems extremely easy with just a few lines of code. SymPy and NumPy are the main libraries used to perform the types of circuit analysis problems described in this book.</p>
-<p>Symbolic Modified Nodal Analysis circuit analysis offers an alternative way to analyze electric circuits since the results are analytic expressions that describe the functionality of the circuit in terms of the circuit variables. The analytic expressions can, but not always, offer some insight into the behavior of the circuit.</p>
-<p>In this chapter, as well as in the remainder of this book, the following Python libraries are used.</p>
-<div id="51006fe2" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display, Markdown, Math, Latex</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sympy <span class="im">import</span> <span class="op">*</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> signal</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> SymMNA</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>init_printing()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>The <a href="https://docs.python.org/3/library/sys.html">sys</a> module provides access to some variables used or maintained by the interpreter and to functions that interact strongly with the interpreter. <a href="https://ipython.readthedocs.io/en/stable/api/generated/IPython.display.html">IPython.display</a> is a public API for display tools in <a href="https://ipython.org/">IPython</a>. <a href="https://www.sympy.org/en/index.html">SymPy</a> is a Python library for symbolic mathematics. <a href="https://scipy.org/">SciPy</a> is a collection of algorithms for scientific computing. <a href="https://matplotlib.org/">Matplotlib</a> is a comprehensive library for creating static, animated, and interactive visualizations in Python. <a href="https://numpy.org/">NumPy</a> is a package for scientific computing with Python. The function SymMNA is described in <a href="SMNA-function.html" class="quarto-xref"><span>Chapter 4</span></a>. The function <a href="https://docs.sympy.org/latest/tutorials/intro-tutorial/printing.html">init_printing()</a> will automatically enable the best printer available in the Python environment.</p>
-<p>Consider the example circuit shown in <a href="#fig-Intro_circuit" class="quarto-xref">Figure&nbsp;<span>1.1</span></a>. This circuit has five branches and three nodes. There is a voltage source <span class="math inline">\(V_1\)</span>, which drives the circuit and each of the nodes is labeled along with the ground node.</p>
-<div id="fig-Intro_circuit" class="quarto-figure quarto-figure-center quarto-float anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-Intro_circuit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="Intro_circuit.png" class="img-fluid figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-Intro_circuit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1.1: Example circuit
-</figcaption>
-</figure>
-</div>
 <!--
-The netlist for this circuit is:
-
-```
-V1 1 0 1
-R1 2 1 1
-L1 2 3 0.1
-C1 3 0 0.1
-C2 2 0 0.2
-```
--->
-<p>For this circuit, the MNA code generates the following system of equations:</p>
-<div id="32dafdbb" class="cell" data-execution_count="2">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="2">
-<p><span class="math inline">\(I_{V1} + \frac{v_{1}}{R_{1}} - \frac{v_{2}}{R_{1}} = 0\)</span><br><span class="math inline">\(I_{L1} + v_{2} \left(C_{2} s + \frac{1}{R_{1}}\right) - \frac{v_{1}}{R_{1}} = 0\)</span><br><span class="math inline">\(C_{1} s v_{3} - I_{L1} = 0\)</span><br><span class="math inline">\(v_{1} = V_{1}\)</span><br><span class="math inline">\(- I_{L1} L_{1} s + v_{2} - v_{3} = 0\)</span><br></p>
-</div>
-</div>
-<p>where, <span class="math inline">\(s\)</span> is the Laplace variable, <span class="math inline">\(C_1\)</span> and <span class="math inline">\(C_2\)</span> are capacitors, <span class="math inline">\(R_1\)</span> is a resistor, <span class="math inline">\(L_1\)</span> is an inductor, <span class="math inline">\(v_1\)</span>, <span class="math inline">\(v_2\)</span> and <span class="math inline">\(v_3\)</span> are the unknown node voltages, <span class="math inline">\(V_1\)</span> is the input voltage source, <span class="math inline">\(I_{V1}\)</span> is the unknown current flowing through <span class="math inline">\(V_1\)</span> and <span class="math inline">\(I_{L1}\)</span> is the unknown current flowing in <span class="math inline">\(L_1\)</span>. These equations can be easily solved by SymPy to obtain the unknown voltages and currents as analytic expressions.</p>
-<div id="63585bcd" class="cell" data-execution_count="3">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="3">
-<p><span class="math inline">\(v_{1} = V_{1}\)</span><br><span class="math inline">\(v_{2} = \frac{C_{1} L_{1} V_{1} s^{2} + V_{1}}{C_{1} C_{2} L_{1} R_{1} s^{3} + C_{1} L_{1} s^{2} + C_{1} R_{1} s + C_{2} R_{1} s + 1}\)</span><br><span class="math inline">\(v_{3} = \frac{V_{1}}{C_{1} C_{2} L_{1} R_{1} s^{3} + C_{1} L_{1} s^{2} + C_{1} R_{1} s + C_{2} R_{1} s + 1}\)</span><br><span class="math inline">\(I_{V1} = \frac{- C_{1} C_{2} L_{1} V_{1} s^{3} - C_{1} V_{1} s - C_{2} V_{1} s}{C_{1} C_{2} L_{1} R_{1} s^{3} + C_{1} L_{1} s^{2} + C_{1} R_{1} s + C_{2} R_{1} s + 1}\)</span><br><span class="math inline">\(I_{L1} = \frac{C_{1} V_{1} s}{C_{1} C_{2} L_{1} R_{1} s^{3} + C_{1} L_{1} s^{2} + C_{1} R_{1} s + C_{2} R_{1} s + 1}\)</span><br></p>
-</div>
-</div>
-<p>Once the network equations are solved, SymPy can be used to obtain the analytic expression for a transfer function, since manipulation of equations is very easy. For example, SymPy can be used to the find the symbolic form of the impedance of the circuit as seen from the terminal of <span class="math inline">\(V_1\)</span>, <span class="math inline">\(Z(s)=\frac {v_1}{I_{V1}}\)</span>, which is:</p>
-<div id="00263fbb" class="cell" data-execution_count="4">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="4">
-<p><span class="math inline">\(\displaystyle \frac{C_{1} C_{2} L_{1} R_{1} s^{3} + C_{1} L_{1} s^{2} + C_{1} R_{1} s + C_{2} R_{1} s + 1}{s \left(C_{1} C_{2} L_{1} s^{2} + C_{1} + C_{2}\right)}\)</span></p>
-</div>
-</div>
-<p>The numerator and denominator of <span class="math inline">\(Z(s)\)</span> can be extracted. The numerator is:</p>
-<div id="83827278" class="cell" data-execution_count="5">
-<div class="cell-output cell-output-display cell-output-markdown">
-<p><span class="math inline">\(\displaystyle C_{1} C_{2} L_{1} R_{1} s^{3} + C_{1} L_{1} s^{2} + C_{1} R_{1} s + C_{2} R_{1} s + 1\)</span></p>
-</div>
-</div>
-<p>The denominator is:</p>
-<div id="44931eea" class="cell" data-execution_count="6">
-<div class="cell-output cell-output-display cell-output-markdown">
-<p><span class="math inline">\(\displaystyle s \left(C_{1} C_{2} L_{1} s^{2} + C_{1} + C_{2}\right)\)</span></p>
-</div>
-</div>
-<p>SymPy can easily solve for the roots of the numerator and denominator. Since the numerator is a third order expression, the analytic solution is a bit long. Quarto will insert a slider bar for expressions wider than the text display width.</p>
-<div id="c706a236" class="cell" data-execution_count="7">
-<div class="cell-output cell-output-display cell-output-markdown">
-<p><span class="math inline">\(\displaystyle - \frac{\frac{1}{C_{2}^{2} R_{1}^{2}} - \frac{3 \left(C_{1} + C_{2}\right)}{C_{1} C_{2} L_{1}}}{3 \sqrt[3]{\frac{\sqrt{- 4 \left(\frac{1}{C_{2}^{2} R_{1}^{2}} - \frac{3 \left(C_{1} + C_{2}\right)}{C_{1} C_{2} L_{1}}\right)^{3} + \left(\frac{2}{C_{2}^{3} R_{1}^{3}} + \frac{27}{C_{1} C_{2} L_{1} R_{1}} - \frac{9 \left(C_{1} + C_{2}\right)}{C_{1} C_{2}^{2} L_{1} R_{1}}\right)^{2}}}{2} + \frac{1}{C_{2}^{3} R_{1}^{3}} + \frac{27}{2 C_{1} C_{2} L_{1} R_{1}} - \frac{9 \left(C_{1} + C_{2}\right)}{2 C_{1} C_{2}^{2} L_{1} R_{1}}}} - \frac{\sqrt[3]{\frac{\sqrt{- 4 \left(\frac{1}{C_{2}^{2} R_{1}^{2}} - \frac{3 \left(C_{1} + C_{2}\right)}{C_{1} C_{2} L_{1}}\right)^{3} + \left(\frac{2}{C_{2}^{3} R_{1}^{3}} + \frac{27}{C_{1} C_{2} L_{1} R_{1}} - \frac{9 \left(C_{1} + C_{2}\right)}{C_{1} C_{2}^{2} L_{1} R_{1}}\right)^{2}}}{2} + \frac{1}{C_{2}^{3} R_{1}^{3}} + \frac{27}{2 C_{1} C_{2} L_{1} R_{1}} - \frac{9 \left(C_{1} + C_{2}\right)}{2 C_{1} C_{2}^{2} L_{1} R_{1}}}}{3} - \frac{1}{3 C_{2} R_{1}}\)</span></p>
-</div>
-</div>
-<div id="f53d3ce5" class="cell" data-execution_count="8">
-<div class="cell-output cell-output-display cell-output-markdown">
-<p><span class="math inline">\(\displaystyle - \frac{\frac{1}{C_{2}^{2} R_{1}^{2}} - \frac{3 \left(C_{1} + C_{2}\right)}{C_{1} C_{2} L_{1}}}{3 \left(- \frac{1}{2} - \frac{\sqrt{3} i}{2}\right) \sqrt[3]{\frac{\sqrt{- 4 \left(\frac{1}{C_{2}^{2} R_{1}^{2}} - \frac{3 \left(C_{1} + C_{2}\right)}{C_{1} C_{2} L_{1}}\right)^{3} + \left(\frac{2}{C_{2}^{3} R_{1}^{3}} + \frac{27}{C_{1} C_{2} L_{1} R_{1}} - \frac{9 \left(C_{1} + C_{2}\right)}{C_{1} C_{2}^{2} L_{1} R_{1}}\right)^{2}}}{2} + \frac{1}{C_{2}^{3} R_{1}^{3}} + \frac{27}{2 C_{1} C_{2} L_{1} R_{1}} - \frac{9 \left(C_{1} + C_{2}\right)}{2 C_{1} C_{2}^{2} L_{1} R_{1}}}} - \frac{\left(- \frac{1}{2} - \frac{\sqrt{3} i}{2}\right) \sqrt[3]{\frac{\sqrt{- 4 \left(\frac{1}{C_{2}^{2} R_{1}^{2}} - \frac{3 \left(C_{1} + C_{2}\right)}{C_{1} C_{2} L_{1}}\right)^{3} + \left(\frac{2}{C_{2}^{3} R_{1}^{3}} + \frac{27}{C_{1} C_{2} L_{1} R_{1}} - \frac{9 \left(C_{1} + C_{2}\right)}{C_{1} C_{2}^{2} L_{1} R_{1}}\right)^{2}}}{2} + \frac{1}{C_{2}^{3} R_{1}^{3}} + \frac{27}{2 C_{1} C_{2} L_{1} R_{1}} - \frac{9 \left(C_{1} + C_{2}\right)}{2 C_{1} C_{2}^{2} L_{1} R_{1}}}}{3} - \frac{1}{3 C_{2} R_{1}}\)</span></p>
-</div>
-</div>
-<div id="e2879022" class="cell" data-execution_count="9">
-<div class="cell-output cell-output-display cell-output-markdown">
-<p><span class="math inline">\(\displaystyle - \frac{\frac{1}{C_{2}^{2} R_{1}^{2}} - \frac{3 \left(C_{1} + C_{2}\right)}{C_{1} C_{2} L_{1}}}{3 \left(- \frac{1}{2} + \frac{\sqrt{3} i}{2}\right) \sqrt[3]{\frac{\sqrt{- 4 \left(\frac{1}{C_{2}^{2} R_{1}^{2}} - \frac{3 \left(C_{1} + C_{2}\right)}{C_{1} C_{2} L_{1}}\right)^{3} + \left(\frac{2}{C_{2}^{3} R_{1}^{3}} + \frac{27}{C_{1} C_{2} L_{1} R_{1}} - \frac{9 \left(C_{1} + C_{2}\right)}{C_{1} C_{2}^{2} L_{1} R_{1}}\right)^{2}}}{2} + \frac{1}{C_{2}^{3} R_{1}^{3}} + \frac{27}{2 C_{1} C_{2} L_{1} R_{1}} - \frac{9 \left(C_{1} + C_{2}\right)}{2 C_{1} C_{2}^{2} L_{1} R_{1}}}} - \frac{\left(- \frac{1}{2} + \frac{\sqrt{3} i}{2}\right) \sqrt[3]{\frac{\sqrt{- 4 \left(\frac{1}{C_{2}^{2} R_{1}^{2}} - \frac{3 \left(C_{1} + C_{2}\right)}{C_{1} C_{2} L_{1}}\right)^{3} + \left(\frac{2}{C_{2}^{3} R_{1}^{3}} + \frac{27}{C_{1} C_{2} L_{1} R_{1}} - \frac{9 \left(C_{1} + C_{2}\right)}{C_{1} C_{2}^{2} L_{1} R_{1}}\right)^{2}}}{2} + \frac{1}{C_{2}^{3} R_{1}^{3}} + \frac{27}{2 C_{1} C_{2} L_{1} R_{1}} - \frac{9 \left(C_{1} + C_{2}\right)}{2 C_{1} C_{2}^{2} L_{1} R_{1}}}}{3} - \frac{1}{3 C_{2} R_{1}}\)</span></p>
-</div>
-</div>
-<p>The are three zeros in the impedance function and from the expressions above, we can see what components are influencing the zeros. However, as you can see, these expressions are long and complex. It’s difficult to imagine what insights can be obtained from these analytic expressions.</p>
-<p>The roots of the denominator are:</p>
-<div id="6e56670d" class="cell" data-execution_count="10">
-<div class="cell-output cell-output-display cell-output-markdown">
-<p><span class="math inline">\(\displaystyle \sqrt{\frac{- C_{1} - C_{2}}{C_{1} C_{2} L_{1}}}\)</span></p>
-</div>
-</div>
-<div id="90ad8f3e" class="cell" data-execution_count="11">
-<div class="cell-output cell-output-display cell-output-markdown">
-<p><span class="math inline">\(\displaystyle - \sqrt{- \frac{C_{1} + C_{2}}{C_{1} C_{2} L_{1}}}\)</span></p>
-</div>
-</div>
-<!--
-
-**OLD below here**
-
-The following example shows some typical frequency domain circuit equations and the solution. Consider the following system of equations,
-
-$- C_{1} s v_{2} + v_{1} \left(C_{1} s + C_{2} s + \frac{1}{R_{3}}\right) = 0$  
-$- C_{1} s v_{1} + v_{2} \left(C_{1} s + \frac{1}{R_{2}}\right) - \frac{v_{3}}{R_{2}} = 0$  
-$I_{V1} - \frac{v_{2}}{R_{2}} + \frac{v_{3}}{R_{2}} = 0$  
-$v_{3} = V_{1}$
-
-where, $C_1$ and $C_2$ are the capacitors in an electrical circuit, $R_2$ and $R_3$ are the resistors, $v_1$, $v_2$ and $v_3$ are the unknown node voltages, $V_1$ is the input voltage source and $I_{V1}$ is the unknown current flowing through $V_1$, can be entered into SymPy to get the equations in matrix form:
-
-::: {#d8591599 .cell execution_count=12}
-
-::: {.cell-output .cell-output-display .cell-output-markdown execution_count=12}
-$\displaystyle \left[\begin{matrix}- C_{1} s v_{2} + v_{1} \left(C_{1} s + C_{2} s + \frac{1}{R_{3}}\right)\\- C_{1} s v_{1} + v_{2} \left(C_{1} s + \frac{1}{R_{2}}\right) - \frac{v_{3}}{R_{2}}\\I_{V1} - \frac{v_{2}}{R_{2}} + \frac{v_{3}}{R_{2}}\\v_{3}\end{matrix}\right] = \left[\begin{matrix}0\\0\\0\\V_{1}\end{matrix}\right]$
-:::
-:::
-
-
-The system of equations can be easily solved to obtain a symbolic solution.
-
-::: {#3bc03022 .cell execution_count=13}
-
-::: {.cell-output .cell-output-display .cell-output-markdown execution_count=13}
-$v_{1} = \frac{C_{1} R_{3} V_{1} s}{C_{1} C_{2} R_{2} R_{3} s^{2} + C_{1} R_{2} s + C_{1} R_{3} s + C_{2} R_{3} s + 1}$<br>$v_{2} = \frac{C_{1} R_{3} V_{1} s + C_{2} R_{3} V_{1} s + V_{1}}{C_{1} C_{2} R_{2} R_{3} s^{2} + C_{1} R_{2} s + C_{1} R_{3} s + C_{2} R_{3} s + 1}$<br>$v_{3} = V_{1}$<br>$I_{V1} = \frac{- C_{1} C_{2} R_{3} V_{1} s^{2} - C_{1} V_{1} s}{C_{1} C_{2} R_{2} R_{3} s^{2} + C_{1} R_{2} s + C_{1} R_{3} s + C_{2} R_{3} s + 1}$<br>
-:::
-:::
-
-
-The solution for the voltage transfer function $H_{sym} = v_2/v_3$ is:
-
-::: {#3281fcd4 .cell execution_count=14}
-
-::: {.cell-output .cell-output-display .cell-output-markdown execution_count=14}
-$\displaystyle \frac{C_{1} R_{3} s + C_{2} R_{3} s + 1}{C_{1} C_{2} R_{2} R_{3} s^{2} + C_{1} R_{2} s + C_{1} R_{3} s + C_{2} R_{3} s + 1}$
-:::
-:::
-
-
-
-
-The zeros of $H_{sym}$ are obtained by taking the numerator and solving for $s$, the result is:
-
-::: {#47727276 .cell execution_count=16}
-
-::: {.cell-output .cell-output-display .cell-output-markdown execution_count=16}
-$\displaystyle \left[ - \frac{1}{R_{3} \left(C_{1} + C_{2}\right)}\right]$
-:::
-:::
-
-
-
-
-The poles of $H_{sym}$ are obtained by taking the denominator and solving for $s$. There are two solutions and the first is:
-
-::: {#e4fb93dd .cell execution_count=18}
-
-::: {.cell-output .cell-output-display .cell-output-markdown execution_count=18}
-$\displaystyle \frac{- C_{1} R_{2} - C_{1} R_{3} - C_{2} R_{3} - \sqrt{C_{1}^{2} R_{2}^{2} + 2 C_{1}^{2} R_{2} R_{3} + C_{1}^{2} R_{3}^{2} - 2 C_{1} C_{2} R_{2} R_{3} + 2 C_{1} C_{2} R_{3}^{2} + C_{2}^{2} R_{3}^{2}}}{2 C_{1} C_{2} R_{2} R_{3}}$
-:::
-:::
-
-
-The second pole of $H_{sym}$ is:
-
-::: {#6396c4b7 .cell execution_count=19}
-
-::: {.cell-output .cell-output-display .cell-output-markdown execution_count=19}
-$\displaystyle \frac{- C_{1} R_{2} - C_{1} R_{3} - C_{2} R_{3} + \sqrt{C_{1}^{2} R_{2}^{2} + 2 C_{1}^{2} R_{2} R_{3} + C_{1}^{2} R_{3}^{2} - 2 C_{1} C_{2} R_{2} R_{3} + 2 C_{1} C_{2} R_{3}^{2} + C_{2}^{2} R_{3}^{2}}}{2 C_{1} C_{2} R_{2} R_{3}}$
-:::
-:::
-
-
-The following numerical values can be assigned to the component symbols.
-
-::: {#998e92ef .cell execution_count=20}
-
-::: {.cell-output .cell-output-stdout}
-```
-R2 = 1000
-R3 = 1000
-C1 = 1e-06
-C2 = 1e-05
-V1 = 1
-```
-:::
-:::
-
-
-The values can be substituted for the symbols and the following system equations are obtained:
-
-::: {#c56212a9 .cell execution_count=21}
-
-::: {.cell-output .cell-output-display .cell-output-markdown execution_count=21}
-$\displaystyle \left[\begin{matrix}- 1.0 \cdot 10^{-6} s v_{2} + v_{1} \cdot \left(1.1 \cdot 10^{-5} s + \frac{1}{1000}\right)\\- 1.0 \cdot 10^{-6} s v_{1} + v_{2} \cdot \left(1.0 \cdot 10^{-6} s + \frac{1}{1000}\right) - \frac{v_{3}}{1000}\\I_{V1} - \frac{v_{2}}{1000} + \frac{v_{3}}{1000}\\v_{3}\end{matrix}\right] = \left[\begin{matrix}0\\0\\0\\1\end{matrix}\right]$
-:::
-:::
-
-
-The numerical solution to the system of equations is:
-
-::: {#1ee54dee .cell execution_count=22}
-
-::: {.cell-output .cell-output-display .cell-output-markdown execution_count=22}
-$v_{1} = \frac{100.0 s}{s^{2} + 1200.0 s + 100000.0}$<br>$v_{2} = \frac{1100.0 s + 100000.0}{s^{2} + 1200.0 s + 100000.0}$<br>$v_{3} = 1.0$<br>$I_{V1} = \frac{- s^{2} - 100.0 s}{1000.0 s^{2} + 1200000.0 s + 100000000.0}$<br>
-:::
-:::
-
-
-The frequency domain voltage transfer function $H = v_2/v_3$ can be obtained:
-
-::: {#84a1ccae .cell execution_count=23}
-
-::: {.cell-output .cell-output-display .cell-output-markdown execution_count=23}
-$\displaystyle \frac{1100.0 s + 100000.0}{s^{2} + 1200.0 s + 100000.0}$
-:::
-:::
-
-
-
-
-The poles and zeros of the frequency domain transfer function are plotted.
-
-::: {#837b92ca .cell execution_count=25}
-
-::: {.cell-output .cell-output-display}
-![](Introduction_files/figure-html/cell-26-output-1.png){width=609 height=449}
-:::
-:::
-
-
-The SciPy function [bode](https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.bode.html) to plot the magnitude and phase of $H$.
-
-::: {#38daecef .cell execution_count=26}
-
-::: {.cell-output .cell-output-display}
-![](Introduction_files/figure-html/cell-27-output-1.png){width=652 height=451}
-:::
-:::
-
-
-The SciPy functions [impulse2](https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.impulse2.html) and [step2](https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.step2.html) to plot the impulse and step response of the system.
-
-::: {#db44f7da .cell execution_count=27}
-
-::: {.cell-output .cell-output-display}
-![](Introduction_files/figure-html/cell-28-output-1.png){width=607 height=449}
-:::
-:::
-
-
-The step response is shown below.
-
-::: {#8c11f29f .cell execution_count=28}
-
-::: {.cell-output .cell-output-display}
-![](Introduction_files/figure-html/cell-29-output-1.png){width=594 height=449}
-:::
-:::
-
+Last update: 17 Dec 2025  
+Source: 
+/home/jeff32/Documents/Quarto_projects/Circuit-Analysis-using-Python/Introduction.odt   
+
+The idea of this book is more of a How To or User's Guide  
 
 -->
-<p>Matrix and polynomial math can be performed with hardly any effort with the help of SymPy. For some high order polynomials, SymPy does have trouble finding the symbolic roots. The code used to perform the calculations above and display the results is embedded in this markdown document, but is hidden from display. The code can be examined by looking at the original markdown document for this chapter or the example and validation chapters later in this book.</p>
-<section id="jupyterlab" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="jupyterlab"><span class="header-section-number">1.1</span> JupyterLab</h2>
-<p>All the validation and example problem circuits are presented in JupyterLab notebooks and rendered into chapters by Quarto.</p>
-<p><strong>Variable names</strong><br>
-I’ve tried to be consistent with the use of variable names throughout the Jupyter notebooks. Resistors, capacitors and inductors use R, L and C as reference designators. The names chosen for the other variables are listed in <a href="#tbl-variable-names" class="quarto-xref">Table&nbsp;<span>1.1</span></a></p>
-<div id="tbl-variable-names" class="quarto-float anchored">
-<figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-variable-names-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;1.1: Variable names
-</figcaption>
-<div aria-describedby="tbl-variable-names-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<table class="table">
-<colgroup>
-<col style="width: 20%">
-<col style="width: 80%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Variable name</th>
-<th>definition</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>NE_sym</td>
-<td>Network equations, symbolic</td>
-</tr>
-<tr class="even">
-<td>NE</td>
-<td>Network equations with component values</td>
-</tr>
-<tr class="odd">
-<td>NE_dc</td>
-<td>Network equations with <span class="math inline">\(s=0\)</span></td>
-</tr>
-<tr class="even">
-<td>NE_w1</td>
-<td>Network equations with <span class="math inline">\(s=j \omega\)</span> and <span class="math inline">\(\omega\)</span> equal to a numeric value</td>
-</tr>
-<tr class="odd">
-<td>U_sym</td>
-<td>The solution to the symbolic network equations</td>
-</tr>
-<tr class="even">
-<td>U</td>
-<td>The solution to network equations with component values</td>
-</tr>
-<tr class="odd">
-<td>U_ac</td>
-<td>The solution to network equations at some frequency</td>
-</tr>
-<tr class="even">
-<td>H_sym</td>
-<td>system transfer function, symbolic</td>
-</tr>
-<tr class="odd">
-<td>H</td>
-<td>System transfer function with component values</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(V_1, V_2,\)</span> …</td>
-<td>Capital letter V for independent voltage sources</td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(v_1, v_2,\)</span> …</td>
-<td>Small letter v for the node voltages</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(I_1, I_2,\)</span> …</td>
-<td>Capital letter I for independent current sources</td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(R_1, R_2,\)</span> …</td>
-<td>Capital letter R for resistors</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(L_1, L_2,\)</span> …</td>
-<td>Capital letter L for inductors</td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(C_1, C_2,\)</span> …</td>
-<td>Capital letter C for capacitors</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(E_1, E_2,\)</span> …</td>
-<td>Voltage controlled voltage source (VCVS)</td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(F_1, F_2,\)</span> …</td>
-<td>Current controlled current source (CCCS)</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(G_1, G_2,\)</span> …</td>
-<td>Voltage controlled current source (VCCS)</td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(H_1, H_2,\)</span> …</td>
-<td>Current controlled voltage source (CCVS)</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(K_1, K_2,\)</span> …</td>
-<td>Inductor coupling coefficients</td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(M_1, M_2,\)</span> …</td>
-<td>Mutual inductance</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(O_1, O_2,\)</span> …</td>
-<td>Op Amp components</td>
-</tr>
-<tr class="odd">
-<td>A</td>
-<td>Connectivity matrix</td>
-</tr>
-<tr class="even">
-<td>X</td>
-<td>Unknown voltages and currents vector</td>
-</tr>
-<tr class="odd">
-<td>Z</td>
-<td>Known voltages and currents vector</td>
-</tr>
-</tbody>
-</table>
-</div>
-</figure>
-</div>
-<p>Expressions generated by SymPy that have imaginary quantities will use <span class="math inline">\(i\)</span> for the imaginary number. Typically, electrical engineers will use <span class="math inline">\(j\)</span> for the imaginary number since <span class="math inline">\(i\)</span> is the variable used for electrical current. Depending on who generates the equation, either <span class="math inline">\(i\)</span> or <span class="math inline">\(j\)</span> might be used and the reader should short these out based on context. Usually, the variables used for current have a number, e.g.&nbsp;<span class="math inline">\(i_1\)</span> or <span class="math inline">\(i_2\)</span> and a lone <span class="math inline">\(i\)</span> would be the imaginary number.</p>
-<p><strong>Large exponents</strong><br>
-The values of the exponents can be very large in the numerical solution to the network equations when using real component values. Often you will see in engineering text books that the author uses normalized component values, where the values have been frequency and impedance scaled to a frequency of <span class="math inline">\(\omega = 1\)</span> and one of the resistors or other components normalized to a value of one. This keeps the numerical values obtained in the solution to the network equations from getting very large or small.</p>
-<p>Almost all platforms map Python floats to the IEEE754 double precision - 64 total bits. Using the sys package, the float information is reported as follows:</p>
-<div id="8a10db93" class="cell" data-execution_count="29">
-<div class="cell-output cell-output-stdout">
-<pre><code>max=1.7976931348623157e+308
- max_exp=1024
- max_10_exp=308
- min=2.2250738585072014e-308
- min_exp=-1021
- min_10_exp=-307
- dig=15
- mant_dig=53
- epsilon=2.220446049250313e-16
- radix=2
- rounds=1</code></pre>
-</div>
-</div>
-<p>The maximum exponent that Python can use is 308. In this book, I’m going to let Python do the math and not worry about the size of the exponents. I suppose that large exponents don’t become a problem as long as they remain under two digits.</p>
-</section>
-<section id="practical-network-size-for-symbolic-solutions" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="practical-network-size-for-symbolic-solutions"><span class="header-section-number">1.2</span> Practical network size for symbolic solutions</h2>
-<p>Test circuit number 4, <a href="test_4.html" class="quarto-xref"><span>Chapter 8</span></a>, has 26 branches, 13 nodes, 18 resistors, 4 independent sources and 4 dependent sources. A symbolic solution for this problem was taking too long on my i3-8130U 2.20GHz computer, so I interrupted the kernel, and proceeded with a numerical solution, which can be solved quite quickly. The complexity of a circuit can be reduced by letting some components have the same value, for example <span class="math inline">\(R_1 = R_2 = R_3 = R\)</span>, which would reduce the number of symbols that are being manipulated.</p>
-<p>Another circuit, shown below, a 100 Hz low pass elliptic function filter, is an example of a circuit where the size of the symbolic expressions became too large and the number of terms too great to allow any reasonable interpenetration of the circuit’s operation. The Python kernel needed to be interrupted during the symbolic solution when running on my laptop, however, see <a href="Google Colab.html" class="quarto-xref"><span>Appendix C</span></a> for instructions about running a Jupyter notebook in Google Colab where a symbolic solution was obtained in about five seconds. After actual component values are substituted into the network equations a numerical solution was easily obtained by SymPy, see <a href="Elliptic-function-LPF.html" class="quarto-xref"><span>Chapter 26</span></a> for this circuit’s notebook.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="Elliptic-function-VCVS-LPF.png" class="img-fluid figure-img"></p>
-<figcaption>Elliptic function low pass filter</figcaption>
-</figure>
-</div>
-<p>The net list for this circuit is:</p>
-<pre><code>R3 3 0 4750
-R4 5 0 73.2e3
-R1 4 1 9530
-R2 5 4 9530
-R7 2 7 10e3
-C1 3 1 0.05e-6
-C2 5 3 0.05e-6
-C3 7 4 0.1e-6
-C4 5 0 0.22e-6
-C5 2 0 0.18e-6
-O1 6 5 7
-V1 1 0 1
-R5 6 0 10e3
-R6 7 6 44.2e3</code></pre>
-<p>The following circuit equations were generated by the MNA code in less than one second:</p>
-<p><span class="math inline">\(- C_{1} s v_{3} + I_{V1} + v_{1} \left(C_{1} s + \frac{1}{R_{1}}\right) - \frac{v_{4}}{R_{1}} = 0\)</span><br>
-<span class="math inline">\(v_{2} \left(C_{5} s + \frac{1}{R_{7}}\right) - \frac{v_{7}}{R_{7}} = 0\)</span><br>
-<span class="math inline">\(- C_{1} s v_{1} - C_{2} s v_{5} + v_{3} \left(C_{1} s + C_{2} s + \frac{1}{R_{3}}\right) = 0\)</span><br>
-<span class="math inline">\(- C_{3} s v_{7} + v_{4} \left(C_{3} s + \frac{1}{R_{2}} + \frac{1}{R_{1}}\right) - \frac{v_{5}}{R_{2}} - \frac{v_{1}}{R_{1}} = 0\)</span><br>
-<span class="math inline">\(- C_{2} s v_{3} + v_{5} \left(C_{2} s + C_{4} s + \frac{1}{R_{4}} + \frac{1}{R_{2}}\right) - \frac{v_{4}}{R_{2}} = 0\)</span><br>
-<span class="math inline">\(v_{6} \cdot \left(\frac{1}{R_{6}} + \frac{1}{R_{5}}\right) - \frac{v_{7}}{R_{6}} = 0\)</span><br>
-<span class="math inline">\(- C_{3} s v_{4} + I_{O} + v_{7} \left(C_{3} s + \frac{1}{R_{7}} + \frac{1}{R_{6}}\right) - \frac{v_{2}}{R_{7}} - \frac{v_{6}}{R_{6}} = 0\)</span><br>
-<span class="math inline">\(v_{1} = V_{1}\)</span><br>
-<span class="math inline">\(- v_{5} + v_{6} = 0\)</span></p>
-<p>After about two hours running on an i3 machine a symbolic solution was obtained, but it’s too long to display and doesn’t offer too much insight into the function of the circuit.</p>
-<p>After substituting numerical values for the components, the following solution for the voltage at node 2 was obtained in less than one second.</p>
-<p><span class="math inline">\(\frac{4.30028181226968 \cdot \left(1.0784981875 \cdot 10^{-10} s^{3} + 2.263375 \cdot 10^{-7} s^{2} + 0.000474999999999999 s + 1.0\right)}{1.50943922351291 \cdot 10^{-12} s^{4} + 4.7350839034956 \cdot 10^{-9} s^{3} + 4.53071325287237 \cdot 10^{-6} s^{2} + 0.00311443743767615 s + 1.0}\)</span></p>
-<p>See <a href="2nd_order_BRF.html" class="quarto-xref"><span>Chapter 25</span></a> for a reduced complexity version of the schematic above, for which a symbolic solution was obtained in less than one second.</p>
-<p>Python together with SymPy has enabled the ability to explore circuit analysis problems without having to resort to pages and pages of hand calculations. The results can then be displayed with good looking graphics and <a href="https://en.wikipedia.org/wiki/LaTeX">LaTex</a> rendered equations.</p>
-</section>
-<section id="linear-and-nonlinear-circuits" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="linear-and-nonlinear-circuits"><span class="header-section-number">1.3</span> Linear and nonlinear circuits</h2>
-<p>The Python code in the book supports <a href="https://en.wikipedia.org/wiki/Linear_circuit">linear circuit</a> analysis. The element types - resistors, capacitors, inductors, independent and dependent sources are all linear, therefore the circuits that are modeled using these element types are linear circuits. A linear circuit is a circuit where the <a href="https://en.wikipedia.org/wiki/Superposition_principle">superposition principle</a> is valid.</p>
-<p>Non-linear circuit elements, such as diodes and transistors, are not supported. It might be possible to modify the Python code to support non-linear circuit elements and generate valid network equations, but finding solutions to nonlinear network equations is difficult and outside the scope of this book.</p>
-</section>
-<section id="state-variables" class="level2" data-number="1.4">
-<h2 data-number="1.4" class="anchored" data-anchor-id="state-variables"><span class="header-section-number">1.4</span> State variables</h2>
-<p>A topic that is sometimes included in engineering text books on circuit analysis is state variable analysis. State variable analysis is a method of describing the electrical network in terms of a set of first order differential equations, see <span class="citation" data-cites="Hayt1978">Hayt and Kemmerly (<a href="References.html#ref-Hayt1978" role="doc-biblioref">1978</a>)</span>, chapter 17 and <span class="citation" data-cites="Haykin1970">Haykin (<a href="References.html#ref-Haykin1970" role="doc-biblioref">1970</a>)</span>, chapter 2. The normal form of the state equations and the analysis approach relies on a network topology where energy storage elements, typically the capacitors and inductors, are placed in the network tree and equations are written in normal form. Deriving a set of state equations is not is not included in the scope of this book. Typically there is a state equation for each inductor and capacitor, whereas the MNA approach writes network equations based primarily on unknown node voltages.</p>
-</section>
-<section id="pros-and-cons-of-mna" class="level2" data-number="1.5">
-<h2 data-number="1.5" class="anchored" data-anchor-id="pros-and-cons-of-mna"><span class="header-section-number">1.5</span> Pros and cons of MNA</h2>
-<p>The MNA approach is a suitable technique for hand analysis of small circuits as well as for computer analysis of larger circuits using the same algorithm as illustrated in this book. One disadvantage of the MNA technique is that often additional equations are generated, when a smaller number would be sufficient. For students doing homework problems and solving sets of equations by hand, the extra equation or two, generated by the MNA technique makes matrix inversions much harder.</p>
-<p>For example, the circuit in <a href="#fig-Intro_circuit" class="quarto-xref">Figure&nbsp;<span>1.1</span></a>, can be described by the following two mesh equations:</p>
-<div id="dbe86977" class="cell" data-execution_count="30">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="30">
-<p><span class="math inline">\(\displaystyle L_{1} s \left(i_{1} - i_{2}\right) + R_{1} i_{1} + \frac{i_{1} - i_{2}}{C_{1} s} = V_{1}\)</span></p>
-</div>
-</div>
-<div id="71fda8a4" class="cell" data-execution_count="31">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="31">
-<p><span class="math inline">\(\displaystyle L_{1} s \left(- i_{1} + i_{2}\right) + \frac{i_{2}}{C_{2} s} + \frac{- i_{1} + i_{2}}{C_{1} s} = 0\)</span></p>
-</div>
-</div>
-<p>where <span class="math inline">\(i_1\)</span> and <span class="math inline">\(i_2\)</span> are the unknown currents.</p>
-<p>The MNA procedure generated five equations, but one of them was trivial. Only two equations need to be solved to find the mesh currents, which are:</p>
-<div id="8eeddc95" class="cell" data-execution_count="32">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="32">
-<p><span class="math inline">\(i_{1} = \frac{C_{1} C_{2} L_{1} V_{1} s^{3} + C_{1} V_{1} s + C_{2} V_{1} s}{C_{1} C_{2} L_{1} R_{1} s^{3} + C_{1} L_{1} s^{2} + C_{1} R_{1} s + C_{2} R_{1} s + 1}\)</span><br><span class="math inline">\(i_{2} = \frac{C_{1} C_{2} L_{1} V_{1} s^{3} + C_{2} V_{1} s}{C_{1} C_{2} L_{1} R_{1} s^{3} + C_{1} L_{1} s^{2} + C_{1} R_{1} s + C_{2} R_{1} s + 1}\)</span><br></p>
-</div>
-</div>
-<p>Modern pocket scientific calculators that engineering students now use can solve sets of linear equations relatively easily. However, some effort is required to enter the equations into the calculator.</p>
-<p>When a computer is used to generate the schematic for a circuit and the net list is exported to the Python code, the extra equations that the MNA approach generates is not a practical concern. Using the examples in this book as templates for problem solving makes the work flow very easy, which is the main benefit of using MNA.</p>
+<p>The purpose of this book is to describe a method implemented in the Python programming language that will automatically generate symbolic network equations from a circuit’s netlist. The Python programming language and the associated libraries such as SymPy and NumPy make analyzing electric circuits almost effortless and the JupyterLab Notebooks described in this book can be used as template for analyzing almost any linear electric circuit.</p>
+<p>This book is not a college text book about circuit analysis, there are many good books available that cover this topic. This book is about using Modified Nodal Analysis and the Python programming language to analyze electric circuits. Python’s open-source nature makes it a powerful and cost-effective tool for complex computational problems.</p>
+<p>Circuit analysis is a foundational skill necessary for a broad range of professionals whose work involves the design and development of electronic systems. Electrical Engineers and Circuit Designers are the core audience, as they rely on techniques like Kirchhoff’s Laws to create efficient circuits, calculate voltage drops and current flows, and simulate how an electric circuit will behave before it’s ever built. Fields like Power Systems Engineering, Control Systems Engineering and even Physics require this knowledge to understand energy distribution, optimize system performance and analyze complex physical models where circuits are used as analogues.</p>
+<p>The Modified Nodal Analysis (MNA) is an essential extension of standard Nodal Analysis, and its primary benefits revolve around its systematic and comprehensive nature, particularly for computer-aided analysis. The key advantage of MNA is its ability to accommodate many types of circuit elements in a single, unified matrix formulation. Unlike traditional Nodal Analysis, which struggles to directly model voltage sources and components whose current is not easily defined by node voltages (such as dependent voltage sources and inductors), MNA introduces the currents through these elements as additional unknown variables. This standardization makes the process of formulating the circuit equations highly algorithmic and straightforward to automate, forming the backbone of professional circuit simulators like SPICE. Consequently, MNA eliminates the need for manual, ad-hoc techniques like supernodes or source transformations, allowing for the rapid and reliable analysis of large, complex, and linear circuits.</p>
 <!--
-rewrite to include the following sections. Rewrite the start of the introduction to flow from intro to who, why and Prerequisites sections.  
 
-Make a new notebook for introduction circuit that yields more interesting graphs: MNA_other_circuits/intro_circuit.ipynb
+**About This Book**
 
-## Introduction
+This Book is a users guide for doing symbolic circuit analysis with Python. 
 
-Symbolic circuit analysis using Python
-This book will not teach you about machine learning, statistics or visualization.
+This book is about … 
 
-The goal is to teach you a set of tools, practices and project management techniques that should make your projects easier to reproduce, replicate and retrace. These tools and techniques can be used right from the start of your project at a minimal cost, such that once you�re done with the analysis, you�re also done with making the project reproducible. Your projects are going to be reproducible simply because they were engineered, from the start, to be reproducible.
+**Who should read this book**
 
-## Who is this book for?
-This book is for anyone that uses raw data to build any type of output based on that raw data. This can be a simple quarterly report for example, in which the data is used for tables and graphs, or a scientific article for a peer reviewed journal or even an interactive web application. It doesn�t matter, because the process is, at its core, always very similar:
 
-  Get the data;
-  Clean the data;
-  Write code to analyze the data;
-  Put the results into the final product.
+whats in this book ...
 
-This book will already assume some familiarity with programming, and in particular the R programming language. However, if you�re comfortable with another programming language like Python, you could still learn a lot from reading this book. The tools presented in this book are specific to R, but there will always be an alternative for the language you prefer using, meaning that you could apply the advice from this book to your needs and preferences.
+- MNA is an algorithmic technique to derive network equations from a circuit's netlist
+- uses SymPy and NumPy and to solve the equations.
+- Plots are generated with Matplotlib
+- example circuits
+- 
 
-## What is the aim of this book?
-The aim of this book is to make the process of analyzing data as reliable, retraceable, and reproducible as possible, and do this by design. This means that once you�re done with the analysis, you�re done. You don�t want to spend time, which you often don�t have anyways, to rewrite or refactor an analysis and make it reproducible after the fact. We both know that this is not going to happen. Once an analysis is done, it�s time to go to the next analysis. And if you need to rerun an older analysis (for example, because the data got updated), then you�ll simply figure it out at that point, right? That�s a problem for future you, right? Hopefully, future you will remember every quirk of your code and know which script to run at which point in the process, which comments are outdated and can be safely ignored, what features of the data need to be checked (and when they need to be checked), and so on� You better hope future you is a more diligent worker than you!
-
-Going forward, I�m going to refer to a project that is reproducible as a �reproducible analytical pipeline�, or RAP for short. There are only two ways to make such a RAP; either you are lucky enough to have someone on the team whose job is to turn your messy code into a RAP, or you do it yourself. And this second option is very likely the most common. The issue is, as stated above, that most of us simply don�t do it. We are always in the rush to get to the results, and don�t think about making the process reproducible. This is because we always think that making the process reproducible takes time and this time is better spent working on the analysis itself. But this is a misconception, for two reasons.
-
-The first reason is that employing the techniques that we are going to discuss in this book won�t actually take much time. As you will see, they�re not really things that you �add on top of the analysis�, but will be part of the analysis itself, and they will also help with managing the project. And some of these techniques will even save you time (especially testing) and headaches.
-
-## Prerequisites
-You should be comfortable with the R programming language. This book will assume that you have been using R for some projects already, and want to improve not only your knowledge of the language itself, but also how to successfully manage complex projects. Ideally, you should know about packages, how to install them, you should have written some functions already, know about loops and have some basic knowledge of data structures like lists. While this is not a book on visualization, we will be making some graphs using the {ggplot2} package, so if you�re familiar with that, that�s good. If not, no worries, visualization, data munging or data analysis is not the point of this book. Chapter 2, Before we start should help you gauge how easily you will be able to follow this book.
-
-Ideally, you should also not be afraid of not using Graphical User Interfaces (GUIs). While you can follow along using an IDE like RStudio, I will not be teaching any features from any program with a GUI. This is not to make things harder than they should be (quite the contrary actually) but because interacting graphically with a program is simply not reproducible. So our aim is to write code that can be executed non-interactively by a machine. This is because one necessary condition for a workflow to be reproducible and get referred to as a RAP, is for the workflow to be able to be executed by a machine, automatically, without any human intervention. This is the second lesson of building RAPs: there should be no human intervention needed to get the outputs once the RAP is started. If you achieve this, then your workflow is likely reproducible, or can at least be made reproducible much more easily than if it requires some special manipulation by a human somewhere in the loop.
 -->
+<section id="what-is-circuit-analysis-and-who-is-this-book-for" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="what-is-circuit-analysis-and-who-is-this-book-for"><span class="header-section-number">1.1</span> What Is Circuit Analysis and Who Is This Book For?</h2>
+<p>Electric circuit analysis is the process of figuring out the unknown currents and voltages in a network of connected electrical components, which is commonly call a circuit. It is a fundamental skill that is taught to engineering students and serves as the bedrock for understanding and designing virtually all modern electrical and electronic systems.</p>
+<p>Circuit analysis is used for calculating power flow, voltage drops and fault currents in power grids; designing amplifiers, filters, power supplies and logic circuits for devices like smartphones and computers. This process relies on using basic physical laws and systematic mathematical techniques to create and solve a system of independent equations.</p>
+<p>This method presented in this book will be particularly useful when the circuit is of simple to moderate complexity and symbolic network equations are desired. In some cases, symbolic solutions for the equations can be obtained.</p>
+</section>
+<section id="who-is-this-book-not-for" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="who-is-this-book-not-for"><span class="header-section-number">1.2</span> Who Is This Book Not For?</h2>
+<p>There are a few cases where MNA and the Python code presented in this book may not be that useful for you.</p>
+<ul>
+<li>This book or the JupyterLab notebooks may not be particularly useful for students doing circuit analysis homework assignments by hand with pencil and paper. If the student is asked to find the loop equations or traditional node equations, the automatically generated MNA equations will be different.</li>
+<li>The input to the Python code is a netlist and generating the netlist either by hand or with a schematic capture program may be more work than just determining the network equations in the traditional way.</li>
+<li>If the circuit is so simple that the unknown variables can be solve for almost by inspection, starting with a netlist is not necessary and requires unnecessary additional work.</li>
+</ul>
+<!--
+
+ The core purpose of this rigorous exercise is to understand precisely how energy is transferred, converted, and managed within a circuit. The deep knowledge gained from this analysis is vital for predicting a circuit's performance and, most importantly, ensuring it functions correctly and safely.
+
+The primary tools that form the bedrock of circuit analysis are three fundamental laws. 
+
+1. Ohm's Law, which establishes the core relationship between voltage, current, and resistance in a simple way.
+1. Kirchhoff's Current Law (KCL), a principle based on the conservation of charge, stating that the sum of all currents entering a node (or junction) must exactly equal the sum of all currents leaving it.
+1. Kirchhoff's Voltage Law (KVL), which is based on the conservation of energy and dictates that the sum of all voltage drops around any closed loop within the circuit must equal zero.
+
+For more complex circuits that would be unwieldy to solve using just the fundamental laws directly, engineers employ systematic methods to simplify the process. These include the Node Voltage Method and the Mesh Current Method, which provide structured ways to set up the necessary systems of equations. Furthermore, powerful theorems like Thévenin's and Norton's are used to reduce large, complicated networks into much simpler equivalent circuits, thereby making the overall analysis manageable and efficient.
+
+Circuit analysis is a foundational skill primarily for electrical and computer engineers but is also relevant to other technical fields. 
+
+**Why Circuit Analysis is Essential**
+
+- It's the core discipline for designing and analyzing virtually all electrical systems, including
+  - Power Systems: Calculating power flow, voltage drops, and fault currents in power grids.
+  - Electronics: Designing amplifiers, filters, power supplies, and logic circuits for devices like smartphones and computers. 
+- Renewable Energy: Optimizing power converters and inverters in solar and wind systems.
+
+Electrical circuit analysis is a fundamental skill that serves as the bedrock for understanding and designing virtually all modern electrical and electronic systems. It is the process of finding all the currents and voltages within a network of interconnected electrical components, which is crucial for predicting circuit behavior, ensuring proper functionality, and optimizing performance. This analysis is ubiquitous across numerous industries, playing a vital role in everything from consumer electronics like smartphones and computers to complex industrial systems. For example, it is essential in power systems to calculate power flow and fault currents across a grid, and in the automotive industry for designing sensors, control modules, and onboard entertainment systems. Other applications include the design of medical devices (like pacemakers and monitors), communication systems (such as radio and cellular networks), and control systems (used in robotics and automation), often employing analysis techniques like Kirchhoff's Laws, nodal analysis, and the superposition theorem.
+
+Ultimately, anyone involved in the design, development, or maintenance of electronic or electrical systems relies on a deep understanding of circuit analysis to ensure their creations are efficient, reliable, and safe.
+
+Understanding and solving any electric circuit relies on two fundamental categories of mathematical tools: the laws governing individual components and the laws governing component interconnections. The foundational tool for the components themselves is Ohm's Law, which provides the basic device equation for a resistor, stating that voltage (V) equals the product of current (I) and resistance (R), or V=IR. This law establishes the essential relationship between the three primary electrical quantities.
+
+For governing how these components are connected, we turn to Kirchhoff's Laws, which serve as the key connection equations. These laws are the bedrock for distributing voltage and current throughout the network. Kirchhoff's Current Law (KCL) states that the algebraic sum of currents entering a node (or junction) must equal zero, which is a direct application of the principle of the conservation of charge. Complementary to this is Kirchhoff's Voltage Law (KVL), which asserts that the algebraic sum of all voltage drops and rises encountered while tracing any closed loop within the circuit must equal zero, embodying the conservation of energy.
+
+To analyze more complex circuits efficiently, engineers use systematic analytical techniques. Node-Voltage Analysis is a method that primarily uses KCL to determine the unknown voltages at the main nodes of a circuit. Conversely, Mesh-Current Analysis utilizes KVL to find the unknown currents circulating in the closed loops (meshes) of the circuit. Both methods translate the circuit problem into a solvable set of equations.
+
+The level of mathematics required for circuit analysis escalates with the circuit's complexity and nature. For the most basic circuits, simple Algebra is sufficient to solve Ohm's Law and the small systems of equations derived directly from KCL and KVL. However, when dealing with the large, complicated systems of equations generated by Node-Voltage and Mesh-Current analysis, Linear Algebra becomes essential. This involves working with matrices and determinants to solve the resulting systems of simultaneous linear equations. For dynamic circuits that incorporate energy-storage components like capacitors and inductors (e.g., RL, RC, and RLC circuits), the voltages and currents change over time, requiring the use of Calculus and Differential Equations for analysis. Finally, AC circuit analysis, which involves sinusoidal sources, relies heavily on Complex Numbers and Complex Analysis. This is crucial because quantities like impedance are represented as complex numbers to simplify calculations involving magnitude and phase shifts. A related, advanced tool, the Laplace Transform, is often used in this context to transform differential equations from the time domain into simpler algebraic problems in the complex frequency domain.
+
+That's a great choice. Applying Linear Algebra to solve circuit equations, specifically those derived from the Node-Voltage Analysis method (which uses KCL), transforms a tedious algebra problem into a systematic matrix calculation.
+
+Here is a step-by-step example showing how the equations derived from Kirchhoff's Current Law (KCL) at the nodes of a circuit are organized into a system of simultaneous linear equations and then solved using matrices.
+
+-->
+</section>
+<section id="assumptions" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="assumptions"><span class="header-section-number">1.3</span> Assumptions</h2>
+<p>A basic understanding of Python programming is helpful, meaning you should be familiar with core concepts such as variables, data types (e.g., lists, dictionaries and strings), control flow (using <code>if</code> <code>else</code> statements and <code>for</code> <code>while</code> loops) and defining and calling functions.</p>
+<p>Additionally, familiarity with JupyterLab notebooks is required. This involves knowing how to navigate the interface, create new notebooks, write and run code within cells, and utilize Markdown cells for documentation and annotation. JupyterLab serves as the primary interactive environment for writing and testing Python code.</p>
+<p>The analysis of electric circuits, whether done by hand or with the help of Python and MNA, fundamentally relies on the concept of ideal components. These are theoretical abstractions that possess perfect behavior (e.g., a resistor has only resistance, an inductor has only inductance) and ignore the inevitable imperfections of real-world devices, such as parasitic capacitance, lead resistance, or temperature dependence.</p>
+<p>Furthermore, almost all conventional circuit analysis methods, including Nodal and Mesh analysis, rely on the assumption of a lumped-element model, which assumes the circuit is small enough that electrical effects occur instantaneously throughout the circuit, neglecting the time delay associated with the propagation of electromagnetic fields. This allows us to treat the circuit’s current and voltage as functions of time alone, rather than of both position and time (as required for wave propagation or transmission line effects). Finally, the systematic matrix methods discussed (MNA) are designed specifically for linear time-invariant (LTI) circuits, where the relationship between voltage and current is linear (e.g., Ohm’s law holds true) and the component values or connections do not change over time.</p>
+</section>
+<section id="why-not-just-use-spice-or-some-other-program" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="why-not-just-use-spice-or-some-other-program"><span class="header-section-number">1.4</span> Why Not Just Use SPICE or Some Other Program?</h2>
+<p>The core reason you need symbolic analysis even with powerful numerical tools like SPICE is the difference between a number and a formula. SPICE and similar programs are numerical simulators. They give you a specific number for a specific set of component values and inputs.</p>
+<p>Symbolic analysis, however, gives you the actual algebraic formulas for the circuit’s behavior. While powerful, exact symbolic analysis is typically limited to smaller circuits because the complexity and length of the resulting expressions grow dramatically with the number of components and branches in the network.</p>
+<p>The Python code presented in this notebook is somewhat unique since Python is open source, free and runs on a variety of platforms, the code presented in the JupyterLab notebooks is portable. As described in the <em>Welcome</em> page, the Python code is made available under a public domain license and archived in a GitHub repository, see <a href="index.html#sec-source_code" class="quarto-xref"><span>Section 1</span></a>.</p>
+<p>There are other symbolic circuit analysis codes available and some of these are described here. Some of these codes are based on commercial software such as MATLAB, <a href="https://www.tina.com/">TINA</a> and <a href="https://www.maplesoft.com/">Maple</a>.</p>
+<p><a href="https://analog-electronics.tudelft.nl/SLiCAP.html">SLiCAP</a> is a symbolic linear analysis tool. SLiCAP is now a Python program, but originally it was written in MATLAB.</p>
+<p>TINA is an acronym of Toolkit for Interactive Network Analysis. The TINA design suite is a circuit simulator and PCB design software package for analyzing, designing, and real time testing of analog, digital, HDL, MCU, and mixed electronic circuits and their PCB layouts. TINA has some <a href="https://www.tina.com/symbolic-analysis">symbolic analysis capability</a>.</p>
+<p>Maple is a mathematical package and there is an application <a href="https://www.maplesoft.com/applications/view.aspx?SID=1427">note</a> available describing its use in symbolic circuit analysis. The application note presents a method for evaluating, solving and designing a common, but not so simple pulse-mode high-gain transimpedance amplifier or TIA circuit.</p>
+<p><a href="https://rodanski.net/ben/work/symbolic/index.htm">Symbolic Circuit Analysis</a> is a web page devoted to symbolic circuit analysis.</p>
+<p><a href="http://www.ewh.ieee.org/soc/es/May2001/12/Begin.htm">SAPWIN</a> is a windows program package for symbolic and numerical simulation of analog circuits.</p>
+<p><a href="https://github.com/mph-/lcapy">Lcapy</a> is an experimental Python package for teaching linear circuit analysis. It uses SymPy for symbolic mathematics. <span class="citation" data-cites="Hayes2022">Hayes (<a href="References.html#ref-Hayes2022" role="doc-biblioref">2022</a>)</span> provides an overview of Lcapy as well as a survey of symbolic circuit analysis packages.</p>
+<p><a href="https://www.analog.com/en/resources/design-tools-and-calculators/ltspice-simulator.html">LTSpice</a> has been used extensively to verify the MNA numerical results in addition to drawing the circuit schematics shown in this book’s examples.</p>
+<!--
+
+For larger circuits, symbolic approximation (which simplifies the expression by discarding numerically insignificant terms based on reference values) is often used to keep the resulting formula manageable and interpretable.
+
+**What are the current modern SPICE programs?**
+
+SPICE and similar programs are numerical simulators. They give you a specific number for a specific set of component values and inputs. You get how much the gain is (e.g., 10.5) but not why.
+
+Symbolic analysis, however, gives you the actual algebraic formula for the circuit's behavior. 
+
+List of free electronics circuit simulators
+https://en.wikipedia.org/wiki/List_of_free_electronics_circuit_simulators
+
+
+This provides three critical things that numerical simulation cannot:
+
+Insight and Understanding
+
+Symbolic analysis provides the "Aha!" moment for a circuit designer:
+
+- Qualitative Insight: The symbolic formula instantly shows the relationship between the performance (like gain, pole frequency, or bandwidth) and all the component values ($R_1$, $C_2$, $g_m$, etc.). You can see at a glance if a certain resistor has a minor or major impact.
+- Dominant Terms: In a complex expression, you can identify the dominant terms that control the behavior. This is crucial for simplifying the circuit design or creating hand-calculation models.
+- Design Trade-offs: You can use the formula to understand the trade-offs between different performance metrics. For example, the same formula might show that increasing one resistor value increases gain but decreases bandwidth.
+
+Optimization and Parameter Sweeps
+
+For design and manufacturing, the formula is far more powerful than a single number:
+
+- Sensitivity Analysis: You can easily calculate the sensitivity (how much the output changes for a tiny change in a component value) by simply taking the derivative of the symbolic expression with respect to that component. In numerical tools, this requires many time-consuming simulations.
+- Design Optimization: The closed-form expression can be used in optimization algorithms to automatically find the best component values for a given specification, which is much faster and more robust than running thousands of SPICE iterations.
+- Tolerance and Yield Analysis: The symbolic form can be used to quickly evaluate the impact of component manufacturing tolerances on the final circuit performance, helping to predict the manufacturing yield without extensive Monte Carlo simulations.
+
+In essence, SPICE tells you what happens for one specific circuit, while symbolic analysis tells you why it happens for all possible variations of that circuit. The formula is a universal blueprint for that circuit topology.
+
+Used in documenting the design.
+
+-->
+</section>
+<section id="why-use-symbolic-circuit-analysis" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="why-use-symbolic-circuit-analysis"><span class="header-section-number">1.5</span> Why Use Symbolic Circuit Analysis?</h2>
+<p>Symbolic circuit analysis is a formal technique where the behavior or characteristic of a circuit (like voltage gain or impedance) is calculated with the circuit components and frequency (or time) represented by symbols instead of numerical values.</p>
+<p>For small circuits, the analytical expression (e.g., a transfer function) explicitly shows how each component affects the circuit’s performance metrics (gain, poles, zeros, etc.). This allows a designer to immediately see which elements are dominant and how to modify component values to meet specifications. A symbolic expression remains valid across a range of component values and operating conditions (as long as the underlying model is valid). By using symbolic analysis the network equations in symbolic form can be useful to document a design or to include in a technical paper.</p>
+<!--
+
+The main reasons to use symbolic circuit analysis are to gain deep qualitative insight into a circuit's operation and to facilitate design and optimization.
+
+Key Advantages of Symbolic Analysis
+
+Symbolic analysis offers benefits that purely numerical simulation (like SPICE) cannot:
+
+- Qualitative Insight: The resulting analytical expression (e.g., a transfer function) explicitly shows how each component affects the circuit's performance metrics (gain, poles, zeros, etc.). This allows a designer to immediately see which elements are dominant and how to modify component values to meet specifications.
+- Design and Optimization: The symbolic formula can be used directly for sensitivity analysis (how a small change in a component value affects the output) or for automated design optimization, bypassing the need for repeated, slow numerical simulations.
+- Generality and Reusability: A symbolic expression remains valid across a range of component values and operating conditions (as long as the underlying model is valid). Designers can use the same formula to quickly evaluate performance at different design points without re-analyzing the circuit from scratch.
+- Exact Solutions: For linear circuits, symbolic analysis can provide the exact analytical solution, avoiding the potential for numerical instability and accumulated errors associated with numerical approximation techniques.
+- generate equations for technical papers, see @Tiburonboy2025b, where the network equations were generated and formatted for the paper.
+
+Practical network size
+
+-->
+</section>
+<section id="getting-started" class="level2" data-number="1.6">
+<h2 data-number="1.6" class="anchored" data-anchor-id="getting-started"><span class="header-section-number">1.6</span> Getting Started</h2>
+<p>The best way to begin your journey into symbolic circuit analysis with Python is through hands-on practice. The most effective approach is to copy one of the provided JupyterLab Notebooks and use it as a template for analyzing your own circuits. By doing this, you’ll immediately begin applying the Modified Nodal Analysis (MNA) method and leverage the computational power of Python libraries like SymPy for symbolic computation, NumPy for numerical handling, and Matplotlib for generating plots.</p>
+<p>This practical, project-oriented approach will quickly familiarize you with setting up a circuit’s netlist, deriving its symbolic network equations, solving for unknown voltages and currents, and gaining the deep, qualitative insights that only symbolic analysis can provide.</p>
+<p>Source code for this book is available <a href="https://github.com/Tiburonboy/Symbolic-Modified-Nodal-Analysis-using-Python/tree/main/backup">here</a> and related material is located <a href="https://github.com/Tiburonboy/Symbolic-modified-nodal-analysis">here</a>. Python code contained in this book can run in a browser-based environment, see <a href="Google Colab.html" class="quarto-xref"><span>Appendix C</span></a>. Additionally, online schematics editors are available, see <a href="EasyEDA_schematic_editor.html" class="quarto-xref"><span>Appendix E</span></a>. By using web based tools, the reader is not required to install any programs.</p>
+<p>Rewrite this section and point to <a href="index.html#sec-source_code" class="quarto-xref"><span>Section 1</span></a> to keep Github links all in one place.</p>
+</section>
+<section id="about-the-math" class="level2" data-number="1.7">
+<h2 data-number="1.7" class="anchored" data-anchor-id="about-the-math"><span class="header-section-number">1.7</span> About the Math</h2>
+<p>The type of math used in circuit analysis depends on the complexity and nature of the circuit. Solving calculus and differential equations are not used in the analysis presented in this book. Since the Python modules SymPy and NumPy are being extensively employed, actual proficiency with the math is not really required. However, there are some advance concepts that are used throughout the book and that are not really explained.</p>
+<ul>
+<li>Complex Numbers: Crucial for AC circuit analysis, where quantities like impedance are represented as complex numbers to simplify calculations involving magnitude and phase shifts in sinusoidal waveforms. The Laplace Transform is used to convert differential equations into algebraic equations.</li>
+<li>Linear Algebra: Essential for solving systems of simultaneous linear equations that result from MNA.</li>
+</ul>
+<!--
+## How The Book Is Organized
+The book is structured as a user's guide for performing symbolic circuit analysis with Python, with a strong focus on practical application. 
+
+After the initial Introduction, which establishes the purpose, audience, and the importance of Modified Nodal Analysis (MNA) and symbolic analysis, the subsequent chapters focus on implementation. 
+
+The book includes sections on Basic Concepts (Ideal Components, Electrical Units, etc.) and a chapter on the necessary Math (Linear Algebra, Laplace Transform). 
+
+The core of the book is dedicated to describing the MNA process, including the matrix formulation, $V = I \cdot Z$, and its application to Laplace Transformed Circuit Models. Crucially, the final sections, such as Running Python and Examples, provide practical, hands-on examples, with the best use recommended to be copying the provided JupyterLab notebooks for direct application as templates to analyze the user's own circuits.
+
+The first four chapters describe my implementation of symbolic circuit analysis with Python. The next part of the book consists of 15 circuits that are used to validate the Python code. These are Jupyter notebooks that have been rendered into chapters. The last part of the book contains circuit analysis example problems; followed by references, code listing and a change log. Section links are provided below.
+
+- @sec-Introduction introduces the topic of MNA and describes how Python can easily solve mathematical expressions that would be very hard and laborious to do with pencil and paper.
+  - Jupyterlab, variable names, large exponents
+  - Practical network size for symbolic solutions
+  - Linear and nonlinear circuits
+  - State variables
+  - Pros and cons of MNA
+- @sec-History-Theory describes the history of circuit analysis and the theory behind MNA.
+- @sec-example walks through a circuit analysis problem from netlist generation to AC analysis and generation of a frequency response plot of the circuit.
+- @sec-SMNA-func provides a description of the Python function that implements the symbolic MNA procedure.
+
+**Example problems**: A collection of interesting circuits (at least to me) that showcase the power and ease with which the Python code can solve circuit analysis problems.
+
+**Validation tests**: There are 15 circuits that were used to validate the Python code. These circuits range from simple circuits that you would find in textbooks, to complex circuits that would be very difficult to analyze if not for computers. There are also a couple of test circuits designed to generate sub-matrices of all zeros during the formulation of the network equations.
+
+**References**: This section provides information about works cited in this book.
+
+@sec-SymMNA_py is the Python source listing of the MNA function called in the verification tests and example problems sections.
+
+@sec-Change-log is a list of the changes to the MNA code and this book.
+
+@sec-google_colab provides instructions about running the code contained in this book in Google's Colab. All that is needed is a gmail account.
+
+@sec-SMNA_mobile is a JupyterLab notebook that can be used as a template for circuit analysis using Colab on a mobile device.
+
+@sec-EasyEDA_schematic_editor provides a link to an web based schematic editor program than can be used to generate schematics and a netlist from a schematic.
+
+-->
+</section>
+<section id="summary" class="level2" data-number="1.8">
+<h2 data-number="1.8" class="anchored" data-anchor-id="summary"><span class="header-section-number">1.8</span> Summary</h2>
+<p>This book serves as a practical guide for performing symbolic circuit analysis using the Python programming language and its associated scientific libraries, such as SymPy and NumPy. The primary goal is to provide a systematic and computationally efficient method for analyzing linear electric circuits, utilizing JupyterLab Notebooks as adaptable templates.</p>
+<p>The book is not a traditional circuit analysis textbook but focuses specifically on implementing the Modified Nodal Analysis (MNA) method. MNA is an essential extension of standard nodal analysis that allows all types of circuit elements (including voltage sources, inductors, and dependent sources) to be incorporated into a single, unified matrix formulation. This approach forms the algorithmic backbone of professional circuit simulators like SPICE.</p>
+<p>Important Points:</p>
+<ul>
+<li>Symbolic Analysis: This technique calculates a circuit’s behavior (e.g., gain, impedance) with components and frequency represented by symbols instead of numerical values. This provides qualitative insight into the circuit’s operation, aids in design optimization, and yields exact analytical solutions that numerical simulators (like SPICE) cannot.</li>
+<li>Target Audience: Circuit analysis is a foundational skill for a broad range of professionals, including Electrical Engineers, Circuit Designers, Electronics Technicians and those in Power Systems and Control Systems Engineering.</li>
+<li>Modified Nodal Analysis (MNA): The book leverages MNA to formulate the circuit problem as a system of simultaneous linear equations, <span class="math inline">\(\mathbf{G} \cdot \mathbf{V} = \mathbf{I}\)</span>, which are then solved using matrix inversion implemented in Python.</li>
+<li>Advanced Concepts (The s-Domain): The text covers Laplace Transformed Circuit Models, which convert time-domain differential equations into simpler algebraic equations in the s-domain (complex frequency domain). This is crucial for analyzing circuits with energy storage elements (capacitors and inductors) and determining their transient and transfer functions.</li>
+<li>Foundations of Circuit Analysis: A review of fundamental concepts is provided, including Ohm’s Law, Kirchhoff’s Current Law (KCL), and Kirchhoff’s Voltage Law (KVL), along with an overview of the key mathematical tools required (Algebra, Linear Algebra, Calculus, and Complex Numbers).</li>
+</ul>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
-<div id="ref-Haykin1970" class="csl-entry" role="listitem">
-Haykin, S. 1970. <em>Active Network Theory</em>. Addison Wesley.
-</div>
-<div id="ref-Hayt1978" class="csl-entry" role="listitem">
-Hayt, W., and J. Kemmerly. 1978. <em>Engineering Circuit Analysis, 3rd Edition</em>. McGraw-Hill.
+<div id="ref-Hayes2022" class="csl-entry" role="listitem">
+Hayes, M. 2022. <span>“Lcapy: Symbolic Linear Circuit Analysis with Python.”</span> <a href="https://doi.org/10.7717/peerj-cs.875">https://doi.org/10.7717/peerj-cs.875</a>.
 </div>
 </div>
 </section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
-    }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
       }
+      return false;
     }
-    return false;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
       for (const childEl of codeEl.children) {
         if (isCodeAnnotation(childEl)) {
           childEl.remove();
@@ -1141,157 +875,184 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       }
       return codeEl.innerText;
     }
-  });
-  clipboard.on('success', function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
-    setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
-      }
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  });
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-    const config = {
-      allowHTML: true,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start',
-    };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      return note.innerHTML;
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
     });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
     }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
           }
         }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
         }
-        return container.innerHTML
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
       } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        return note.innerHTML;
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
       }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      return note.innerHTML;
     }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
           }
         } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
+            const note = htmlDoc.querySelector('main.content');
             if (note !== null) {
-              const html = processXRef(id, note);
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -1299,194 +1060,170 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             instance.show();
           });
         }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
-    });
-  }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            div.style.left = 0;
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
-    }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
+      }, function(instance) {
       });
     }
-  }
-});
-</script>
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./Preface.html" class="pagination-link  aria-label=" preface"="">
+      <a href="./Preface.html" class="pagination-link" aria-label="Preface">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Preface</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./Theory.html" class="pagination-link" aria-label="<span class='chapter-number'>2</span>&nbsp; <span class='chapter-title'>Theory</span>">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Theory</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./Basic_concepts.html" class="pagination-link" aria-label="Basic Concepts">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Basic Concepts</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

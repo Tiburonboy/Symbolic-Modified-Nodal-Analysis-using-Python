@@ -1,0 +1,1695 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Appendix F — History of Electric Circuit Analysis – Symbolic Modified Nodal Analysisusing Python</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./Quick_ref.html" rel="next">
+<link href="./EasyEDA_schematic_editor.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-d6667c7b59069bf82d0268b148e64a53.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./SymMNA_py.html">Appendices</a></li><li class="breadcrumb-item"><a href="./History_of_Electric_Circuit_Analysis.html"><span class="chapter-number">F</span>&nbsp; <span class="chapter-title">History of Electric Circuit Analysis</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Symbolic Modified Nodal Analysis<br>using Python</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/Tiburonboy/Symbolic-Modified-Nodal-Analysis-using-Python" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Preface.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Basic_concepts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Basic Concepts</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Modified_Nodal_Analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Modified Nodal Analysis</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./MNA_with_python.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">MNA with Python</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Resistive_networks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Resistive Networks</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./RLC_networks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">RLC Networks</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Transfer_function.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Transfer Function</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Transient_analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Transient Analysis</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Mutual_inductance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Mutual Inductance</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Initial_conditions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Initial conditions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./Example-problems.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Example problems</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Two port parameters.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Two port parameters</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Thevenin equivalent circuit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Thevenin equivalent circuit</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./State-variable-filter.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">State Variable Filter</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Superposition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Superposition</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./2nd_order_BRF.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">2nd Order BRF</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Elliptic-function-LPF.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Elliptic Function LPF</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bridge-T.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Bridge-T</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Pi-Filter.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Pi Filter</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./SIDO-low-pass-filter.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">SIDO-low-pass-filter</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Super-node.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Super node</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Modeling Op Amps.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Modeling Op Amps</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Op Amp circuits.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Op Amp circuits</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Two amplifier RIAA Phono Preamp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Two amplifier RIAA phono preamp</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mech-sys.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Mechanical systems</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Klon Centaur part 1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Klon Centaur, part 1</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Klon Centaur part 2v0.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Klon Centaur, part 2</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Klon Centaur part 3v1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Klon Centaur, part 3</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Wien bridge oscillator.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Wien Bridge Oscillator</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Diode Circuit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Diode Circuit</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bridged-T-coil_v2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Bridged T Coil</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./Validation-tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Validation Tests</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Test 1</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Test 2</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Test 3</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Test 4</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Test 5</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Test 6</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_7.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Test 7</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_8.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Test 8</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_9.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Test 9</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_10.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">Test 10</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_11.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Test 11</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_12.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">Test 12</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_13.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Test 13</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_14.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">Test 14</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./test_15.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">Test 15</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./References.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./SymMNA_py.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">SymMNA.py</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Change-log.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Change Log</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Google Colab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Google Colab</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./SMNA_mobile.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">SMNA mobile</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./EasyEDA_schematic_editor.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">EasyEDA</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./History_of_Electric_Circuit_Analysis.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">F</span>&nbsp; <span class="chapter-title">History of Electric Circuit Analysis</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Quick_ref.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">G</span>&nbsp; <span class="chapter-title">Quick Reference</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Project_notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">H</span>&nbsp; <span class="chapter-title">Project Notes</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#ancient-understanding-of-electricity-and-magnetism" id="toc-ancient-understanding-of-electricity-and-magnetism" class="nav-link active" data-scroll-target="#ancient-understanding-of-electricity-and-magnetism"><span class="header-section-number">F.1</span> Ancient Understanding of Electricity and Magnetism</a></li>
+  <li><a href="#the-shift-in-thinking" id="toc-the-shift-in-thinking" class="nav-link" data-scroll-target="#the-shift-in-thinking"><span class="header-section-number">F.2</span> The Shift in Thinking</a>
+  <ul class="collapse">
+  <li><a href="#magnetism-and-the-first-compass" id="toc-magnetism-and-the-first-compass" class="nav-link" data-scroll-target="#magnetism-and-the-first-compass"><span class="header-section-number">F.2.1</span> Magnetism and the First Compass</a></li>
+  <li><a href="#static-electricity-and-the-amber-effect" id="toc-static-electricity-and-the-amber-effect" class="nav-link" data-scroll-target="#static-electricity-and-the-amber-effect"><span class="header-section-number">F.2.2</span> Static Electricity and “The Amber Effect”</a></li>
+  <li><a href="#the-pioneers-of-observation-ancient-17th-century" id="toc-the-pioneers-of-observation-ancient-17th-century" class="nav-link" data-scroll-target="#the-pioneers-of-observation-ancient-17th-century"><span class="header-section-number">F.2.3</span> The Pioneers of Observation (Ancient – 17th Century)</a></li>
+  <li><a href="#the-enlightenment-defining-charge-18th-century" id="toc-the-enlightenment-defining-charge-18th-century" class="nav-link" data-scroll-target="#the-enlightenment-defining-charge-18th-century"><span class="header-section-number">F.2.4</span> The Enlightenment &amp; Defining Charge (18th Century)</a></li>
+  <li><a href="#the-great-unifiers-19th-century" id="toc-the-great-unifiers-19th-century" class="nav-link" data-scroll-target="#the-great-unifiers-19th-century"><span class="header-section-number">F.2.5</span> The Great Unifiers (19th Century)</a></li>
+  <li><a href="#the-war-of-currents-modern-application-late-19th-20th-century" id="toc-the-war-of-currents-modern-application-late-19th-20th-century" class="nav-link" data-scroll-target="#the-war-of-currents-modern-application-late-19th-20th-century"><span class="header-section-number">F.2.6</span> The War of Currents &amp; Modern Application (Late 19th – 20th Century)</a></li>
+  <li><a href="#the-1880s-curriculum-core-subjects" id="toc-the-1880s-curriculum-core-subjects" class="nav-link" data-scroll-target="#the-1880s-curriculum-core-subjects"><span class="header-section-number">F.2.7</span> The 1880s Curriculum: Core Subjects</a></li>
+  </ul></li>
+  <li><a href="#history-of-circuit-analysis" id="toc-history-of-circuit-analysis" class="nav-link" data-scroll-target="#history-of-circuit-analysis"><span class="header-section-number">F.3</span> History of Circuit Analysis</a>
+  <ul class="collapse">
+  <li><a href="#early-electrical-discoveries-and-phenomena" id="toc-early-electrical-discoveries-and-phenomena" class="nav-link" data-scroll-target="#early-electrical-discoveries-and-phenomena"><span class="header-section-number">F.3.1</span> Early Electrical Discoveries and Phenomena</a></li>
+  <li><a href="#development-of-the-telegraph" id="toc-development-of-the-telegraph" class="nav-link" data-scroll-target="#development-of-the-telegraph"><span class="header-section-number">F.3.2</span> Development of the Telegraph</a></li>
+  <li><a href="#development-of-the-radio" id="toc-development-of-the-radio" class="nav-link" data-scroll-target="#development-of-the-radio"><span class="header-section-number">F.3.3</span> Development of the Radio</a></li>
+  <li><a href="#development-of-electric-power-distribution-and-lighting" id="toc-development-of-electric-power-distribution-and-lighting" class="nav-link" data-scroll-target="#development-of-electric-power-distribution-and-lighting"><span class="header-section-number">F.3.4</span> Development of Electric Power Distribution and Lighting</a></li>
+  <li><a href="#ohms-law" id="toc-ohms-law" class="nav-link" data-scroll-target="#ohms-law"><span class="header-section-number">F.3.5</span> Ohm’s Law</a></li>
+  <li><a href="#fundamental-network-laws" id="toc-fundamental-network-laws" class="nav-link" data-scroll-target="#fundamental-network-laws"><span class="header-section-number">F.3.6</span> Fundamental Network Laws</a></li>
+  <li><a href="#classical-circuit-analysis-methods" id="toc-classical-circuit-analysis-methods" class="nav-link" data-scroll-target="#classical-circuit-analysis-methods"><span class="header-section-number">F.3.7</span> Classical Circuit Analysis Methods</a></li>
+  <li><a href="#limitations-of-manual-methods" id="toc-limitations-of-manual-methods" class="nav-link" data-scroll-target="#limitations-of-manual-methods"><span class="header-section-number">F.3.8</span> Limitations of Manual Methods</a></li>
+  </ul></li>
+  <li><a href="#oliver-heaviside" id="toc-oliver-heaviside" class="nav-link" data-scroll-target="#oliver-heaviside"><span class="header-section-number">F.4</span> Oliver Heaviside</a></li>
+  <li><a href="#charles-proteus-steinmetz" id="toc-charles-proteus-steinmetz" class="nav-link" data-scroll-target="#charles-proteus-steinmetz"><span class="header-section-number">F.5</span> Charles Proteus Steinmetz</a></li>
+  <li><a href="#development-of-modified-nodal-analysis" id="toc-development-of-modified-nodal-analysis" class="nav-link" data-scroll-target="#development-of-modified-nodal-analysis"><span class="header-section-number">F.6</span> Development of Modified Nodal Analysis</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./SymMNA_py.html">Appendices</a></li><li class="breadcrumb-item"><a href="./History_of_Electric_Circuit_Analysis.html"><span class="chapter-number">F</span>&nbsp; <span class="chapter-title">History of Electric Circuit Analysis</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Appendix F — History of Electric Circuit Analysis</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Studying the history of science is essential because it reveals that scientific “truth” is not a static collection of facts, but a dynamic, self-correcting process of human discovery. By tracing the evolution of ideas - from the ancient belief in “vital souls” within magnets to the modern precision of quantum electrodynamics - we gain a deeper appreciation for the intellectual courage required to challenge prevailing dogmas.</p>
+<p>Understanding the historical context of discoveries allows us to see the “scaffolding” of modern technology; for instance, we cannot fully grasp the complexity of today’s global power grid without understanding the 19th-century debates between AC and DC power. Moreover, the history of science humanizes the field, showing that progress is often born from “productive failures,” accidents, and the diverse perspectives of global civilizations. It teaches us scientific literacy, reminding us that our current models are the best available explanations for now, but remain open to refinement by the next generation of thinkers.</p>
+<p><strong>Why the History of Science Matters</strong></p>
+<ol type="1">
+<li>Contextualizes Innovation: Shows that modern tools (like your smartphone) are the result of centuries of cumulative work by people like Gilbert, Faraday, and Maxwell.</li>
+<li>Corrects Misconceptions: Dispels the myth of the “lone genius” by highlighting how scientists build upon the work of their predecessors (standing on the shoulders of giants).</li>
+<li>Encourages Critical Thinking: Demonstrates how previous generations were “certain” about theories that were later proven wrong, encouraging a healthy skepticism and a drive for evidence.</li>
+<li>Cross-Cultural Appreciation: Recognizes the vital contributions of non-Western civilizations, such as the early Chinese developments in magnetism or Islamic advancements in optics.</li>
+</ol>
+<section id="ancient-understanding-of-electricity-and-magnetism" class="level2" data-number="F.1">
+<h2 data-number="F.1" class="anchored" data-anchor-id="ancient-understanding-of-electricity-and-magnetism"><span class="header-section-number">F.1</span> Ancient Understanding of Electricity and Magnetism</h2>
+<p><strong>Write a paragraph describing ancient Greek, Roman Chinese etc. understanding of static electricity and magnetism.</strong></p>
+<p>In antiquity, civilizations across the Mediterranean and East Asia independently observed the “mysterious” attractions of static electricity and magnetism, often attributing these forces to natural spirits or the fundamental balance of the universe. The ancient Greeks, led by the philosopher <strong>Thales of Miletus</strong> around 600 BCE, noticed that rubbing amber (fossilized tree resin) with fur allowed it to attract light objects like feathers—a phenomenon they called the “amber effect.” Because the Greek word for amber is <em>elektron</em>, this observation eventually gave us the word <strong>electricity</strong>. Thales famously speculated that the amber and naturally magnetic rocks called <strong>lodestones</strong> (magnetite) possessed a “soul” or life-force because they could cause motion.</p>
+<p>While the Greeks and Romans largely viewed these phenomena through a philosophical lens, the ancient Chinese were the first to apply them technologically. By the Han Dynasty (206 BCE – 220 CE), Chinese scholars had described how lodestones could attract iron and noted that a suspended magnet would always align itself on a north-south axis. They conceptualized this as a response to the invisible flow of <em>qi</em> (energy) and created the world’s first compass: a <strong>lodestone spoon</strong> balanced on a bronze plate. Though initially used for divination and <em>feng shui</em> to align buildings with the Earth’s energy, by the Song Dynasty, they had developed magnetized needles for maritime navigation, a leap in understanding that wouldn’t reach Europe for centuries.</p>
+<p><strong>Write a paragraph describing medieval period understanding of static electricity and magnetism.</strong></p>
+<p>In the medieval period, the understanding of magnetism shifted from mystical wonder to practical science, while static electricity remained a poorly understood curiosity. The most significant advancement came from the 13th-century scholar <strong>Petrus Peregrinus de Maricourt</strong>, who wrote the <em>Epistola de Magnete</em> (1269), the first systematic European treatise on magnetism. Peregrinus was the first to use the term <strong>“poles”</strong> to describe the ends of a magnet and correctly identified the laws of attraction and repulsion—noting that like poles repel and opposite poles attract. He even experimented with breaking magnets, discovering that each piece became a new, complete magnet with its own poles. Despite this empirical progress, magnetic force was still often framed within a “vitalist” or “celestial” worldview; many believed magnets pointed north because they were “in love” with the Pole Star or influenced by celestial energy.</p>
+<p>Static electricity, meanwhile, saw little theoretical development during the Middle Ages. It was largely distinguished from magnetism by the observation that <strong>amber</strong> had to be rubbed to work and attracted many types of light objects (like straw or dust), whereas <strong>lodestones</strong> required no friction and only attracted iron. Figures like <strong>Thomas Aquinas</strong> categorized these effects as “occult” forces—hidden powers of nature that were real but beyond human reason. This era also popularized colorful myths, such as the belief that <strong>garlic</strong> could “de-magnetize” a compass needle, a superstition so persistent that some ship captains reportedly banned the vegetable from their vessels to protect their navigation.</p>
+<div id="tbl-key_medieval_milestones" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[20,40,40]">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-key_medieval_milestones-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;F.1: Key Medieval Milestones
+</figcaption>
+<div aria-describedby="tbl-key_medieval_milestones-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 40%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Feature</th>
+<th style="text-align: left;">Magnetism</th>
+<th style="text-align: left;">Static Electricity</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Primary Tool</td>
+<td style="text-align: left;">Navigational Compass</td>
+<td style="text-align: left;">Rubbed Amber (<em>Elektron</em>)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Key Thinker</td>
+<td style="text-align: left;">Petrus Peregrinus</td>
+<td style="text-align: left;">Thomas Aquinas (Theological view)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Core Belief</td>
+<td style="text-align: left;">Celestial alignment / Polar attraction</td>
+<td style="text-align: left;">“Occult” properties of materials</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Common Myth</td>
+<td style="text-align: left;">Garlic can disable a magnet</td>
+<td style="text-align: left;">Can be used to test a spouse’s fidelity</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p><strong>Write a paragraph describing how medieval ideas about electricity and magnetism were eventually challenged during the Scientific Revolution by figures like William Gilbert.</strong></p>
+<p>The transition from medieval mysticism to modern science was spearheaded by the English physician <strong>William Gilbert</strong>, whose 1600 masterwork <em>De Magnete</em> effectively dismantled centuries of superstition. Before Gilbert, the medieval understanding of magnetism was a cocktail of “occult” beliefs—such as the idea that garlic could neutralize a compass or that lodestones pointed north because they were “in love” with the Pole Star. Gilbert challenged these notions through <strong>systematic experimentation</strong>, famously creating a “terrella” (a small, spherical magnet) to demonstrate that the Earth itself acted as a giant magnet. This shifted the source of magnetic force from the heavens to the planet’s core. Furthermore, Gilbert was the first to rigorously distinguish between the “electric” force (the attraction of rubbed amber) and the “magnetic” force (the attraction of lodestones). He proved that while magnetism was a permanent property of specific minerals, “electrics” required friction to manifest and could attract a wide variety of materials, not just iron.</p>
+<p>Gilbert’s work was revolutionary because it replaced “vitalist” explanations—the idea that objects had souls—with the concept of <strong>physical fields</strong>. He coined the New Latin term <em>electricus</em> (“like amber”), which gave us the word <strong>electricity</strong>. By insisting that scientific claims must be verifiable through repeatable experiments, he cleared the way for future thinkers like Robert Boyle and Benjamin Franklin to treat electricity as a measurable physical fluid rather than a magical curiosity.</p>
+</section>
+<section id="the-shift-in-thinking" class="level2" data-number="F.2">
+<h2 data-number="F.2" class="anchored" data-anchor-id="the-shift-in-thinking"><span class="header-section-number">F.2</span> The Shift in Thinking</h2>
+<div id="tbl-the_shift_in_thinking" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[50,50]">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-the_shift_in_thinking-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;F.2: The Shift in Thinking
+</figcaption>
+<div aria-describedby="tbl-the_shift_in_thinking-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Medieval Belief</th>
+<th style="text-align: left;">Gilbert’s Scientific Challenge</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Source: Magnets are pulled by the Pole Star.</td>
+<td style="text-align: left;">Discovery: The Earth itself is a giant magnet with its own poles.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Interference: Garlic or diamonds can disable a magnet.</td>
+<td style="text-align: left;">Proof: Repeated experiments showed these had no effect on magnetic flux.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Nature: Electricity and magnetism are the same “hidden” power.</td>
+<td style="text-align: left;">Distinction: Only certain materials are “electrics”; magnetism is a distinct force.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Method: Reliance on ancient texts and folklore.</td>
+<td style="text-align: left;">Method: The Experimental Method (Empiricism).</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p><strong>What was the ancient Chinese understanding of static electricity and magnetism.</strong></p>
+<p>In ancient China, the understanding of static electricity and magnetism was deeply rooted in the concept of <strong>qi</strong> (vital energy) and the balance of <strong>Yin and Yang</strong>. Rather than viewing these as separate physical forces, Chinese scholars saw them as “affinities” or “sympathetic responses” between natural substances.</p>
+<section id="magnetism-and-the-first-compass" class="level3" data-number="F.2.1">
+<h3 data-number="F.2.1" class="anchored" data-anchor-id="magnetism-and-the-first-compass"><span class="header-section-number">F.2.1</span> Magnetism and the First Compass</h3>
+<p>The Chinese were the first to move beyond mere observation of magnetism to practical application. As early as the <strong>4th century BCE</strong>, texts like the <em>Book of the Devil Valley Master</em> recorded that “the lodestone attracts iron.” By the Han Dynasty (206 BCE – 220 CE), this led to the invention of the <strong>si nan</strong> (south-governor), a lodestone spoon balanced on a bronze plate.</p>
+<ul>
+<li><strong>The Theory:</strong> Philosophers explained that the lodestone possessed a “genuine” power that allowed it to influence iron because their <em>qi</em> was compatible.</li>
+<li><strong>The Application:</strong> Unlike the Greeks, who primarily debated the “soul” of the magnet, the Chinese utilized magnetism for <strong>geomancy</strong> (<em>feng shui</em>) to align buildings with the Earth’s energy, and by the 11th century, for maritime navigation.</li>
+</ul>
+</section>
+<section id="static-electricity-and-the-amber-effect" class="level3" data-number="F.2.2">
+<h3 data-number="F.2.2" class="anchored" data-anchor-id="static-electricity-and-the-amber-effect"><span class="header-section-number">F.2.2</span> Static Electricity and “The Amber Effect”</h3>
+<p>Static electricity was documented with similar curiosity, often categorized alongside magnetism as a “mysterious contact.” In the 1st century CE, the philosopher <strong>Wang Chong</strong> noted in the <em>Lunheng</em> that “amber picks up mustard seeds” (the equivalent of the Greek amber-and-fur experiment).</p>
+<ul>
+<li><strong>Yin and Yang:</strong> Static attraction was often explained through the lens of Yin and Yang—the idea that rubbing a material “excited” its energy, creating an imbalance that sought to be neutralized by attracting other light objects.</li>
+<li><strong>Lightning:</strong> While many cultures saw lightning as divine wrath, some Chinese scholars like Wang Chong were among the first to argue that lightning was actually a form of <strong>fire</strong> caused by the friction and collision of Yin and Yang energies in the atmosphere.</li>
+</ul>
+<div id="tbl-comparison_of_concepts" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[15,50,35]">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-comparison_of_concepts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;F.3: Comparison of Concepts
+</figcaption>
+<div aria-describedby="tbl-comparison_of_concepts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 50%">
+<col style="width: 35%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Phenomenon</th>
+<th style="text-align: left;">Ancient Chinese Explanation</th>
+<th style="text-align: left;">Primary Material</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Magnetism</td>
+<td style="text-align: left;">Mutual response of <em>qi</em> between lodestone and iron.</td>
+<td style="text-align: left;">Lodestone (Magnetite)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Static Electricity</td>
+<td style="text-align: left;">Friction-induced imbalance of Yin and Yang.</td>
+<td style="text-align: left;">Amber (often with mustard seeds)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Lightning</td>
+<td style="text-align: left;">Atmospheric friction/collision of “breath” (<em>qi</em>).</td>
+<td style="text-align: left;">Thunderclouds</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p><strong>write a paragraph describing the development of the modern upstanding of electricity and magnetism.</strong></p>
+<p>The modern understanding of electricity and magnetism represents a journey from viewing them as two unrelated “occult” forces to recognizing them as a single, unified phenomenon called <strong>electromagnetism</strong>. This transition began in earnest during the Scientific Revolution with <strong>William Gilbert</strong>, who in 1600 finally distinguished between the “amber effect” (static electricity) and magnetism. The 18th century brought quantitative rigor, with <strong>Charles-Augustin de Coulomb</strong> formulating the inverse-square law for electrical attraction and <strong>Benjamin Franklin</strong> famously proving that lightning was electrical. However, the true breakthrough occurred in <strong>1820</strong>, when <strong>Hans Christian Ørsted</strong> accidentally discovered that an electric current could move a compass needle, proving for the first time that electricity and magnetism were linked.</p>
+<p>Following Ørsted’s discovery, the field exploded with activity. <strong>André-Marie Ampère</strong> mathematically described the force between current-carrying wires, while <strong>Michael Faraday</strong>—perhaps the greatest experimentalist in history—demonstrated <strong>electromagnetic induction</strong> in 1831, showing that a moving magnet could generate an electric current. Faraday’s work laid the foundation for the electric motor and generator, but it was <strong>James Clerk Maxwell</strong> who achieved the “Second Great Unification” in physics. In the 1860s, Maxwell published a set of four elegant equations that mathematically unified electricity, magnetism, and light into a single electromagnetic field theory. This intellectual triumph not only predicted the existence of radio waves but also paved the way for the technological revolution of the 20th century.</p>
+<div id="tbl-timeline_of_the_great_unification" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[10,20,70]">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-timeline_of_the_great_unification-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;F.4: Timeline of the “Great Unification”
+</figcaption>
+<div aria-describedby="tbl-timeline_of_the_great_unification-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 20%">
+<col style="width: 70%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Year</th>
+<th style="text-align: left;">Scientist</th>
+<th style="text-align: left;">Key Discovery / Contribution</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1600</td>
+<td style="text-align: left;">William Gilbert</td>
+<td style="text-align: left;">Distinguished static electricity from magnetism.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1785</td>
+<td style="text-align: left;">Charles Coulomb</td>
+<td style="text-align: left;">Developed the law for the force between charges.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1800</td>
+<td style="text-align: left;">Alessandro Volta</td>
+<td style="text-align: left;">Invented the first battery (Voltaic pile).</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1820</td>
+<td style="text-align: left;">Hans Ørsted</td>
+<td style="text-align: left;">Discovered that electricity creates magnetism.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1831</td>
+<td style="text-align: left;">Michael Faraday</td>
+<td style="text-align: left;">Discovered induction (magnetism creates electricity).</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1865</td>
+<td style="text-align: left;">James Clerk Maxwell</td>
+<td style="text-align: left;">Unified electricity, magnetism, and light mathematically.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>Would you like me to break down one of Maxwell’s four equations to explain how they connect these forces in plain English?</p>
+<p><strong>Make a list of notable historical figures associated with electricity and magnetism.</strong></p>
+<p>The history of electricity and magnetism is defined by a series of “unifications”—moments where brilliant minds realized that seemingly different forces were actually parts of a single whole.</p>
+<p>Here are the most notable figures categorized by their specific impact on the field:</p>
+</section>
+<section id="the-pioneers-of-observation-ancient-17th-century" class="level3" data-number="F.2.3">
+<h3 data-number="F.2.3" class="anchored" data-anchor-id="the-pioneers-of-observation-ancient-17th-century"><span class="header-section-number">F.2.3</span> The Pioneers of Observation (Ancient – 17th Century)</h3>
+<ul>
+<li>Thales of Miletus (c.&nbsp;600 BCE): The first recorded person to describe static electricity (by rubbing amber) and magnetism (lodestones).</li>
+<li>Petrus Peregrinus (1269): Wrote the first detailed treatise on magnets, identifying magnetic “poles” and the rules of attraction and repulsion.</li>
+<li>William Gilbert (1600): Often called the “Father of Electricity.” He was the first to distinguish between the “amber effect” (static electricity) and magnetism in his seminal work, <em>De Magnete</em>.</li>
+</ul>
+</section>
+<section id="the-enlightenment-defining-charge-18th-century" class="level3" data-number="F.2.4">
+<h3 data-number="F.2.4" class="anchored" data-anchor-id="the-enlightenment-defining-charge-18th-century"><span class="header-section-number">F.2.4</span> The Enlightenment &amp; Defining Charge (18th Century)</h3>
+<ul>
+<li>Stephen Gray (1729): Discovered the difference between conductors (materials electricity flows through) and insulators.</li>
+<li>Benjamin Franklin (1752): Famous for his kite experiment; he established that lightning is electrical and coined the terms positive and negative charge.</li>
+<li>Charles-Augustin de Coulomb (1785): Formulated Coulomb’s Law, which mathematically defined the force between two electrical charges.</li>
+</ul>
+</section>
+<section id="the-great-unifiers-19th-century" class="level3" data-number="F.2.5">
+<h3 data-number="F.2.5" class="anchored" data-anchor-id="the-great-unifiers-19th-century"><span class="header-section-number">F.2.5</span> The Great Unifiers (19th Century)</h3>
+<ul>
+<li>Alessandro Volta (1800): Invented the Voltaic Pile (the first battery), providing the first steady source of continuous electric current.</li>
+<li>Hans Christian Ørsted (1820): Accidentally discovered that an electric current creates a magnetic field, the first proof that the two forces are linked.</li>
+<li>André-Marie Ampère (1820s): Developed the mathematical foundation for electromagnetism (Electrodynamics) and explained how currents interact with magnets.</li>
+<li>Michael Faraday (1831): Discovered electromagnetic induction—showing that a moving magnet can generate electricity. This discovery made modern power generators and motors possible.</li>
+<li>James Clerk Maxwell (1865): Unified electricity, magnetism, and light into a single set of four elegant equations (Maxwell’s Equations), arguably the greatest achievement in 19th-century physics.</li>
+</ul>
+</section>
+<section id="the-war-of-currents-modern-application-late-19th-20th-century" class="level3" data-number="F.2.6">
+<h3 data-number="F.2.6" class="anchored" data-anchor-id="the-war-of-currents-modern-application-late-19th-20th-century"><span class="header-section-number">F.2.6</span> The War of Currents &amp; Modern Application (Late 19th – 20th Century)</h3>
+<ul>
+<li>Nikola Tesla: The visionary champion of Alternating Current (AC); he invented the induction motor and the Tesla coil, enabling the long-distance transmission of power.</li>
+<li>Thomas Edison: Developed the first practical incandescent light bulb and the first industrial research lab; he famously fought for Direct Current (DC) systems.</li>
+<li>Heinrich Hertz (1887): Proved the existence of electromagnetic waves (radio waves), confirming Maxwell’s theoretical predictions.</li>
+</ul>
+<p><strong>Write a paragraph describing the point in history when the science of electricity and magnetism became electrical engineering.</strong></p>
+<p>The transition from theoretical physics to the formal discipline of <strong>electrical engineering</strong> occurred in the late 19th century, triggered by the commercialization of the electric telegraph and the invention of the incandescent light bulb. While scientists like Maxwell and Faraday provided the mathematical and experimental bedrock, the field “engineered” itself into existence when the need for large-scale power distribution and global communication systems outpaced the capacity of general physicists. This professionalization reached its climax in <strong>1882</strong>, a landmark year when <strong>Thomas Edison</strong> opened the Pearl Street Station in New York—the first central power plant—and the <strong>Technische Universität Darmstadt</strong> in Germany established the world’s first chair of electrical engineering. Shortly thereafter, institutions like <strong>MIT</strong> and <strong>Cornell</strong> launched the first dedicated degree programs, shifting the focus from exploring the nature of “invisible fluids” to the systematic design of dynamos, motors, and transcontinental cable networks.</p>
+<div id="tbl-the_professionalization_timeline" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[15,30,55]">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-the_professionalization_timeline-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;F.5: The Professionalization Timeline
+</figcaption>
+<div aria-describedby="tbl-the_professionalization_timeline-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 30%">
+<col style="width: 55%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Year</th>
+<th style="text-align: left;">Milestone</th>
+<th style="text-align: left;">Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1830s-40s</td>
+<td style="text-align: left;">Commercial Telegraphy</td>
+<td style="text-align: left;">First large-scale “engineering” application of electricity.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1882</td>
+<td style="text-align: left;">First EE Faculty (Darmstadt)</td>
+<td style="text-align: left;">Electrical Engineering is recognized as a distinct academic field.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1882</td>
+<td style="text-align: left;">Pearl Street Station Opens</td>
+<td style="text-align: left;">Marks the birth of the modern electric utility industry.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1884</td>
+<td style="text-align: left;">Founding of the AIEE</td>
+<td style="text-align: left;">The precursor to the IEEE is formed to set professional standards.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1888</td>
+<td style="text-align: left;">Tesla’s AC Patents</td>
+<td style="text-align: left;">Enables long-distance power transmission, requiring specialized engineers.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p><strong>Would you like to see a breakdown of the core curriculum taught to those first electrical engineering students in the 1880s?</strong></p>
+<p>In the 1880s, the first electrical engineering students faced a rigorous curriculum that merged classical Newtonian mechanics with the brand-new world of “applied electricity.” Since the field was emerging from the shadows of telegraphy and lighthouse illumination, the early coursework focused heavily on the physical construction and efficiency of machinery. Students had to master <strong>Dynamo-Electric Machinery</strong>, which involved the design of generators that could convert mechanical rotation into steady current, and <strong>Direct Current (DC) Power Distribution</strong>, which taught the physics of resistance and voltage drop over copper wires.</p>
+</section>
+<section id="the-1880s-curriculum-core-subjects" class="level3" data-number="F.2.7">
+<h3 data-number="F.2.7" class="anchored" data-anchor-id="the-1880s-curriculum-core-subjects"><span class="header-section-number">F.2.7</span> The 1880s Curriculum: Core Subjects</h3>
+<ul>
+<li><strong>Applied Magnetism:</strong> Moving beyond philosophy to calculate “magnetic flux” and “permeability”—essential for building better iron cores for motors.</li>
+<li><strong>Telegraphic Engineering:</strong> Studying signal attenuation, battery chemistry, and the underwater insulation of cables.</li>
+<li><strong>The Physics of Illumination:</strong> Calculating the lifespan and energy consumption of arc lamps and the new incandescent bulbs.</li>
+<li><strong>Precision Measurement:</strong> Learning to use the <strong>Wheatstone Bridge</strong> and early galvanometers to measure resistance, as there were no digital multimeters yet.</li>
+<li><strong>Steam Engineering:</strong> Because electricity was produced by steam engines, early electrical engineers had to be experts in thermodynamics and boiler mechanics.</li>
+</ul>
+<p>By the end of the decade, as the <strong>“War of Currents”</strong> intensified, the curriculum shifted rapidly to include <strong>Alternating Current (AC) Theory</strong>. This introduced students to complex mathematics like calculus-based wave analysis and the study of transformers, which allowed power to be stepped up to high voltages for long-distance travel.</p>
+<p>Would you like me to explain the specific “War of Currents” between Edison and Tesla that forced these students to choose between DC and AC systems?</p>
+</section>
+</section>
+<section id="history-of-circuit-analysis" class="level2" data-number="F.3">
+<h2 data-number="F.3" class="anchored" data-anchor-id="history-of-circuit-analysis"><span class="header-section-number">F.3</span> History of Circuit Analysis</h2>
+<p>The understanding and analysis of electrical circuits represent a cornerstone of modern technology, underpinning everything from power grids to microprocessors. The journey to current sophisticated analytical techniques began with rudimentary observations of natural phenomena, gradually progressing through rigorous scientific inquiry to the formulation of fundamental physical laws. This historical trajectory reveals a continuous drive towards more precise, quantitative, and ultimately, automated methods for comprehending and designing increasingly complex electrical systems.</p>
+<section id="early-electrical-discoveries-and-phenomena" class="level3" data-number="F.3.1">
+<h3 data-number="F.3.1" class="anchored" data-anchor-id="early-electrical-discoveries-and-phenomena"><span class="header-section-number">F.3.1</span> Early Electrical Discoveries and Phenomena</h3>
+<p>The earliest recorded observations of electrical phenomena date back to ancient times. Around 600 BC, Thales of Miletus noted that rubbing amber (known as “elektron” in Greek) with fur caused it to attract light objects, a foundational discovery of static electricity that lent its name to the field. Parallel to these electrical observations, magnetic phenomena were also being explored. Petrus Peregrinus, in 1269, documented that natural magnets, or lodestones, possessed two poles that would align needles along specific lines, providing an early conceptualization of magnetic fields.</p>
+<p>The scientific exploration of these forces gained momentum in the 17th century. William Gilbert, in 1600, not only coined the term “electricity” but also offered explanations for Earth’s magnetism and introduced concepts such as “electric force” and “magnetic pole”. This period marked a crucial transition from passive observation to active, controlled experimentation. Otto von Guericke, in 1660, invented the first machine capable of generating static electricity, enabling scientists to produce and manipulate electrical charges more systematically. Concurrently, Robert Boyle demonstrated that electric force could traverse a vacuum and observed both attractive and repulsive electrical interactions. This shift towards active experimentation was vital; without the ability to generate and control electrical phenomena reliably, the systematic study required to establish foundational laws of circuit analysis would have been severely limited.</p>
+<p>Further advancements in the 17th and 18th centuries laid more groundwork. Stephen Gray, in 1675, made the significant distinction between materials that conduct electrical charges and those that do not, a fundamental concept for understanding current flow. The 18th century saw the discovery of two distinct types of electricity, termed “resinous” and “vitreous” (later identified as negative and positive), by Charles Francois du Fay in 1733. A pivotal invention during this era was the Leyden jar, the first electric capacitor, independently developed by Pieter van Musschenbroek and Georg Von Kleist around 1745-46. This device provided a means to store electrical energy, further enabling experimental manipulation.</p>
+<p>Benjamin Franklin’s work in 1747, including his one-fluid theory of electricity and his famous kite experiment linking static electricity to lightning, solidified the understanding of electrical charge. Towards the close of the 18th century, Henry Cavendish conceptualized resistance and capacitance, though his findings remained unpublished for decades. Charles Augustin Coulomb, in 1785, provided a critical quantitative relationship by using a torsion balance to verify the inverse square law for electric force. The invention of the electric battery, or Voltaic pile, by Alessandro Volta in 1800, marked a paradigm shift. This device provided the first continuous source of electric current, which was indispensable for subsequent experiments and practical applications, fundamentally enabling the quantitative study of electrical circuits. The parallel development of electrical and magnetic studies, even without a unified theory, suggested an inherent connection between these forces, a connection that would later be formalized by Maxwell’s equations and become central to circuit analysis.</p>
+</section>
+<section id="development-of-the-telegraph" class="level3" data-number="F.3.2">
+<h3 data-number="F.3.2" class="anchored" data-anchor-id="development-of-the-telegraph"><span class="header-section-number">F.3.2</span> Development of the Telegraph</h3>
+<p><strong>Write a paragraph describing the development of the telegraph and circuit analysis and theory.</strong></p>
+<p>The development of the <strong>electric telegraph</strong> in the mid-19th century—pioneered by figures such as <strong>Samuel Morse</strong>, <strong>Charles Wheatstone</strong>, and <strong>William Cooke</strong>—served as the primary catalyst for the formalization of <strong>circuit analysis and theory</strong>. While early experimenters like <strong>Joseph Henry</strong> used intuitive trial-and-error to improve electromagnets, the practical challenge of signal degradation over hundreds of miles necessitated a more rigorous mathematical framework. This led to the widespread application of <strong>Ohm’s Law</strong> (<span class="math inline">\(V=IR\)</span>) to calculate the resistance of long-distance iron and copper wires and the “intensity” required to drive remote relays. As systems grew more complex, <strong>Gustav Kirchhoff</strong> introduced his fundamental circuit laws in 1845, using graph theory to describe the flow of current and voltage in networked lines. By the late 1800s, the “telegrapher’s equations” developed by <strong>Oliver Heaviside</strong> integrated <strong>Maxwell’s electromagnetic field theory</strong> with circuit variables, establishing the foundation for modern transmission line theory and ensuring that messages could travel across oceans without being lost to induction or capacitance.</p>
+<table class="caption-top table">
+<caption>Key Milestones in Telegraphy and Circuit Theory</caption>
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Era</th>
+<th style="text-align: left;">Milestone</th>
+<th style="text-align: left;">Impact on Theory</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>1827</strong></td>
+<td style="text-align: left;"><strong>Ohm’s Law</strong></td>
+<td style="text-align: left;">Provided the first mathematical relationship between voltage, current, and resistance.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>1830s</strong></td>
+<td style="text-align: left;"><strong>Joseph Henry’s Relays</strong></td>
+<td style="text-align: left;">Introduced the concept of “intensity” vs.&nbsp;“quantity” circuits (series vs.&nbsp;parallel).</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>1845</strong></td>
+<td style="text-align: left;"><strong>Kirchhoff’s Laws</strong></td>
+<td style="text-align: left;">Established rules for current and voltage in complex networked circuits.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>1880s</strong></td>
+<td style="text-align: left;"><strong>Telegrapher’s Equations</strong></td>
+<td style="text-align: left;">Heaviside modeled signal propagation, accounting for resistance, inductance, and capacitance.</td>
+</tr>
+</tbody>
+</table>
+<p><br><br></p>
+<p><strong>Write a paragraph describing how Heaviside’s work specifically solved the problem of “signal blurring” in undersea telegraph cables.</strong></p>
+<p>Oliver Heaviside solved the critical problem of <strong>“signal blurring”</strong> (now known as dispersion) in undersea cables by identifying that the issue was not just a loss of signal strength, but a lack of <strong>inductance</strong>. Early transatlantic cables, modeled by Lord Kelvin using a “diffusion” theory similar to heat flow, ignored inductance, which caused different frequency components of a signal to travel at different speeds. As a result, the sharp “dots” and “dashes” of Morse code would spread out and overlap, often requiring operators to wait several minutes for a single character to clear. In 1887, Heaviside formulated the <strong>Heaviside Condition</strong> (<span class="math inline">\(G/C=R/L\)</span>), which proved that if the ratio of leakage conductance (G) to capacitance (C) equaled the ratio of resistance (R) to inductance (L), all frequencies would travel at the same velocity, creating a <strong>distortionless line</strong>. To achieve this balance in practice, he proposed “loading” the cables by adding series inductors—a counterintuitive solution at the time, as engineers typically tried to maximize insulation and minimize all forms of “interference.”</p>
+<table class="caption-top table">
+<caption>The Heaviside Condition for Distortionless Transmission</caption>
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Symbol</th>
+<th>Role in “Blurring”</th>
+<th>Heaviside’s Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Inductance</strong></td>
+<td>L</td>
+<td>Missing in early models; causes frequency lag.</td>
+<td><strong>Increase </strong> L using induction/loading coils.</td>
+</tr>
+<tr class="even">
+<td><strong>Capacitance</strong></td>
+<td>C</td>
+<td>Causes signal to “bleed” and spread over time.</td>
+<td>Balance with L to fix velocity.</td>
+</tr>
+<tr class="odd">
+<td><strong>Resistance</strong></td>
+<td>R</td>
+<td>Causes energy loss (attenuation).</td>
+<td>Accept loss, but fix shape through balance.</td>
+</tr>
+<tr class="even">
+<td><strong>Leakage</strong></td>
+<td>G</td>
+<td>Small current loss through insulation.</td>
+<td><strong>Balance </strong> G with R to maintain signal shape.</td>
+</tr>
+</tbody>
+</table>
+<p><br><br></p>
+<p><strong>Write a paragraph describing the mathematical struggle between Heaviside and the “practical men” of the 19th century.</strong></p>
+<p>The mathematical struggle between <strong>Oliver Heaviside</strong> and the “practical men” of the late 19th century—led by the powerful Post Office Chief Engineer <strong>William Preece</strong>—was a bitter culture war between abstract theory and empirical intuition. Preece and his contemporaries relied on the <strong>“KR Law,”</strong> a simplified model that treated telegraph cables like long, leaky pipes where only resistance and capacitance mattered. They viewed <strong>self-induction</strong> as a “choking” enemy to be purged. Heaviside, a self-taught genius who lived in reclusive poverty, used his “abstruse” mathematical tools to prove the opposite: that adding induction (loading) would actually clarify signals. Preece, who famously stated that “true theory does not require the language of mathematics,” used his political clout to block Heaviside’s publications and dismiss his work as “mathematical gymnastics.” This feud delayed the implementation of high-speed long-distance telephony for decades, ending only when the “practical” failures of undersea cables became so undeniable that engineers were forced to adopt Heaviside’s <strong>operational calculus</strong> and vector analysis to save the industry.</p>
+<table class="caption-top table">
+<caption>The Clash of Philosophies</caption>
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Feature</th>
+<th>The “Practical Men” (Preece)</th>
+<th>The “Maxwellians” (Heaviside)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>View of Math</strong></td>
+<td>A “needless abstraction” for simple electrical work.</td>
+<td>The “experimental” foundation of physical truth.</td>
+</tr>
+<tr class="even">
+<td><strong>Inductance (L)</strong></td>
+<td>An “enemy” that slows down current flow.</td>
+<td>A necessary “balance” to stop signal blurring.</td>
+</tr>
+<tr class="odd">
+<td><strong>Core Model</strong></td>
+<td><strong>The KR Law:</strong> Focuses only on K (capacitance) and (resistance).</td>
+<td><strong>Telegrapher’s Equations:</strong> Includes L (inductance) and G (leakage).</td>
+</tr>
+<tr class="even">
+<td><strong>Ultimate Result</strong></td>
+<td>Slow, distorted long-distance communication.</td>
+<td>Clear, high-speed transoceanic telephony.</td>
+</tr>
+</tbody>
+</table>
+<p>Heaviside’s victory eventually redefined the field of electrical engineering.</p>
+<p><br><br></p>
+<p><strong>Write a paragraph describing how Heaviside simplified the original 20 Maxwell’s Equations.</strong></p>
+<p>Oliver Heaviside simplified the original 20 equations of James Clerk Maxwell by “throwing overboard” the complex use of <strong>potentials</strong> and <strong>quaternions</strong>, which he found to be unnecessarily abstract and physically opaque. Maxwell’s original 1865 formulation relied on a system of 20 simultaneous equations written in , , and components, largely focused on the magnetic vector potential (A) as the central physical reality. Heaviside, working independently in the 1880s, discarded the potentials in favor of the <strong>electric (E)</strong> and <strong>magnetic (H)</strong> fields themselves, arguing that only these fields represented observable physical states. To do this, he independently co-developed <strong>vector calculus</strong>, introducing the now-standard operators of <strong>divergence</strong> (<span class="math inline">\(\nabla \cdot\)</span>) and <strong>curl</strong> (<span class="math inline">\(\nabla \times\)</span>). This allowed him to condense Maxwell’s sprawling list into four elegant, symmetric partial differential equations that describe how charges and currents produce fields, and how changing fields produce one another. By recasting the theory in this “duplex” form, Heaviside transformed a dense mathematical treatise into a practical toolset that could be used by engineers to design everything from transoceanic cables to radio antennas.</p>
+<table class="caption-top table">
+<caption>The Simplification Proce</caption>
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Original Maxwellian Form (1865)</th>
+<th>Heaviside’s Vector Form (1884)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>20 Equations</strong> in 20 variables.</td>
+<td><strong>4 Equations</strong> in 2 variables (<strong>E</strong> and <strong>H</strong>).</td>
+</tr>
+<tr class="even">
+<td>Written in <strong>Quaternions</strong> and component scalars.</td>
+<td>Written in <strong>Vector Calculus</strong> (Divergence and Curl).</td>
+</tr>
+<tr class="odd">
+<td>Centered on <strong>Magnetic Vector Potential (A)</strong>.</td>
+<td>Centered on <strong>Measurable Fields (E, H)</strong>.</td>
+</tr>
+<tr class="even">
+<td>Difficult to solve for practical engineering.</td>
+<td>Foundation for <strong>Operational Calculus</strong> and circuit design.</td>
+</tr>
+</tbody>
+</table>
+<p><br><br></p>
+</section>
+<section id="development-of-the-radio" class="level3" data-number="F.3.3">
+<h3 data-number="F.3.3" class="anchored" data-anchor-id="development-of-the-radio"><span class="header-section-number">F.3.3</span> Development of the Radio</h3>
+<p><strong>Write a paragraph describing the development of the radio and circuit analysis and theory.</strong></p>
+<p>The transition from the wired telegraph to wireless <strong>radio</strong> in the late 19th and early 20th centuries forced circuit analysis to move beyond steady-state currents into the high-frequency realm of <strong>oscillatory dynamics</strong>. While early radio pioneers like <strong>Guglielmo Marconi</strong> initially relied on “brute force” spark-gap transmitters, the need for selective tuning led to the refinement of the <strong>resonant RLC circuit</strong> (Resistor-Inductor-Capacitor). This era saw the emergence of <strong>frequency-domain analysis</strong>, as engineers realized that a circuit’s behavior changed radically at its resonant frequency (<span class="math inline">\(f=\frac{1}{2\pi \sqrt{LC}}\)</span>). The invention of the <strong>vacuum tube (Audion)</strong> by <strong>Lee de Forest</strong> and its application in <strong>Edwin Armstrong’s</strong> regenerative and superheterodyne circuits introduced the concept of <strong>active circuit theory</strong>, where components could provide gain and feedback rather than just dissipating energy. These advancements required a new mathematical vocabulary involving <strong>complex impedance</strong> and <strong>transfer functions</strong>, transforming circuit theory from a branch of static physics into a sophisticated engineering discipline capable of manipulating invisible electromagnetic waves.</p>
+<table class="caption-top table">
+<caption>Radio’s Impact on Circuit Theory</caption>
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Innovation</th>
+<th>Key Contributor</th>
+<th>Theoretical Advancement</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Resonant Tuning</strong></td>
+<td>Oliver Lodge / Marconi</td>
+<td>Developed <strong>selective filtering</strong> and the concept of “tuning” to specific frequencies.</td>
+</tr>
+<tr class="even">
+<td><strong>Triode Vacuum Tube</strong></td>
+<td>Lee de Forest</td>
+<td>Introduced <strong>active elements</strong> that could amplify signals (non-passive theory).</td>
+</tr>
+<tr class="odd">
+<td><strong>Regeneration</strong></td>
+<td>Edwin Armstrong</td>
+<td>Formalized <strong>positive feedback</strong> and high-gain oscillation theory.</td>
+</tr>
+<tr class="even">
+<td><strong>Superheterodyne</strong></td>
+<td>Edwin Armstrong</td>
+<td>Advanced <strong>frequency conversion</strong> (mixing) and intermediate frequency (IF) analysis.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="development-of-electric-power-distribution-and-lighting" class="level3" data-number="F.3.4">
+<h3 data-number="F.3.4" class="anchored" data-anchor-id="development-of-electric-power-distribution-and-lighting"><span class="header-section-number">F.3.4</span> Development of Electric Power Distribution and Lighting</h3>
+<p><br><br></p>
+<p><strong>Write a paragraph describing the Development of Electric Power Distribution and Lighting</strong></p>
+<p>The development of <strong>electric power distribution and lighting</strong> in the late 19th century transformed circuit analysis from a laboratory curiosity into an industrial necessity, fueled by the intense competition between <strong>Thomas Edison</strong> and <strong>Nikola Tesla</strong>. Edison’s 1882 Pearl Street Station pioneered the first commercial utility using <strong>Direct Current (DC)</strong>, but it was limited by the ** power loss** inherent in low-voltage transmission, which required power plants to be located within a mile of the consumer. This “War of Currents” necessitated a deeper understanding of <strong>parallel circuit design</strong> to ensure that turning off one light bulb didn’t blow out the rest—a practical application of <strong>Kirchhoff’s Current Law</strong>. The tide shifted toward <strong>Alternating Current (AC)</strong> when Tesla and George Westinghouse utilized the <strong>transformer</strong>, an application of <strong>Faraday’s Law of Induction</strong>, to “step up” voltages for efficient long-distance travel. This shift forced engineers to move beyond simple resistive models to <strong>phasor analysis</strong> and <strong>complex power theory</strong>, accounting for the phase shifts between voltage and current caused by the inductance of massive generators and the capacitance of the growing grid.</p>
+<table class="caption-top table">
+<caption>The Evolution of Power Systems and Circuit Analysis</caption>
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>System Type</th>
+<th>Key Proponent</th>
+<th>Primary Constraint</th>
+<th>Theoretical Breakthrough</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Direct Current (DC)</strong></td>
+<td>Thomas Edison</td>
+<td><strong>Voltage Drop:</strong> Limited to short distances due to wire resistance (R).</td>
+<td>Refined <strong>Ohm’s Law</strong> and <strong>Parallel Loading</strong> for domestic use.</td>
+</tr>
+<tr class="even">
+<td><strong>Alternating Current (AC)</strong></td>
+<td>Nikola Tesla</td>
+<td><strong>Reactance:</strong> Inductive and capacitive loads (L, C) affect efficiency.</td>
+<td>Introduced <strong>Phasors</strong> and <strong>3-Phase Power</strong> for high-efficiency motors.</td>
+</tr>
+<tr class="odd">
+<td><strong>Arc Lighting</strong></td>
+<td>Charles Brush</td>
+<td><strong>High Voltage:</strong> Required series connections; dangerous for indoor use.</td>
+<td>Advanced <strong>Series Circuit Analysis</strong> for high-intensity municipal grids.</td>
+</tr>
+<tr class="even">
+<td><strong>Incandescent Lighting</strong></td>
+<td>Thomas Edison</td>
+<td><strong>Filament Life:</strong> Required stable, low-voltage parallel circuits.</td>
+<td>Optimized <strong>High-Resistance Filaments</strong> to minimize current draw (I).</td>
+</tr>
+</tbody>
+</table>
+<p>The 1895 opening of the Niagara Falls power plant proved that AC could power an entire region, effectively ending the War of Currents.</p>
+</section>
+<section id="ohms-law" class="level3" data-number="F.3.5">
+<h3 data-number="F.3.5" class="anchored" data-anchor-id="ohms-law"><span class="header-section-number">F.3.5</span> Ohm’s Law</h3>
+<p>The transition from qualitative observations to quantitative analysis in circuit theory was profoundly marked by the work of <a href="https://en.wikipedia.org/wiki/Georg_Ohm">Georg Ohm</a>. In 1827, Ohm published his seminal treatise, <em>Die galvanische Kette, mathematisch bearbeitet</em> (“The galvanic circuit investigated mathematically”), which established the fundamental relationship between voltage, current, and resistance. This work was the culmination of experiments conducted in 1825 and 1826.</p>
+<p>Ohm’s experimental methodology was meticulous. He initially used voltaic piles but later opted for a thermocouple, recognizing its superior stability as a voltage source. Employing a galvanometer to measure current, he systematically varied the length, diameter, and material of test wires in his circuits. His data revealed a consistent relationship, which he modeled with the equation <span class="math inline">\(x = a / (b + l)\)</span>, where <span class="math inline">\(x\)</span> was the reading from the <a href="https://en.wikipedia.org/wiki/Galvanometer">galvanometer</a>, <span class="math inline">\(l\)</span> was the length of the test conductor, <span class="math inline">\(a\)</span> depended on the thermocouple junction temperature, and <span class="math inline">\(b\)</span> was a constant of the entire setup. From this, Ohm determined his law of proportionality and published his results. A formulation that modern notation translates to <span class="math inline">\(I = E / (r + R)\)</span>, where <span class="math inline">\(R\)</span> represents the resistance of the test wire.</p>
+<p>Despite the profound importance of his discovery, Ohm’s law initially encountered significant opposition. Critics dismissed his work as “a web of naked fancies,” and the Minister of Education famously declared that “a professor who preached such heresies was unworthy to teach science”. This resistance stemmed partly from the prevailing scientific philosophy in Germany at the time, which prioritized deductive reasoning over experimental evidence, believing that nature’s order could be fully understood through pure thought. The challenges faced by Ohm underscore a historical tension in scientific development, where empirical findings, even when rigorously derived, can be met with skepticism if they challenge established intellectual frameworks. The eventual widespread acceptance of Ohm’s law by the 1840s and 1850s validated the critical role of experimental validation in establishing fundamental scientific principles.</p>
+<p>The underlying physical explanation for Ohm’s macroscopic law would not emerge until much later. The discovery of the electron by J. J. Thomson in 1897, followed by Paul Drude’s classical Drude model of electrical conduction in 1900, provided a microscopic basis for the relationship Ohm had observed. This model, later refined by quantum mechanics in the 1920s, explained how the average drift velocity of electrons is proportional to the electric field, thereby deriving Ohm’s law from first principles. This progression illustrates that the understanding of circuit phenomena often evolves in layers: initial laws provide practical predictive power, while subsequent scientific discoveries offer deeper, more fundamental explanations, enabling more sophisticated analysis and material engineering.</p>
+</section>
+<section id="fundamental-network-laws" class="level3" data-number="F.3.6">
+<h3 data-number="F.3.6" class="anchored" data-anchor-id="fundamental-network-laws"><span class="header-section-number">F.3.6</span> Fundamental Network Laws</h3>
+<p>Building upon Ohm’s foundational work, <a href="https://en.wikipedia.org/wiki/Gustav_Kirchhoff">Gustav Kirchhoff</a> provided the essential framework for analyzing complex electrical networks. In 1845, Kirchhoff formulated two fundamental equalities that govern current and potential difference in electrical circuits, now universally known as <a href="https://en.wikipedia.org/wiki/Kirchhoff%27s_circuit_laws">Kirchhoff’s Circuit Laws</a> or Kirchhoff’s rules. These laws generalized Ohm’s work and preceded Maxwell’s comprehensive equations, establishing the bedrock for systematic network analysis.</p>
+<p>Kirchhoff’s Current Law (KCL), also referred to as Kirchhoff’s first law or the junction rule, states that the algebraic sum of all currents entering and exiting any node (junction) in an electrical circuit must be zero. This law is a direct consequence of the fundamental principle of the conservation of electric charge. Its applicability extends to any lumped network, regardless of its linearity, passivity, or whether it includes unilateral or bilateral components. KCL forms the basis for nodal analysis and is a core component of most modern circuit simulation software, such as SPICE.</p>
+<p>Kirchhoff’s Voltage Law (KVL), also known as Kirchhoff’s second law or the loop rule, states that the directed sum of potential differences (voltages) around any closed loop in a circuit must equal zero. This law is a corollary of Maxwell’s equations in the low-frequency limit, effectively embodying the principle of energy conservation within a closed electrical path.</p>
+<p>Combined with Ohm’s law, Kirchhoff’s laws became indispensable to network theory, enabling engineers and scientists to solve increasingly complex networks, including intricate bridge circuits. The development of these laws highlights a critical principle in engineering: the effective use of ideal models and abstractions to simplify complex systems for analysis. Kirchhoff’s laws rely on the “lumped-element model,” which approximates circuit components as discrete entities with ideal connections. While this model has limitations, it provided immensely powerful tools for practical design and analysis for over a century, before high-frequency effects became a significant concern. The deep connection of KCL to charge conservation and KVL to energy conservation provides a robust theoretical foundation, ensuring the reliability and broad applicability of these laws across various circuit configurations within the lumped-element model’s validity.</p>
+<p>However, it is crucial to recognize the inherent limitations of Kirchhoff’s laws, as they are predicated on the lumped-element model. Their accuracy diminishes in high-frequency AC circuits where the wavelengths of electromagnetic radiation become comparable to the circuit dimensions. In such scenarios, electric fields between circuit parts can become non-negligible due to capacitive coupling, or time-varying magnetic fields may not be entirely confined to individual components, leading to inductive coupling. In these cases, the assumption of constant charge density in conductors may no longer hold, necessitating direct field simulation or the inclusion of parasitic components in the circuit model.</p>
+</section>
+<section id="classical-circuit-analysis-methods" class="level3" data-number="F.3.7">
+<h3 data-number="F.3.7" class="anchored" data-anchor-id="classical-circuit-analysis-methods"><span class="header-section-number">F.3.7</span> Classical Circuit Analysis Methods</h3>
+<p>With the fundamental laws established, the next phase in the history of circuit analysis involved the development of systematic methods for applying these laws to solve circuit problems manually. These classical methods formed the bedrock of circuit design for decades, even as circuit complexity began to grow.</p>
+<section id="mesh-analysis" class="level4" data-number="F.3.7.1">
+<h4 data-number="F.3.7.1" class="anchored" data-anchor-id="mesh-analysis"><span class="header-section-number">F.3.7.1</span> Mesh Analysis</h4>
+<p><a href="https://en.wikipedia.org/wiki/Mesh_analysis">Mesh analysis</a>, identified with Kirchhoff’s Voltage Law (KVL), stands as one of the earliest systematic methods for formulating equations for electrical circuits. Its conceptual roots can be traced back to Maxwell’s idea of “cyclic current”. The method involves defining each mesh, or closed loop, within a circuit and assigning a corresponding unknown current to it. To ensure consistency and ease of application, these unknown currents are often defined in a uniform direction, such as clockwise.</p>
+<p>Once the mesh currents are defined, KVL is applied to each loop that does not contain a current source. This process generates a system of linear equations, which can then be solved to determine the unknown mesh currents. For a circuit characterized by <em>n</em> meshes and <em>m</em> current sources, mesh analysis typically requires solving a system of <em>n-m</em> equations. The development of mesh analysis, building on Maxwell’s work and KVL, signified a crucial step towards a systematic, repeatable approach to solving circuit problems, moving beyond ad-hoc methods. This early recognition of the need for formalized procedures was essential for scaling circuit design and analysis beyond trivial examples, even if the computational burden remained significant for human analysts.</p>
+</section>
+<section id="nodal-analysis" class="level4" data-number="F.3.7.2">
+<h4 data-number="F.3.7.2" class="anchored" data-anchor-id="nodal-analysis"><span class="header-section-number">F.3.7.2</span> Nodal Analysis</h4>
+<p><a href="https://en.wikipedia.org/wiki/Nodal_analysis">Nodal analysis</a> emerged as a powerful alternative and a “topological dual” to mesh analysis, identified primarily with Kirchhoff’s Current Law (KCL). It quickly became a mainstay for analyzing larger electrical systems due to several inherent advantages over its mesh counterpart.</p>
+<p>The methodology of nodal analysis involves a structured, step-by-step procedure:</p>
+<ol type="1">
+<li>Node Definition: All distinct connected conductive segments within the circuit are identified and designated as nodes.<br>
+</li>
+<li>Ground Node Selection: A reference node, typically designated as ground, is chosen, and its voltage is set to zero. This strategic choice effectively reduces the number of unknown voltages in the system by one.<br>
+</li>
+<li>Variable Assignment: A unique voltage variable is assigned to each non-reference node whose voltage is unknown.<br>
+</li>
+<li>Equation Construction: For each non-reference node not directly connected to a voltage source, KCL is applied. This involves summing all currents entering and exiting the node, with each current expressed in terms of node voltages using Ohm’s Law, and setting the sum to zero.<br>
+</li>
+<li>Supernode Formation: In cases where a voltage source connects two nodes with unknown voltages, a “supernode” can be conceptually formed. This approach combines the KCL equations for the two interconnected nodes into a single equation, supplemented by an additional equation that defines the voltage relationship across the source.<br>
+</li>
+<li>System Solution: The resulting system of simultaneous linear equations is then solved to determine all unknown node voltages.</li>
+</ol>
+<p>Nodal analysis offered two significant advantages that contributed to its popularity : First, it effectively eliminated the complexities associated with crossovers in nonplanar networks, thereby obviating the need for intricate tree-graph theory required by mesh analysis in such scenarios. Second, the number of equations typically required for nodal analysis is generally smaller than for mesh analysis, largely because the number of nodes in a network is often less than the number of branches. The development of nodal analysis as a “topological dual” to mesh analysis illustrates that different mathematical or conceptual frameworks can offer more efficient solutions for particular problems. While both methods are theoretically valid, nodal analysis often reduces the number of equations, especially for networks with many branches but fewer nodes. This highlights the practical importance of selecting the most efficient analytical tool, a consideration that became increasingly critical as circuit complexity grew and foreshadowed the later drive for computational efficiency in computer-aided design.</p>
+</section>
+</section>
+<section id="limitations-of-manual-methods" class="level3" data-number="F.3.8">
+<h3 data-number="F.3.8" class="anchored" data-anchor-id="limitations-of-manual-methods"><span class="header-section-number">F.3.8</span> Limitations of Manual Methods</h3>
+<p>Despite the systematic improvements offered by nodal and mesh analysis, the inherent limitations of applying these classical methods manually became increasingly apparent as electrical circuits grew in complexity. These challenges ultimately paved the way for the necessity of automated solutions.</p>
+<p>A significant inefficiency of traditional nodal analysis was its cumbersome handling of voltage sources. When a voltage source was not directly tied to the reference (ground) node, or when it spanned between two non-reference nodes, it complicated the direct application of KCL. This often necessitated the use of “supernodes” or required transformations, such as replacing independent voltage sources with Norton equivalent current sources, which added layers of complexity to the equation formulation.</p>
+<p>Furthermore, the basic nodal method struggled to incorporate current-dependent circuit elements—whether linear or nonlinear—in a simple and efficient manner. This posed a growing problem as active components and more intricate device models became prevalent. Another practical drawback was the difficulty in obtaining branch currents directly from the output of traditional nodal analysis. While node voltages were readily solved, determining individual branch currents often required additional, post-solution calculations, adding to the manual effort.</p>
+<p>Past attempts to generalize the nodal method to address these limitations frequently introduced new complications. For instance, some programs resorted to introducing extremely small or negative resistances to accommodate current dependencies, which could lead to numerical instability. While nodal analysis was generally more efficient than mesh analysis for many circuits, both methods became prohibitively complex and time-consuming for large networks. The sheer number of equations and variables in such circuits made manual calculation impractical, if not impossible. These limitations—the inefficiency with certain elements, the difficulty in obtaining all desired variables, and the overwhelming scale of calculations—all pointed to a fundamental bottleneck: the human capacity for manual computation and error management. As electronic designs became more intricate, particularly with the advent of integrated circuits, these manual methods became unsustainable, directly establishing the critical need for computer-aided analysis.</p>
+</section>
+</section>
+<section id="oliver-heaviside" class="level2" data-number="F.4">
+<h2 data-number="F.4" class="anchored" data-anchor-id="oliver-heaviside"><span class="header-section-number">F.4</span> Oliver Heaviside</h2>
+<p>The Laplace transform, which uses the Laplace variable <span class="math inline">\(s\)</span>, was introduced into electrical circuit analysis by the self taught British engineer and physicist <a href="https://en.wikipedia.org/wiki/Oliver_Heaviside">Oliver Heaviside</a> in the late 19th century. Heaviside developed a method he called “operational calculus” to solve the differential equations of electric circuits. Heaviside’s operational calculus, published in the 1890s, used an operator <span class="math inline">\(p\)</span> which he defined as <span class="math inline">\(\frac{d}{dt}\)</span>. He applied algebraic rules to this operator to solve for circuit responses to transients. This was essentially an intuitive, non-rigorous version of the Laplace transform. The mathematical community later proved that Heaviside’s powerful but informal methods could be rigorously justified using the Laplace transform. This was largely done by engineers and mathematicians like <a href="https://en.wikipedia.org/wiki/John_Renshaw_Carson">John R. Carson</a> and <a href="https://en.wikipedia.org/wiki/Thomas_John_I%27Anson_Bromwich">Thomas Bromwich</a> in the 1920s and 1930s. The modern, widespread use of the Laplace transform as a standard tool in electrical engineering came about after World War II. It replaced Heaviside’s operational calculus in engineering curricula and textbooks, solidifying its place as the primary method for analyzing linear, time-invariant systems in the frequency domain.</p>
+</section>
+<section id="charles-proteus-steinmetz" class="level2" data-number="F.5">
+<h2 data-number="F.5" class="anchored" data-anchor-id="charles-proteus-steinmetz"><span class="header-section-number">F.5</span> Charles Proteus Steinmetz</h2>
+<p>Phasor analysis, a critical tool for AC circuits, was first used in the late 19th century. Its introduction is credited to <a href="https://en.wikipedia.org/wiki/Charles_Proteus_Steinmetz">Charles Proteus Steinmetz</a>, an electrical engineer working for General Electric. In 1893, he proposed the use of phasor notation, which was then rapidly adopted for AC circuit analysis. He was a professor at Union College and a key figure in the development of alternating current (AC) at General Electric, where he served as a consulting engineer. His work was crucial for the expansion of the electric power industry in the United States. In 1893, he introduced the use of complex numbers (phasors) to simplify the analysis of AC circuits. This method transformed complex, time-consuming calculus into simpler algebraic calculations.</p>
+<p>Phasor analysis was first introduced in 1893 when he presented a paper titled “Complex Quantities and Their Use in Electrical Engineering” at the International Electrical Congress in Chicago. This work revolutionized AC circuit analysis by transforming the complex calculus-based methods used at the time into much simpler algebraic operations using complex numbers. Before phasors, analyzing alternating current (AC) circuits was mathematically complex, as it involved solving differential equations for sinusoidal waveforms. Steinmetz’s method simplified this process immensely. By representing sinusoidal voltages and currents as complex numbers (phasors), the differential equations that govern AC circuits were transformed into much simpler algebraic equations. This allowed engineers to use familiar algebraic rules and Ohm’s Law in the frequency domain. The simplification offered by phasor analysis was so profound that it became the standard method for analyzing AC power systems and is still a fundamental concept taught in electrical engineering today.</p>
+<!--
+
+https://en.wikipedia.org/wiki/History_of_electrical_engineering
+
+https://en.wikipedia.org/wiki/Charles_Proteus_Steinmetz
+
+https://en.wikipedia.org/wiki/Network_analysis_(electrical_circuits)
+
+https://en.wikipedia.org/wiki/History_of_electronic_engineering
+
+https://en.wikipedia.org/wiki/History_of_electromagnetic_theory
+
+-->
+</section>
+<section id="development-of-modified-nodal-analysis" class="level2" data-number="F.6">
+<h2 data-number="F.6" class="anchored" data-anchor-id="development-of-modified-nodal-analysis"><span class="header-section-number">F.6</span> Development of Modified Nodal Analysis</h2>
+<p>The limitations of traditional nodal analysis and the increasing demands of computer-aided design for complex circuits necessitated a more robust and versatile equation formulation. <a href="https://en.wikipedia.org/wiki/Modified_nodal_analysis">Modified Nodal Analysis (MNA)</a> emerged as the definitive solution, becoming the foundational method for modern circuit simulation software.</p>
+<p>In 1975, <span class="citation" data-cites="Ho1975">Ho, Ruehli, and Brennan (<a href="References.html#ref-Ho1975" role="doc-biblioref">1975</a>)</span> published a paper titled, <em>The Modified Nodal Approach to Network Analysis</em>. This was the original scholarly paper on the subject. The analysis method they presented allows for the ability to process voltage sources and current-dependent circuit elements in a simple and efficient manner. The paper describes the formulation of the matrices, the use of stamps and a pivot ordering strategy. The authors compare their algorithm to the tableau method, a circuit analysis technique, which was an analysis technique being described in scholarly papers at the time. At the time of this publication, the authors were affiliated with the IBM Thomas J. Watson Research Center in Yorktown Heights, N.Y.</p>
+<p>The development of MNA was driven by the critical need for efficient circuit equation formulation in computer-aided design programs, particularly for integrated circuits. While the traditional nodal approach offered flexibility and efficiency for manual analysis, its inherent limitations—especially concerning the treatment of voltage sources and current-dependent elements—demanded a more generalized and computationally friendly method. This highlights a pattern of industry-driven innovation; the practical demands of integrated circuit design within a leading industrial research center directly spurred this fundamental analytical advancement.</p>
+<p>The timing of MNA’s publication in 1975 was opportune, coinciding with the maturation of digital computing capabilities, which enabled its rapid and widespread adoption as the computational infrastructure became ready to fully leverage its algorithmic advantages. If MNA had been proposed much earlier, the computational resources might not have been sufficient to efficiently handle the large matrices generated. By 1975, digital computers had advanced to a point where MNA’s sophisticated matrix operations and iterative solutions became practically feasible and efficient. This technological readiness allowed MNA’s inherent algorithmic advantages to be fully exploited, leading to its rapid integration into circuit simulation software and its eventual dominance.</p>
+<p>Academic institutions are increasingly integrating MNA into undergraduate circuit theory courses to enhance students’ understanding of analysis techniques that are directly implementable on computers.</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-Ho1975" class="csl-entry" role="listitem">
+Ho, C., A. Ruehli, and P. Brennan. 1975. <span>“The Modified Nodal Approach to Network Analysis.”</span> <em>IEEE Transactions on Circuits and Systems</em> 22 (6): 504–9. <a href="https://doi.org/10.1109/TCS.1975.1084079">https://doi.org/10.1109/TCS.1975.1084079</a>.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./EasyEDA_schematic_editor.html" class="pagination-link" aria-label="EasyEDA">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">EasyEDA</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./Quick_ref.html" class="pagination-link" aria-label="Quick Reference">
+        <span class="nav-page-text"><span class="chapter-number">G</span>&nbsp; <span class="chapter-title">Quick Reference</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
