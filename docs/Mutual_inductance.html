@@ -550,14 +550,9 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#coupling-coefficient" id="toc-coupling-coefficient" class="nav-link active" data-scroll-target="#coupling-coefficient"><span class="header-section-number">9.1</span> Coupling Coefficient</a></li>
-  <li><a href="#test-circuits" id="toc-test-circuits" class="nav-link" data-scroll-target="#test-circuits"><span class="header-section-number">9.2</span> Test Circuits</a></li>
-  <li><a href="#example-circuit-1" id="toc-example-circuit-1" class="nav-link" data-scroll-target="#example-circuit-1"><span class="header-section-number">9.3</span> Example Circuit 1</a>
-  <ul class="collapse">
-  <li><a href="#mutual-inductance" id="toc-mutual-inductance" class="nav-link" data-scroll-target="#mutual-inductance"><span class="header-section-number">9.3.1</span> Mutual inductance</a></li>
-  </ul></li>
-  <li><a href="#example-circuit-2" id="toc-example-circuit-2" class="nav-link" data-scroll-target="#example-circuit-2"><span class="header-section-number">9.4</span> Example Circuit 2</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">9.5</span> Summary</a></li>
+  <li><a href="#example-circuit-1" id="toc-example-circuit-1" class="nav-link active" data-scroll-target="#example-circuit-1"><span class="header-section-number">9.1</span> Example Circuit 1</a></li>
+  <li><a href="#example-circuit-2" id="toc-example-circuit-2" class="nav-link" data-scroll-target="#example-circuit-2"><span class="header-section-number">9.2</span> Example Circuit 2</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">9.3</span> Summary</a></li>
   </ul>
 </nav>
     </div>
@@ -583,97 +578,17 @@ window.Quarto = {
 </header>
 
 
-<p><a href="https://en.wikipedia.org/wiki/Inductance#Mutual_inductance">Mutual inductance</a> is an electromagnetic phenomenon that quantifies the degree to which a time varying electric current in one coil induces a voltage in another coil through the interaction of their magnetic fields. This effect, often termed mutual induction, arises because the changing current in the first coil generates a magnetic flux, some fraction of which links with the turns of the second coil. The magnitude of mutual inductance depends entirely on the geometric arrangement of the two coils, including their relative orientation, distance, size, number of turns, and the magnetic permeability of the medium between them. It is the fundamental operating principle behind transformers and various other coupled circuits used for intentional energy transfer or signal coupling. The SI unit is the Henry (H).</p>
+<p><a href="https://en.wikipedia.org/wiki/Inductance#Mutual_inductance">Mutual inductance</a> is an electromagnetic phenomenon that quantifies the degree to which a time varying electric current in one coil induces a voltage in another coil through the interaction of their magnetic fields. This effect, often termed mutual induction, arises because the changing current in the first coil generates a magnetic flux, some fraction of which links with the turns of the second coil. The magnitude of mutual inductance depends entirely on the geometric arrangement of the two coils, including their relative orientation, distance, size, number of turns, and the magnetic permeability of the medium between them. It is the fundamental operating principle behind <a href="https://en.wikipedia.org/wiki/Transformer">transformers</a> and various other coupled circuits used for intentional energy transfer or signal coupling. The SI unit is the Henry (H).</p>
 <p>A coupled inductor has two or more windings that are connected by a magnetic circuit. Coupled inductors transfer energy from one winding to a different winding usually through a commonly used core. The efficiency of the magnetic coupling between both the windings is defined by the coupling factor k or by mutual inductance.</p>
-<p>The Dot Convention is a graphical method used to indicate on electrical schematics to indicate the polarity of the voltage induced by mutual inductance when writing Kirchhoff’s Voltage Law (KVL) equations. The convention uses a small dot placed at one terminal of each coupled coil. The placement of the dot indicates the relative direction of the windings around the core. If a current <span class="math inline">\(i_1\)</span> enters the dotted terminal of one coil, it induces a voltage in the second coil <span class="math inline">\(v_2\)</span> that is positive at the dotted terminal of the second coil.</p>
-<section id="coupling-coefficient" class="level2" data-number="9.1">
-<h2 data-number="9.1" class="anchored" data-anchor-id="coupling-coefficient"><span class="header-section-number">9.1</span> Coupling Coefficient</h2>
-<p>The coupling coefficient, <span class="math inline">\(K\)</span>, is a dimensionless value between 0 and 1 that quantifies the fraction of magnetic flux from one winding that links the other and is typically measured indirectly through inductance measurements. The most common and accurate method involves using an LCR meter to measure two specific inductance values on a winding (e.g., the primary, <span class="math inline">\(L_p\)</span>): the open-circuit inductance (<span class="math inline">\(L_{open}\)</span>), which is the self-inductance of the primary winding with the secondary winding open-circuited, and the short-circuit inductance (<span class="math inline">\(L_{short}\)</span>), which is the inductance measured across the primary when the secondary winding is short-circuited. The short-circuit inductance represents the leakage inductance (<span class="math inline">\(L_{leak}\)</span>) seen from the primary side. The coupling coefficient is then calculated using the formula: <span class="math inline">\(k = \sqrt{1 - \frac{L_{short}}{L_{open}}}\)</span>. This technique leverages the fact that perfect coupling (<span class="math inline">\(k=1\)</span>) would result in zero leakage and therefore zero short-circuit inductance, whereas poor coupling (<span class="math inline">\(k \ll 1\)</span>) results in <span class="math inline">\(L_{short}\)</span> approaching <span class="math inline">\(L_{open}\)</span>.</p>
-<p>The coupling constant and the mutual inductance are related by the equation:</p>
-<p><span class="math inline">\(k = \frac {M}{\sqrt{L_1 \times L_2}}\)</span></p>
-<p>Where k is the coupling coefficient and in spice the value of k can be from -1 to +1 to account for a negative phase relation. Phase dots are drawn on the schematic to indicate the relative direction of the windings. In LTspice the phase dots are associated with the negative terminal of the winding.</p>
-<!--
-
-## Ideal transformer
-An ideal transformer is a hypothetical (theoretical) model of a transformer used in electrical engineering to simplify analysis by assuming perfect operation with no energy losses.  While no real-world transformer can achieve this ideal state, practical transformers, especially large iron-core units, can come very close.
-
-The model is defined by four primary characteristics:
-
-1. Zero Winding Resistance: The primary and secondary coils have zero ohmic resistance ($R=0$). This means there are no copper losses ($I^2R$ losses) in the windings, and the induced EMFs ($E_1$ and $E_2$) are equal to the terminal voltages ($V_1$ and $V_2$).
-1. No Core Losses: The core material has no hysteresis or eddy current losses, meaning no energy is dissipated as heat within the core.
-1. Infinite Core Permeability: The magnetic core has infinite permeability ($\mu \rightarrow \infty$). This allows the required magnetic flux ($\Phi$) to be established with virtually zero magnetizing current ($I_\mu \approx 0$).
-1. Perfect Magnetic Coupling: There is zero leakage flux ($k=1$). This means that all the magnetic flux produced by the primary winding is perfectly coupled to (links with) the secondary winding.
-
-Due to the absence of all these losses, the central defining principle of an ideal transformer is 100% efficiency. This perfect efficiency leads to simple and direct relationships between the voltages ($V$), currents ($I$), and the number of turns ($N$), governed by the turns ratio ($n$):
-
-$$\frac{V_s}{V_p} = \frac{N_s}{N_p} = n$$
-
-$$\frac{I_p}{I_s} = \frac{N_s}{N_p} = n$$
-
-These equations show that the voltage ratio is directly proportional to the turns ratio, while the current ratio is inversely proportional.
-
-## Reflected Impedance
-Reflected impedance is a key concept in the analysis of magnetically coupled circuits, most notably transformers. It represents the apparent impedance that a load connected to the secondary side of a transformer "presents" or "reflects" back to the primary side. Essentially, when a current is drawn by the load ($Z_{load}$) on the secondary winding, the resulting current on the primary side is determined not only by the primary's own impedance but also by the load's influence, which is mathematically transformed by the turns ratio of the transformer. The source connected to the primary side acts as if the load were directly connected, but with a modified value.
-
-The value of the reflected impedance is proportional to the actual load impedance and the square of the transformer's turns ratio. For an ideal transformer, the reflected impedance ($Z_{reflected}$) is calculated as:
-
-$$Z_{reflected} = \left(\frac{N_p}{N_s}\right)^2 \cdot Z_{load}$$
-
-Where:
-
-- $Z_{reflected}$ is the impedance seen looking into the primary terminals due to the secondary load.
-- $N_p$ is the number of turns in the primary winding.
-- $N_s$ is the number of turns in the secondary winding.
-- $Z_{load}$ is the actual load impedance connected to the secondary.
-
-If the turns ratio $n$ is defined as $n =\frac{N_p}{N_s}$, the formula simplifies to:
-
-$$Z_{reflected} = n^2 \cdot Z_{load}$$
-
-## Turns Ratio
-The turns ratio of a transformer, which is the ratio of the number of turns in the primary winding ($N_p$) to the number of turns in the secondary winding ($N_s$), is most accurately determined by measuring the ratio of the voltages across the windings.  The fundamental relationship for an ideal transformer is given by $N_p / N_s = V_p / V_s$, where $V_p$ is the primary voltage and $V_s$ is the secondary voltage. 
-
-Alternatively, for simple diagnostics or hobbyist applications, a low-voltage AC source and two AC voltmeters (multimeters) can be used, ensuring the transformer is completely disconnected from the mains supply and applying a safe, low AC voltage to one winding (e.g., the high-voltage winding) while measuring the resulting voltage on the other winding. The measured ratio of the applied voltage to the induced voltage, $\text{Ratio} = V_p / V_s$, serves as a close approximation of the turns ratio.
-
-The following Python libraries are used in this chapter.
-
-
-To calculate the transformer turns ratio from winding inductance, you rely on the fundamental principle that inductance is proportional to the square of the number of turns.
-
-In an ideal transformer (where both windings share the same magnetic core and flux), the relationship between the primary inductance $L_p$, secondary inductance $L_s$, and their respective turns ($N_p$,$N_s$) is:
-
-$$\frac{L_s}{L_p}=\left(\frac{N_s}{N_p}\right)^2$$
-
-### The Calculation Formula
-
-To find the turns ratio (n), which is typically defined as the ratio of secondary turns to primary turns $\frac{N_s}{N_p}$, use the square root of the inductance ratio:
-
-$$n=\frac{N_s}{N_p}=\sqrt{\frac{L_s}{L_p}}$$
-
-
-### Step-by-Step Guide
-
-1. Measure the Inductances: Use an LCR meter to measure the inductance of the primary winding $L_p$ and the secondary winding $L_s$. Ensure the other winding is left open-circuited during each measurement.
-1. Divide the Values: Divide the secondary inductance by the primary inductance.
-1. Calculate the Square Root: The square root of that result is your turns ratio.
-
-Example: If your primary inductance  is 10 mH and your secondary inductance  is 40 mH:
-
-- Ratio = $40/10=4$
-- Turns Ratio $(n) = \sqrt{4}=2$
-- This means the transformer has a 1:2 turns ratio (it is a step-up transformer).
-
-### Important Practical Considerations
-
-While the theoretical formula is straightforward, "real-world" factors can affect the accuracy of this calculation:
-
-- Core Coupling (k): The formula assumes perfect coupling (k=1). If the coils are loosely coupled, the measured inductance ratio may not perfectly match the physical turns ratio.
-- Measurement Frequency: Inductance can vary with frequency due to core material properties. Always measure both windings at the same frequency (typically the intended operating frequency of the transformer, e.g., 100 Hz or 1 kHz).
-- Permeability & Saturation: If you use a very low-voltage LCR meter, the magnetic core may be operating at a different permeability than it would at its rated power voltage, slightly shifting the inductance values.
-
--->
+<p>The dot convention is a graphical method used to indicate the winding direction of a coil in relationship to other coils which are magnetically coupled. The convention uses a small dot placed at one terminal of each coupled coil. The placement of the dot indicates the relative direction of the windings around the core. If a current <span class="math inline">\(i_1\)</span> enters the dotted terminal of one coil, it induces a voltage in the second coil <span class="math inline">\(v_2\)</span> that is positive at the dotted terminal of the second coil.</p>
+<p>The history of the inductor and transformer is fundamentally rooted in the discovery of electromagnetic induction in the 1830s. <a href="https://en.wikipedia.org/wiki/Michael_Faraday">Michael Faraday</a> in England, and independently <a href="https://en.wikipedia.org/wiki/Joseph_Henry">Joseph Henry</a> in America (whose name is honored by the unit of inductance, the henry), discovered that a changing magnetic field could induce an electric current in a nearby wire. Faraday’s “induction ring” of 1831, consisting of two coils wrapped around an iron ring, is recognized as the first prototype transformer, demonstrating the principle of energy transfer between circuits without a direct connection. This led to early induction coils (or spark coils), developed by <a href="https://en.wikipedia.org/wiki/Nicholas_Callan">Nicholas Callan</a> and others, which used intermittent current to generate high voltages. However, the first commercially viable transformer for alternating current (AC) power distribution was not developed until the mid-1880s by Hungarian engineers <a href="https://en.wikipedia.org/wiki/Miksa_D%C3%A9ri">Miksa Déri</a>, <a href="https://en.wikipedia.org/wiki/K%C3%A1roly_Zipernowsky">Károly Zipernowsky</a>, and <a href="https://en.wikipedia.org/wiki/Ott%C3%B3_Bl%C3%A1thy">Ottó Bláthy</a> (the ZBD team), and soon after by <a href="https://en.wikipedia.org/wiki/William_Stanley_Jr.">William Stanley</a> working for George Westinghouse in the United States, cementing the AC power system that relies on these devices to efficiently step voltage up or down for transmission and distribution.</p>
+<p>Two example circuits are analyzed to explore the use of Python and MNA when analyzing circuits containing coupled inductors.</p>
+<ol type="1">
+<li>A basic step down transformer</li>
+<li>An ideal transformer circuit model</li>
+</ol>
 <p>The following models are used in the chapter.</p>
-<div id="0583a283-0a86-4908-bb9f-65f7743ccd26" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;jupyter&quot;,&quot;value&quot;:{&quot;outputs_hidden&quot;:false}}" data-execution_count="19">
+<div id="0583a283-0a86-4908-bb9f-65f7743ccd26" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;jupyter&quot;,&quot;value&quot;:{&quot;outputs_hidden&quot;:false}}" data-execution_count="28">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sympy <span class="im">import</span> <span class="op">*</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tabulate <span class="im">import</span> tabulate</span>
@@ -684,564 +599,279 @@ While the theoretical formula is straightforward, "real-world" factors can affec
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display, Markdown, Math, Latex</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>init_printing()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>The functions <code>polar2rec</code> and <code>rec2polar</code> perform conversion between rectangular notation and magnitude and phase notation.</p>
-<div id="53cccf12-31d7-40ee-bf92-6a46b2fc43f5" class="cell" data-execution_count="20">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> polar2rec(mag, ang, units<span class="op">=</span><span class="st">'deg'</span>):</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">''' polar to rectangular conversion</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">        mag: float</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">            magnitude of the time invarient sinusudial signal</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">        ang: float</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">            the angle of the time invarient sinusudial signal</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">        units: string</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">            if units is set to deg, and is in degrees not radians</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">        returns: complex</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">            rectangular corrdinates of voltage vector</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">    '''</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> units <span class="op">==</span> <span class="st">'deg'</span>:</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        ang <span class="op">=</span> ang <span class="op">*</span> np.pi <span class="op">/</span> <span class="dv">180</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> mag <span class="op">*</span> np.exp(<span class="ot">1j</span> <span class="op">*</span> ang)</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rec2polar(value):</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="co">'''rectangular to polar conversion</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co">    value: complex float</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co">    returns:</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co">        magnitude, phase (in degrees)</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co">    '''</span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">float</span>(<span class="bu">abs</span>(value)), <span class="bu">float</span>(arg(value)<span class="op">*</span><span class="dv">180</span><span class="op">/</span>np.pi)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</section>
-<section id="test-circuits" class="level2" data-number="9.2">
-<h2 data-number="9.2" class="anchored" data-anchor-id="test-circuits"><span class="header-section-number">9.2</span> Test Circuits</h2>
-<p>Add circuits to illustrate the concepts above.</p>
-<ul>
-<li>basic circuit to illustrate calculation of <span class="math inline">\(M\)</span> from <span class="math inline">\(K\)</span> and measured values</li>
-<li>transformer circuit where turns ratio is specified (<span class="math inline">\(N1\)</span> and <span class="math inline">\(N2\)</span> or <span class="math inline">\(1:2\)</span>)</li>
-</ul>
-</section>
-<section id="example-circuit-1" class="level2" data-number="9.3">
-<h2 data-number="9.3" class="anchored" data-anchor-id="example-circuit-1"><span class="header-section-number">9.3</span> Example Circuit 1</h2>
-<p>The circuit shown in <a href="#fig-mutual_inductance" class="quarto-xref">Figure&nbsp;<span>9.1</span></a> …</p>
-<p>In this example mutual inductance is examined.</p>
+<section id="example-circuit-1" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="example-circuit-1"><span class="header-section-number">9.1</span> Example Circuit 1</h2>
+<p>The circuit shown in <a href="#fig-mutual_inductance" class="quarto-xref">Figure&nbsp;<span>9.1</span></a> contains one independent voltage source, three resistors and two coupled inductors. The coupled inductors for a step down transformer. <span class="math inline">\(R_1\)</span> represents the resistance of the primary winding and <span class="math inline">\(R_3\)</span> is the resistance of the secondary winding. <span class="math inline">\(R_2\)</span> is the load and <span class="math inline">\(V_1\)</span> is an AC source of 120 volts RMS at a frequency of 1,000 Hz. The netlist statement for the independent source, <span class="math inline">\(V_1\)</span>, is formatted as <code>V1 1 0 120</code>. which is correct for the MNA procedure.</p>
+<p>There are phase dots shown on <span class="math inline">\(L_1\)</span> and <span class="math inline">\(L_2\)</span>. Since the phase dots are on the reference end of the coils, the voltage in each winding is in phase.</p>
 <div id="fig-mutual_inductance" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-mutual_inductance-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="Mutual_inductance.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mutual_inductance-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;9.1: Schematic for mutual inductance
+Figure&nbsp;9.1: Mutual inductance example 1 schematic.
 </figcaption>
 </figure>
 </div>
-<p>The netlist generated by LTSpice is pasted into the cell below and some edits were made to remove the inductor series resistance and the independent sources are set to their DC values. The componet values are set to 1 for now. Later the phasor quantities will be substituted.</p>
-<div id="f97bb2a6-8132-4dbb-b338-92a34a53d5cd" class="cell" data-execution_count="21">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>net_list <span class="op">=</span> <span class="st">'''</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="st">V1 1 0 1</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="st">R1 3 1 1</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="st">R2 2 0 1</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="st">L1 3 0 1</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="st">L2 2 0 1</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="st">R3 3 0 1</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="st">K L1 L2 1</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="st">'''</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The netlist generated by LTSpice is pasted into the cell below and some edits were made to remove the inductor series resistance.</p>
+<div id="f97bb2a6-8132-4dbb-b338-92a34a53d5cd" class="cell" data-execution_count="29">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>net_list <span class="op">=</span> <span class="st">'''</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="st">V1 1 0 120</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="st">R1 3 1 100</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="st">R2 2 0 1e3</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="st">L1 3 0 10</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="st">L2 4 0 20e-3</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="st">R3 2 4 0.5</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="st">K L1 L2 0.9</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="st">'''</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The network equations are generated from the netlist and displayed below.</p>
-<div id="175c5231-8edc-4cbe-8589-2cb8e6fa2f73" class="cell" data-execution_count="4">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>report, network_df, df2, A, X, Z <span class="op">=</span> SymMNA.smna(net_list)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Put matricies into SymPy </span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> Matrix(X)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>Z <span class="op">=</span> Matrix(Z)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>NE_sym <span class="op">=</span> Eq(A<span class="op">*</span>X,Z)</span>
+<div id="175c5231-8edc-4cbe-8589-2cb8e6fa2f73" class="cell" data-execution_count="30">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>report, network_df, df2, A, X, Z <span class="op">=</span> SymMNA.smna(net_list)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Put matrices into SymPy </span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> Matrix(X)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>Z <span class="op">=</span> Matrix(Z)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>NE_sym <span class="op">=</span> Eq(A<span class="op">*</span>X,Z)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># generate markdown text to display the network equations.</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(X)):</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(Eq((A<span class="op">*</span>X)[i:i<span class="op">+</span><span class="dv">1</span>][<span class="dv">0</span>],Z[i])))</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="30">
+<p><span class="math inline">\(I_{V1} + \frac{v_{1}}{R_{1}} - \frac{v_{3}}{R_{1}} = 0\)</span><br><span class="math inline">\(v_{2} \cdot \left(\frac{1}{R_{3}} + \frac{1}{R_{2}}\right) - \frac{v_{4}}{R_{3}} = 0\)</span><br><span class="math inline">\(I_{L1} - \frac{v_{1}}{R_{1}} + \frac{v_{3}}{R_{1}} = 0\)</span><br><span class="math inline">\(I_{L2} - \frac{v_{2}}{R_{3}} + \frac{v_{4}}{R_{3}} = 0\)</span><br><span class="math inline">\(v_{1} = V_{1}\)</span><br><span class="math inline">\(- I_{L1} L_{1} s - I_{L2} M s + v_{3} = 0\)</span><br><span class="math inline">\(- I_{L1} M s - I_{L2} L_{2} s + v_{4} = 0\)</span><br></p>
+</div>
+</div>
+<p>The symbols generated by the Python code are extracted by the SymPy function free_symbols and then declared as SymPy variables. Then the equations are solved and the results are displayed.</p>
+<div id="6761d3c9-fa01-4730-b4cd-273851cee9ea" class="cell" data-execution_count="31">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># turn the free symbols into SymPy variables</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>var(<span class="bu">str</span>(NE_sym.free_symbols).replace(<span class="st">'{'</span>,<span class="st">''</span>).replace(<span class="st">'}'</span>,<span class="st">''</span>))</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>K <span class="op">=</span> symbols(<span class="st">'K'</span>) <span class="co"># declare a symbol for the coupling coefficient</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># a dictionary is created for the element values and the numerical values are assigned.</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>element_values <span class="op">=</span> SymMNA.get_part_values(network_df)</span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># generate markdown text to display the network equations.</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(X)):</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(Eq((A<span class="op">*</span>X)[i:i<span class="op">+</span><span class="dv">1</span>][<span class="dv">0</span>],Z[i])))</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="4">
-<p><span class="math inline">\(I_{V1} + \frac{v_{1}}{R_{1}} - \frac{v_{3}}{R_{1}} = 0\)</span><br><span class="math inline">\(I_{L2} + \frac{v_{2}}{R_{2}} = 0\)</span><br><span class="math inline">\(I_{L1} + v_{3} \cdot \left(\frac{1}{R_{3}} + \frac{1}{R_{1}}\right) - \frac{v_{1}}{R_{1}} = 0\)</span><br><span class="math inline">\(v_{1} = V_{1}\)</span><br><span class="math inline">\(- I_{L1} L_{1} s - I_{L2} M s + v_{3} = 0\)</span><br><span class="math inline">\(- I_{L1} M s - I_{L2} L_{2} s + v_{2} = 0\)</span><br></p>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># The network equations can be solved symbolically. </span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>U_sym <span class="op">=</span> solve(NE_sym,X)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co"># display the symbolic solution</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> U_sym.keys():</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st"> = </span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(i),latex(U_sym[i]))</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="31">
+<p><span class="math inline">\(v_{1} = V_{1}\)</span><br><span class="math inline">\(v_{2} = \frac{M R_{2} V_{1} s}{L_{1} L_{2} s^{2} + L_{1} R_{2} s + L_{1} R_{3} s + L_{2} R_{1} s - M^{2} s^{2} + R_{1} R_{2} + R_{1} R_{3}}\)</span><br><span class="math inline">\(v_{3} = \frac{L_{1} L_{2} V_{1} s^{2} + L_{1} R_{2} V_{1} s + L_{1} R_{3} V_{1} s - M^{2} V_{1} s^{2}}{L_{1} L_{2} s^{2} + L_{1} R_{2} s + L_{1} R_{3} s + L_{2} R_{1} s - M^{2} s^{2} + R_{1} R_{2} + R_{1} R_{3}}\)</span><br><span class="math inline">\(v_{4} = \frac{M R_{2} V_{1} s + M R_{3} V_{1} s}{L_{1} L_{2} s^{2} + L_{1} R_{2} s + L_{1} R_{3} s + L_{2} R_{1} s - M^{2} s^{2} + R_{1} R_{2} + R_{1} R_{3}}\)</span><br><span class="math inline">\(I_{V1} = \frac{- L_{2} V_{1} s - R_{2} V_{1} - R_{3} V_{1}}{L_{1} L_{2} s^{2} + L_{1} R_{2} s + L_{1} R_{3} s + L_{2} R_{1} s - M^{2} s^{2} + R_{1} R_{2} + R_{1} R_{3}}\)</span><br><span class="math inline">\(I_{L1} = \frac{L_{2} V_{1} s + R_{2} V_{1} + R_{3} V_{1}}{L_{1} L_{2} s^{2} + L_{1} R_{2} s + L_{1} R_{3} s + L_{2} R_{1} s - M^{2} s^{2} + R_{1} R_{2} + R_{1} R_{3}}\)</span><br><span class="math inline">\(I_{L2} = - \frac{M V_{1} s}{L_{1} L_{2} s^{2} + L_{1} R_{2} s + L_{1} R_{3} s + L_{2} R_{1} s - M^{2} s^{2} + R_{1} R_{2} + R_{1} R_{3}}\)</span><br></p>
 </div>
 </div>
-<p>The sysmbols generated by the Python code are extraced by the SymPy function free_symbols and then declared as SymPy variables. Then the equations are solved and the results are displayed.</p>
-<div id="6761d3c9-fa01-4730-b4cd-273851cee9ea" class="cell" data-execution_count="5">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># turn the free symbols into SymPy variables</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>var(<span class="bu">str</span>(NE_sym.free_symbols).replace(<span class="st">'{'</span>,<span class="st">''</span>).replace(<span class="st">'}'</span>,<span class="st">''</span>))</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># The newtork equations can be solved symbolically. </span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>U_sym <span class="op">=</span> solve(NE_sym,X)</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># display the symbolic solution</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> U_sym.keys():</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st"> = </span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(i),latex(U_sym[i]))</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="5">
-<p><span class="math inline">\(v_{1} = V_{1}\)</span><br><span class="math inline">\(v_{2} = \frac{M R_{2} R_{3} V_{1} s}{L_{1} L_{2} R_{1} s^{2} + L_{1} L_{2} R_{3} s^{2} + L_{1} R_{1} R_{2} s + L_{1} R_{2} R_{3} s + L_{2} R_{1} R_{3} s - M^{2} R_{1} s^{2} - M^{2} R_{3} s^{2} + R_{1} R_{2} R_{3}}\)</span><br><span class="math inline">\(v_{3} = \frac{L_{1} L_{2} R_{3} V_{1} s^{2} + L_{1} R_{2} R_{3} V_{1} s - M^{2} R_{3} V_{1} s^{2}}{L_{1} L_{2} R_{1} s^{2} + L_{1} L_{2} R_{3} s^{2} + L_{1} R_{1} R_{2} s + L_{1} R_{2} R_{3} s + L_{2} R_{1} R_{3} s - M^{2} R_{1} s^{2} - M^{2} R_{3} s^{2} + R_{1} R_{2} R_{3}}\)</span><br><span class="math inline">\(I_{V1} = \frac{- L_{1} L_{2} V_{1} s^{2} - L_{1} R_{2} V_{1} s - L_{2} R_{3} V_{1} s + M^{2} V_{1} s^{2} - R_{2} R_{3} V_{1}}{L_{1} L_{2} R_{1} s^{2} + L_{1} L_{2} R_{3} s^{2} + L_{1} R_{1} R_{2} s + L_{1} R_{2} R_{3} s + L_{2} R_{1} R_{3} s - M^{2} R_{1} s^{2} - M^{2} R_{3} s^{2} + R_{1} R_{2} R_{3}}\)</span><br><span class="math inline">\(I_{L1} = \frac{L_{2} R_{3} V_{1} s + R_{2} R_{3} V_{1}}{L_{1} L_{2} R_{1} s^{2} + L_{1} L_{2} R_{3} s^{2} + L_{1} R_{1} R_{2} s + L_{1} R_{2} R_{3} s + L_{2} R_{1} R_{3} s - M^{2} R_{1} s^{2} - M^{2} R_{3} s^{2} + R_{1} R_{2} R_{3}}\)</span><br><span class="math inline">\(I_{L2} = - \frac{M R_{3} V_{1} s}{L_{1} L_{2} R_{1} s^{2} + L_{1} L_{2} R_{3} s^{2} + L_{1} R_{1} R_{2} s + L_{1} R_{2} R_{3} s + L_{2} R_{1} R_{3} s - M^{2} R_{1} s^{2} - M^{2} R_{3} s^{2} + R_{1} R_{2} R_{3}}\)</span><br></p>
-</div>
-</div>
-<p>Since <span class="math inline">\(L1\)</span> and <span class="math inline">\(L2\)</span> have been declared as being linked magnetically by the SPICE statement, <code>K L1 L2 1</code>, the mutual coupling is accounted for by the variable <span class="math inline">\(M\)</span> which must be calculated as shown below.</p>
-<div id="19fed0d4-473e-46d5-b061-b088afa22698" class="cell" data-execution_count="6">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># a dictionary is created for the element values and the numerical values are assigned.</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>element_values <span class="op">=</span> SymMNA.get_part_values(network_df)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>element_values[V1] <span class="op">=</span> polar2rec(<span class="dv">10</span>, <span class="dv">0</span>, units<span class="op">=</span><span class="st">'deg'</span>)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>element_values[R1] <span class="op">=</span> <span class="dv">10</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>element_values[R2] <span class="op">=</span> <span class="dv">4</span><span class="op">+</span><span class="ot">4j</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>element_values[R3] <span class="op">=</span> <span class="dv">6</span><span class="op">-</span><span class="ot">8j</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<section id="mutual-inductance" class="level3" data-number="9.3.1">
-<h3 data-number="9.3.1" class="anchored" data-anchor-id="mutual-inductance"><span class="header-section-number">9.3.1</span> Mutual inductance</h3>
-<p>In <a href="#fig-mutual_inductance" class="quarto-xref">Figure&nbsp;<span>9.1</span></a>, the all values shown in the schematic have been entered as “1”, so the values used in the calculations are now assigned. In the netlist, <code>K1 L1 L2 1</code> specifies that L1 and L2 are connected by a magnetic circuit. If <span class="math inline">\(K\)</span> was specified we would calculate the value of <span class="math inline">\(M\)</span>.</p>
-<p>In this example, let’s assume the inductance is across <span class="math inline">\(L_1\)</span> is measured when <span class="math inline">\(L_2\)</span> is shorted and open; and the inductance of <span class="math inline">\(L_2\)</span> is measured when <span class="math inline">\(L1\)</span> is open. The measured values are recorded below and the transformer coupling coefficient, <span class="math inline">\(K_{meas}\)</span> is calculated from the measurments.</p>
-<div id="fe52b588-8e91-46d4-b01b-49db5e8af018" class="cell" data-execution_count="66">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>L1_open <span class="op">=</span> <span class="dv">3</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>L1_short <span class="op">=</span> <span class="dv">2</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>L2_open <span class="op">=</span> <span class="dv">2</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>K_meas <span class="op">=</span> sqrt(<span class="dv">1</span><span class="op">-</span>L1_short<span class="op">/</span>L1_open)</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'K_meas=</span><span class="sc">{</span>K_meas<span class="sc">:0.3f}</span><span class="ss">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Since <span class="math inline">\(L1\)</span> and <span class="math inline">\(L2\)</span> have been declared as being linked magnetically by the SPICE statement, <code>K L1 L2 0.9</code>, the mutual coupling is accounted for by the variable <span class="math inline">\(M\)</span> in the network equations.</p>
+<p>The coupling coefficient, <span class="math inline">\(K\)</span>, is a dimensionless value between 0 and 1 that quantifies the fraction of magnetic flux from one winding that links the other and is typically measured indirectly through inductance measurements. The most common and accurate method involves using an LCR meter to measure two specific inductance values on a winding (e.g., the primary, <span class="math inline">\(L_p\)</span>): the open-circuit inductance (<span class="math inline">\(L_{open}\)</span>), which is the self-inductance of the primary winding with the secondary winding open-circuited, and the short-circuit inductance (<span class="math inline">\(L_{short}\)</span>), which is the inductance measured across the primary when the secondary winding is short-circuited. The short-circuit inductance represents the leakage inductance (<span class="math inline">\(L_{leak}\)</span>) seen from the primary side. The coupling coefficient is then calculated using the formula: <span class="math inline">\(k = \sqrt{1 - \frac{L_{short}}{L_{open}}}\)</span>. This technique leverages the fact that perfect coupling (<span class="math inline">\(k=1\)</span>) would result in zero leakage and therefore zero short-circuit inductance, whereas poor coupling (<span class="math inline">\(k \ll 1\)</span>) results in <span class="math inline">\(L_{short}\)</span> approaching <span class="math inline">\(L_{open}\)</span>.</p>
+<p>In this example, let’s assume the inductance across <span class="math inline">\(L_1\)</span> is measured when <span class="math inline">\(L_2\)</span> is shorted and open. The measured values are recorded below and the transformer coupling coefficient, <span class="math inline">\(K\)</span> is calculated from the measurements.</p>
+<div id="1c613eff-3669-45b6-a02f-b3fb659b0418" class="cell" data-execution_count="32">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>L1_open <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>L1_short <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'K measured: </span><span class="sc">{</span>sqrt(<span class="dv">1</span><span class="op">-</span>L1_short<span class="op">/</span>L1_open)<span class="sc">:0.3f}</span><span class="ss">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>K_meas=0.577</code></pre>
+<pre><code>K measured: 0.894</code></pre>
 </div>
 </div>
-<p>The measured inductance values and the calculated value for <span class="math inline">\(K\)</span> is inserted into the Python dictionary which holds the numeric element values.</p>
-<div id="06cfe8e3-07ae-4e0b-9ac9-4da46663750f" class="cell" data-execution_count="67">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>element_values[L1] <span class="op">=</span> L1_open</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>element_values[L2] <span class="op">=</span> L2_open</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
+<p>The value of <span class="math inline">\(K\)</span> can be from -1 to +1 to account for a negative phase relation. Phase dots are drawn on the schematic to indicate the relative direction of the windings. In LTspice the phase dots are associated with the negative terminal of the winding. The coupling constant and the mutual inductance are related by the equation: <span class="math inline">\(K = \frac {M}{\sqrt{L_1 \times L_2}}\)</span></p>
 <p>Below, <span class="math inline">\(M\)</span> is calculated and added to the element value dictionary.</p>
-<div id="01961bb8-afc7-4b5c-afc3-72061e218303" class="cell" data-execution_count="68">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>K <span class="op">=</span> symbols(<span class="st">'K'</span>)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>element_values[K] <span class="op">=</span> K_meas</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate the coupling constant from the mutual inductance</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>element_values[M] <span class="op">=</span> element_values[K]<span class="op">*</span>np.sqrt(element_values[L1] <span class="op">*</span>element_values[L2])</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'mutual inductance, M1 = </span><span class="sc">{:.9f}</span><span class="st">'</span>.<span class="bu">format</span>(element_values[M]))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="01961bb8-afc7-4b5c-afc3-72061e218303" class="cell" data-execution_count="33">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate the mutual inductance from the coupling constant</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>element_values[M] <span class="op">=</span> element_values[K]<span class="op">*</span>np.sqrt(element_values[L1] <span class="op">*</span>element_values[L2])</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'mutual inductance, M = </span><span class="sc">{:.9f}</span><span class="st">'</span>.<span class="bu">format</span>(element_values[M]))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>mutual inductance, M1 = 1.414213562</code></pre>
+<pre><code>mutual inductance, M = 0.402492236</code></pre>
 </div>
 </div>
-<p>Display the equations for <span class="math inline">\(\omega=1\)</span>.</p>
-<div id="25b9ce94-3102-4edd-9e47-f9ab22c0ee39" class="cell" data-execution_count="69">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>freq <span class="op">=</span> <span class="dv">1</span> <span class="co"># Hz</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>omega <span class="op">=</span> <span class="dv">2</span><span class="op">*</span>np.pi<span class="op">*</span>freq</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Setting the frequency to 1000 Hz, and using the impedance values assigned above</p>
+<div id="25b9ce94-3102-4edd-9e47-f9ab22c0ee39" class="cell" data-execution_count="34">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>freq <span class="op">=</span> <span class="dv">1000</span> <span class="co"># Hz</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>omega <span class="op">=</span> <span class="dv">2</span><span class="op">*</span>np.pi<span class="op">*</span>freq</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'radian frequency = </span><span class="sc">{</span>omega<span class="sc">:,.1f}</span><span class="ss"> rad/s'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>radian frequency = 6,283.2 rad/s</code></pre>
 </div>
-<div id="6ae82009-2ee5-4f3b-8198-0d676ef87342" class="cell" data-execution_count="70">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>NE <span class="op">=</span> NE_sym.subs(element_values)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>NE <span class="op">=</span> NE.subs({s:<span class="ot">1j</span><span class="op">*</span>omega})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="e08fbb67-473b-4c3d-b26e-3283786e1472" class="cell" data-execution_count="61">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(shape(NE.lhs)[<span class="dv">0</span>]):</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st"> = </span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(NE.rhs[i]),latex(NE.lhs[i]))</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="61">
-<p><span class="math inline">\(0 = I_{V1} + \frac{v_{1}}{10} - \frac{v_{3}}{10}\)</span><br><span class="math inline">\(0 = I_{L2} + 0.03125 v_{2} \cdot \left(4.0 - 4.0 i\right)\)</span><br><span class="math inline">\(0 = I_{L1} - \frac{v_{1}}{10} + v_{3} \cdot \left(\frac{1}{10} + 0.01 \cdot \left(6.0 + 8.0 i\right)\right)\)</span><br><span class="math inline">\(10.0 = v_{1}\)</span><br><span class="math inline">\(0 = - 18.8495559215388 i I_{L1} - 8.88576587631673 i I_{L2} + v_{3}\)</span><br><span class="math inline">\(0 = - 8.88576587631673 i I_{L1} - 12.5663706143592 i I_{L2} + v_{2}\)</span><br></p>
+<div id="6ae82009-2ee5-4f3b-8198-0d676ef87342" class="cell" data-execution_count="35">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>NE <span class="op">=</span> NE_sym.subs(element_values)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>NE <span class="op">=</span> NE.subs({s:<span class="ot">1j</span><span class="op">*</span>omega})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="e08fbb67-473b-4c3d-b26e-3283786e1472" class="cell" data-execution_count="36">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(shape(NE.lhs)[<span class="dv">0</span>]):</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st"> = </span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(NE.rhs[i]),latex(NE.lhs[i]))</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="36">
+<p><span class="math inline">\(0 = I_{V1} + 0.01 v_{1} - 0.01 v_{3}\)</span><br><span class="math inline">\(0 = 2.001 v_{2} - 2.0 v_{4}\)</span><br><span class="math inline">\(0 = I_{L1} - 0.01 v_{1} + 0.01 v_{3}\)</span><br><span class="math inline">\(0 = I_{L2} - 2.0 v_{2} + 2.0 v_{4}\)</span><br><span class="math inline">\(120.0 = v_{1}\)</span><br><span class="math inline">\(0 = - 62831.8530717959 i I_{L1} - 2528.93330317466 i I_{L2} + v_{3}\)</span><br><span class="math inline">\(0 = - 2528.93330317466 i I_{L1} - 125.663706143592 i I_{L2} + v_{4}\)</span><br></p>
 </div>
 </div>
 <p>Solve the network equations and display the results.</p>
-<div id="65336b4a-45ad-45ab-a49f-35bbb027421b" class="cell" data-execution_count="62">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>U <span class="op">=</span> solve(NE,X)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>table_header <span class="op">=</span> [<span class="st">'unknown'</span>, <span class="st">'mag'</span>,<span class="st">'phase, deg'</span>]</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>table_row <span class="op">=</span> []</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, value <span class="kw">in</span> U.items():</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    table_row.append([<span class="bu">str</span>(name),<span class="bu">float</span>(<span class="bu">abs</span>(value)),<span class="bu">float</span>(arg(value)<span class="op">*</span><span class="dv">180</span><span class="op">/</span>np.pi)])</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tabulate(table_row, headers<span class="op">=</span>table_header,colalign <span class="op">=</span> (<span class="st">'left'</span>,<span class="st">'decimal'</span>,<span class="st">'decimal'</span>),tablefmt<span class="op">=</span><span class="st">"simple"</span>,floatfmt<span class="op">=</span>(<span class="st">'5s'</span>,<span class="st">'.6f'</span>,<span class="st">'.6f'</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="65336b4a-45ad-45ab-a49f-35bbb027421b" class="cell" data-execution_count="37">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>U <span class="op">=</span> solve(NE,X)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>table_header <span class="op">=</span> [<span class="st">'unknown'</span>, <span class="st">'mag'</span>,<span class="st">'phase, deg'</span>]</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>table_row <span class="op">=</span> []</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, value <span class="kw">in</span> U.items():</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    table_row.append([<span class="bu">str</span>(name),<span class="bu">float</span>(<span class="bu">abs</span>(value)),<span class="bu">float</span>(arg(value)<span class="op">*</span><span class="dv">180</span><span class="op">/</span>np.pi)])</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tabulate(table_row, headers<span class="op">=</span>table_header,colalign <span class="op">=</span> (<span class="st">'left'</span>,<span class="st">'decimal'</span>,<span class="st">'decimal'</span>),tablefmt<span class="op">=</span><span class="st">"simple"</span>,floatfmt<span class="op">=</span>(<span class="st">'5s'</span>,<span class="st">'.6f'</span>,<span class="st">'.6f'</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>unknown          mag    phase, deg
----------  ---------  ------------
-v1         10.000000      0.000000
-v2          1.237956    -30.793053
-v3          6.038688     -3.702067
-I_V1        0.399300   -174.396256
-I_L1        0.419727    -89.367478
-I_L2        0.218842    104.206947</code></pre>
+<pre><code>unknown           mag    phase, deg
+---------  ----------  ------------
+v1         120.000000      0.000000
+v2           4.825332     -1.275661
+v3         119.980431      0.091395
+v4           4.827745     -1.275661
+I_V1         0.001924     95.883252
+I_L1         0.001924    -84.116748
+I_L2         0.004825    178.724339</code></pre>
+</div>
+</div>
+<p>The turns ratio of a transformer, which is the ratio of the number of turns in the primary winding (<span class="math inline">\(N_p\)</span>) to the number of turns in the secondary winding (<span class="math inline">\(N_s\)</span>), is most accurately determined by measuring the ratio of the voltages across the windings. The fundamental relationship for an ideal transformer is given by <span class="math inline">\(N_p / N_s = V_p / V_s\)</span>, where <span class="math inline">\(V_p\)</span> is the primary voltage and <span class="math inline">\(V_s\)</span> is the secondary voltage. The turns ratio can also be calculated from the inductance values of coils.</p>
+<div id="7ffa1a62-2b43-4f2a-9887-5d01ff66292a" class="cell" data-execution_count="38">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> sqrt(element_values[L1]<span class="op">/</span>element_values[L2])</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Transformer turns ratio: n = </span><span class="sc">{</span>n<span class="sc">:.2f}</span><span class="ss">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Transformer turns ratio: n = 22.36</code></pre>
+</div>
+</div>
+<p>Alternatively, for simple diagnostics or hobbyist applications, a low-voltage AC source and two AC voltmeters (multimeters) can be used, ensuring the transformer is completely disconnected from the mains supply and applying a safe, low AC voltage to one winding (e.g., the high-voltage winding) while measuring the resulting voltage on the other winding. The measured ratio of the applied voltage to the induced voltage, <span class="math inline">\(\text{Ratio} = V_p / V_s\)</span>, serves as a close approximation of the turns ratio.</p>
+<p>Reflected impedance is a key concept in the analysis of magnetically coupled circuits, most notably transformers. It represents the apparent impedance that a load connected to the secondary side of a transformer “presents” or “reflects” back to the primary side. Essentially, when a current is drawn by the load (<span class="math inline">\(Z_{load}\)</span>) on the secondary winding, the resulting current on the primary side is determined not only by the primary’s own impedance but also by the load’s influence, which is mathematically transformed by the turns ratio of the transformer. The source connected to the primary side acts as if the load were directly connected, but with a modified value. The value of the reflected impedance is proportional to the actual load impedance and the square of the transformer’s turns ratio. For an ideal transformer, the reflected impedance (<span class="math inline">\(Z_{reflected}\)</span>) is calculated as: <span class="math inline">\(Z_{reflected} = n^2 \cdot Z_{load}\)</span>.</p>
+<div id="6d0cd9ea-e296-45be-84ac-47d6b64d082e" class="cell" data-execution_count="39">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>Z_load <span class="op">=</span> element_values[R2]</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Load impedance: </span><span class="sc">{</span>Z_load<span class="sc">}</span><span class="ss"> ohms'</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Reflected impedance seen at primary side of transformer: </span><span class="sc">{</span>n<span class="op">**</span><span class="dv">2</span><span class="op">*</span>Z_load<span class="op">/</span><span class="fl">1e3</span><span class="sc">:,.1f}</span><span class="ss">k ohms'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Load impedance: 1000.0 ohms
+Reflected impedance seen at primary side of transformer: 500.0k ohms</code></pre>
 </div>
 </div>
 </section>
+<section id="example-circuit-2" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="example-circuit-2"><span class="header-section-number">9.2</span> Example Circuit 2</h2>
+<p>In this example, an ideal transformer is used where the turns ratio is specified. An ideal transformer is a theoretical, imaginary model used in electrical engineering to simplify the study of how power is transferred between circuits. It is a perfect version of a transformer that assumes there are no energy losses of any kind. While such a device does not exist in the real world, it serves as a critical reference point for designing and analyzing practical transformers, which usually operate at very high efficiencies (often over 95%).</p>
+<p>To make a transformer ideal several simplifying assumptions are made:</p>
+<ul>
+<li>Zero Winding Resistance: The copper wires (primary and secondary coils) are assumed to have no resistance. This means there is no heat loss ( losses), often called copper loss.</li>
+<li>Infinite Core Permeability: The magnetic core is assumed to have infinite permeability (), meaning it requires zero magnetizing current to create magnetic flux.</li>
+<li>No Core Losses: There are no losses due to hysteresis (energy lost during magnetization cycles) or eddy currents (circulating currents in the core).</li>
+<li>Perfect Magnetic Coupling: It is assumed that 100% of the magnetic flux produced by the primary coil links with the secondary coil. There is zero leakage flux.</li>
+</ul>
+<p>The behavior of an ideal transformer is governed by the ratio of the number of turns in its coils and the voltage is directly proportional to the number of turns. The ratio of the number of turns in the primary winding (<span class="math inline">\(N_p\)</span>) to the number of turns in the secondary winding (<span class="math inline">\(N_s\)</span>), is most accurately determined by measuring the ratio of the voltages across the windings. The fundamental relationship for an ideal transformer is given by <span class="math inline">\(N_p / N_s = V_p / V_s\)</span>, where <span class="math inline">\(V_p\)</span> is the primary voltage and <span class="math inline">\(V_s\)</span> is the secondary voltage.</p>
+<p>The circuit shown in <a href="#fig-mutual_inductance_1a" class="quarto-xref">Figure&nbsp;<span>9.2</span></a> has the model of an ideal transformer drawn inside the dashed box. The model consists of a VCVS, <span class="math inline">\(E_1\)</span> and a VCCS, <span class="math inline">\(F_1\)</span>. This is an ideal transformer and there is no winding resistance.</p>
+<div id="fig-mutual_inductance_1a" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-mutual_inductance_1a-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="Mutual_inductance_1a.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mutual_inductance_1a-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9.2: Ideal transformer model example schematic.
+</figcaption>
+</figure>
+</div>
+<p>The turn ratio for the transformer is 20:1 and the gains for <span class="math inline">\(F_1\)</span> and <span class="math inline">\(E_1\)</span> are <span class="math inline">\(1/20=0.05\)</span>. The circuit’s netlist was pasted into the code below.</p>
+<div id="f3a9147b-72f6-4643-92db-fd4681c1bc68" class="cell" data-execution_count="43">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>net_list <span class="op">=</span> <span class="st">'''</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="st">F1 0 1 V2 0.05</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="st">V2 2 3 0</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="st">V1 1 0 120</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="st">E1 3 0 1 0 0.05</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="st">R2 2 0 1e3</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="st">'''</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The network equations are generated from the netlist and displayed below.</p>
+<div id="1746bee4-776b-4d25-912a-b181f0bf8a3e" class="cell" data-execution_count="44">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>report, network_df, df2, A, X, Z <span class="op">=</span> SymMNA.smna(net_list)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Put matrices into SymPy </span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> Matrix(X)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>Z <span class="op">=</span> Matrix(Z)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>NE_sym <span class="op">=</span> Eq(A<span class="op">*</span>X,Z)</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="co"># a dictionary is created for the element values and the numerical values are assigned.</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>element_values <span class="op">=</span> SymMNA.get_part_values(network_df)</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="co"># turn the free symbols into SymPy variables</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>var(<span class="bu">str</span>(NE_sym.free_symbols).replace(<span class="st">'{'</span>,<span class="st">''</span>).replace(<span class="st">'}'</span>,<span class="st">''</span>))</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="co"># generate markdown text to display the network equations.</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(X)):</span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(Eq((A<span class="op">*</span>X)[i:i<span class="op">+</span><span class="dv">1</span>][<span class="dv">0</span>],Z[i])))</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="44">
+<p><span class="math inline">\(- I_{F1} + I_{V1} = 0\)</span><br><span class="math inline">\(I_{V2} + \frac{v_{2}}{R_{2}} = 0\)</span><br><span class="math inline">\(I_{Ea1} - I_{V2} = 0\)</span><br><span class="math inline">\(v_{2} - v_{3} = V_{2}\)</span><br><span class="math inline">\(v_{1} = V_{1}\)</span><br><span class="math inline">\(I_{F1} - I_{V2} f_{1} = 0\)</span><br><span class="math inline">\(- ea_{1} v_{1} + v_{3} = 0\)</span><br></p>
+</div>
+</div>
+<p>The network equations can be solved symbolically and displayed.</p>
+<div id="6fd906a5-f1e2-433d-9177-03be9cf8e275" class="cell" data-execution_count="45">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># solve the equations</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>U_sym <span class="op">=</span> solve(NE_sym,X)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># display the symbolic solution</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> U_sym.keys():</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st"> = </span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(i),latex(U_sym[i]))</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="45">
+<p><span class="math inline">\(v_{1} = V_{1}\)</span><br><span class="math inline">\(v_{2} = V_{1} ea_{1} + V_{2}\)</span><br><span class="math inline">\(v_{3} = V_{1} ea_{1}\)</span><br><span class="math inline">\(I_{V2} = \frac{- V_{1} ea_{1} - V_{2}}{R_{2}}\)</span><br><span class="math inline">\(I_{V1} = \frac{- V_{1} ea_{1} f_{1} - V_{2} f_{1}}{R_{2}}\)</span><br><span class="math inline">\(I_{F1} = \frac{- V_{1} ea_{1} f_{1} - V_{2} f_{1}}{R_{2}}\)</span><br><span class="math inline">\(I_{Ea1} = \frac{- V_{1} ea_{1} - V_{2}}{R_{2}}\)</span><br></p>
+</div>
+</div>
+<p>After the element values have been substituted into the equations, the numeric equations are displayed below.</p>
+<div id="fe4f7d2f-9bae-4c2a-93cb-d7a189bfef4c" class="cell" data-execution_count="46">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>NE <span class="op">=</span> NE_sym.subs(element_values)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(shape(NE.lhs)[<span class="dv">0</span>]):</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st"> = </span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(NE.rhs[i]),latex(NE.lhs[i]))</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="46">
+<p><span class="math inline">\(0 = - I_{F1} + I_{V1}\)</span><br><span class="math inline">\(0 = I_{V2} + 0.001 v_{2}\)</span><br><span class="math inline">\(0 = I_{Ea1} - I_{V2}\)</span><br><span class="math inline">\(0 = v_{2} - v_{3}\)</span><br><span class="math inline">\(120.0 = v_{1}\)</span><br><span class="math inline">\(0 = I_{F1} - 0.05 I_{V2}\)</span><br><span class="math inline">\(0 = - 0.05 v_{1} + v_{3}\)</span><br></p>
+</div>
+</div>
+<p>Solve the network equations and display the results.</p>
+<div id="03580320-e15b-40f6-ba22-99e464eda019" class="cell" data-execution_count="47">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>U <span class="op">=</span> solve(NE,X)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>table_header <span class="op">=</span> [<span class="st">'unknown'</span>, <span class="st">'mag'</span>,<span class="st">'phase, deg'</span>]</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>table_row <span class="op">=</span> []</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, value <span class="kw">in</span> U.items():</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    table_row.append([<span class="bu">str</span>(name),<span class="bu">float</span>(<span class="bu">abs</span>(value)),<span class="bu">float</span>(arg(value)<span class="op">*</span><span class="dv">180</span><span class="op">/</span>np.pi)])</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tabulate(table_row, headers<span class="op">=</span>table_header,colalign <span class="op">=</span> (<span class="st">'left'</span>,<span class="st">'decimal'</span>,<span class="st">'decimal'</span>),tablefmt<span class="op">=</span><span class="st">"simple"</span>,floatfmt<span class="op">=</span>(<span class="st">'5s'</span>,<span class="st">'.6f'</span>,<span class="st">'.6f'</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>unknown           mag    phase, deg
+---------  ----------  ------------
+v1         120.000000      0.000000
+v2           6.000000      0.000000
+v3           6.000000      0.000000
+I_V2         0.006000    180.000000
+I_V1         0.000300    180.000000
+I_F1         0.000300    180.000000
+I_Ea1        0.006000    180.000000</code></pre>
+</div>
+</div>
 </section>
-<section id="example-circuit-2" class="level2" data-number="9.4">
-<h2 data-number="9.4" class="anchored" data-anchor-id="example-circuit-2"><span class="header-section-number">9.4</span> Example Circuit 2</h2>
-<p>The circuit shown in …</p>
-<!--
-
-## Measurements
-
-### Turns ratio
-write a paragraph describing how to measure the turns ratio on a transformer
-
-The turns ratio of a transformer, which is the ratio of the number of turns in the primary winding ($N_p$) to the number of turns in the secondary winding ($N_s$), is most accurately determined by measuring the ratio of the voltages across the windings.  The fundamental relationship for an ideal transformer is given by $N_p / N_s = V_p / V_s$, where $V_p$ is the primary voltage and $V_s$ is the secondary voltage. 
-
-Alternatively, for simple diagnostics or hobbyist applications, a low-voltage AC source and two AC voltmeters (multimeters) can be used, ensuring the transformer is completely disconnected from the mains supply and applying a safe, low AC voltage to one winding (e.g., the high-voltage winding) while measuring the resulting voltage on the other winding. The measured ratio of the applied voltage to the induced voltage, $\text{Ratio} = V_p / V_s$, serves as a close approximation of the turns ratio.
-
-
-### Winding Inductance
-write a paragraph describing how to measure the Winding Inductance on a transformer
-
-The winding inductance of a transformer is a critical parameter that dictates its performance, especially at different frequencies.  To measure the inductance ($L$), you must use a specialized instrument, typically an **LCR meter** or an inductance bridge, which is capable of applying a small AC test voltage at a specific frequency and measuring the impedance, then calculating the inductance. The measurement is performed with the transformer winding isolated (all other windings open-circuited). You connect the LCR meter's leads across the terminals of the winding you wish to test (e.g., the primary or secondary). It is crucial to set the test frequency on the LCR meter to match the transformer's operating conditions or a standard test frequency (such as 1 kHz for small signal transformers, or 120 Hz/100 Hz for power magnetic components) because the inductance is frequency-dependent due to factors like core permeability and winding capacitance. The resulting measurement, displayed in Henrys ($H$), represents the **self-inductance** of that specific winding, which is essential for determining the magnetizing impedance and predicting the low-frequency response of the transformer.
-
-
-### Transformer coupling coefficient
-write a paragraph describing how to measure the Transformer coupling coefficient
-
-The transformer coupling coefficient, $k$, is a dimensionless value between 0 and 1 that quantifies the fraction of magnetic flux from one winding that links the other, and is typically measured indirectly through inductance measurements.  The most common and accurate method involves using an LCR meter to measure two specific inductance values on a winding (e.g., the primary, $L_p$): the **open-circuit inductance** ($L_{open}$), which is the self-inductance of the primary winding with the secondary winding open-circuited, and the **short-circuit inductance** ($L_{short}$), which is the inductance measured across the primary when the secondary winding is short-circuited. The short-circuit inductance represents the leakage inductance ($L_{leak}$) seen from the primary side. The coupling coefficient is then calculated using the formula: $k = \sqrt{1 - \frac{L_{short}}{L_{open}}}$. This technique leverages the fact that perfect coupling ($k=1$) would result in zero leakage and therefore zero short-circuit inductance, whereas poor coupling ($k \ll 1$) results in $L_{short}$ approaching $L_{open}$.
-
-
-::: {#22222982-1d19-4f67-b1ce-4e9659b60e10 .cell execution_count=13}
-``` {.python .cell-code}
-U[I_V1]
-```
-
-::: {.cell-output .cell-output-display .cell-output-markdown execution_count=13}
-$\displaystyle -0.391426869761981 - 0.0881256183805034 i$
-:::
-:::
-
-
-::: {#b706dc84-411e-4283-8bb6-bc88fccda7f8 .cell execution_count=14}
-``` {.python .cell-code}
-U[v3]
-```
-
-::: {.cell-output .cell-output-display .cell-output-markdown execution_count=14}
-$\displaystyle 6.08573130238019 - 0.881256183805034 i$
-:::
-:::
-
-
-::: {#9f8df281-f03d-40de-a48f-112483aa93fd .cell execution_count=15}
-``` {.python .cell-code}
-N(U[v3]/U[I_V1])
-```
-
-::: {.cell-output .cell-output-display .cell-output-markdown execution_count=15}
-$\displaystyle -14.3150794469593 + 5.47428288082865 i$
-:::
-:::
-
-
--->
-</section>
-<section id="summary" class="level2" data-number="9.5">
-<h2 data-number="9.5" class="anchored" data-anchor-id="summary"><span class="header-section-number">9.5</span> Summary</h2>
-<p>Comments …</p>
-<!--
-
-## Circuit 2
-
-::: {#f3a9147b-72f6-4643-92db-fd4681c1bc68 .cell execution_count=16}
-``` {.python .cell-code}
-net_list = '''
-V1 1 0 1
-R1 2 1 1
-R3 3 0 1
-L1 2 0 1
-L2 3 6 1
-R2 2 0 1
-R4 4 0 1
-L3 4 6 1
-R5 5 0 1
-L4 5 6 1
-K3 L1 L4 1
-K2 L1 L3 1
-K1 L1 L2 1
-K4 L2 L3 1
-K5 L2 L4 1
-K6 L3 L4 1
-K7 L3 L2 1
-'''
-```
-:::
-
-
-The network equations are generated from the netlist and displayed below.
-
-::: {#1746bee4-776b-4d25-912a-b181f0bf8a3e .cell execution_count=17}
-``` {.python .cell-code}
-report, network_df, df2, A, X, Z = SymMNA.smna(net_list)
-
-# Put matricies into SymPy 
-X = Matrix(X)
-Z = Matrix(Z)
-
-NE_sym = Eq(A*X,Z)
-
-# generate markdown text to display the network equations.
-temp = ''
-for i in range(len(X)):
-    temp += '${:s}$<br>'.format(latex(Eq((A*X)[i:i+1][0],Z[i])))
-
-Markdown(temp)
-```
-
-::: {.cell-output .cell-output-display .cell-output-markdown execution_count=17}
-$I_{V1} + \frac{v_{1}}{R_{1}} - \frac{v_{2}}{R_{1}} = 0$<br>$I_{L1} + v_{2} \cdot \left(\frac{1}{R_{2}} + \frac{1}{R_{1}}\right) - \frac{v_{1}}{R_{1}} = 0$<br>$I_{L2} + \frac{v_{3}}{R_{3}} = 0$<br>$I_{L3} + \frac{v_{4}}{R_{4}} = 0$<br>$I_{L4} + \frac{v_{5}}{R_{5}} = 0$<br>$- I_{L2} - I_{L3} - I_{L4} = 0$<br>$v_{1} = V_{1}$<br>$- I_{L1} L_{1} s - I_{L2} M_{1} s - I_{L3} M_{2} s - I_{L4} M_{3} s + v_{2} = 0$<br>$- I_{L1} M_{1} s - I_{L2} L_{2} s + I_{L3} \left(- M_{4} s - M_{7} s\right) - I_{L4} M_{5} s + v_{3} - v_{6} = 0$<br>$- I_{L1} M_{2} s + I_{L2} \left(- M_{4} s - M_{7} s\right) - I_{L3} L_{3} s - I_{L4} M_{6} s + v_{4} - v_{6} = 0$<br>$- I_{L1} M_{3} s - I_{L2} M_{5} s - I_{L3} M_{6} s - I_{L4} L_{4} s + v_{5} - v_{6} = 0$<br>
-:::
-:::
-
-
-The sysmbols generated by the Python code are extraced by the SymPy function free_symbols and then declared as SymPy variables. Then the equations are solved and the results are displayed.
-
-::: {#d3fb4b22-235f-4ce9-8f0a-d3b8cf007306 .cell execution_count=18}
-``` {.python .cell-code}
-# turn the free symbols into SymPy variables
-var(str(NE_sym.free_symbols).replace('{','').replace('}',''))
-```
-
-::: {.cell-output .cell-output-display .cell-output-markdown execution_count=18}
-$\displaystyle \left( v_{1}, \  v_{2}, \  R_{5}, \  v_{4}, \  M_{2}, \  L_{2}, \  V_{1}, \  M_{3}, \  M_{6}, \  I_{L1}, \  L_{3}, \  L_{1}, \  M_{1}, \  I_{V1}, \  I_{L4}, \  I_{L3}, \  M_{7}, \  R_{2}, \  I_{L2}, \  R_{4}, \  v_{6}, \  M_{5}, \  v_{3}, \  R_{1}, \  M_{4}, \  v_{5}, \  s, \  R_{3}, \  L_{4}\right)$
-:::
-:::
-
-
-%%time
-# The newtork equations can be solved symbolically. 
-U_sym = solve(NE_sym,X)
-
-# display the symbolic solution
-temp = ''
-for i in U_sym.keys():
-    temp += '${:s} = {:s}$<br>'.format(latex(i),latex(U_sym[i]))
-
-Markdown(temp)
-
-::: {#e1ca77b9-db1b-4a8a-a52c-9b3128ed23b1 .cell execution_count=19}
-``` {.python .cell-code}
-# a dictionary is created for the element values and the numerical values are assigned.
-element_values = SymMNA.get_part_values(network_df)
-
-element_values[V1] = polar2rec(10, 0, units='deg')
-
-element_values[R1] = 10
-element_values[R2] = 4+3j
-element_values[R3] = 5+5j
-element_values[R4] = 3-5j
-element_values[R5] = 7+1j
-
-```
-:::
-
-
-### Mutual inductance
-In the netlist, the line below specifies that L3 and L4 are connected by a magnetic circuit.
-> K1 L1 L2 0.1
-
-K1 identifies the mutual inductance between two inductors, L1 and L2. k is the coefficient of coupling. 
-
-A coupled inductor has two or more windings that are connected by a magnetic circuit. Coupled inductors transfer energy from one winding to a different winding usually through a commonly used core. The efficiency of the magnetic coupling between both the windings is defined by the coupling factor k or by mutual inductance.
-
-The coupling constant and the [mutual inductance](https://en.wikipedia.org/wiki/Inductance#Mutual_inductance) are related by the equation:
-
-$k = \frac {M}{\sqrt{L_1 \times L_2}}$
-
-Where k is the coupling coefficient and in spice the value of k can be from -1 to +1 to account for a negative phase relation. Phase dots are drawn on the schematic to indicate the relative direction of the windings. In LTspice the phase dots are associated with the negative terminal of the winding. 
-
-What about turns ratio?
-
-```
-K1 L1 L2 1
-K2 L1 L3 1
-K3 L1 L4 1
-K4 L2 L3 1
-K5 L2 L4 1
-K6 L3 L4 1
-K7 L3 L2 1
-```
-
-::: {#da5529f6-c19c-4c77-8980-d5ef931d67c8 .cell execution_count=20}
-``` {.python .cell-code}
-element_values[L1] = 3
-element_values[L2] = 2
-element_values[L3] = 5
-element_values[L4] = 7
-```
-:::
-
-
-::: {#a7074938-1f8c-485b-96cd-a9adfe888cd6 .cell execution_count=21}
-``` {.python .cell-code}
-K1, K2, K3, K4, K5, K6, K7  = symbols('K1 K2 K3 K4 K5 K6 K7')
-element_values[K1] = 0.9
-element_values[K2] = 0.8
-element_values[K3] = 0.7
-element_values[K4] = 0.6
-element_values[K5] = 0.7
-element_values[K6] = 0.8
-element_values[K7] = 0.9
-# calculate the coupling constant from the mutual inductance
-'''
-K1 L1 L2 1
-K2 L1 L3 1
-K3 L1 L4 1
-K4 L2 L3 1
-K5 L2 L4 1
-K6 L3 L4 1
-K7 L3 L2 1
-'''
-element_values[M1] = element_values[K1]*np.sqrt(element_values[L1]*element_values[L2])
-element_values[M2] = element_values[K2]*np.sqrt(element_values[L1]*element_values[L3])
-element_values[M3] = element_values[K3]*np.sqrt(element_values[L1]*element_values[L4])
-
-element_values[M4] = element_values[K4]*np.sqrt(element_values[L2]*element_values[L3])
-element_values[M5] = element_values[K5]*np.sqrt(element_values[L2]*element_values[L4])
-element_values[M6] = element_values[K6]*np.sqrt(element_values[L3]*element_values[L4])
-element_values[M7] = element_values[K7]*np.sqrt(element_values[L3]*element_values[L2])
-
-
-
-print('mutual inductance, M1 = {:.9f}'.format(element_values[M1]))
-
-print('mutual inductance, M2 = {:.9f}'.format(element_values[M2]))
-print('mutual inductance, M3 = {:.9f}'.format(element_values[M3]))
-print('mutual inductance, M4 = {:.9f}'.format(element_values[M4]))
-print('mutual inductance, M5 = {:.9f}'.format(element_values[M5]))
-print('mutual inductance, M6 = {:.9f}'.format(element_values[M6]))
-print('mutual inductance, M7 = {:.9f}'.format(element_values[M7]))
-
-```
-
-::: {.cell-output .cell-output-stdout}
-```
-mutual inductance, M1 = 2.204540769
-mutual inductance, M2 = 3.098386677
-mutual inductance, M3 = 3.207802986
-mutual inductance, M4 = 1.897366596
-mutual inductance, M5 = 2.619160171
-mutual inductance, M6 = 4.732863826
-mutual inductance, M7 = 2.846049894
-```
-:::
-:::
-
-
-Display the equations for $\omega=1$.
-
-::: {#c49a836a-5e2f-4352-b3b2-15668956ef2e .cell execution_count=22}
-``` {.python .cell-code}
-freq = 1 # Hz
-omega = 2*np.pi*freq
-```
-:::
-
-
-::: {#b72aff7f-af48-4695-abe1-d77863c994a5 .cell execution_count=23}
-``` {.python .cell-code}
-NE = NE_sym.subs(element_values)
-NE = NE.subs({s:1j*omega})
-```
-:::
-
-
-::: {#d1b47375-8b1b-4f12-9ef4-cdb84f959bd2 .cell execution_count=24}
-``` {.python .cell-code}
-temp = ''
-for i in range(shape(NE.lhs)[0]):
-    temp += '${:s} = {:s}$<br>'.format(latex(NE.rhs[i]),latex(NE.lhs[i]))
-
-Markdown(temp)
-```
-
-::: {.cell-output .cell-output-display .cell-output-markdown execution_count=24}
-$0 = I_{V1} + \frac{v_{1}}{10} - \frac{v_{2}}{10}$<br>$0 = I_{L1} - \frac{v_{1}}{10} + v_{2} \cdot \left(\frac{1}{10} + 0.04 \cdot \left(4.0 - 3.0 i\right)\right)$<br>$0 = I_{L2} + 0.02 v_{3} \cdot \left(5.0 - 5.0 i\right)$<br>$0 = I_{L3} + 0.0294117647058824 v_{4} \cdot \left(3.0 + 5.0 i\right)$<br>$0 = I_{L4} + 0.02 v_{5} \cdot \left(7.0 - 1.0 i\right)$<br>$0 = - I_{L2} - I_{L3} - I_{L4}$<br>$10.0 = v_{1}$<br>$0 = - 18.8495559215388 i I_{L1} - 13.8515381657481 i I_{L2} - 19.4677376446733 i I_{L3} - 20.1552205929094 i I_{L4} + v_{2}$<br>$0 = - 13.8515381657481 i I_{L1} - 12.5663706143592 i I_{L2} - 29.8037647973883 i I_{L3} - 16.4566687019546 i I_{L4} + v_{3} - v_{6}$<br>$0 = - 19.4677376446733 i I_{L1} - 29.8037647973883 i I_{L2} - 31.4159265358979 i I_{L3} - 29.737460455419 i I_{L4} + v_{4} - v_{6}$<br>$0 = - 20.1552205929094 i I_{L1} - 16.4566687019546 i I_{L2} - 29.737460455419 i I_{L3} - 43.9822971502571 i I_{L4} + v_{5} - v_{6}$<br>
-:::
-:::
-
-
-Solve the network equations and display the results.
-
-::: {#03580320-e15b-40f6-ba22-99e464eda019 .cell execution_count=25}
-``` {.python .cell-code}
-U = solve(NE,X)
-
-table_header = ['unknown', 'mag','phase, deg']
-table_row = []
-
-for name, value in U.items():
-    table_row.append([str(name),float(abs(value)),float(arg(value)*180/np.pi)])
-
-print(tabulate(table_row, headers=table_header,colalign = ('left','decimal','decimal'),tablefmt="simple",floatfmt=('5s','.6f','.6f')))
-```
-
-::: {.cell-output .cell-output-stdout}
-```
-unknown          mag    phase, deg
----------  ---------  ------------
-v1         10.000000      0.000000
-v2          3.192975     33.287048
-v3          0.175734    -60.276373
-v4          0.295150     49.408774
-v5          0.233149    -38.688513
-v6          3.022861   -146.530819
-I_V1        0.753743    166.556016
-I_L1        0.165777    -54.722500
-I_L2        0.024853     74.723627
-I_L3        0.050618    -71.554982
-I_L4        0.032972    133.181385
-```
-:::
-:::
-
-
--->
-<!--
-
-The history of the inductor and transformer is fundamentally rooted in the discovery of electromagnetic induction in the 1830s.  Michael Faraday in England, and independently Joseph Henry in America (whose name is honored by the unit of inductance, the henry), discovered that a changing magnetic field could induce an electric current in a nearby wire. Faraday’s "induction ring" of 1831, consisting of two coils wrapped around an iron ring, is recognized as the first prototype transformer, demonstrating the principle of energy transfer between circuits without a direct connection. This led to early induction coils (or spark coils), developed by Nicholas Callan and others, which used intermittent current to generate high voltages. However, the first commercially viable transformer for alternating current (AC) power distribution was not developed until the mid-1880s by Hungarian engineers Miksa Déri, Károly Zipernowsky, and Ottó Bláthy (the ZBD team), and soon after by William Stanley working for George Westinghouse in the United States, cementing the AC power system that relies on these devices to efficiently step voltage up or down for transmission and distribution.
-
-
-That's a great follow-up! While both inductors and transformers are essential passive components that utilize the principle of electromagnetic induction and are often constructed with coiled wire around a core, their core functions and configurations in a circuit are distinct.
-
-The main difference lies in what they do with the energy:
-
-## Inductor (The Energy Storer)
-An inductor is primarily a single-coil component used to store energy temporarily in a magnetic field.
-
-* Function: To oppose changes in current flow. When the current changes, the inductor generates a voltage (electromotive force, or EMF) that opposes that change (Lenz's Law).
-* Energy Use: It acts as an energy storage device, similar to how a capacitor stores energy in an electric field, but the inductor stores energy in a magnetic field. It then releases this energy back into the circuit when the current attempts to drop.
-* Structure: Typically consists of a single winding (coil) around a core (or air). Inductors designed for energy storage, such as those used in switching power supplies (DC-DC converters), often include an air gap in the core to prevent saturation and increase the amount of energy they can store. 
-* Applications: Used for filtering (blocking AC while allowing DC to pass—a "choke"), energy storage in power supplies, and in tuned circuits (LC filters).
-
-## Transformer (The Energy Transferrer and Converter)
-A transformer is primarily a component used to transfer energy and change voltage/current levels between two or more separate circuits.
-
-* Function: To efficiently transfer AC electrical energy from one circuit (the primary winding) to another (the secondary winding) via mutual magnetic induction.
-* Energy Use: It does not store energy; it converts and transfers it nearly instantaneously. The ratio of turns between the primary and secondary coils (the turns ratio) determines if the voltage is stepped up (increased) or stepped down (decreased).
-* Structure: Consists of two or more separate windings on a common magnetic core. An ideal transformer core is typically solid and gapless to ensure maximum coupling between the coils and efficient energy transfer. 
-* Applications: Essential for power transmission (stepping up voltage for long-distance lines, stepping down for residential use), charging devices (power adapters), and providing electrical isolation between circuits.
-
-
-
-### Key Comparison Table
-
-| Feature | Inductor | Transformer |
-| :--- | :--- | :--- |
-| **Primary Goal** | **Store** energy in a magnetic field. | **Transfer** energy between circuits. |
-| **Coil Configuration** | **Single** winding (coil). | **Two or more** windings (primary & secondary). |
-| **Circuit Path** | Used **within** a single circuit path. | Used to link **two separate** circuits. |
-| **Voltage Change** | Does **not** step voltage up or down. | **Can** step voltage up or down based on turns ratio. |
-| **Core Design** | Often includes a gap to allow for magnetic energy storage. | Typically a gapless, high-permeability core for maximum flux coupling. |
-
-Understanding this distinction—**storage (inductor)** versus **transfer/conversion (transformer)**—is key to understanding their roles in electronics and electrical power systems.
-
-
-
-
-### Importance (Impedance Matching)
-
-The primary importance of reflected impedance is its use in **impedance matching**.
-
-* By selecting the correct turns ratio ($N_p/N_s$), a transformer can make a load with one impedance value ($Z_{load}$) appear to the source (on the primary side) as a completely different impedance ($Z_{reflected}$).
-* According to the Maximum Power Transfer Theorem, for a source to deliver maximum power to a load, the load impedance should equal the complex conjugate of the source impedance. Transformers use the reflected impedance principle to achieve this matching in power systems and audio (e.g., matching a low-impedance speaker to a high-impedance vacuum tube amplifier) and RF circuits.
-
-The concept of reflected impedance is fundamental because it allows the entire transformer circuit to be simplified into a single, equivalent primary-side circuit, making complex analysis much easier.
-
-
--->
+<section id="summary" class="level2" data-number="9.3">
+<h2 data-number="9.3" class="anchored" data-anchor-id="summary"><span class="header-section-number">9.3</span> Summary</h2>
+<p>In this chapter the analysis of two circuits that contain mutually coupled inductors were examined. The first circuit was a simple transformer circuit where the coupling constant was given. In the second example, only the turn ratio was given. The following key concepts were illustrated:</p>
+<ul>
+<li>Calculation of the mutual inductance from the inductance values and the coupling constant.</li>
+<li>The concept of the ideal transformer and use of the circuit model.</li>
+</ul>
 
 
 </section>

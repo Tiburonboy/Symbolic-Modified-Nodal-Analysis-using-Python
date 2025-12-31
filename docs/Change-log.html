@@ -91,35 +91,6 @@ div.csl-indent {
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
@@ -626,7 +597,7 @@ Table&nbsp;B.1: Code change log
 </tr>
 <tr class="odd">
 <td style="text-align: left;">9/18/2017</td>
-<td style="text-align: left;">still debugging B matrix, looks like we don’t need find_vname() or df2. This is because a zero volt voltage source is added to the netlist in SPICE. need to add CCCS type to the list of i_unk. Filled out some B matrices by hand and got the same answer as the code.</td>
+<td style="text-align: left;">still debugging B matrix, looks like we don’t need <code>find_vname()</code> or <code>df2</code>. This is because a zero volt voltage source is added to the netlist in SPICE. Need to add CCCS type to the list of <code>i_unk</code>. Filled out some B matrices by hand and got the same answer as the code.</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">9/30/2017</td>
@@ -638,7 +609,7 @@ Table&nbsp;B.1: Code change log
 </tr>
 <tr class="even">
 <td style="text-align: left;">10/4/2017</td>
-<td style="text-align: left;">Fixed incrementing of sn in D matrix. The D matrix needs to count all i_unks. In find_vnam() fixed col_num to return just the row number in df2.</td>
+<td style="text-align: left;">Fixed incrementing of <code>sn</code> in D matrix. The D matrix needs to count all <code>i_unks</code>. In <code>find_vnam()</code> fixed <code>col_num</code> to return just the row number in <code>df2</code>.</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">10/5/2017</td>
@@ -674,7 +645,7 @@ Table&nbsp;B.1: Code change log
 </tr>
 <tr class="odd">
 <td style="text-align: left;">11/14/2023</td>
-<td style="text-align: left;">New version of SymPy does not support non-Expr objects in a Matrix. Code to generate the circuit equations towards the end of the notebook produced an error. This line generated the error: <span class="math inline">\(equ[i] = Eq(eq\_temp,Z[i])\)</span>. See the note <a href="https://docs.sympy.org/latest/explanation/active-deprecations.html#deprecated-non-expr-in-matrix">here</a> for details. In SymPy 1.8 and earlier versions it was possible to put non-Expr elements in a Matrix and the matrix elements could be any arbitrary Python object. Corrections have been made in this notebook. At the time of debugging this issue, I’m running sympy.__version__ = ‘1.11.1’</td>
+<td style="text-align: left;">New version of SymPy does not support non-Expr objects in a Matrix. Code to generate the circuit equations towards the end of the notebook produced an error. This line generated the error: <code>equ[i] = Eq(eq\_temp,Z[i])</code>. See the note <a href="https://docs.sympy.org/latest/explanation/active-deprecations.html#deprecated-non-expr-in-matrix">here</a> for details. In SymPy 1.8 and earlier versions it was possible to put non-Expr elements in a Matrix and the matrix elements could be any arbitrary Python object. Corrections have been made in this notebook. At the time of debugging this issue, I’m running sympy.__version__ = ‘1.11.1’</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">29 Nov 2023</td>
@@ -682,15 +653,15 @@ Table&nbsp;B.1: Code change log
 </tr>
 <tr class="odd">
 <td style="text-align: left;">1/9/2024</td>
-<td style="text-align: left;">Code for building matrix A was not including matrix D if i_unk == 1. The following line of code is new: <span class="math inline">\(A[n,n] = D[0]\)</span> also with a comment. Added verification tests test_14 and test_15 for the case of i_unk == 1 and 0.</td>
+<td style="text-align: left;">Code for building matrix A was not including matrix D if <code>i_unk == 1</code>. The following line of code is new: <code>A[n,n] = D[0]</code> also with a comment. Added verification tests test_14 and test_15 for the case of <code>i_unk == 1</code> and 0.</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">1/16/2024</td>
-<td style="text-align: left;">created a function to implement SMNA, replaced warning print statements with raise Exception()</td>
+<td style="text-align: left;">Created a function to implement SMNA, replaced warning print statements with <code>raise Exception()</code></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">7/31/2024</td>
-<td style="text-align: left;">added code to count number of resistors and capacitors in network and include count in report</td>
+<td style="text-align: left;">Added code to count number of resistors and capacitors in network and include count in report.</td>
 </tr>
 </tbody>
 </table>
@@ -765,11 +736,11 @@ Table&nbsp;B.2: Book project change log
 </tr>
 <tr class="even">
 <td style="text-align: left;">12/26/2025</td>
-<td style="text-align: left;">* Reorganized the project. Prior version archived with date 20_dec_2025 in <a href="https://github.com/Tiburonboy/Symbolic-modified-nodal-analysis/tree/master/book_backup">book_backup</a> folder.<br>* Rewrite of Preface, Introduction<br>* Changed About to Welcome with rewrite of index.qmd<br>* Added chapters: Basic Concepts, Modified Nodal Analysis, SMNA Code, Resistive Networks, RLC Networks, Transfer Function, Transient Analysis, Mutual Inductance, Initial Conditions and History of Electric Circuit Analysis.<br>* Removed chapters: Transient circuit, Transistor circuit, Boost converter, Phasor analysis<br>* Added <a href="#tbl-embedded-links" class="quarto-xref">Table&nbsp;<span>B.3</span></a>.<br>* Fixed outer loop index for calculation of inverse Laplace in Transient_analysis.ipynb.<br>* Updates to state space narrative in state variable filter.<br>* Moved validation tests to after example problems.<br>* Updated <a href="MNA_with_python.html" class="quarto-xref"><span>Chapter 4</span></a> matrix generation description.<br>* Updating numerious chapters to add clarification and fix typos.<br>* Project updates now being pushed to GitHub pages by git.</td>
+<td style="text-align: left;">* Reorganized the project. Prior version archived with date 20_dec_2025 in <a href="https://github.com/Tiburonboy/Symbolic-modified-nodal-analysis/tree/master/book_backup">book_backup</a> folder.<br>* Rewrite of Preface, Introduction<br>* Changed About to Welcome with rewrite of index.qmd<br>* Added chapters: Basic Concepts, Modified Nodal Analysis, SMNA Code, Resistive Networks, RLC Networks, Transfer Function, Transient Analysis, Mutual Inductance, Initial Conditions and History of Electric Circuit Analysis.<br>* Removed chapters: Transient circuit, Transistor circuit, Boost converter, Phasor analysis<br>* Added <a href="#tbl-embedded-links" class="quarto-xref">Table&nbsp;<span>B.3</span></a>.<br>* Fixed outer loop index for calculation of inverse Laplace in Transient_analysis.ipynb.<br>* Updates to state space narrative in state variable filter.<br>* Moved validation tests to after example problems.<br>* Updated <a href="MNA_with_python.html" class="quarto-xref"><span>Chapter 4</span></a> matrix generation description.<br>* Updating numerious chapters to add clarification and fix typos.<br>* Project updates now being pushed to GitHub pages by git. Small incremental changes will not be documented in this table.</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">1/15/2026</td>
-<td style="text-align: left;"></td>
+<td style="text-align: left;">place holder</td>
 </tr>
 </tbody>
 </table>
