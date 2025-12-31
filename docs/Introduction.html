@@ -569,37 +569,14 @@ window.Quarto = {
 
 
 <!--
-Last update: 17 Dec 2025  
+Last update: 31 Dec 2025  
 Source: 
 /home/jeff32/Documents/Quarto_projects/Circuit-Analysis-using-Python/Introduction.odt   
-
-The idea of this book is more of a How To or User's Guide  
-
 -->
 <p>The purpose of this book is to describe a method implemented in the Python programming language that will automatically generate symbolic network equations from a circuit’s netlist. The Python programming language and the associated libraries such as SymPy and NumPy make analyzing electric circuits almost effortless and the JupyterLab Notebooks described in this book can be used as template for analyzing almost any linear electric circuit.</p>
 <p>This book is not a college text book about circuit analysis, there are many good books available that cover this topic. This book is about using Modified Nodal Analysis and the Python programming language to analyze electric circuits. Python’s open-source nature makes it a powerful and cost-effective tool for complex computational problems.</p>
 <p>Circuit analysis is a foundational skill necessary for a broad range of professionals whose work involves the design and development of electronic systems. Electrical Engineers and Circuit Designers are the core audience, as they rely on techniques like Kirchhoff’s Laws to create efficient circuits, calculate voltage drops and current flows, and simulate how an electric circuit will behave before it’s ever built. Fields like Power Systems Engineering, Control Systems Engineering and even Physics require this knowledge to understand energy distribution, optimize system performance and analyze complex physical models where circuits are used as analogues.</p>
 <p>The Modified Nodal Analysis (MNA) is an essential extension of standard Nodal Analysis, and its primary benefits revolve around its systematic and comprehensive nature, particularly for computer-aided analysis. The key advantage of MNA is its ability to accommodate many types of circuit elements in a single, unified matrix formulation. Unlike traditional Nodal Analysis, which struggles to directly model voltage sources and components whose current is not easily defined by node voltages (such as dependent voltage sources and inductors), MNA introduces the currents through these elements as additional unknown variables. This standardization makes the process of formulating the circuit equations highly algorithmic and straightforward to automate, forming the backbone of professional circuit simulators like SPICE. Consequently, MNA eliminates the need for manual, ad-hoc techniques like supernodes or source transformations, allowing for the rapid and reliable analysis of large, complex, and linear circuits.</p>
-<!--
-
-**About This Book**
-
-This Book is a users guide for doing symbolic circuit analysis with Python. 
-
-This book is about … 
-
-**Who should read this book**
-
-
-whats in this book ...
-
-- MNA is an algorithmic technique to derive network equations from a circuit's netlist
-- uses SymPy and NumPy and to solve the equations.
-- Plots are generated with Matplotlib
-- example circuits
-- 
-
--->
 <section id="what-is-circuit-analysis-and-who-is-this-book-for" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="what-is-circuit-analysis-and-who-is-this-book-for"><span class="header-section-number">1.1</span> What Is Circuit Analysis and Who Is This Book For?</h2>
 <p>Electric circuit analysis is the process of figuring out the unknown currents and voltages in a network of connected electrical components, which is commonly call a circuit. It is a fundamental skill that is taught to engineering students and serves as the bedrock for understanding and designing virtually all modern electrical and electronic systems.</p>
@@ -614,44 +591,6 @@ whats in this book ...
 <li>The input to the Python code is a netlist and generating the netlist either by hand or with a schematic capture program may be more work than just determining the network equations in the traditional way.</li>
 <li>If the circuit is so simple that the unknown variables can be solve for almost by inspection, starting with a netlist is not necessary and requires unnecessary additional work.</li>
 </ul>
-<!--
-
- The core purpose of this rigorous exercise is to understand precisely how energy is transferred, converted, and managed within a circuit. The deep knowledge gained from this analysis is vital for predicting a circuit's performance and, most importantly, ensuring it functions correctly and safely.
-
-The primary tools that form the bedrock of circuit analysis are three fundamental laws. 
-
-1. Ohm's Law, which establishes the core relationship between voltage, current, and resistance in a simple way.
-1. Kirchhoff's Current Law (KCL), a principle based on the conservation of charge, stating that the sum of all currents entering a node (or junction) must exactly equal the sum of all currents leaving it.
-1. Kirchhoff's Voltage Law (KVL), which is based on the conservation of energy and dictates that the sum of all voltage drops around any closed loop within the circuit must equal zero.
-
-For more complex circuits that would be unwieldy to solve using just the fundamental laws directly, engineers employ systematic methods to simplify the process. These include the Node Voltage Method and the Mesh Current Method, which provide structured ways to set up the necessary systems of equations. Furthermore, powerful theorems like Thévenin's and Norton's are used to reduce large, complicated networks into much simpler equivalent circuits, thereby making the overall analysis manageable and efficient.
-
-Circuit analysis is a foundational skill primarily for electrical and computer engineers but is also relevant to other technical fields. 
-
-**Why Circuit Analysis is Essential**
-
-- It's the core discipline for designing and analyzing virtually all electrical systems, including
-  - Power Systems: Calculating power flow, voltage drops, and fault currents in power grids.
-  - Electronics: Designing amplifiers, filters, power supplies, and logic circuits for devices like smartphones and computers. 
-- Renewable Energy: Optimizing power converters and inverters in solar and wind systems.
-
-Electrical circuit analysis is a fundamental skill that serves as the bedrock for understanding and designing virtually all modern electrical and electronic systems. It is the process of finding all the currents and voltages within a network of interconnected electrical components, which is crucial for predicting circuit behavior, ensuring proper functionality, and optimizing performance. This analysis is ubiquitous across numerous industries, playing a vital role in everything from consumer electronics like smartphones and computers to complex industrial systems. For example, it is essential in power systems to calculate power flow and fault currents across a grid, and in the automotive industry for designing sensors, control modules, and onboard entertainment systems. Other applications include the design of medical devices (like pacemakers and monitors), communication systems (such as radio and cellular networks), and control systems (used in robotics and automation), often employing analysis techniques like Kirchhoff's Laws, nodal analysis, and the superposition theorem.
-
-Ultimately, anyone involved in the design, development, or maintenance of electronic or electrical systems relies on a deep understanding of circuit analysis to ensure their creations are efficient, reliable, and safe.
-
-Understanding and solving any electric circuit relies on two fundamental categories of mathematical tools: the laws governing individual components and the laws governing component interconnections. The foundational tool for the components themselves is Ohm's Law, which provides the basic device equation for a resistor, stating that voltage (V) equals the product of current (I) and resistance (R), or V=IR. This law establishes the essential relationship between the three primary electrical quantities.
-
-For governing how these components are connected, we turn to Kirchhoff's Laws, which serve as the key connection equations. These laws are the bedrock for distributing voltage and current throughout the network. Kirchhoff's Current Law (KCL) states that the algebraic sum of currents entering a node (or junction) must equal zero, which is a direct application of the principle of the conservation of charge. Complementary to this is Kirchhoff's Voltage Law (KVL), which asserts that the algebraic sum of all voltage drops and rises encountered while tracing any closed loop within the circuit must equal zero, embodying the conservation of energy.
-
-To analyze more complex circuits efficiently, engineers use systematic analytical techniques. Node-Voltage Analysis is a method that primarily uses KCL to determine the unknown voltages at the main nodes of a circuit. Conversely, Mesh-Current Analysis utilizes KVL to find the unknown currents circulating in the closed loops (meshes) of the circuit. Both methods translate the circuit problem into a solvable set of equations.
-
-The level of mathematics required for circuit analysis escalates with the circuit's complexity and nature. For the most basic circuits, simple Algebra is sufficient to solve Ohm's Law and the small systems of equations derived directly from KCL and KVL. However, when dealing with the large, complicated systems of equations generated by Node-Voltage and Mesh-Current analysis, Linear Algebra becomes essential. This involves working with matrices and determinants to solve the resulting systems of simultaneous linear equations. For dynamic circuits that incorporate energy-storage components like capacitors and inductors (e.g., RL, RC, and RLC circuits), the voltages and currents change over time, requiring the use of Calculus and Differential Equations for analysis. Finally, AC circuit analysis, which involves sinusoidal sources, relies heavily on Complex Numbers and Complex Analysis. This is crucial because quantities like impedance are represented as complex numbers to simplify calculations involving magnitude and phase shifts. A related, advanced tool, the Laplace Transform, is often used in this context to transform differential equations from the time domain into simpler algebraic problems in the complex frequency domain.
-
-That's a great choice. Applying Linear Algebra to solve circuit equations, specifically those derived from the Node-Voltage Analysis method (which uses KCL), transforms a tedious algebra problem into a systematic matrix calculation.
-
-Here is a step-by-step example showing how the equations derived from Kirchhoff's Current Law (KCL) at the nodes of a circuit are organized into a system of simultaneous linear equations and then solved using matrices.
-
--->
 </section>
 <section id="assumptions" class="level2" data-number="1.3">
 <h2 data-number="1.3" class="anchored" data-anchor-id="assumptions"><span class="header-section-number">1.3</span> Assumptions</h2>
@@ -673,72 +612,18 @@ Here is a step-by-step example showing how the equations derived from Kirchhoff'
 <p><a href="http://www.ewh.ieee.org/soc/es/May2001/12/Begin.htm">SAPWIN</a> is a windows program package for symbolic and numerical simulation of analog circuits.</p>
 <p><a href="https://github.com/mph-/lcapy">Lcapy</a> is an experimental Python package for teaching linear circuit analysis. It uses SymPy for symbolic mathematics. <span class="citation" data-cites="Hayes2022">Hayes (<a href="References.html#ref-Hayes2022" role="doc-biblioref">2022</a>)</span> provides an overview of Lcapy as well as a survey of symbolic circuit analysis packages.</p>
 <p><a href="https://www.analog.com/en/resources/design-tools-and-calculators/ltspice-simulator.html">LTSpice</a> has been used extensively to verify the MNA numerical results in addition to drawing the circuit schematics shown in this book’s examples.</p>
-<!--
-
-For larger circuits, symbolic approximation (which simplifies the expression by discarding numerically insignificant terms based on reference values) is often used to keep the resulting formula manageable and interpretable.
-
-**What are the current modern SPICE programs?**
-
-SPICE and similar programs are numerical simulators. They give you a specific number for a specific set of component values and inputs. You get how much the gain is (e.g., 10.5) but not why.
-
-Symbolic analysis, however, gives you the actual algebraic formula for the circuit's behavior. 
-
-List of free electronics circuit simulators
-https://en.wikipedia.org/wiki/List_of_free_electronics_circuit_simulators
-
-
-This provides three critical things that numerical simulation cannot:
-
-Insight and Understanding
-
-Symbolic analysis provides the "Aha!" moment for a circuit designer:
-
-- Qualitative Insight: The symbolic formula instantly shows the relationship between the performance (like gain, pole frequency, or bandwidth) and all the component values ($R_1$, $C_2$, $g_m$, etc.). You can see at a glance if a certain resistor has a minor or major impact.
-- Dominant Terms: In a complex expression, you can identify the dominant terms that control the behavior. This is crucial for simplifying the circuit design or creating hand-calculation models.
-- Design Trade-offs: You can use the formula to understand the trade-offs between different performance metrics. For example, the same formula might show that increasing one resistor value increases gain but decreases bandwidth.
-
-Optimization and Parameter Sweeps
-
-For design and manufacturing, the formula is far more powerful than a single number:
-
-- Sensitivity Analysis: You can easily calculate the sensitivity (how much the output changes for a tiny change in a component value) by simply taking the derivative of the symbolic expression with respect to that component. In numerical tools, this requires many time-consuming simulations.
-- Design Optimization: The closed-form expression can be used in optimization algorithms to automatically find the best component values for a given specification, which is much faster and more robust than running thousands of SPICE iterations.
-- Tolerance and Yield Analysis: The symbolic form can be used to quickly evaluate the impact of component manufacturing tolerances on the final circuit performance, helping to predict the manufacturing yield without extensive Monte Carlo simulations.
-
-In essence, SPICE tells you what happens for one specific circuit, while symbolic analysis tells you why it happens for all possible variations of that circuit. The formula is a universal blueprint for that circuit topology.
-
-Used in documenting the design.
-
--->
 </section>
 <section id="why-use-symbolic-circuit-analysis" class="level2" data-number="1.5">
 <h2 data-number="1.5" class="anchored" data-anchor-id="why-use-symbolic-circuit-analysis"><span class="header-section-number">1.5</span> Why Use Symbolic Circuit Analysis?</h2>
 <p>Symbolic circuit analysis is a formal technique where the behavior or characteristic of a circuit (like voltage gain or impedance) is calculated with the circuit components and frequency (or time) represented by symbols instead of numerical values.</p>
 <p>For small circuits, the analytical expression (e.g., a transfer function) explicitly shows how each component affects the circuit’s performance metrics (gain, poles, zeros, etc.). This allows a designer to immediately see which elements are dominant and how to modify component values to meet specifications. A symbolic expression remains valid across a range of component values and operating conditions (as long as the underlying model is valid). By using symbolic analysis the network equations in symbolic form can be useful to document a design or to include in a technical paper.</p>
-<!--
-
-The main reasons to use symbolic circuit analysis are to gain deep qualitative insight into a circuit's operation and to facilitate design and optimization.
-
-Key Advantages of Symbolic Analysis
-
-Symbolic analysis offers benefits that purely numerical simulation (like SPICE) cannot:
-
-- Qualitative Insight: The resulting analytical expression (e.g., a transfer function) explicitly shows how each component affects the circuit's performance metrics (gain, poles, zeros, etc.). This allows a designer to immediately see which elements are dominant and how to modify component values to meet specifications.
-- Design and Optimization: The symbolic formula can be used directly for sensitivity analysis (how a small change in a component value affects the output) or for automated design optimization, bypassing the need for repeated, slow numerical simulations.
-- Generality and Reusability: A symbolic expression remains valid across a range of component values and operating conditions (as long as the underlying model is valid). Designers can use the same formula to quickly evaluate performance at different design points without re-analyzing the circuit from scratch.
-- Exact Solutions: For linear circuits, symbolic analysis can provide the exact analytical solution, avoiding the potential for numerical instability and accumulated errors associated with numerical approximation techniques.
-- generate equations for technical papers, see @Tiburonboy2025b, where the network equations were generated and formatted for the paper.
-
-Practical network size
-
--->
 </section>
 <section id="getting-started" class="level2" data-number="1.6">
 <h2 data-number="1.6" class="anchored" data-anchor-id="getting-started"><span class="header-section-number">1.6</span> Getting Started</h2>
-<p>The best way to begin your journey into symbolic circuit analysis with Python is through hands-on practice. The most effective approach is to copy one of the provided JupyterLab Notebooks and use it as a template for analyzing your own circuits. By doing this, you’ll immediately begin applying the Modified Nodal Analysis (MNA) method and leverage the computational power of Python libraries like SymPy for symbolic computation, NumPy for numerical handling, and Matplotlib for generating plots.</p>
-<p>This practical, project-oriented approach will quickly familiarize you with setting up a circuit’s netlist, deriving its symbolic network equations, solving for unknown voltages and currents, and gaining the deep, qualitative insights that only symbolic analysis can provide.</p>
-<p>Source code for this book is available <a href="https://github.com/Tiburonboy/Symbolic-Modified-Nodal-Analysis-using-Python/tree/main/backup">here</a> and related material is located <a href="https://github.com/Tiburonboy/Symbolic-modified-nodal-analysis">here</a>. Python code contained in this book can run in a browser-based environment, see <a href="Google Colab.html" class="quarto-xref"><span>Appendix C</span></a>. Additionally, online schematics editors are available, see <a href="EasyEDA_schematic_editor.html" class="quarto-xref"><span>Appendix E</span></a>. By using web based tools, the reader is not required to install any programs.</p>
-<p>Rewrite this section and point to <a href="index.html#sec-source_code" class="quarto-xref"><span>Section 1</span></a> to keep Github links all in one place.</p>
+<p>The best way to begin your journey into symbolic circuit analysis with Python is through hands-on practice. The most effective approach is to copy one of the linked JupyterLab Notebooks and use it as a template for analyzing your own circuits. By doing this, you’ll immediately begin applying the Modified Nodal Analysis (MNA) method and leverage the computational power of Python libraries like SymPy for symbolic computation, NumPy for numerical handling, and Matplotlib for generating plots.</p>
+<p>See <a href="index.html#sec-source_code" class="quarto-xref"><span>Section 1</span></a> for links to obtain the source code for this book along with the associated Python module and JupyterLab notebooks.</p>
+<p>This practical, project-oriented approach will quickly familiarize you with setting up a circuit’s netlist, deriving its symbolic network equations, solving for unknown voltages and currents, and possibly gaining qualitative insights that only symbolic analysis can provide.</p>
+<p>Python code contained in this book can run in a browser-based environment, see <a href="Google Colab.html" class="quarto-xref"><span>Appendix C</span></a>. Additionally, online schematics editors are available, see <a href="EasyEDA_schematic_editor.html" class="quarto-xref"><span>Appendix E</span></a>. By using web based tools, the reader is not required to install any programs.</p>
 </section>
 <section id="about-the-math" class="level2" data-number="1.7">
 <h2 data-number="1.7" class="anchored" data-anchor-id="about-the-math"><span class="header-section-number">1.7</span> About the Math</h2>
@@ -747,55 +632,16 @@ Practical network size
 <li>Complex Numbers: Crucial for AC circuit analysis, where quantities like impedance are represented as complex numbers to simplify calculations involving magnitude and phase shifts in sinusoidal waveforms. The Laplace Transform is used to convert differential equations into algebraic equations.</li>
 <li>Linear Algebra: Essential for solving systems of simultaneous linear equations that result from MNA.</li>
 </ul>
-<!--
-## How The Book Is Organized
-The book is structured as a user's guide for performing symbolic circuit analysis with Python, with a strong focus on practical application. 
-
-After the initial Introduction, which establishes the purpose, audience, and the importance of Modified Nodal Analysis (MNA) and symbolic analysis, the subsequent chapters focus on implementation. 
-
-The book includes sections on Basic Concepts (Ideal Components, Electrical Units, etc.) and a chapter on the necessary Math (Linear Algebra, Laplace Transform). 
-
-The core of the book is dedicated to describing the MNA process, including the matrix formulation, $V = I \cdot Z$, and its application to Laplace Transformed Circuit Models. Crucially, the final sections, such as Running Python and Examples, provide practical, hands-on examples, with the best use recommended to be copying the provided JupyterLab notebooks for direct application as templates to analyze the user's own circuits.
-
-The first four chapters describe my implementation of symbolic circuit analysis with Python. The next part of the book consists of 15 circuits that are used to validate the Python code. These are Jupyter notebooks that have been rendered into chapters. The last part of the book contains circuit analysis example problems; followed by references, code listing and a change log. Section links are provided below.
-
-- @sec-Introduction introduces the topic of MNA and describes how Python can easily solve mathematical expressions that would be very hard and laborious to do with pencil and paper.
-  - Jupyterlab, variable names, large exponents
-  - Practical network size for symbolic solutions
-  - Linear and nonlinear circuits
-  - State variables
-  - Pros and cons of MNA
-- @sec-History-Theory describes the history of circuit analysis and the theory behind MNA.
-- @sec-example walks through a circuit analysis problem from netlist generation to AC analysis and generation of a frequency response plot of the circuit.
-- @sec-SMNA-func provides a description of the Python function that implements the symbolic MNA procedure.
-
-**Example problems**: A collection of interesting circuits (at least to me) that showcase the power and ease with which the Python code can solve circuit analysis problems.
-
-**Validation tests**: There are 15 circuits that were used to validate the Python code. These circuits range from simple circuits that you would find in textbooks, to complex circuits that would be very difficult to analyze if not for computers. There are also a couple of test circuits designed to generate sub-matrices of all zeros during the formulation of the network equations.
-
-**References**: This section provides information about works cited in this book.
-
-@sec-SymMNA_py is the Python source listing of the MNA function called in the verification tests and example problems sections.
-
-@sec-Change-log is a list of the changes to the MNA code and this book.
-
-@sec-google_colab provides instructions about running the code contained in this book in Google's Colab. All that is needed is a gmail account.
-
-@sec-SMNA_mobile is a JupyterLab notebook that can be used as a template for circuit analysis using Colab on a mobile device.
-
-@sec-EasyEDA_schematic_editor provides a link to an web based schematic editor program than can be used to generate schematics and a netlist from a schematic.
-
--->
 </section>
 <section id="summary" class="level2" data-number="1.8">
 <h2 data-number="1.8" class="anchored" data-anchor-id="summary"><span class="header-section-number">1.8</span> Summary</h2>
 <p>This book serves as a practical guide for performing symbolic circuit analysis using the Python programming language and its associated scientific libraries, such as SymPy and NumPy. The primary goal is to provide a systematic and computationally efficient method for analyzing linear electric circuits, utilizing JupyterLab Notebooks as adaptable templates.</p>
 <p>The book is not a traditional circuit analysis textbook but focuses specifically on implementing the Modified Nodal Analysis (MNA) method. MNA is an essential extension of standard nodal analysis that allows all types of circuit elements (including voltage sources, inductors, and dependent sources) to be incorporated into a single, unified matrix formulation. This approach forms the algorithmic backbone of professional circuit simulators like SPICE.</p>
-<p>Important Points:</p>
+<p>Key Points:</p>
 <ul>
 <li>Symbolic Analysis: This technique calculates a circuit’s behavior (e.g., gain, impedance) with components and frequency represented by symbols instead of numerical values. This provides qualitative insight into the circuit’s operation, aids in design optimization, and yields exact analytical solutions that numerical simulators (like SPICE) cannot.</li>
 <li>Target Audience: Circuit analysis is a foundational skill for a broad range of professionals, including Electrical Engineers, Circuit Designers, Electronics Technicians and those in Power Systems and Control Systems Engineering.</li>
-<li>Modified Nodal Analysis (MNA): The book leverages MNA to formulate the circuit problem as a system of simultaneous linear equations, <span class="math inline">\(\mathbf{G} \cdot \mathbf{V} = \mathbf{I}\)</span>, which are then solved using matrix inversion implemented in Python.</li>
+<li>Modified Nodal Analysis (MNA): The book leverages MNA to formulate the circuit problem as a system of simultaneous linear equations, <span class="math inline">\([A] [V] = [I]\)</span>, which are then solved using matrix inversion implemented in Python.</li>
 <li>Advanced Concepts (The s-Domain): The text covers Laplace Transformed Circuit Models, which convert time-domain differential equations into simpler algebraic equations in the s-domain (complex frequency domain). This is crucial for analyzing circuits with energy storage elements (capacitors and inductors) and determining their transient and transfer functions.</li>
 <li>Foundations of Circuit Analysis: A review of fundamental concepts is provided, including Ohm’s Law, Kirchhoff’s Current Law (KCL), and Kirchhoff’s Voltage Law (KVL), along with an overview of the key mathematical tools required (Algebra, Linear Algebra, Calculus, and Complex Numbers).</li>
 </ul>
