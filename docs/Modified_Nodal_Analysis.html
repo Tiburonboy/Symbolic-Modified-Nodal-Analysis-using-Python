@@ -536,7 +536,22 @@ window.Quarto = {
    
   <ul>
   <li><a href="#pros-and-cons-of-mna" id="toc-pros-and-cons-of-mna" class="nav-link active" data-scroll-target="#pros-and-cons-of-mna"><span class="header-section-number">3.1</span> Pros and Cons of MNA</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">3.2</span> Summary</a></li>
+  <li><a href="#formulation-of-the-modified-nodal-equations" id="toc-formulation-of-the-modified-nodal-equations" class="nav-link" data-scroll-target="#formulation-of-the-modified-nodal-equations"><span class="header-section-number">3.2</span> Formulation of the Modified Nodal Equations</a>
+  <ul class="collapse">
+  <li><a href="#matrix-formulation" id="toc-matrix-formulation" class="nav-link" data-scroll-target="#matrix-formulation"><span class="header-section-number">3.2.1</span> Matrix Formulation</a></li>
+  <li><a href="#detailed-structure-of-the-system-matrix" id="toc-detailed-structure-of-the-system-matrix" class="nav-link" data-scroll-target="#detailed-structure-of-the-system-matrix"><span class="header-section-number">3.2.2</span> Detailed Structure of the System Matrix</a></li>
+  </ul></li>
+  <li><a href="#python-code-description" id="toc-python-code-description" class="nav-link" data-scroll-target="#python-code-description"><span class="header-section-number">3.3</span> Python Code Description</a></li>
+  <li><a href="#netlist-file-format" id="toc-netlist-file-format" class="nav-link" data-scroll-target="#netlist-file-format"><span class="header-section-number">3.4</span> Netlist file format</a>
+  <ul class="collapse">
+  <li><a href="#resistors-capacitors-and-inductors" id="toc-resistors-capacitors-and-inductors" class="nav-link" data-scroll-target="#resistors-capacitors-and-inductors"><span class="header-section-number">3.4.1</span> Resistors, capacitors and inductors</a></li>
+  <li><a href="#coupled-inductors" id="toc-coupled-inductors" class="nav-link" data-scroll-target="#coupled-inductors"><span class="header-section-number">3.4.2</span> Coupled inductors</a></li>
+  <li><a href="#independent-sources" id="toc-independent-sources" class="nav-link" data-scroll-target="#independent-sources"><span class="header-section-number">3.4.3</span> Independent sources</a></li>
+  <li><a href="#controlled-sources" id="toc-controlled-sources" class="nav-link" data-scroll-target="#controlled-sources"><span class="header-section-number">3.4.4</span> Controlled sources</a></li>
+  <li><a href="#op-amps" id="toc-op-amps" class="nav-link" data-scroll-target="#op-amps"><span class="header-section-number">3.4.5</span> Op Amps</a></li>
+  </ul></li>
+  <li><a href="#analysis-procedure" id="toc-analysis-procedure" class="nav-link" data-scroll-target="#analysis-procedure"><span class="header-section-number">3.5</span> Analysis procedure</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">3.6</span> Summary</a></li>
   </ul>
 </nav>
     </div>
@@ -587,7 +602,7 @@ Figure&nbsp;3.1: Modified nodal analysis example circuit.
 </figure>
 </div>
 <p>For this circuit, the MNA procedure generates the following system of equations:</p>
-<div id="f0031290" class="cell" data-execution_count="2">
+<div id="34dd34eb" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="2">
 <p><span class="math inline">\(I_{V1} + \frac{v_{1}}{R_{1}} - \frac{v_{2}}{R_{1}} = 0\)</span><br><span class="math inline">\(I_{L1} + v_{2} \left(C_{2} s + \frac{1}{R_{1}}\right) - \frac{v_{1}}{R_{1}} = 0\)</span><br><span class="math inline">\(C_{1} s v_{3} - I_{L1} = 0\)</span><br><span class="math inline">\(v_{1} = V_{1}\)</span><br><span class="math inline">\(- I_{L1} L_{1} s + v_{2} - v_{3} = 0\)</span><br></p>
 </div>
@@ -596,7 +611,7 @@ Figure&nbsp;3.1: Modified nodal analysis example circuit.
 <p>The first of theses five equations is the KVL equation for node 1, where current through <span class="math inline">\(R_1\)</span> is equal to the current from <span class="math inline">\(V_1\)</span>. The second equation describes the current flowing from branches connected to node 2. For node 2, the unknown current in <span class="math inline">\(L_1\)</span> is assigned to <span class="math inline">\(I_{L1}\)</span>. The third equation describes the current flowing from the branches into node 3. The fourth equations just says that the voltage at node 2 is equal to <span class="math inline">\(V_1\)</span>. The last equation describes the current in <span class="math inline">\(L_1\)</span>. There are five network equations in total, but one of the equations, <span class="math inline">\(v_1=V_1\)</span> is trivial.</p>
 <p>Solving this set of equations is easily accomplished by using a computer with MATLAB, Python with NumPy, an on-line matrix calculator or a modern graphical calculator that has matrix algebra capabilities. Inverting a 4 by 4 matrix by hand is probably the largest matrix that would be attempted given the numerous modern calculating tools available.</p>
 <p>These equations can be solved by the afore mentioned tools to obtain the unknown voltages and currents as either numerical or analytic expressions. The analytical expression for the unknown voltages and currents are displayed below.</p>
-<div id="37be2e8a" class="cell" data-execution_count="3">
+<div id="6b7be12e" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="3">
 <p><span class="math inline">\(v_{1} = V_{1}\)</span><br><span class="math inline">\(v_{2} = \frac{C_{1} L_{1} V_{1} s^{2} + V_{1}}{C_{1} C_{2} L_{1} R_{1} s^{3} + C_{1} L_{1} s^{2} + C_{1} R_{1} s + C_{2} R_{1} s + 1}\)</span><br><span class="math inline">\(v_{3} = \frac{V_{1}}{C_{1} C_{2} L_{1} R_{1} s^{3} + C_{1} L_{1} s^{2} + C_{1} R_{1} s + C_{2} R_{1} s + 1}\)</span><br><span class="math inline">\(I_{V1} = \frac{- C_{1} C_{2} L_{1} V_{1} s^{3} - C_{1} V_{1} s - C_{2} V_{1} s}{C_{1} C_{2} L_{1} R_{1} s^{3} + C_{1} L_{1} s^{2} + C_{1} R_{1} s + C_{2} R_{1} s + 1}\)</span><br><span class="math inline">\(I_{L1} = \frac{C_{1} V_{1} s}{C_{1} C_{2} L_{1} R_{1} s^{3} + C_{1} L_{1} s^{2} + C_{1} R_{1} s + C_{2} R_{1} s + 1}\)</span><br></p>
 </div>
@@ -606,19 +621,19 @@ Figure&nbsp;3.1: Modified nodal analysis example circuit.
 <h2 data-number="3.1" class="anchored" data-anchor-id="pros-and-cons-of-mna"><span class="header-section-number">3.1</span> Pros and Cons of MNA</h2>
 <p>The MNA approach is a suitable technique for hand analysis of small circuits as well as for computer analysis of larger circuits using the same algorithm as illustrated in this book. One disadvantage of the MNA technique is that often additional equations are generated, when a smaller number would be sufficient. For students doing homework problems and solving sets of equations by hand, the extra equation or two, generated by the MNA technique makes matrix inversions much harder.</p>
 <p>For example, the circuit in <a href="#fig-intro_circuit" class="quarto-xref">Figure&nbsp;<span>3.1</span></a>, can be described by the following two mesh equations:</p>
-<div id="9c25691d" class="cell" data-execution_count="4">
+<div id="a4cb0f6f" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="4">
 <p><span class="math inline">\(\displaystyle L_{1} s \left(i_{1} - i_{2}\right) + R_{1} i_{1} + \frac{i_{1} - i_{2}}{C_{1} s} = V_{1}\)</span></p>
 </div>
 </div>
-<div id="b22105a8" class="cell" data-execution_count="5">
+<div id="0dc0ad9e" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="5">
 <p><span class="math inline">\(\displaystyle L_{1} s \left(- i_{1} + i_{2}\right) + \frac{i_{2}}{C_{2} s} + \frac{- i_{1} + i_{2}}{C_{1} s} = 0\)</span></p>
 </div>
 </div>
 <p>where <span class="math inline">\(i_1\)</span> and <span class="math inline">\(i_2\)</span> are the unknown currents.</p>
 <p>The MNA procedure generated five equations (but one of them was trivial) to find the node voltages, whereas only two equations are need to be solved to find the mesh currents, which are:</p>
-<div id="807311f9" class="cell" data-execution_count="6">
+<div id="b1d5033d" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="6">
 <p><span class="math inline">\(i_{1} = \frac{C_{1} C_{2} L_{1} V_{1} s^{3} + C_{1} V_{1} s + C_{2} V_{1} s}{C_{1} C_{2} L_{1} R_{1} s^{3} + C_{1} L_{1} s^{2} + C_{1} R_{1} s + C_{2} R_{1} s + 1}\)</span><br><span class="math inline">\(i_{2} = \frac{C_{1} C_{2} L_{1} V_{1} s^{3} + C_{2} V_{1} s}{C_{1} C_{2} L_{1} R_{1} s^{3} + C_{1} L_{1} s^{2} + C_{1} R_{1} s + C_{2} R_{1} s + 1}\)</span><br></p>
 </div>
@@ -626,8 +641,328 @@ Figure&nbsp;3.1: Modified nodal analysis example circuit.
 <p>Modern pocket scientific calculators that engineering students now use can solve sets of linear equations relatively easily. However, some effort is required to enter the equations into the calculator.</p>
 <p>When a computer is used to generate the schematic for a circuit and the net list is exported to the Python code, the extra equations that the MNA approach generates is not a practical concern. Using the examples in this book as templates for problem solving makes the work flow very easy, which is the main benefit of using MNA.</p>
 </section>
-<section id="summary" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="summary"><span class="header-section-number">3.2</span> Summary</h2>
+<section id="formulation-of-the-modified-nodal-equations" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="formulation-of-the-modified-nodal-equations"><span class="header-section-number">3.2</span> Formulation of the Modified Nodal Equations</h2>
+<p>Modified nodal analysis provides an algorithmic method for generating systems of independent equations for linear circuit analysis. The systematic application of MNA can be broken down into a series of procedural steps, ensuring a consistent approach to equation formulation:</p>
+<ol type="1">
+<li>Node Definition and Reference Node Selection: The process begins by identifying all distinct nodes within the circuit. A crucial first step is to select a reference node, typically designated as ground.</li>
+<li>Assign Unknowns: Unique variable names are assigned to all unknown node voltages. Additionally, variables are assigned to represent the unknown currents flowing through independent voltage sources, inductors or current-dependent sources.</li>
+<li>Apply KCL at Nodes: For each non-reference node with an unknown voltage, a Kirchhoff’s Current Law (KCL) equation is written for each branch. When a voltage source is connected to a node, the current through that voltage source is treated as an explicit unknown variable within the KCL equation for the connected nodes.</li>
+<li>Formulate System of Equations: Combine all the KCL equations and the voltage source unknowns into a system of algebraic equations.</li>
+<li>Solve the System of Equations: The complete linear system of equations can then be efficiently solved using matrix methods to determine all unknown node voltages and the specified branch currents.</li>
+</ol>
+<p>As describe below, the outline procedure above is implement in terms of matrices and “element stamps”.</p>
+<p>The “element stamp” concept is a fundamental enabler of MNA’s algorithmic efficiency, modularity and its widespread adoption as the core of modern circuit simulation software. This approach means that instead of a simulator needing to derive KCL equations for every node, it can simply iterate through each component in the circuit’s netlist.</p>
+<p>For each component, the pre-defined “stamp” - a small matrix/vector contribution – is directly inserted into the corresponding location in the global MNA matrix. This modular, additive approach drastically simplifies the algorithm for building the system matrix, making it highly efficient, less prone to errors and easily extensible to new component models.</p>
+<section id="matrix-formulation" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="matrix-formulation"><span class="header-section-number">3.2.1</span> Matrix Formulation</h3>
+<p>The MNA procedure formulates the entire set of circuit equations into a system of linear algebraic equations represented in matrix form: <span class="math inline">\(A \cdot X=Z\)</span>.</p>
+<p>where <span class="math inline">\(A\)</span> is System Matrix, <span class="math inline">\(X\)</span> is vector containing the Unknowns and <span class="math inline">\(Z\)</span> is a vector containing the Knowns.</p>
+<p>This matrix representation is fundamental to its computational efficiency and scalability, providing a structured approach for solving complex circuit problems.</p>
+<p>For circuits containing reactive elements such as capacitors and inductors, the initial MNA formulation can results in a system of Differential Algebraic Equations (DAEs) or Ordinary Differential Equations (ODEs). But in this book, the Laplace variable <span class="math inline">\(s\)</span> is used.</p>
+</section>
+<section id="detailed-structure-of-the-system-matrix" class="level3" data-number="3.2.2">
+<h3 data-number="3.2.2" class="anchored" data-anchor-id="detailed-structure-of-the-system-matrix"><span class="header-section-number">3.2.2</span> Detailed Structure of the System Matrix</h3>
+<p>The system matrix, is a square matrix with dimensions of (n+m) by (n+m). Where, ‘n’ denotes the number of nodes in the circuit (excluding the ground reference node), and ‘m’ represents the number of independent voltage sources. This matrix is populated with known quantities derived directly from the circuit’s passive elements and source interconnections.</p>
+<p>Conceptually, the A matrix is partitioned into four distinct sub-matrices, each contributing to specific aspects of the circuit’s behavior:</p>
+<p>Matrix <span class="math inline">\(A\)</span> describes the connectivity of the resistors, capacitors and G type (VCCS) circuit elements. The <span class="math inline">\(X\)</span> vector contains unknown node voltages and unknown currents from the voltage sources and inductors. The <span class="math inline">\(Z\)</span> vector contains the known voltages and currents. The</p>
+<p><span class="math inline">\(A\)</span> matrix is formed by four sub matrices, <span class="math inline">\(G\)</span>, <span class="math inline">\(B\)</span>, <span class="math inline">\(C\)</span> and <span class="math inline">\(D\)</span>, which are described below.</p>
+<p><span id="eq-net_equ"><span class="math display">\[A = \begin{bmatrix}G B\\C D\end{bmatrix} \tag{3.1}\]</span></span></p>
+<p>The matrix <span class="math inline">\(G\)</span> is formed from the coefficients representing the KCL equations for each node. The positive diagonal of <span class="math inline">\(G_{k,k}\)</span> are the conductance terms of the resistor and capacitor elements connected to node k. The off diagonal terms of <span class="math inline">\(G_{k,j}\)</span> are the resistors and capacitor conductances connecting node k to node j. G type elements (VCCS) have input to the G matrix at the connection and controlling node positions.</p>
+<p>The <span class="math inline">\(B\)</span> matrix describes the connectivity of the unknown branch currents. Independent voltage sources, Op Amps, H, F and E type elements as well as inductors have inputs to the B matrix.</p>
+<p>The <span class="math inline">\(C\)</span> matrix describes the connectivity of the unknown branch currents and is mainly the transpose of the <span class="math inline">\(B\)</span> matrix, with the exception of the F type elements (CCCS) and includes the E type value.</p>
+<p>The <span class="math inline">\(D\)</span> matrix also describes connectivity of the unknown currents. The <span class="math inline">\(D\)</span> matrix is composed of zeros unless there are controlled sources and inductors in the network.</p>
+<p>The <span class="math inline">\(X\)</span> vector is composed of the <span class="math inline">\(V\)</span> and <span class="math inline">\(J\)</span> vectors as shown in <a href="#eq-net_X" class="quarto-xref">Equation&nbsp;<span>3.2</span></a>.</p>
+<p><span id="eq-net_X"><span class="math display">\[X = \begin{bmatrix}V\\J\end{bmatrix} \tag{3.2}\]</span></span></p>
+<p>The <span class="math inline">\(V\)</span> vector contains the node voltages which are the voltage unknowns to be solved for. The <span class="math inline">\(J\)</span> vector contains the unknown currents from each voltage source.</p>
+<p>The <span class="math inline">\(Z\)</span> vector is composed of the I and Ev vectors as shown <a href="#eq-net_Z" class="quarto-xref">Equation&nbsp;<span>3.3</span></a>.</p>
+<p><span id="eq-net_Z"><span class="math display">\[Z = \begin{bmatrix}I\\Ev\end{bmatrix} \tag{3.3}\]</span></span></p>
+<p>The I vector contains the known currents and the Ev vector contains the known voltages. The name Ev is used because SymPy uses e and E sometimes for the constant 2.71, also called <a href="https://en.wikipedia.org/wiki/E_(mathematical_constant)">Euler’s number</a>. The use of E or e as a symbol was causing some errors when the code was run.</p>
+<p>Putting all the parts together:</p>
+<p><span id="eq-net_all"><span class="math display">\[\begin{bmatrix}G B\\C D\end{bmatrix} \cdot \begin{bmatrix}V\\J\end{bmatrix} = \begin{bmatrix}I\\Ev\end{bmatrix} \tag{3.4}\]</span></span></p>
+<section id="stamps" class="level4" data-number="3.2.2.1">
+<h4 data-number="3.2.2.1" class="anchored" data-anchor-id="stamps"><span class="header-section-number">3.2.2.1</span> Stamps</h4>
+<p>Stamps are templates for modifying the terms of <a href="#eq-net_all" class="quarto-xref">Equation&nbsp;<span>3.4</span></a>. The stamps follow the circuit connections of the components to directly populate the matrices. See <a href="MNA_with_python.html#sec-g_matrix" class="quarto-xref"><span>Section 4.7</span></a> through <a href="MNA_with_python.html#sec-ev_matrix" class="quarto-xref"><span>Section 4.14</span></a> for discriptions and the Python code used to stamp the matrices and build the network equations.</p>
+<!--
+Describe the stamps and usage, then point to the code for implementation. Do for each matrix, G, B, C, D and arrays X = V, J and Z = I and Ev.
+
+#### G Matrix
+General form
+
+$\begin{eqnarray}
+G = \left(
+  \begin{array}{ccccc}
+           & \vdots &     & \vdots &    \\
+    \ldots & Y_{ jj } & \ldots & -Y_{ kj } & \ldots\\
+           & \vdots &          & \vdots & \\
+    \ldots & -Y_{ jk } & \ldots & Y_{ kk } & \ldots \\
+           & \vdots &          & \vdots  &
+  \end{array}
+\right)
+\end{eqnarray}$
+
+See @sec-g_matrix
+
+#### B Matrix
+(B) = m×(n − 1) matrix with topology information of the independent voltage sources
+
+$B=\left(
+  \begin{array}{c}
+    a_1 \\
+    a_2 \\
+    \vdots \\
+    a_n
+  \end{array}
+\right)$
+
+@sec-b_matrix
+
+#### C Matrix
+(C) = (B)T for networks that have only independent voltage sources
+
+$C=( a_1, a_2, \ldots, a_n )$
+
+@sec-c_matrix
+
+#### D Matrix
+m×m matrix containing zeros only for independent sources
+@sec-d_matrix
+
+#### V Matrix
+
+@sec-v_matrix
+
+#### J Matrix
+
+@sec-j_matrix
+
+#### I Matrix
+
+@sec-i_matrix
+
+#### Ev Matrix
+
+@sec-ev_matrix
+
+#### Z Matrix
+
+@sec-z_matrix
+
+#### X Matrix
+
+@sec-x_matrix
+
+#### A Matrix
+
+@sec-a_matrix
+
+Example MathJax code
+
+$\begin{vmatrix}
+a & b \\
+c & d
+\end{vmatrix}$
+
+$\begin{pmatrix}
+a & b \\
+c & d
+\end{pmatrix}$
+
+$\begin{bmatrix}
+a & b \\
+c & d
+\end{bmatrix}$
+
+$\begin{eqnarray}
+A = \left(
+  \begin{array}{cccc}
+    a_{ 11 } & a_{ 12 } & \ldots & a_{ 1n } \\
+    a_{ 21 } & a_{ 22 } & \ldots & a_{ 2n } \\
+    \vdots & \vdots & \ddots & \vdots \\
+    a_{ m1 } & a_{ m2 } & \ldots & a_{ mn }
+  \end{array}
+\right)
+\end{eqnarray}$
+
+$\left(
+  \begin{array}{c}
+    a_1 \\
+    a_2 \\
+    \vdots \\
+    a_n
+  \end{array}
+\right)$
+
+
+$( a_1, a_2, \ldots, a_n )$
+
+$\begin{eqnarray}
+\boldsymbol{ 1 }
+=( \underbrace{ 1, 1, \ldots, 1 }_{ n } )^{ \mathrm{ T } }
+=\left(
+   \begin{array}{c}
+     1 \\
+     1 \\
+     \vdots \\
+     1
+   \end{array}
+ \right)
+\end{eqnarray}$
+
+
+$\begin{eqnarray}
+  \left\{
+    \begin{array}{l}
+      x + y = 10 \\
+      2x + 4y = 32
+    \end{array}
+  \right.
+\end{eqnarray}$
+-->
+</section>
+</section>
+</section>
+<section id="python-code-description" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="python-code-description"><span class="header-section-number">3.3</span> Python Code Description</h2>
+<p>The Python code that implements the MNA procedure is divided in the following sections.</p>
+<p>Preprocessor: The preprocessor reads in the netlist text file and removes comments, extra spaces and blank lines. The first letter of the element type is capitalized to make subsequent parsing of the file easier. The number of lines are counted and the number of entries on each line are checked to make sure the count is consistent with the element type.</p>
+<p>Parser: The parser code loads the preprocessed netlist into a data frame. A report is generated which consists of a count of the element types in the netlist.</p>
+<p>Matrix formulation: The matrices and vectors of <a href="#eq-net_all" class="quarto-xref">Equation&nbsp;<span>3.4</span></a> are generated.</p>
+<p>Circuit equation generation: The circuit equations are generated by the SymPy code:</p>
+<p><code>NE_sym = Eq(A*Matrix(X),Matrix(Z))</code></p>
+<p>in <a href="MNA_with_python.html#sec-generate_the_circuit_equations" class="quarto-xref"><span>Section 4.18</span></a>. SymPy automatically does some simplification according to its default settings.</p>
+</section>
+<section id="netlist-file-format" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="netlist-file-format"><span class="header-section-number">3.4</span> Netlist file format</h2>
+<p>The input file which describes the circuit is a text file called the netlist. A netlist consists of a statement defining each circuit element and its connection to circuit nodes. A node is any point on a circuit where two or more circuit elements meet. The nodes are numbered from 1 to N in any order and node 0 is the ground node or circuit common. A ground node is required. Choose a ground or reference node, which usually is taken to be at a potential of zero volts. All other node voltages constitute n unknowns. The nodes should be numbered in consecutive order. Each line in the netlist are either comments, SPICE directives or circuit elements.</p>
+<p>SPICE directives are commands to SPICE and the first character on the line is a period. Comment lines start with a * or ;. The default file extension is ‘.net’. The Python code does some preprocessing of the netlist to check the basic formatting of the netlist is correct.</p>
+<p>The preprocessor performs the following steps:</p>
+<ul>
+<li>remove blank lines and comments<br>
+</li>
+<li>convert first letter of element name to uppercase<br>
+</li>
+<li>removes extra spaces between entries<br>
+</li>
+<li>counts number of entries on each line to make sure the count is correct and counts each element type</li>
+</ul>
+<p>The element types that are supported are resistors, capacitors, inductors, independent sources and controlled sources. Each line in the netlist file contains a circuit element.</p>
+<p>The format for the element description is<br>
+<code>letterXX n1 n2 value</code><br>
+Where<br>
+letter signifies the element type, i.e.&nbsp;R, L, C, V, I, O, E, F, G, H or K<br>
+XX is a string of letters or numbers that uniquely identify the element.</p>
+<p>The element types are described in the following sections.</p>
+<section id="resistors-capacitors-and-inductors" class="level3" data-number="3.4.1">
+<h3 data-number="3.4.1" class="anchored" data-anchor-id="resistors-capacitors-and-inductors"><span class="header-section-number">3.4.1</span> Resistors, capacitors and inductors</h3>
+<p>The resistors, capacitors and inductors are described by the following line:<br>
+<code>R/L/CXX N1 N2 value</code><br>
+Where:<br>
+XX = the name of the component, can be any length<br>
+N1 = the first terminal<br>
+N2 = the second terminal<br>
+Value = component value in ohms, Farads or Henrys.<br>
+For example, a resistor named R1 connected between nodes 1 and 2 with a value of 3000 ohms.<br>
+<code>R1 2 4 3000</code><br>
+SPICE supports other parameters, but these are not allowed in this Python implementation.</p>
+</section>
+<section id="coupled-inductors" class="level3" data-number="3.4.2">
+<h3 data-number="3.4.2" class="anchored" data-anchor-id="coupled-inductors"><span class="header-section-number">3.4.2</span> Coupled inductors</h3>
+<p>Two coupled inductors are described by the following line.<br>
+<code>KXX LYY LZZ VALUE</code><br>
+The parameters are:<br>
+LYY = the name of the first coupled inductor<br>
+LZZ = the name of the second coupled inductor<br>
+VALUE = the coefficient of coupling, K, where <span class="math inline">\(-1 \lt k \lt 1\)</span><br>
+The orientation of the inductors is determined by the first node, which is considered to be the dotted node. When LTSpice generates a net list the phasing dot gets associated with the negative node. This does not seem to affect the equations generated by the Python code. LTSpice uses the coupling coefficient, <span class="math inline">\(k\)</span>. The symbolic equations use the mutual inductance, <span class="math inline">\(M\)</span> as shown in <a href="#eq-net_M" class="quarto-xref">Equation&nbsp;<span>3.5</span></a>.</p>
+<p><span id="eq-net_M"><span class="math display">\[M = k\sqrt{L_1L_2} \tag{3.5}\]</span></span></p>
+<p>See <a href="Mutual_inductance.html" class="quarto-xref"><span>Chapter 9</span></a> and <a href="test_6.html" class="quarto-xref"><span>Chapter 36</span></a> for example circuits that have coupled inductors and the code to calculate <span class="math inline">\(M\)</span> and substitute a numerical value into the symbolic network equations.</p>
+<p>The ideal transformer is a losses unity coupled transformer and is defined by the turns ratio, <span class="math inline">\(n=\frac{N_2}{N_1}\)</span>, where <span class="math inline">\(N_1\)</span> and <span class="math inline">\(N_2\)</span> are the numbers of turns on the primary and secondary coils. The following relationship holds:</p>
+<p><span id="eq-net_N"><span class="math display">\[\frac {L_2}{L_1} = \Biggl ( \frac{N_2}{N_1} \Biggr ) ^2 = n^2 \tag{3.6}\]</span></span></p>
+<p>In circuits where only the turns ratio of the transformer is given, an equivalent circuit is usually used. One such equivalent circuit is a voltage controlled voltage source with a gain of <span class="math inline">\(V_2/n\)</span> used on the primary side and a current controlled current source with a gain of <span class="math inline">\(i_1/n\)</span> is used for the secondary side.</p>
+<!--
+See https://onlinelibrary.wiley.com/doi/pdf/10.1002/9781119078388.app2 for ideal transformer model stamp
+
+B.1.8 Ideal Transformer Model
+The ideal transformer is an important element in circuit theory that finds use for circuit
+synthesis and other applications. Importantly, this circuit element does not contribute to the
+states of the MNA descriptor system and it is also lossless. We can write the conventional
+circuit equations in terms of the ratio of the primary to secondary voltage ratio 𝛽 with the
+current ratio of 1∕𝛽 such that power is conserved (Fig. B.8).
+The stamp for the ideal two winding transformer is given in Table B.11.
+The ideal transformer stamp for multiple windings is a straightforward extension of the
+two winding model given here.
+
+Seems to me that the matrix inputs are the same as for equalivemnt circuit.
+
+Also see:  
+https://analog-electronics.tudelft.nl/webbook/SED/_build/html/network_theory/NetworkTheory-1_Modified_Nodal_Analysis.html
+
+Fig. 564 MNA stamps of: A: Nullor B: Gyrator C: Coupled inductors D: Ideal transformer
+
+Need a new component type
+-->
+</section>
+<section id="independent-sources" class="level3" data-number="3.4.3">
+<h3 data-number="3.4.3" class="anchored" data-anchor-id="independent-sources"><span class="header-section-number">3.4.3</span> Independent sources</h3>
+<p>Independent sources are formatted as if they are DC sources, even if the source is intended to be an AC source. The value of the source or its type, AC or DC, doesn’t matter when seeking a symbolic solution. The numeric value of the source can be changed when doing a numerical analysis, by following the procedures illustrated in the test or problem circuits. A voltage source is described by the following line.<br>
+<code>VXX N+ N- VALUE</code><br>
+The parameters are:<br>
+N+ = the name of the positive terminal<br>
+N- = the name of the negative terminal<br>
+VALUE = the value of the DC voltage</p>
+<p>A current source is described by the following line.<br>
+<code>IXX N+ N- VALUE</code><br>
+The parameters are:<br>
+N+= the name of the positive terminal, current leaves this terminal (pointy end of the arrow)<br>
+N- = the name of the negative terminal<br>
+VALUE = the value of the DC current</p>
+</section>
+<section id="controlled-sources" class="level3" data-number="3.4.4">
+<h3 data-number="3.4.4" class="anchored" data-anchor-id="controlled-sources"><span class="header-section-number">3.4.4</span> Controlled sources</h3>
+<p>The voltage-controlled dependent sources are defined using statements of the form<br>
+<code>GXX or EXX nout+ nout- nc+ nc- gain</code><br>
+where E is a voltage-controlled voltage source, G is a voltage-controlled current source, the output voltage is connected between nodes nout+ and nout-, and the control voltage is measured at node nc+ with respect to node nc-.<br>
+Examples:<br>
+<code>E1 5 1 4 3 10</code> defines a voltage source that makes node 5 a voltage 10 times (v4 - v3) above the voltage at node 1.<br>
+<code>G1 2 1 5 8 50</code> defines a current source connected between node 2 (the + node) and node 1 and supplying a current 50 times (v5 - v8).</p>
+<p>The current-controlled dependent sources are defined by statements of the form<br>
+<code>FXX or HXX nout+ nout- Vcontrol gain</code><br>
+where F is a current-controlled current source, H is a current-controlled voltage source, and the output current source is connected between nodes nout+ and nout-, with positive current flowing through the source from node nout+ to nout-. The control current flows from the positive node of the source Vcontrol through the source and out the negative node.<br>
+Examples:<br>
+<code>F1 11 9 Vsens 1.25</code> defines a current source connected from node 11 to node 9 that generates a current 1.25 times the current flowing through the source Vsens.<br>
+<code>H1 30 20 V5 100</code> defines a voltage source connected from node 30 to node 20 and supplying a voltage 100 times the current through the source V5. It is frequently necessary to add a voltage source with value 0 V to the circuit to sense the control current for these sources.</p>
+<p>The direction of positive controlling current flow is from the positive node, through the source, to the negative node of VNAM. VALUE is the current gain. The symbols used for the gains of the dependent sources are: <span class="math inline">\(ea_n\)</span>, <span class="math inline">\(g_n\)</span>, <span class="math inline">\(f_n\)</span> and <span class="math inline">\(h_n\)</span>. Note that the symbolic gain for a voltage controlled voltage source is <span class="math inline">\(ea_n\)</span> and not a single letter as is used for the other controlled source types. The symbol <span class="math inline">\(e\)</span> is already used in SymPy for the mathematical constant, Euler’s number, <span class="math inline">\(e=2.718\)</span>.</p>
+</section>
+<section id="op-amps" class="level3" data-number="3.4.5">
+<h3 data-number="3.4.5" class="anchored" data-anchor-id="op-amps"><span class="header-section-number">3.4.5</span> Op Amps</h3>
+<p>An Op Amp component is described by the following line.<br>
+<code>OXX N+ N- Vout</code><br>
+The output of the Op Amp is a voltage source.</p>
+<p>The Op Amp element is assumed to be an ideal Op Amp and the voltage at the input terminals are defined by the model to equal each other. The use of this component is valid only when used in a network with a path from the output terminal to the negative input terminal of the Op Amp. No error checking is provided and if the condition is violated, the results will be likely erroneous. Op Amp circuits with Inductors and/or capacitors in the feedback path may not analyze correctly at <span class="math inline">\(s = 0\)</span> or <span class="math inline">\(s = \infty\)</span>. See <a href="Modeling Op Amps.html" class="quarto-xref"><span>Chapter 21</span></a> and <a href="Op Amp circuits.html" class="quarto-xref"><span>Chapter 22</span></a> for additional comments.</p>
+</section>
+</section>
+<section id="analysis-procedure" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="analysis-procedure"><span class="header-section-number">3.5</span> Analysis procedure</h2>
+<ol type="1">
+<li>Draw the circuit to be analyzed in LTSpice or some other schematic capture program. Label the nodes. The Symbolic Modified Network Analysis code will provide warnings for netlist formatting errors and non consecutive node numbering, but will still generate nodal equations which may be erroneous. Users should verify the results.<br>
+</li>
+<li>Export the netlist of the circuit and convert component values to units of Ohms, Farads and Henrys. Use scientific notation, for example, replace component values such as 2k with 2e3 and 2u with 2e-6.<br>
+</li>
+<li>Change Op Amp reference designators, for example U1 to O1 (capitol letter O, not zero).<br>
+</li>
+<li>Voltage sources and current sources need to be set to zero in some cases. See test circuits and problem circuits for examples.<br>
+</li>
+<li>Call the <code>smna(net_list)</code> function.</li>
+<li>See the example problem and verification test chapters for examples on how to use Python and MNA for symbolic and numerical circuit analysis. Use the JupyterLab notebooks as templates.</li>
+</ol>
+</section>
+<section id="summary" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="summary"><span class="header-section-number">3.6</span> Summary</h2>
+<p>Modified Nodal Analysis stands as a pivotal and enduring cornerstone of modern electrical engineering. It represents a significant evolution from classical nodal analysis, meticulously designed to overcome its critical limitations, particularly concerning the efficient representation of ideal voltage sources and current-dependent elements. MNA’s systematic matrix formulation (Ax=z) and the ingenious concept of “element stamps” fundamentally transformed circuit analysis from a laborious manual task into a highly efficient, algorithmically driven process. This transformation was directly catalyzed by the burgeoning field of computer-aided design, which demanded more robust and scalable analytical tools.</p>
+<p>Invented by Chung-Wen Ho, Albert E. Ruehli, and Pierce A. Brennan in 1975 at IBM Research, MNA’s impact was immediate and profound. Its development at a leading industrial research institution underscores its origins as a pragmatic solution to real-world challenges in integrated circuit design, highlighting the critical role of corporate innovation in advancing fundamental engineering methodologies. The timing of its publication was also crucial, coinciding with the maturation of digital computing capabilities, which allowed its algorithmic advantages to be fully leveraged, leading to its rapid and widespread adoption.</p>
+<p>MNA swiftly became the underlying computational engine for virtually all commercial circuit simulators, most notably the ubiquitous SPICE family (e.g., LTspice, JSpice). This powerful method enables a comprehensive suite of essential circuit analyses, including DC operating point, AC frequency response, transient time-domain behavior, and noise analysis, while also supporting advanced applications such as symbolic model generation. Its ability to serve as a unifying mathematical framework across these diverse analysis types streamlines the architecture of complex simulation software, enhancing its versatility and power.</p>
+<p>While historically experiencing a period of under representation in some academic curricula, MNA is now increasingly recognized as an indispensable pedagogical tool. Its integration into electrical engineering education is crucial for bridging the gap between theoretical circuit concepts and the practical realities of computer-aided design, preparing students for the demands of the modern industry. Furthermore, ongoing research continues to refine MNA’s numerical properties and explore its applications to emerging challenges and new device technologies, ensuring its sustained vitality and relevance. MNA is not merely an analytical method; it is a foundational framework that underpins the design, verification, and innovation of virtually all contemporary electronic systems.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
