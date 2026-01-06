@@ -601,11 +601,20 @@ window.Quarto = {
 
 
 <p>This test circuit shown in <a href="#fig-test_8" class="quarto-xref">Figure&nbsp;<span>38.1</span></a> is the same circuit as <a href="test_7.html#fig-test_7" class="quarto-xref">Figure&nbsp;<span>37.1</span></a>, for the addition of two Op Amps.</p>
-<p><span class="math inline">\(\large{\color {red} {\text{Note for author:}}}\)</span></p>
-<ul>
-<li>make a spread sheet to find the differences at s=1 between NMA and LTSpice</li>
-<li>see: /home/jeff64/Documents/Solving Electrical Engineering Problems with Python Blog/MNA Test Circuits/test_8/test_8_comparison_of_results.ods</li>
-</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>I’m in the process of investigating why some MNA solutions have slight numerical differences compared with solutions obtained from LTSpice.<br>
+- make a spread sheet to find the differences between NMA and LTSpice at different <span class="math inline">\(\omega\text{'s}\)</span>.</p>
+</div>
+</div>
 <div id="fig-test_8" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-test_8-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1817,10 +1826,16 @@ Using</p>
 </div>
 </div>
 <p>The SymPy and LTSpice results overlay each other, but not to the same precision as in previous tests.</p>
-<div id="cell-69" class="cell" data-execution_count="78">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>frequency[<span class="dv">0</span>:<span class="op">-</span><span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="78">
-<pre><code>array([0.01      , 0.01023293, 0.01047129, 0.01071519, 0.01096478,
+<!--
+
+::: {#cell-70 .cell execution_count=78}
+``` {.python .cell-code}
+frequency[0:-1]
+```
+
+::: {.cell-output .cell-output-display execution_count=78}
+```
+array([0.01      , 0.01023293, 0.01047129, 0.01071519, 0.01096478,
        0.01122018, 0.01148154, 0.01174898, 0.01202264, 0.01230269,
        0.01258925, 0.0128825 , 0.01318257, 0.01348963, 0.01380384,
        0.01412538, 0.0144544 , 0.01479108, 0.01513561, 0.01548817,
@@ -1879,13 +1894,20 @@ Using</p>
        6.30957344, 6.45654229, 6.60693448, 6.76082975, 6.91830971,
        7.07945784, 7.2443596 , 7.41310241, 7.58577575, 7.76247117,
        7.94328235, 8.12830516, 8.31763771, 8.51138038, 8.7096359 ,
-       8.91250938, 9.12010839, 9.33254301, 9.54992586, 9.77237221])</code></pre>
-</div>
-</div>
-<div id="cell-70" class="cell" data-execution_count="79">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>w<span class="op">/</span>(<span class="dv">2</span><span class="op">*</span>np.pi)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="79">
-<pre><code>array([0.01      , 0.01023293, 0.01047129, 0.01071519, 0.01096478,
+       8.91250938, 9.12010839, 9.33254301, 9.54992586, 9.77237221])
+```
+:::
+:::
+
+
+::: {#cell-71 .cell execution_count=79}
+``` {.python .cell-code}
+w/(2*np.pi)
+```
+
+::: {.cell-output .cell-output-display execution_count=79}
+```
+array([0.01      , 0.01023293, 0.01047129, 0.01071519, 0.01096478,
        0.01122018, 0.01148154, 0.01174898, 0.01202264, 0.01230269,
        0.01258925, 0.0128825 , 0.01318257, 0.01348963, 0.01380384,
        0.01412538, 0.0144544 , 0.01479108, 0.01513561, 0.01548817,
@@ -1944,13 +1966,20 @@ Using</p>
        6.30957344, 6.45654229, 6.60693448, 6.76082975, 6.91830971,
        7.07945784, 7.2443596 , 7.41310241, 7.58577575, 7.76247117,
        7.94328235, 8.12830516, 8.31763771, 8.51138038, 8.7096359 ,
-       8.91250938, 9.12010839, 9.33254301, 9.54992586, 9.77237221])</code></pre>
-</div>
-</div>
-<div id="cell-71" class="cell" data-execution_count="80">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>frequency[<span class="dv">0</span>:<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> w<span class="op">/</span>(<span class="dv">2</span><span class="op">*</span>np.pi)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="80">
-<pre><code>array([ 0.00000000e+00, -3.98986399e-17,  3.46944695e-18,  3.46944695e-17,
+       8.91250938, 9.12010839, 9.33254301, 9.54992586, 9.77237221])
+```
+:::
+:::
+
+
+::: {#cell-72 .cell execution_count=80}
+``` {.python .cell-code}
+frequency[0:-1] - w/(2*np.pi)
+```
+
+::: {.cell-output .cell-output-display execution_count=80}
+```
+array([ 0.00000000e+00, -3.98986399e-17,  3.46944695e-18,  3.46944695e-17,
        -5.03069808e-17, -3.46944695e-17, -2.94902991e-17,  1.73472348e-18,
        -3.12250226e-17, -1.90819582e-17,  2.42861287e-17, -3.98986399e-17,
         2.60208521e-17, -3.12250226e-17, -5.03069808e-17, -3.98986399e-17,
@@ -2024,13 +2053,20 @@ Using</p>
        -5.32907052e-14, -6.03961325e-14, -5.95079541e-14, -6.75015599e-14,
        -6.57252031e-14, -6.92779167e-14, -6.39488462e-14, -7.46069873e-14,
        -6.92779167e-14, -7.81597009e-14, -7.46069873e-14, -7.99360578e-14,
-       -7.63833441e-14, -8.34887715e-14, -8.88178420e-14, -9.23705556e-14])</code></pre>
-</div>
-</div>
-<div id="cell-72" class="cell" data-execution_count="81">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>np.<span class="bu">abs</span>(voltage[<span class="dv">0</span>:<span class="op">-</span><span class="dv">1</span>])<span class="op">-</span><span class="dv">10</span><span class="op">**</span>(mag<span class="op">/</span><span class="dv">20</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="81">
-<pre><code>array([-1.10671924e-06, -1.12132160e-06, -1.13521907e-06, -1.14837042e-06,
+       -7.63833441e-14, -8.34887715e-14, -8.88178420e-14, -9.23705556e-14])
+```
+:::
+:::
+
+
+::: {#cell-73 .cell execution_count=81}
+``` {.python .cell-code}
+np.abs(voltage[0:-1])-10**(mag/20)
+```
+
+::: {.cell-output .cell-output-display execution_count=81}
+```
+array([-1.10671924e-06, -1.12132160e-06, -1.13521907e-06, -1.14837042e-06,
        -1.16073483e-06, -1.17227210e-06, -1.18294262e-06, -1.19270739e-06,
        -1.20152808e-06, -1.20936703e-06, -1.21618723e-06, -1.22195234e-06,
        -1.22662672e-06, -1.23017529e-06, -1.23256359e-06, -1.23375777e-06,
@@ -2104,13 +2140,20 @@ Using</p>
         1.80084475e-03,  1.78594848e-03,  1.77184417e-03,  1.75848464e-03,
         1.74582596e-03,  1.73382721e-03,  1.72245017e-03,  1.71165919e-03,
         1.70142097e-03,  1.69170434e-03,  1.68248016e-03,  1.67372114e-03,
-        1.66540169e-03,  1.65749783e-03,  1.64998704e-03,  1.64284818e-03])</code></pre>
-</div>
-</div>
-<div id="cell-73" class="cell" data-execution_count="82">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span><span class="op">**</span>(mag<span class="op">/</span><span class="dv">20</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="82">
-<pre><code>array([  9.9368309 ,   9.9344965 ,   9.93208447,   9.92959228,
+        1.66540169e-03,  1.65749783e-03,  1.64998704e-03,  1.64284818e-03])
+```
+:::
+:::
+
+
+::: {#cell-74 .cell execution_count=82}
+``` {.python .cell-code}
+10**(mag/20)
+```
+
+::: {.cell-output .cell-output-display execution_count=82}
+```
+array([  9.9368309 ,   9.9344965 ,   9.93208447,   9.92959228,
          9.9270173 ,   9.92435681,   9.92160797,   9.91876785,
          9.9158334 ,   9.91280145,   9.90966875,   9.90643189,
          9.90308739,   9.89963161,   9.89606084,   9.89237121,
@@ -2184,13 +2227,20 @@ Using</p>
         85.06883519,  84.64822921,  84.24838927,  83.86821382,
         83.50666613,  83.16277001,  82.83560579,  82.52430663,
         82.2280551 ,  81.94608001,  81.67765346,  81.42208808,
-        81.17873453,  80.94697911,  80.72624158,  80.51597311])</code></pre>
-</div>
-</div>
-<div id="cell-74" class="cell" data-execution_count="83">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>voltage[<span class="dv">0</span>:<span class="op">-</span><span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="83">
-<pre><code>array([ 9.93014466e+00-3.64435752e-01j,  9.92749968e+00-3.72758127e-01j,
+        81.17873453,  80.94697911,  80.72624158,  80.51597311])
+```
+:::
+:::
+
+
+::: {#cell-75 .cell execution_count=83}
+``` {.python .cell-code}
+voltage[0:-1]
+```
+
+::: {.cell-output .cell-output-display execution_count=83}
+```
+array([ 9.93014466e+00-3.64435752e-01j,  9.92749968e+00-3.72758127e-01j,
         9.92476347e+00-3.81247326e-01j,  9.92193298e+00-3.89905032e-01j,
         9.91900507e+00-3.98732851e-01j,  9.91597646e+00-4.07732313e-01j,
         9.91284377e+00-4.16904864e-01j,  9.90960349e+00-4.26251863e-01j,
@@ -2339,13 +2389,20 @@ Using</p>
         8.22293564e+01-2.56526663e-01j,  8.19472271e+01-2.98772513e-01j,
         8.16786430e+01-3.36453982e-01j,  8.14229213e+01-3.69960980e-01j,
         8.11794162e+01-3.99650064e-01j,  8.09475165e+01-4.25847480e-01j,
-        8.07266437e+01-4.48851911e-01j,  8.05162504e+01-4.68936944e-01j])</code></pre>
-</div>
-</div>
-<div id="cell-75" class="cell" data-execution_count="84">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>np.<span class="bu">abs</span>(voltage[<span class="dv">0</span>:<span class="op">-</span><span class="dv">1</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="84">
-<pre><code>array([  9.93682979,   9.93449538,   9.93208334,   9.92959113,
+        8.07266437e+01-4.48851911e-01j,  8.05162504e+01-4.68936944e-01j])
+```
+:::
+:::
+
+
+::: {#cell-76 .cell execution_count=84}
+``` {.python .cell-code}
+np.abs(voltage[0:-1])
+```
+
+::: {.cell-output .cell-output-display execution_count=84}
+```
+array([  9.93682979,   9.93449538,   9.93208334,   9.92959113,
          9.92701614,   9.92435564,   9.92160679,   9.91876666,
          9.9158322 ,   9.91280024,   9.90966753,   9.90643067,
          9.90308616,   9.89963038,   9.89605961,   9.89236998,
@@ -2419,9 +2476,13 @@ Using</p>
         85.07063603,  84.65001516,  84.25016111,  83.8699723 ,
         83.50841196,  83.16450384,  82.83732824,  82.52601829,
         82.22975652,  81.94777172,  81.67933594,  81.4237618 ,
-        81.18039993,  80.94863661,  80.72789157,  80.51761595])</code></pre>
-</div>
-</div>
+        81.18039993,  80.94863661,  80.72789157,  80.51761595])
+```
+:::
+:::
+
+
+-->
 
 
 </section>
