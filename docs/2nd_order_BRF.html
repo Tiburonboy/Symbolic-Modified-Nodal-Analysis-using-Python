@@ -570,19 +570,19 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">15.1</span> Introduction</a></li>
-  <li><a href="#circuit-description" id="toc-circuit-description" class="nav-link" data-scroll-target="#circuit-description"><span class="header-section-number">15.2</span> Circuit description</a></li>
-  <li><a href="#load-the-net-list" id="toc-load-the-net-list" class="nav-link" data-scroll-target="#load-the-net-list"><span class="header-section-number">15.3</span> Load the net list</a></li>
-  <li><a href="#call-the-symbolic-modified-nodal-analysis-function" id="toc-call-the-symbolic-modified-nodal-analysis-function" class="nav-link" data-scroll-target="#call-the-symbolic-modified-nodal-analysis-function"><span class="header-section-number">15.4</span> Call the symbolic modified nodal analysis function</a>
+  <li><a href="#circuit-description" id="toc-circuit-description" class="nav-link active" data-scroll-target="#circuit-description"><span class="header-section-number">15.1</span> Circuit description</a></li>
+  <li><a href="#load-the-net-list" id="toc-load-the-net-list" class="nav-link" data-scroll-target="#load-the-net-list"><span class="header-section-number">15.2</span> Load the net list</a></li>
+  <li><a href="#call-the-symbolic-modified-nodal-analysis-function" id="toc-call-the-symbolic-modified-nodal-analysis-function" class="nav-link" data-scroll-target="#call-the-symbolic-modified-nodal-analysis-function"><span class="header-section-number">15.3</span> Call the symbolic modified nodal analysis function</a>
   <ul class="collapse">
-  <li><a href="#build-the-network-equations" id="toc-build-the-network-equations" class="nav-link" data-scroll-target="#build-the-network-equations"><span class="header-section-number">15.4.1</span> Build the network equations</a></li>
+  <li><a href="#build-the-network-equations" id="toc-build-the-network-equations" class="nav-link" data-scroll-target="#build-the-network-equations"><span class="header-section-number">15.3.1</span> Build the network equations</a></li>
   </ul></li>
-  <li><a href="#symbolic-solution" id="toc-symbolic-solution" class="nav-link" data-scroll-target="#symbolic-solution"><span class="header-section-number">15.5</span> Symbolic solution</a></li>
-  <li><a href="#numerical-solution" id="toc-numerical-solution" class="nav-link" data-scroll-target="#numerical-solution"><span class="header-section-number">15.6</span> Numerical solution</a>
+  <li><a href="#symbolic-solution" id="toc-symbolic-solution" class="nav-link" data-scroll-target="#symbolic-solution"><span class="header-section-number">15.4</span> Symbolic solution</a></li>
+  <li><a href="#numerical-solution" id="toc-numerical-solution" class="nav-link" data-scroll-target="#numerical-solution"><span class="header-section-number">15.5</span> Numerical solution</a>
   <ul class="collapse">
-  <li><a href="#plot-the-frequency-response-of-the-transfer-function" id="toc-plot-the-frequency-response-of-the-transfer-function" class="nav-link" data-scroll-target="#plot-the-frequency-response-of-the-transfer-function"><span class="header-section-number">15.6.1</span> Plot the frequency response of the transfer function</a></li>
-  <li><a href="#poles-and-zeros-of-the-transfer-function" id="toc-poles-and-zeros-of-the-transfer-function" class="nav-link" data-scroll-target="#poles-and-zeros-of-the-transfer-function"><span class="header-section-number">15.6.2</span> Poles and zeros of the transfer function</a></li>
-  <li><a href="#impulse-and-step-response" id="toc-impulse-and-step-response" class="nav-link" data-scroll-target="#impulse-and-step-response"><span class="header-section-number">15.6.3</span> Impulse and step response</a></li>
+  <li><a href="#plot-the-frequency-response-of-the-transfer-function" id="toc-plot-the-frequency-response-of-the-transfer-function" class="nav-link" data-scroll-target="#plot-the-frequency-response-of-the-transfer-function"><span class="header-section-number">15.5.1</span> Plot the frequency response of the transfer function</a></li>
+  <li><a href="#poles-and-zeros-of-the-transfer-function" id="toc-poles-and-zeros-of-the-transfer-function" class="nav-link" data-scroll-target="#poles-and-zeros-of-the-transfer-function"><span class="header-section-number">15.5.2</span> Poles and zeros of the transfer function</a></li>
+  <li><a href="#impulse-and-step-response" id="toc-impulse-and-step-response" class="nav-link" data-scroll-target="#impulse-and-step-response"><span class="header-section-number">15.5.3</span> Impulse and step response</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">15.5.4</span> Summary</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -609,9 +609,7 @@ window.Quarto = {
 </header>
 
 
-<section id="introduction" class="level2" data-number="15.1">
-<h2 data-number="15.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">15.1</span> Introduction</h2>
-<p>This notebook walks through the Python code used to find the transfer function of the circuit shown in <a href="#fig-BRF-sch" class="quarto-xref">Figure&nbsp;<span>15.1</span></a>.</p>
+<p>This chapter walks through the Python code used to find the transfer function of the circuit shown in <a href="#fig-BRF-sch" class="quarto-xref">Figure&nbsp;<span>15.1</span></a>.</p>
 <div id="fig-BRF-sch" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-BRF-sch-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -622,9 +620,8 @@ Figure&nbsp;15.1: Band reject filter schematic
 </figcaption>
 </figure>
 </div>
-</section>
-<section id="circuit-description" class="level2" data-number="15.2">
-<h2 data-number="15.2" class="anchored" data-anchor-id="circuit-description"><span class="header-section-number">15.2</span> Circuit description</h2>
+<section id="circuit-description" class="level2" data-number="15.1">
+<h2 data-number="15.1" class="anchored" data-anchor-id="circuit-description"><span class="header-section-number">15.1</span> Circuit description</h2>
 <p>The circuit above is a 2nd order band reject filter, problem 13-20 from <span class="citation" data-cites="Budak1974">Budak (<a href="References.html#ref-Budak1974" role="doc-biblioref">1974</a>)</span>. The schematic of the circuit is shown with each node annotated. The problem asks to obtain the transfer function, <span class="math inline">\(\frac {V_2} {V_1}\)</span>.</p>
 <p>The net list for this circuit is:</p>
 <pre><code>O1 2 5 2 
@@ -647,8 +644,8 @@ R3 5 3 1</code></pre>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>init_printing()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="load-the-net-list" class="level2" data-number="15.3">
-<h2 data-number="15.3" class="anchored" data-anchor-id="load-the-net-list"><span class="header-section-number">15.3</span> Load the net list</h2>
+<section id="load-the-net-list" class="level2" data-number="15.2">
+<h2 data-number="15.2" class="anchored" data-anchor-id="load-the-net-list"><span class="header-section-number">15.2</span> Load the net list</h2>
 <div id="cell-4" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>net_list <span class="op">=</span> <span class="st">'''</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="st">O1 2 5 2 </span></span>
@@ -662,13 +659,13 @@ R3 5 3 1</code></pre>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="st">'''</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="call-the-symbolic-modified-nodal-analysis-function" class="level2" data-number="15.4">
-<h2 data-number="15.4" class="anchored" data-anchor-id="call-the-symbolic-modified-nodal-analysis-function"><span class="header-section-number">15.4</span> Call the symbolic modified nodal analysis function</h2>
+<section id="call-the-symbolic-modified-nodal-analysis-function" class="level2" data-number="15.3">
+<h2 data-number="15.3" class="anchored" data-anchor-id="call-the-symbolic-modified-nodal-analysis-function"><span class="header-section-number">15.3</span> Call the symbolic modified nodal analysis function</h2>
 <div id="cell-6" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>report, network_df, i_unk_df, A, X, Z <span class="op">=</span> SymMNA.smna(net_list)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<section id="build-the-network-equations" class="level3" data-number="15.4.1">
-<h3 data-number="15.4.1" class="anchored" data-anchor-id="build-the-network-equations"><span class="header-section-number">15.4.1</span> Build the network equations</h3>
+<section id="build-the-network-equations" class="level3" data-number="15.3.1">
+<h3 data-number="15.3.1" class="anchored" data-anchor-id="build-the-network-equations"><span class="header-section-number">15.3.1</span> Build the network equations</h3>
 <div id="cell-8" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Put matrices into SymPy </span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> Matrix(X)</span>
@@ -694,8 +691,8 @@ R3 5 3 1</code></pre>
 </div>
 </section>
 </section>
-<section id="symbolic-solution" class="level2" data-number="15.5">
-<h2 data-number="15.5" class="anchored" data-anchor-id="symbolic-solution"><span class="header-section-number">15.5</span> Symbolic solution</h2>
+<section id="symbolic-solution" class="level2" data-number="15.4">
+<h2 data-number="15.4" class="anchored" data-anchor-id="symbolic-solution"><span class="header-section-number">15.4</span> Symbolic solution</h2>
 <div id="cell-12" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>U_sym <span class="op">=</span> solve(NE_sym,X)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -763,8 +760,8 @@ R3 5 3 1</code></pre>
 </div>
 </div>
 </section>
-<section id="numerical-solution" class="level2" data-number="15.6">
-<h2 data-number="15.6" class="anchored" data-anchor-id="numerical-solution"><span class="header-section-number">15.6</span> Numerical solution</h2>
+<section id="numerical-solution" class="level2" data-number="15.5">
+<h2 data-number="15.5" class="anchored" data-anchor-id="numerical-solution"><span class="header-section-number">15.5</span> Numerical solution</h2>
 <p>Construct a dictionary of element values.</p>
 <div id="cell-28" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>element_values <span class="op">=</span> SymMNA.get_part_values(network_df)</span>
@@ -811,8 +808,8 @@ R3 = 1.0</code></pre>
 <p><span class="math inline">\(v_{1} = 1.0\)</span><br><span class="math inline">\(v_{2} = \frac{s^{2} + 1.0}{s^{2} + 2.0 s + 1.0}\)</span><br><span class="math inline">\(v_{3} = \frac{s^{2} + s + 1.0}{s^{3} + 3.0 s^{2} + 3.0 s + 1.0}\)</span><br><span class="math inline">\(v_{4} = \frac{s^{3} + 2.0 s^{2} + s + 1.0}{s^{3} + 3.0 s^{2} + 3.0 s + 1.0}\)</span><br><span class="math inline">\(v_{5} = \frac{s^{2} + 1.0}{s^{2} + 2.0 s + 1.0}\)</span><br><span class="math inline">\(I_{V1} = - \frac{2.0 s}{s + 1.0}\)</span><br><span class="math inline">\(I_{O1} = \frac{2.0 s^{2}}{s^{3} + 3.0 s^{2} + 3.0 s + 1.0}\)</span><br></p>
 </div>
 </div>
-<section id="plot-the-frequency-response-of-the-transfer-function" class="level3" data-number="15.6.1">
-<h3 data-number="15.6.1" class="anchored" data-anchor-id="plot-the-frequency-response-of-the-transfer-function"><span class="header-section-number">15.6.1</span> Plot the frequency response of the transfer function</h3>
+<section id="plot-the-frequency-response-of-the-transfer-function" class="level3" data-number="15.5.1">
+<h3 data-number="15.5.1" class="anchored" data-anchor-id="plot-the-frequency-response-of-the-transfer-function"><span class="header-section-number">15.5.1</span> Plot the frequency response of the transfer function</h3>
 <div id="cell-36" class="cell" data-execution_count="20">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>H <span class="op">=</span> U[v2]<span class="op">/</span>U[v1]</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>H</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -873,8 +870,8 @@ R3 = 1.0</code></pre>
 </div>
 </div>
 </section>
-<section id="poles-and-zeros-of-the-transfer-function" class="level3" data-number="15.6.2">
-<h3 data-number="15.6.2" class="anchored" data-anchor-id="poles-and-zeros-of-the-transfer-function"><span class="header-section-number">15.6.2</span> Poles and zeros of the transfer function</h3>
+<section id="poles-and-zeros-of-the-transfer-function" class="level3" data-number="15.5.2">
+<h3 data-number="15.5.2" class="anchored" data-anchor-id="poles-and-zeros-of-the-transfer-function"><span class="header-section-number">15.5.2</span> Poles and zeros of the transfer function</h3>
 <p>The poles and zeros of the transfer function can easly be obtained with the following code:</p>
 <div id="cell-44" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;jupyter&quot;,&quot;value&quot;:{&quot;outputs_hidden&quot;:false}}" data-execution_count="25">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>H_num, H_denom <span class="op">=</span> fraction(H) <span class="co">#returns numerator and denominator</span></span>
@@ -888,8 +885,8 @@ R3 = 1.0</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>sys_zeros <span class="op">=</span> np.roots(sys.num)</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>sys_poles <span class="op">=</span> np.roots(sys.den)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<section id="low-pass-filter-pole-zero-plot" class="level4" data-number="15.6.2.1">
-<h4 data-number="15.6.2.1" class="anchored" data-anchor-id="low-pass-filter-pole-zero-plot"><span class="header-section-number">15.6.2.1</span> Low pass filter pole zero plot</h4>
+<section id="low-pass-filter-pole-zero-plot" class="level4" data-number="15.5.2.1">
+<h4 data-number="15.5.2.1" class="anchored" data-anchor-id="low-pass-filter-pole-zero-plot"><span class="header-section-number">15.5.2.1</span> Low pass filter pole zero plot</h4>
 <p>The poles and zeros of the preamp transfer function are plotted.</p>
 <div id="cell-47" class="cell" data-execution_count="27">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>plt.plot(np.real(sys_zeros), np.imag(sys_zeros), <span class="st">'ob'</span>, markerfacecolor<span class="op">=</span><span class="st">'none'</span>)</span>
@@ -932,8 +929,8 @@ R3 = 1.0</code></pre>
 </div>
 </section>
 </section>
-<section id="impulse-and-step-response" class="level3" data-number="15.6.3">
-<h3 data-number="15.6.3" class="anchored" data-anchor-id="impulse-and-step-response"><span class="header-section-number">15.6.3</span> Impulse and step response</h3>
+<section id="impulse-and-step-response" class="level3" data-number="15.5.3">
+<h3 data-number="15.5.3" class="anchored" data-anchor-id="impulse-and-step-response"><span class="header-section-number">15.5.3</span> Impulse and step response</h3>
 <p>Use the SciPy functions <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.impulse.html">impulse</a> and <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.step.html">step</a> to plot the impulse and step response of the system.</p>
 <div id="cell-52" class="cell" data-execution_count="30">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>plt.subplots(<span class="dv">1</span>,<span class="dv">2</span>,figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">5</span>))</span>
@@ -970,6 +967,16 @@ R3 = 1.0</code></pre>
 </div>
 </div>
 </div>
+</section>
+<section id="summary" class="level3" data-number="15.5.4">
+<h3 data-number="15.5.4" class="anchored" data-anchor-id="summary"><span class="header-section-number">15.5.4</span> Summary</h3>
+<p>This chapter is a practical example of how to automate linear circuit analysis. It highlights the power of combining Modified Nodal Analysis with Symbolic Computing to eliminate the tedious algebra involved in traditional circuit design while providing both exact formulas and numerical performance plots. The chapter documents the process of using Python and the <code>SymPy</code> library to derive the symbolic and numerical transfer functions of a specific band-reject (notch) filter circuit.</p>
+<p>Performance Visualization:</p>
+<ul>
+<li>Bode Plot: Generates magnitude and phase response plots using <code>scipy.signal</code>.</li>
+<li>Pole-Zero Analysis: Identifies the locations of the poles and zeros to understand filter stability and rejection characteristics.</li>
+<li>Transient Response: Includes sections for calculating the impulse and step responses of the filter.</li>
+</ul>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">

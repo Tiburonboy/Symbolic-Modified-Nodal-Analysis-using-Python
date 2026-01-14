@@ -549,6 +549,7 @@ window.Quarto = {
   <li><a href="#independent-sources" id="toc-independent-sources" class="nav-link" data-scroll-target="#independent-sources"><span class="header-section-number">3.4.3</span> Independent sources</a></li>
   <li><a href="#controlled-sources" id="toc-controlled-sources" class="nav-link" data-scroll-target="#controlled-sources"><span class="header-section-number">3.4.4</span> Controlled sources</a></li>
   <li><a href="#op-amps" id="toc-op-amps" class="nav-link" data-scroll-target="#op-amps"><span class="header-section-number">3.4.5</span> Op Amps</a></li>
+  <li><a href="#nullor-gyrator-and-others" id="toc-nullor-gyrator-and-others" class="nav-link" data-scroll-target="#nullor-gyrator-and-others"><span class="header-section-number">3.4.6</span> Nullor, Gyrator and others</a></li>
   </ul></li>
   <li><a href="#analysis-procedure" id="toc-analysis-procedure" class="nav-link" data-scroll-target="#analysis-procedure"><span class="header-section-number">3.5</span> Analysis procedure</a></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">3.6</span> Summary</a></li>
@@ -579,7 +580,7 @@ window.Quarto = {
 
 <!--
 
-Last update: 19 Dec 2025  
+Last update: 11 Jan 2026  
 Source: /home/jeff32/Documents/Quarto_projects/Circuit-Analysis-using-Python/Modified_Nodal_Analysis.odt   
  
 - paste into /home/jeff32/Documents/Quarto_projects/Symbolic-Modified-Nodal-Analysis-using-Python/Modified_Nodal_Analysis.qmd
@@ -602,8 +603,8 @@ Figure&nbsp;3.1: Modified nodal analysis example circuit.
 </figure>
 </div>
 <p>For this circuit, the MNA procedure generates the following system of equations:</p>
-<div id="34dd34eb" class="cell" data-execution_count="2">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="2">
+<div id="a03f692a" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="20">
 <p><span class="math inline">\(I_{V1} + \frac{v_{1}}{R_{1}} - \frac{v_{2}}{R_{1}} = 0\)</span><br><span class="math inline">\(I_{L1} + v_{2} \left(C_{2} s + \frac{1}{R_{1}}\right) - \frac{v_{1}}{R_{1}} = 0\)</span><br><span class="math inline">\(C_{1} s v_{3} - I_{L1} = 0\)</span><br><span class="math inline">\(v_{1} = V_{1}\)</span><br><span class="math inline">\(- I_{L1} L_{1} s + v_{2} - v_{3} = 0\)</span><br></p>
 </div>
 </div>
@@ -611,8 +612,8 @@ Figure&nbsp;3.1: Modified nodal analysis example circuit.
 <p>The first of theses five equations is the KVL equation for node 1, where current through <span class="math inline">\(R_1\)</span> is equal to the current from <span class="math inline">\(V_1\)</span>. The second equation describes the current flowing from branches connected to node 2. For node 2, the unknown current in <span class="math inline">\(L_1\)</span> is assigned to <span class="math inline">\(I_{L1}\)</span>. The third equation describes the current flowing from the branches into node 3. The fourth equations just says that the voltage at node 2 is equal to <span class="math inline">\(V_1\)</span>. The last equation describes the current in <span class="math inline">\(L_1\)</span>. There are five network equations in total, but one of the equations, <span class="math inline">\(v_1=V_1\)</span> is trivial.</p>
 <p>Solving this set of equations is easily accomplished by using a computer with MATLAB, Python with NumPy, an on-line matrix calculator or a modern graphical calculator that has matrix algebra capabilities. Inverting a 4 by 4 matrix by hand is probably the largest matrix that would be attempted given the numerous modern calculating tools available.</p>
 <p>These equations can be solved by the afore mentioned tools to obtain the unknown voltages and currents as either numerical or analytic expressions. The analytical expression for the unknown voltages and currents are displayed below.</p>
-<div id="6b7be12e" class="cell" data-execution_count="3">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="3">
+<div id="f8488556" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="21">
 <p><span class="math inline">\(v_{1} = V_{1}\)</span><br><span class="math inline">\(v_{2} = \frac{C_{1} L_{1} V_{1} s^{2} + V_{1}}{C_{1} C_{2} L_{1} R_{1} s^{3} + C_{1} L_{1} s^{2} + C_{1} R_{1} s + C_{2} R_{1} s + 1}\)</span><br><span class="math inline">\(v_{3} = \frac{V_{1}}{C_{1} C_{2} L_{1} R_{1} s^{3} + C_{1} L_{1} s^{2} + C_{1} R_{1} s + C_{2} R_{1} s + 1}\)</span><br><span class="math inline">\(I_{V1} = \frac{- C_{1} C_{2} L_{1} V_{1} s^{3} - C_{1} V_{1} s - C_{2} V_{1} s}{C_{1} C_{2} L_{1} R_{1} s^{3} + C_{1} L_{1} s^{2} + C_{1} R_{1} s + C_{2} R_{1} s + 1}\)</span><br><span class="math inline">\(I_{L1} = \frac{C_{1} V_{1} s}{C_{1} C_{2} L_{1} R_{1} s^{3} + C_{1} L_{1} s^{2} + C_{1} R_{1} s + C_{2} R_{1} s + 1}\)</span><br></p>
 </div>
 </div>
@@ -621,20 +622,20 @@ Figure&nbsp;3.1: Modified nodal analysis example circuit.
 <h2 data-number="3.1" class="anchored" data-anchor-id="pros-and-cons-of-mna"><span class="header-section-number">3.1</span> Pros and Cons of MNA</h2>
 <p>The MNA approach is a suitable technique for hand analysis of small circuits as well as for computer analysis of larger circuits using the same algorithm as illustrated in this book. One disadvantage of the MNA technique is that often additional equations are generated, when a smaller number would be sufficient. For students doing homework problems and solving sets of equations by hand, the extra equation or two, generated by the MNA technique makes matrix inversions much harder.</p>
 <p>For example, the circuit in <a href="#fig-intro_circuit" class="quarto-xref">Figure&nbsp;<span>3.1</span></a>, can be described by the following two mesh equations:</p>
-<div id="a4cb0f6f" class="cell" data-execution_count="4">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="4">
+<div id="1bd3413d" class="cell" data-execution_count="4">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="22">
 <p><span class="math inline">\(\displaystyle L_{1} s \left(i_{1} - i_{2}\right) + R_{1} i_{1} + \frac{i_{1} - i_{2}}{C_{1} s} = V_{1}\)</span></p>
 </div>
 </div>
-<div id="0dc0ad9e" class="cell" data-execution_count="5">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="5">
+<div id="bc057280" class="cell" data-execution_count="5">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="23">
 <p><span class="math inline">\(\displaystyle L_{1} s \left(- i_{1} + i_{2}\right) + \frac{i_{2}}{C_{2} s} + \frac{- i_{1} + i_{2}}{C_{1} s} = 0\)</span></p>
 </div>
 </div>
 <p>where <span class="math inline">\(i_1\)</span> and <span class="math inline">\(i_2\)</span> are the unknown currents.</p>
 <p>The MNA procedure generated five equations (but one of them was trivial) to find the node voltages, whereas only two equations are need to be solved to find the mesh currents, which are:</p>
-<div id="b1d5033d" class="cell" data-execution_count="6">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="6">
+<div id="d5de7793" class="cell" data-execution_count="6">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="24">
 <p><span class="math inline">\(i_{1} = \frac{C_{1} C_{2} L_{1} V_{1} s^{3} + C_{1} V_{1} s + C_{2} V_{1} s}{C_{1} C_{2} L_{1} R_{1} s^{3} + C_{1} L_{1} s^{2} + C_{1} R_{1} s + C_{2} R_{1} s + 1}\)</span><br><span class="math inline">\(i_{2} = \frac{C_{1} C_{2} L_{1} V_{1} s^{3} + C_{2} V_{1} s}{C_{1} C_{2} L_{1} R_{1} s^{3} + C_{1} L_{1} s^{2} + C_{1} R_{1} s + C_{2} R_{1} s + 1}\)</span><br></p>
 </div>
 </div>
@@ -940,6 +941,61 @@ Examples:<br>
 <code>OXX N+ N- Vout</code><br>
 The output of the Op Amp is a voltage source.</p>
 <p>The Op Amp element is assumed to be an ideal Op Amp and the voltage at the input terminals are defined by the model to equal each other. The use of this component is valid only when used in a network with a path from the output terminal to the negative input terminal of the Op Amp. No error checking is provided and if the condition is violated, the results will be likely erroneous. Op Amp circuits with Inductors and/or capacitors in the feedback path may not analyze correctly at <span class="math inline">\(s = 0\)</span> or <span class="math inline">\(s = \infty\)</span>. See <a href="Modeling Op Amps.html" class="quarto-xref"><span>Chapter 21</span></a> and <a href="Op Amp circuits.html" class="quarto-xref"><span>Chapter 22</span></a> for additional comments.</p>
+</section>
+<section id="nullor-gyrator-and-others" class="level3" data-number="3.4.6">
+<h3 data-number="3.4.6" class="anchored" data-anchor-id="nullor-gyrator-and-others"><span class="header-section-number">3.4.6</span> Nullor, Gyrator and others</h3>
+<p>There are other circuit elements that are sometimes discussed in text books and technical papers, amoung these are: <a href="https://en.wikipedia.org/wiki/Nullor">Nullors</a>, <a href="https://en.wikipedia.org/wiki/Gyrator">Gyrators</a>, Negative Impedance Converters (<a href="https://en.wikipedia.org/wiki/Negative_impedance_converter">NIC</a>), Frequency-Dependent Negative Resistors (<a href="https://en.wikipedia.org/wiki/Frequency-dependent_negative_resistor">FDNR</a>) and <a href="https://en.wikipedia.org/wiki/Memristor">Memristors</a>. Follow the links to read more about these element types. The table below summarizes these components:</p>
+<div id="tbl-table_of_theoretical_elements" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[15,15,70]">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-table_of_theoretical_elements-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3.1: Summary Table of Theoretical Elements
+</figcaption>
+<div aria-describedby="tbl-table_of_theoretical_elements-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 15%">
+<col style="width: 70%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Element</th>
+<th style="text-align: center;">Key Relationship</th>
+<th style="text-align: left;">Primary Function</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Gyrator</td>
+<td style="text-align: center;"><span class="math inline">\(V \leftrightarrow I\)</span></td>
+<td style="text-align: left;">e.g.&nbsp;transforms <span class="math inline">\(C \rightarrow L\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Nullor</td>
+<td style="text-align: center;"><span class="math inline">\(V_{in}=0 \text{, } I_{in}=0\)</span></td>
+<td style="text-align: left;">Models an ideal Op-Amp</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NIC</td>
+<td style="text-align: center;"><span class="math inline">\(Z \rightarrow -Z\)</span></td>
+<td style="text-align: left;">Produces negative resistance or capacitance</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">FDNR</td>
+<td style="text-align: center;"><span class="math inline">\(1/s^2\)</span></td>
+<td style="text-align: left;">Used to replace inductors with capacitors in filters</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Memristor</td>
+<td style="text-align: center;"><span class="math inline">\(\Phi \leftrightarrow q\)</span></td>
+<td style="text-align: left;">Memory-based resistance</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>At this time, the theoretical elemets in <a href="#tbl-table_of_theoretical_elements" class="quarto-xref">Table&nbsp;<span>3.1</span></a> have not been implememted in the Python code presented in this book. With a little work, element stamps for these components could be incorperated into the Python code. However, except for the Memristor, it is possile to emulate the function of these components with the circuit elements currently defined in the Python code.</p>
 </section>
 </section>
 <section id="analysis-procedure" class="level2" data-number="3.5">

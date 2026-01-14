@@ -570,17 +570,17 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">19.1</span> Introduction</a></li>
-  <li><a href="#circuit-description" id="toc-circuit-description" class="nav-link" data-scroll-target="#circuit-description"><span class="header-section-number">19.2</span> Circuit description</a></li>
-  <li><a href="#circuit-analysis" id="toc-circuit-analysis" class="nav-link" data-scroll-target="#circuit-analysis"><span class="header-section-number">19.3</span> Circuit analysis</a>
+  <li><a href="#circuit-description" id="toc-circuit-description" class="nav-link active" data-scroll-target="#circuit-description"><span class="header-section-number">19.1</span> Circuit description</a></li>
+  <li><a href="#circuit-analysis" id="toc-circuit-analysis" class="nav-link" data-scroll-target="#circuit-analysis"><span class="header-section-number">19.2</span> Circuit analysis</a>
   <ul class="collapse">
-  <li><a href="#load-the-netlist" id="toc-load-the-netlist" class="nav-link" data-scroll-target="#load-the-netlist"><span class="header-section-number">19.3.1</span> Load the netlist</a></li>
-  <li><a href="#numerical-solution" id="toc-numerical-solution" class="nav-link" data-scroll-target="#numerical-solution"><span class="header-section-number">19.3.2</span> Numerical solution</a></li>
-  <li><a href="#poles-and-zeros-of-the-low-pass-transfer-function" id="toc-poles-and-zeros-of-the-low-pass-transfer-function" class="nav-link" data-scroll-target="#poles-and-zeros-of-the-low-pass-transfer-function"><span class="header-section-number">19.3.3</span> Poles and zeros of the low pass transfer function</a></li>
-  <li><a href="#bode-plot" id="toc-bode-plot" class="nav-link" data-scroll-target="#bode-plot"><span class="header-section-number">19.3.4</span> Bode plot</a></li>
-  <li><a href="#filter-impulse-and-step-response" id="toc-filter-impulse-and-step-response" class="nav-link" data-scroll-target="#filter-impulse-and-step-response"><span class="header-section-number">19.3.5</span> Filter impulse and step response</a></li>
-  <li><a href="#low-pass-filter-group-delay" id="toc-low-pass-filter-group-delay" class="nav-link" data-scroll-target="#low-pass-filter-group-delay"><span class="header-section-number">19.3.6</span> Low pass filter group delay</a></li>
+  <li><a href="#load-the-netlist" id="toc-load-the-netlist" class="nav-link" data-scroll-target="#load-the-netlist"><span class="header-section-number">19.2.1</span> Load the netlist</a></li>
+  <li><a href="#numerical-solution" id="toc-numerical-solution" class="nav-link" data-scroll-target="#numerical-solution"><span class="header-section-number">19.2.2</span> Numerical solution</a></li>
+  <li><a href="#poles-and-zeros-of-the-low-pass-transfer-function" id="toc-poles-and-zeros-of-the-low-pass-transfer-function" class="nav-link" data-scroll-target="#poles-and-zeros-of-the-low-pass-transfer-function"><span class="header-section-number">19.2.3</span> Poles and zeros of the low pass transfer function</a></li>
+  <li><a href="#bode-plot" id="toc-bode-plot" class="nav-link" data-scroll-target="#bode-plot"><span class="header-section-number">19.2.4</span> Bode plot</a></li>
+  <li><a href="#filter-impulse-and-step-response" id="toc-filter-impulse-and-step-response" class="nav-link" data-scroll-target="#filter-impulse-and-step-response"><span class="header-section-number">19.2.5</span> Filter impulse and step response</a></li>
+  <li><a href="#low-pass-filter-group-delay" id="toc-low-pass-filter-group-delay" class="nav-link" data-scroll-target="#low-pass-filter-group-delay"><span class="header-section-number">19.2.6</span> Low pass filter group delay</a></li>
   </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">19.3</span> Summary</a></li>
   </ul>
 </nav>
     </div>
@@ -620,16 +620,13 @@ Figure&nbsp;19.1: SIDO low pass filter
 ## Abstract {.unnumbered}
 The circuit analyzed is from an [electronics stackexchange](https://electronics.stackexchange.com/) question linked [here](https://electronics.stackexchange.com/questions/682389/transfer-function-of-the-below-circuit), where the use asked for help to determine the transfer function. The circuit appears to be a low pass filter for the input to some following device.  
 -->
-<section id="introduction" class="level2" data-number="19.1">
-<h2 data-number="19.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">19.1</span> Introduction</h2>
 <p>The circuit shown in <a href="#fig-SIDO-low-pass-filter" class="quarto-xref">Figure&nbsp;<span>19.1</span></a>, is from an <a href="https://electronics.stackexchange.com/">electronics stackexchange</a> question, where <span class="citation" data-cites="user349644">user349644 (<a href="References.html#ref-user349644" role="doc-biblioref">2023</a>)</span> asks for help in determining the transfer function of the circuit. The circuit appears to be a low pass filter for the differential input to a following stage. I’m calling this circuit a Single-In-Dual-Out (SIDO) filter, where the output is the voltage across C3. An interesting response to the question was provided by <span class="citation" data-cites="user347817">Franc (<a href="References.html#ref-user347817" role="doc-biblioref">2023</a>)</span>, who has provided some interesting solutions to other circuit analysis questions. Usually his solutions are in the from of an image captured from a MathCAD type program consisting of equations, diagrams and plots.</p>
-</section>
-<section id="circuit-description" class="level2" data-number="19.2">
-<h2 data-number="19.2" class="anchored" data-anchor-id="circuit-description"><span class="header-section-number">19.2</span> Circuit description</h2>
+<section id="circuit-description" class="level2" data-number="19.1">
+<h2 data-number="19.1" class="anchored" data-anchor-id="circuit-description"><span class="header-section-number">19.1</span> Circuit description</h2>
 <p>The circuit has nine branches, five nodes and was interned into LTSpice in order to capture the schematic and generate the netlist.</p>
 </section>
-<section id="circuit-analysis" class="level2" data-number="19.3">
-<h2 data-number="19.3" class="anchored" data-anchor-id="circuit-analysis"><span class="header-section-number">19.3</span> Circuit analysis</h2>
+<section id="circuit-analysis" class="level2" data-number="19.2">
+<h2 data-number="19.2" class="anchored" data-anchor-id="circuit-analysis"><span class="header-section-number">19.2</span> Circuit analysis</h2>
 <p>The following analysis was performed.</p>
 <ul>
 <li>solve network equations for the transfer function</li>
@@ -660,8 +657,8 @@ R5 3 5 10k</code></pre>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display, Markdown, Math, Latex</span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>init_printing()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<section id="load-the-netlist" class="level3" data-number="19.3.1">
-<h3 data-number="19.3.1" class="anchored" data-anchor-id="load-the-netlist"><span class="header-section-number">19.3.1</span> Load the netlist</h3>
+<section id="load-the-netlist" class="level3" data-number="19.2.1">
+<h3 data-number="19.2.1" class="anchored" data-anchor-id="load-the-netlist"><span class="header-section-number">19.2.1</span> Load the netlist</h3>
 <p>The netlist generated by LTSpice is pasted into the cell below and some edits were made to remove the inductor series resistance and the independent sources are set to their DC values.</p>
 <div id="2eb140fc-6339-4fff-a137-d4e02e5e0fe8" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>net_list <span class="op">=</span> <span class="st">'''</span></span>
@@ -759,8 +756,8 @@ R5 3 5 10k</code></pre>
 </div>
 </div>
 </section>
-<section id="numerical-solution" class="level3" data-number="19.3.2">
-<h3 data-number="19.3.2" class="anchored" data-anchor-id="numerical-solution"><span class="header-section-number">19.3.2</span> Numerical solution</h3>
+<section id="numerical-solution" class="level3" data-number="19.2.2">
+<h3 data-number="19.2.2" class="anchored" data-anchor-id="numerical-solution"><span class="header-section-number">19.2.2</span> Numerical solution</h3>
 <div id="971a848d-3aa0-41f3-8cc6-07cbc24544f1" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>NE <span class="op">=</span> NE_sym.subs(element_values)</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>NE</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -792,8 +789,8 @@ R5 3 5 10k</code></pre>
 <p><span class="math inline">\(\displaystyle \frac{10638297872340450000}{66000000 s^{2} + 64276595744681 s + 10638297872340450000}\)</span></p>
 </div>
 </div>
-<section id="convert-transfer-function-to-scipy-system" class="level4" data-number="19.3.2.1">
-<h4 data-number="19.3.2.1" class="anchored" data-anchor-id="convert-transfer-function-to-scipy-system"><span class="header-section-number">19.3.2.1</span> Convert transfer function to SciPy system</h4>
+<section id="convert-transfer-function-to-scipy-system" class="level4" data-number="19.2.2.1">
+<h4 data-number="19.2.2.1" class="anchored" data-anchor-id="convert-transfer-function-to-scipy-system"><span class="header-section-number">19.2.2.1</span> Convert transfer function to SciPy system</h4>
 <p>In this section we convert the SymPy equations into Numpy format.</p>
 <p>Extract the numerator and denominator polynomials so that the system can be defined in SciPy.</p>
 <div id="4e76ce6b-2bb5-4fcc-8c1c-9e3ed0188103" class="cell" data-tags="[]" data-execution_count="18">
@@ -808,15 +805,15 @@ R5 3 5 10k</code></pre>
 </div>
 </section>
 </section>
-<section id="poles-and-zeros-of-the-low-pass-transfer-function" class="level3" data-number="19.3.3">
-<h3 data-number="19.3.3" class="anchored" data-anchor-id="poles-and-zeros-of-the-low-pass-transfer-function"><span class="header-section-number">19.3.3</span> Poles and zeros of the low pass transfer function</h3>
+<section id="poles-and-zeros-of-the-low-pass-transfer-function" class="level3" data-number="19.2.3">
+<h3 data-number="19.2.3" class="anchored" data-anchor-id="poles-and-zeros-of-the-low-pass-transfer-function"><span class="header-section-number">19.2.3</span> Poles and zeros of the low pass transfer function</h3>
 <p>The poles and zeros of the transfer function can easly be obtained with the following code:</p>
 <div id="048a358c-ff6e-4db7-9f35-95437c96bd06" class="cell" data-execution_count="20">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>sys_zeros <span class="op">=</span> np.roots(sys.num)</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>sys_poles <span class="op">=</span> np.roots(sys.den)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<section id="low-pass-filter-pole-zero-plot" class="level4" data-number="19.3.3.1">
-<h4 data-number="19.3.3.1" class="anchored" data-anchor-id="low-pass-filter-pole-zero-plot"><span class="header-section-number">19.3.3.1</span> Low pass filter pole zero plot</h4>
+<section id="low-pass-filter-pole-zero-plot" class="level4" data-number="19.2.3.1">
+<h4 data-number="19.2.3.1" class="anchored" data-anchor-id="low-pass-filter-pole-zero-plot"><span class="header-section-number">19.2.3.1</span> Low pass filter pole zero plot</h4>
 <p>The poles and zeros of the preamp transfer function are plotted.</p>
 <div id="4940e6bf-c50e-44f8-8d5d-f815e71e9369" class="cell" data-execution_count="21">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>plt.plot(np.real(sys_zeros), np.imag(sys_zeros), <span class="st">'ob'</span>, markerfacecolor<span class="op">=</span><span class="st">'none'</span>)</span>
@@ -857,8 +854,8 @@ R5 3 5 10k</code></pre>
 </div>
 </section>
 </section>
-<section id="bode-plot" class="level3" data-number="19.3.4">
-<h3 data-number="19.3.4" class="anchored" data-anchor-id="bode-plot"><span class="header-section-number">19.3.4</span> Bode plot</h3>
+<section id="bode-plot" class="level3" data-number="19.2.4">
+<h3 data-number="19.2.4" class="anchored" data-anchor-id="bode-plot"><span class="header-section-number">19.2.4</span> Bode plot</h3>
 <p>Use the SciPy function <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.bode.html">bode</a> to plot the magnitude and phase of the filter. In electrical engineering, a <a href="https://en.wikipedia.org/wiki/Bode_plot">Bode plot</a> is a graph of the frequency response of a system. It is usually a combination of the magnitude (usually in decibels) of the frequency response and the phase shift. As originally conceived by Hendrik Wade Bode in the 1930s, the plot is an asymptotic approximation of the frequency response, using straight line segments. Bode plots are used to assess the stability of systems by finding the gain and phase margins.</p>
 <div id="e7397450-c0a7-4361-bd2e-c605837090b8" class="cell" data-execution_count="24">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.logspace(<span class="dv">3</span>, <span class="dv">8</span>, <span class="dv">200</span>, endpoint<span class="op">=</span><span class="va">False</span>)<span class="op">*</span><span class="dv">2</span><span class="op">*</span>np.pi</span>
@@ -895,8 +892,8 @@ R5 3 5 10k</code></pre>
 </div>
 </div>
 </section>
-<section id="filter-impulse-and-step-response" class="level3" data-number="19.3.5">
-<h3 data-number="19.3.5" class="anchored" data-anchor-id="filter-impulse-and-step-response"><span class="header-section-number">19.3.5</span> Filter impulse and step response</h3>
+<section id="filter-impulse-and-step-response" class="level3" data-number="19.2.5">
+<h3 data-number="19.2.5" class="anchored" data-anchor-id="filter-impulse-and-step-response"><span class="header-section-number">19.2.5</span> Filter impulse and step response</h3>
 <p>Use the SciPy functions <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.impulse.html">impulse</a> and <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.step.html">step</a> to plot the impulse and step response of the system.</p>
 <p>The <a href="https://en.wikipedia.org/wiki/Impulse_response">impulse</a> and <a href="https://en.wikipedia.org/wiki/Step_response">step response</a> of the filter are plotted below. Any linear, time-invariant is completely characterized by its impulse response. The transfer function is the Laplace transform of the impulse response. The impulse response defines the response of a linear time-invariant system for all frequencies.</p>
 <p>In electronic engineering and control theory, step response is the time behavior of the outputs of a general system when its inputs change from zero to one in a very short time.</p>
@@ -936,8 +933,8 @@ R5 3 5 10k</code></pre>
 </div>
 </div>
 </section>
-<section id="low-pass-filter-group-delay" class="level3" data-number="19.3.6">
-<h3 data-number="19.3.6" class="anchored" data-anchor-id="low-pass-filter-group-delay"><span class="header-section-number">19.3.6</span> Low pass filter group delay</h3>
+<section id="low-pass-filter-group-delay" class="level3" data-number="19.2.6">
+<h3 data-number="19.2.6" class="anchored" data-anchor-id="low-pass-filter-group-delay"><span class="header-section-number">19.2.6</span> Low pass filter group delay</h3>
 <p>The following python code calculates and plots <a href="https://en.wikipedia.org/wiki/Group_delay_and_phase_delay#">group delay</a>. Frequency components of a signal are delayed when passed through a circuit and the signal delay will be different for the various frequencies unless the circuit has the property of being linear phase. The delay variation means that signals consisting of multiple frequency components will suffer distortion because these components are not delayed by the same amount of time at the output of the device.</p>
 <p>Group delay: <span class="math inline">\(\tau _{g}(\omega )=-\frac  {d\phi (\omega )}{d\omega }\)</span></p>
 <div id="fa874f7c-7fa0-4067-97d0-98245f7a30b2" class="cell" data-execution_count="27">
@@ -957,6 +954,12 @@ R5 3 5 10k</code></pre>
 </div>
 </div>
 </div>
+</section>
+</section>
+<section id="summary" class="level2" data-number="19.3">
+<h2 data-number="19.3" class="anchored" data-anchor-id="summary"><span class="header-section-number">19.3</span> Summary</h2>
+<p>The chapter documents the process of deriving and analyzing the transfer function for a specific low-pass filter circuit originally found on Electronics Stack Exchange. The author refers to it as a “SIDO” filter because it takes a single input and provides a differential output across a capacitor, <span class="math inline">\(C_3\)</span>.</p>
+<p>The chapter demonstrates how automated symbolic nodal analysis can be used to handle complex circuit topologies, providing both the analytic expressions and practical engineering data plots such as Bode and transient plots.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
@@ -967,7 +970,6 @@ Franc. 2023. <span>“User Profile.”</span> <a href="https://electronics.stack
 user349644. 2023. <span>“Transfer Function of the Below Circuit.”</span> <a href="https://electronics.stackexchange.com/questions/682389/transfer-function-of-the-below-circuit">https://electronics.stackexchange.com/questions/682389/transfer-function-of-the-below-circuit</a>.
 </div>
 </div>
-</section>
 </section>
 
 </main> <!-- /main -->
