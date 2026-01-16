@@ -3,7 +3,7 @@ This repository contains the HTML source code for my book, _**Symbolic Modified 
 This book is self published and being written without the assistance of a literary or copy editor. Although English is my native language, I’m not a good speller and I’m sure that you will find many spelling errors and typos. JupyterLab does not have a built-in spell checker, so the notebooks will contain spelling and grammar errors. As this book matures, I’ll edit and proofread the chapters to add clarifications and corrections. New chapters for the book will be added to the Example Problems section.  
   
 > [!NOTE]  
-> Last update: 26 December 2025  
+> Last update: 14 January 2026  
 > - This book is a draft copy, many sections are still under construction.  
 > - Spelling and grammar checks have not been completed.  
 > - This book is posted for testing only.  
