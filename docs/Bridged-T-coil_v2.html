@@ -605,30 +605,6 @@ window.Quarto = {
 </header>
 
 
-<!--
-
-Version history
-
-- 31 July 2025: renamed working file to version 0 and saved before re-organizing the notebook, Now saved as version 1
-- 7 Aug 2025: saving as version 1a, then removing old code 
-- 13 Aug 2025: rolling the version to 2, then removing code section titled Symmetric Bridged T-Coil, also code for for three port analysis
-
-
-ToDo
-
-- review old notebook in downloads and get some of the introduction narrative
-- need to determine the outline and what circuits will be analyzed, 
-  - See /home/jeff32/Documents/JupyterLab/Node Analysis/MNA_problem_circuits/Bridged-T-coil.ipynb
-  - Bob Ross's circuit and equations. Can these be derived? <--- need to work on this section
-  - ESD Protection and matching
-  - A common-source stage with T-coil peaking, bandwidth enhancement
-- ~~do all the examples have coupled inductors? what is the phasing?~~ - yes, phasing looks correct
-- ~make a copy of the notebook as a backup and start to cleanup and re organize~ 
-- generate schematics for constant R, ESD and bandwidth enhancement. These are follow on sections after "Basic Idea"
-- how do the other researcher do the calculations, Wang, ... ?
-- explore calculations and results of *Analyze Transfer Function of T-Coil Circuit - MATLAB.html* in new notebook for blog.
-
--->
 <p>This Jupyter notebook is about an interesting circuit called the Bridge T-Coil shown in <a href="#fig-t-coil-fig_14-6" class="quarto-xref">Figure&nbsp;<span>30.2</span></a>. I first became aquatinted with the Bridge T-Coil circuit when reading through <em>Analog Circuit Design: Art, Science and Personalities</em>, edited by <span class="citation" data-cites="williams1991">Williams (<a href="References.html#ref-williams1991" role="doc-biblioref">1991</a>)</span>. It was kind of surprising to me that I hadn’t come across this circuit before since I had been a practicing electrical engineer for more than 20 years at the time. As I was researching this topic, I came across Bridged Networks in <span class="citation" data-cites="Zverev1967">Zverev (<a href="References.html#ref-Zverev1967" role="doc-biblioref">1967</a>)</span>, Figure 2.29, where a bridged T-Coil is shown for a n=3 Butterworth filter.</p>
 <p>Chapter 14 in <span class="citation" data-cites="williams1991">Williams (<a href="References.html#ref-williams1991" role="doc-biblioref">1991</a>)</span> is about Fast Vertical Amplifiers, which are amplifiers used in oscilloscopes. Figure 14-6 in the book is a schematic of an asymmetrical T-Coil circuit and some equations, the derivation of the equations was described as complex and they were considered a trade secret. This description intrigued and prompted me learn a bit more about the Bridge T-Coil.</p>
 <p>Before describing the Bridge T-Coil, I would like to say a few words about <em>Analog Circuit Design: Art, Science and Personalities</em>. In the world of electronics, certain books transcend the typical textbook format to become celebrated resources that shape a generation of engineers. Jim Williams’ edited book is one such work. More than just a collection of technical articles, it is a curated journey into the minds of some of the most brilliant and innovative thinkers in the field of analog design.</p>

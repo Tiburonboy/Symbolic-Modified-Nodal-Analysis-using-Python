@@ -570,20 +570,19 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">16.1</span> Introduction</a></li>
-  <li><a href="#circuit-description" id="toc-circuit-description" class="nav-link" data-scroll-target="#circuit-description"><span class="header-section-number">16.2</span> Circuit description</a>
+  <li><a href="#circuit-description" id="toc-circuit-description" class="nav-link active" data-scroll-target="#circuit-description"><span class="header-section-number">16.1</span> Circuit description</a>
   <ul class="collapse">
-  <li><a href="#network-equations" id="toc-network-equations" class="nav-link" data-scroll-target="#network-equations"><span class="header-section-number">16.2.1</span> Network equations</a></li>
+  <li><a href="#network-equations" id="toc-network-equations" class="nav-link" data-scroll-target="#network-equations"><span class="header-section-number">16.1.1</span> Network equations</a></li>
   </ul></li>
-  <li><a href="#symbolic-solution" id="toc-symbolic-solution" class="nav-link" data-scroll-target="#symbolic-solution"><span class="header-section-number">16.3</span> Symbolic solution</a></li>
-  <li><a href="#numerical-solution" id="toc-numerical-solution" class="nav-link" data-scroll-target="#numerical-solution"><span class="header-section-number">16.4</span> Numerical solution</a>
+  <li><a href="#symbolic-solution" id="toc-symbolic-solution" class="nav-link" data-scroll-target="#symbolic-solution"><span class="header-section-number">16.2</span> Symbolic solution</a></li>
+  <li><a href="#numerical-solution" id="toc-numerical-solution" class="nav-link" data-scroll-target="#numerical-solution"><span class="header-section-number">16.3</span> Numerical solution</a>
   <ul class="collapse">
-  <li><a href="#find-the-network-transfer-function-frac-v_2sv_1s" id="toc-find-the-network-transfer-function-frac-v_2sv_1s" class="nav-link" data-scroll-target="#find-the-network-transfer-function-frac-v_2sv_1s"><span class="header-section-number">16.4.1</span> Find the network transfer function <span class="math inline">\(\frac {v_2(s)}{v_1(s)}\)</span></a></li>
-  <li><a href="#poles-and-zeros-of-the-low-pass-transfer-function" id="toc-poles-and-zeros-of-the-low-pass-transfer-function" class="nav-link" data-scroll-target="#poles-and-zeros-of-the-low-pass-transfer-function"><span class="header-section-number">16.4.2</span> Poles and zeros of the low pass transfer function</a></li>
+  <li><a href="#find-the-network-transfer-function-frac-v_2sv_1s" id="toc-find-the-network-transfer-function-frac-v_2sv_1s" class="nav-link" data-scroll-target="#find-the-network-transfer-function-frac-v_2sv_1s"><span class="header-section-number">16.3.1</span> Find the network transfer function <span class="math inline">\(\frac {v_2(s)}{v_1(s)}\)</span></a></li>
+  <li><a href="#poles-and-zeros-of-the-low-pass-transfer-function" id="toc-poles-and-zeros-of-the-low-pass-transfer-function" class="nav-link" data-scroll-target="#poles-and-zeros-of-the-low-pass-transfer-function"><span class="header-section-number">16.3.2</span> Poles and zeros of the low pass transfer function</a></li>
   </ul></li>
-  <li><a href="#ac-analysis" id="toc-ac-analysis" class="nav-link" data-scroll-target="#ac-analysis"><span class="header-section-number">16.5</span> AC analysis</a></li>
-  <li><a href="#ac-sweep" id="toc-ac-sweep" class="nav-link" data-scroll-target="#ac-sweep"><span class="header-section-number">16.6</span> AC Sweep</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">16.7</span> Summary</a></li>
+  <li><a href="#ac-analysis" id="toc-ac-analysis" class="nav-link" data-scroll-target="#ac-analysis"><span class="header-section-number">16.4</span> AC analysis</a></li>
+  <li><a href="#ac-sweep" id="toc-ac-sweep" class="nav-link" data-scroll-target="#ac-sweep"><span class="header-section-number">16.5</span> AC Sweep</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">16.6</span> Summary</a></li>
   </ul>
 </nav>
     </div>
@@ -619,12 +618,9 @@ Figure&nbsp;16.1: Elliptic Function LPF
 </figcaption>
 </figure>
 </div>
-<section id="introduction" class="level2" data-number="16.1">
-<h2 data-number="16.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">16.1</span> Introduction</h2>
 <p>The circuit shown above is an elliptic function low pass filter. The design of elliptic filters is somewhat complex and usually involves the use of tables found in filter design handbooks. The symbolic solution of the network equations takes about 2 hours on my i3 laptop. A symbolic solution can be obtained in a few seconds by running this notebook in Google’s Colab, see <a href="Google Colab.html" class="quarto-xref"><span>Appendix C</span></a>. Initially I was thinking that with a symbolic solution of the equations and the use of SciPy’s filter functions to obtain the pole and zero locations, I could derive the element values for active elliptic filters. But since the subject of this book is MNA and not filter design, only the analysis of the filter is described.</p>
-</section>
-<section id="circuit-description" class="level2" data-number="16.2">
-<h2 data-number="16.2" class="anchored" data-anchor-id="circuit-description"><span class="header-section-number">16.2</span> Circuit description</h2>
+<section id="circuit-description" class="level2" data-number="16.1">
+<h2 data-number="16.1" class="anchored" data-anchor-id="circuit-description"><span class="header-section-number">16.1</span> Circuit description</h2>
 <p>The circuit in <a href="#fig-elliptic-function-LPF" class="quarto-xref">Figure&nbsp;<span>16.1</span></a> has 13 branches and 7 nodes. There are 12 passive components and one OpAmp. The circuit is from <span class="citation" data-cites="Williams1995">Williams and Taylor (<a href="References.html#ref-Williams1995" role="doc-biblioref">1995</a>)</span>, example 3-26, and is an elliptic function low pass filter with a cutoff frequency of 100 Hz. The schematic for the filter was entered into LTSpice and an the following netlist was obtained.</p>
 <pre><code>R3 3 0 4750
 R4 5 0 73.2k
@@ -641,7 +637,7 @@ V1 1 0 AC 1
 R6 7 6 44.2k
 R5 6 0 10k</code></pre>
 <p>The following Python modules are used in this notebook.</p>
-<div id="cell-3" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;jupyter&quot;,&quot;value&quot;:{&quot;outputs_hidden&quot;:false}}" data-execution_count="1">
+<div id="cell-2" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;jupyter&quot;,&quot;value&quot;:{&quot;outputs_hidden&quot;:false}}" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sympy <span class="im">import</span> <span class="op">*</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tabulate <span class="im">import</span> tabulate</span>
@@ -651,10 +647,10 @@ R5 6 0 10k</code></pre>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display, Markdown, Math, Latex</span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>init_printing()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<section id="network-equations" class="level3" data-number="16.2.1">
-<h3 data-number="16.2.1" class="anchored" data-anchor-id="network-equations"><span class="header-section-number">16.2.1</span> Network equations</h3>
+<section id="network-equations" class="level3" data-number="16.1.1">
+<h3 data-number="16.1.1" class="anchored" data-anchor-id="network-equations"><span class="header-section-number">16.1.1</span> Network equations</h3>
 <p>The netlist generated by LTSpice is pasted into the cell below and some edits were made to fix up the formating of the component values and the OpAmp declaration.</p>
-<div id="cell-5" class="cell" data-execution_count="2">
+<div id="cell-4" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>example_net_list <span class="op">=</span> <span class="st">'''</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="st">R3 3 0 4750</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="st">R4 5 0 73.2e3</span></span>
@@ -673,7 +669,7 @@ R5 6 0 10k</code></pre>
 <span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="st">'''</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Callin smna() to generate the network equations.</p>
-<div id="cell-7" class="cell" data-execution_count="3">
+<div id="cell-6" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>report, network_df, df2, A, X, Z <span class="op">=</span> SymMNA.smna(example_net_list)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Put matricies into SymPy </span></span>
@@ -689,7 +685,7 @@ R5 6 0 10k</code></pre>
 <span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>element_values <span class="op">=</span> SymMNA.get_part_values(network_df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Generate markdown text to display the network equations.</p>
-<div id="cell-9" class="cell" data-execution_count="4">
+<div id="cell-8" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(X)):</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(Eq((A<span class="op">*</span>X)[i:i<span class="op">+</span><span class="dv">1</span>][<span class="dv">0</span>],Z[i])))</span>
@@ -702,21 +698,21 @@ R5 6 0 10k</code></pre>
 <p>As shown above MNA generated many equations and these would be difficult to solve by hand and a symbolic soultion would take a lot of computing time.</p>
 </section>
 </section>
-<section id="symbolic-solution" class="level2" data-number="16.3">
-<h2 data-number="16.3" class="anchored" data-anchor-id="symbolic-solution"><span class="header-section-number">16.3</span> Symbolic solution</h2>
+<section id="symbolic-solution" class="level2" data-number="16.2">
+<h2 data-number="16.2" class="anchored" data-anchor-id="symbolic-solution"><span class="header-section-number">16.2</span> Symbolic solution</h2>
 <p>The symbolic solution takes a long time, 2 hours, on my laptop (i3-8130U CPU @ 2.20GHz), so I commended the code. A symbolic solution can be obtained running this notebook in Google’s Colab, see <a href="Google Colab.html" class="quarto-xref"><span>Appendix C</span></a>.</p>
-<div id="cell-12" class="cell" data-execution_count="5">
+<div id="cell-11" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#U_sym = solve(NE_sym,X)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="numerical-solution" class="level2" data-number="16.4">
-<h2 data-number="16.4" class="anchored" data-anchor-id="numerical-solution"><span class="header-section-number">16.4</span> Numerical solution</h2>
+<section id="numerical-solution" class="level2" data-number="16.3">
+<h2 data-number="16.3" class="anchored" data-anchor-id="numerical-solution"><span class="header-section-number">16.3</span> Numerical solution</h2>
 <p>Substitue the element values into the equations and solve for unknown node voltages and currents. Need to set the current source, I1, to zero.</p>
-<div id="cell-14" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;jupyter&quot;,&quot;value&quot;:{&quot;outputs_hidden&quot;:false}}" data-execution_count="6">
+<div id="cell-13" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;jupyter&quot;,&quot;value&quot;:{&quot;outputs_hidden&quot;:false}}" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># put the element values into the equations</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>NE <span class="op">=</span> NE_sym.subs(element_values)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-15" class="cell" data-execution_count="7">
+<div id="cell-14" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(shape(NE.lhs)[<span class="dv">0</span>]):</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st"> = </span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(NE.rhs[i]),latex(NE.lhs[i]))</span>
@@ -727,39 +723,39 @@ R5 6 0 10k</code></pre>
 </div>
 </div>
 <p>Solve for voltages and currents in terms of Laplace variable s.</p>
-<div id="cell-17" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;jupyter&quot;,&quot;value&quot;:{&quot;outputs_hidden&quot;:false}}" data-execution_count="8">
+<div id="cell-16" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;jupyter&quot;,&quot;value&quot;:{&quot;outputs_hidden&quot;:false}}" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>U <span class="op">=</span> solve(NE,X)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<section id="find-the-network-transfer-function-frac-v_2sv_1s" class="level3" data-number="16.4.1">
-<h3 data-number="16.4.1" class="anchored" data-anchor-id="find-the-network-transfer-function-frac-v_2sv_1s"><span class="header-section-number">16.4.1</span> Find the network transfer function <span class="math inline">\(\frac {v_2(s)}{v_1(s)}\)</span></h3>
-<div id="cell-19" class="cell" data-execution_count="9">
+<section id="find-the-network-transfer-function-frac-v_2sv_1s" class="level3" data-number="16.3.1">
+<h3 data-number="16.3.1" class="anchored" data-anchor-id="find-the-network-transfer-function-frac-v_2sv_1s"><span class="header-section-number">16.3.1</span> Find the network transfer function <span class="math inline">\(\frac {v_2(s)}{v_1(s)}\)</span></h3>
+<div id="cell-18" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>H <span class="op">=</span> (U[v2]<span class="op">/</span>U[v1]).cancel()</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>H</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="9">
 <p><span class="math inline">\(\displaystyle \frac{7.66402714932125 \cdot 10^{50} s^{3} + 1.60840024120068 \cdot 10^{54} s^{2} + 3.37544646631832 \cdot 10^{57} s + 7.10620308698594 \cdot 10^{60}}{2.49434389140272 \cdot 10^{48} s^{4} + 7.82471226796141 \cdot 10^{51} s^{3} + 7.48699036699101 \cdot 10^{54} s^{2} + 5.1465987346903 \cdot 10^{57} s + 1.65249706814803 \cdot 10^{60}}\)</span></p>
 </div>
 </div>
-<div id="cell-20" class="cell" data-tags="[]" data-execution_count="10">
+<div id="cell-19" class="cell" data-tags="[]" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>H_num, H_denom <span class="op">=</span> fraction(H) <span class="co">#returns numerator and denominator</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-21" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;jupyter&quot;,&quot;value&quot;:{&quot;outputs_hidden&quot;:false}}" data-execution_count="11">
+<div id="cell-20" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;jupyter&quot;,&quot;value&quot;:{&quot;outputs_hidden&quot;:false}}" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># convert symbolic to numpy polynomial</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> np.array(Poly(H_num, s).all_coeffs(), dtype<span class="op">=</span><span class="bu">float</span>)</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> np.array(Poly(H_denom, s).all_coeffs(), dtype<span class="op">=</span><span class="bu">float</span>)</span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>sys <span class="op">=</span> signal.TransferFunction(a,b)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="poles-and-zeros-of-the-low-pass-transfer-function" class="level3" data-number="16.4.2">
-<h3 data-number="16.4.2" class="anchored" data-anchor-id="poles-and-zeros-of-the-low-pass-transfer-function"><span class="header-section-number">16.4.2</span> Poles and zeros of the low pass transfer function</h3>
+<section id="poles-and-zeros-of-the-low-pass-transfer-function" class="level3" data-number="16.3.2">
+<h3 data-number="16.3.2" class="anchored" data-anchor-id="poles-and-zeros-of-the-low-pass-transfer-function"><span class="header-section-number">16.3.2</span> Poles and zeros of the low pass transfer function</h3>
 <p>The poles and zeros of the transfer function can easly be obtained with the following code:</p>
-<div id="cell-23" class="cell" data-execution_count="12">
+<div id="cell-22" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>sys_zeros <span class="op">=</span> np.roots(sys.num)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>sys_poles <span class="op">=</span> np.roots(sys.den)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<section id="low-pass-filter-pole-zero-plot" class="level4" data-number="16.4.2.1">
-<h4 data-number="16.4.2.1" class="anchored" data-anchor-id="low-pass-filter-pole-zero-plot"><span class="header-section-number">16.4.2.1</span> Low pass filter pole zero plot</h4>
+<section id="low-pass-filter-pole-zero-plot" class="level4" data-number="16.3.2.1">
+<h4 data-number="16.3.2.1" class="anchored" data-anchor-id="low-pass-filter-pole-zero-plot"><span class="header-section-number">16.3.2.1</span> Low pass filter pole zero plot</h4>
 <p>The poles and zeros of the preamp transfer function are plotted.</p>
-<div id="cell-25" class="cell" data-execution_count="13">
+<div id="cell-24" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>plt.plot(np.real(sys_zeros), np.imag(sys_zeros), <span class="st">'ob'</span>, markerfacecolor<span class="op">=</span><span class="st">'none'</span>)</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>plt.plot(np.real(sys_poles), np.imag(sys_poles), <span class="st">'xr'</span>)</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>plt.legend([<span class="st">'Zeros'</span>, <span class="st">'Poles'</span>], loc<span class="op">=</span><span class="dv">0</span>)</span>
@@ -778,7 +774,7 @@ R5 6 0 10k</code></pre>
 </div>
 <p>Poles and zeros of the transfer function plotted on the complex plane. The units are in radian frequency.</p>
 <p>Printing these values in Hz.</p>
-<div id="cell-27" class="cell" data-execution_count="14">
+<div id="cell-26" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'number of zeros: </span><span class="sc">{:d}</span><span class="st">'</span>.<span class="bu">format</span>(<span class="bu">len</span>(sys_zeros)))</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> sys_zeros:</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'</span><span class="sc">{:,.2f}</span><span class="st"> Hz'</span>.<span class="bu">format</span>(i<span class="op">/</span>(<span class="dv">2</span><span class="op">*</span>np.pi)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -789,7 +785,7 @@ R5 6 0 10k</code></pre>
 0.26-334.27j Hz</code></pre>
 </div>
 </div>
-<div id="cell-28" class="cell" data-execution_count="15">
+<div id="cell-27" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'number of poles: </span><span class="sc">{:d}</span><span class="st">'</span>.<span class="bu">format</span>(<span class="bu">len</span>(sys_poles)))</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> sys_poles:</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'</span><span class="sc">{:,.2f}</span><span class="st"> Hz'</span>.<span class="bu">format</span>(i<span class="op">/</span>(<span class="dv">2</span><span class="op">*</span>np.pi)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -804,11 +800,11 @@ R5 6 0 10k</code></pre>
 </section>
 </section>
 </section>
-<section id="ac-analysis" class="level2" data-number="16.5">
-<h2 data-number="16.5" class="anchored" data-anchor-id="ac-analysis"><span class="header-section-number">16.5</span> AC analysis</h2>
+<section id="ac-analysis" class="level2" data-number="16.4">
+<h2 data-number="16.4" class="anchored" data-anchor-id="ac-analysis"><span class="header-section-number">16.4</span> AC analysis</h2>
 <p>Solve the network equations at a frequency of 100 Hz or <span class="math inline">\(\omega\)</span> equal to 628.318 radians per second, s = 628.318j.</p>
 <p>Load numerical values into the network equations.</p>
-<div id="cell-30" class="cell" data-execution_count="16">
+<div id="cell-29" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>freq_Hz <span class="op">=</span> <span class="dv">100</span> <span class="co">#Hz</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>w <span class="op">=</span> <span class="dv">2</span><span class="op">*</span>np.pi<span class="op">*</span>freq_Hz</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -827,7 +823,7 @@ R5 6 0 10k</code></pre>
 </div>
 </div>
 <p>Solve the newtork equations and list the node voltages and unknown currents.</p>
-<div id="cell-32" class="cell" data-execution_count="17">
+<div id="cell-31" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>U_w <span class="op">=</span> solve(NE_w,X)</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>table_header <span class="op">=</span> [<span class="st">'unknown'</span>, <span class="st">'mag'</span>,<span class="st">'phase, deg'</span>]</span>
@@ -852,10 +848,10 @@ I_O1       0.000875    166.380500</code></pre>
 </div>
 </div>
 </section>
-<section id="ac-sweep" class="level2" data-number="16.6">
-<h2 data-number="16.6" class="anchored" data-anchor-id="ac-sweep"><span class="header-section-number">16.6</span> AC Sweep</h2>
+<section id="ac-sweep" class="level2" data-number="16.5">
+<h2 data-number="16.5" class="anchored" data-anchor-id="ac-sweep"><span class="header-section-number">16.5</span> AC Sweep</h2>
 <p>Plot the magnitude and phase of the filter’s transfer function.</p>
-<div id="cell-34" class="cell" data-execution_count="18">
+<div id="cell-33" class="cell" data-execution_count="18">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>num, denom <span class="op">=</span> fraction(H) <span class="co">#returns numerator and denominator</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co"># convert symbolic to numpy polynomial</span></span>
@@ -895,8 +891,8 @@ I_O1       0.000875    166.380500</code></pre>
 </div>
 </div>
 </section>
-<section id="summary" class="level2" data-number="16.7">
-<h2 data-number="16.7" class="anchored" data-anchor-id="summary"><span class="header-section-number">16.7</span> Summary</h2>
+<section id="summary" class="level2" data-number="16.6">
+<h2 data-number="16.6" class="anchored" data-anchor-id="summary"><span class="header-section-number">16.6</span> Summary</h2>
 <p>An elliptic filter was analyized and a symbolic solution of the network equations takes a long time. Numerical solutions using component values are easily obtained.</p>
 
 

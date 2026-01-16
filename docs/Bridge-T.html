@@ -570,19 +570,18 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">17.1</span> Introduction</a></li>
-  <li><a href="#circuit-description" id="toc-circuit-description" class="nav-link" data-scroll-target="#circuit-description"><span class="header-section-number">17.2</span> Circuit description</a></li>
-  <li><a href="#circuit-analysis" id="toc-circuit-analysis" class="nav-link" data-scroll-target="#circuit-analysis"><span class="header-section-number">17.3</span> Circuit analysis</a>
+  <li><a href="#circuit-description" id="toc-circuit-description" class="nav-link active" data-scroll-target="#circuit-description"><span class="header-section-number">17.1</span> Circuit description</a></li>
+  <li><a href="#circuit-analysis" id="toc-circuit-analysis" class="nav-link" data-scroll-target="#circuit-analysis"><span class="header-section-number">17.2</span> Circuit analysis</a>
   <ul class="collapse">
-  <li><a href="#load-the-netlist" id="toc-load-the-netlist" class="nav-link" data-scroll-target="#load-the-netlist"><span class="header-section-number">17.3.1</span> Load the netlist</a></li>
-  <li><a href="#transfer-function" id="toc-transfer-function" class="nav-link" data-scroll-target="#transfer-function"><span class="header-section-number">17.3.2</span> Transfer function</a></li>
-  <li><a href="#include-the-initial-conditions" id="toc-include-the-initial-conditions" class="nav-link" data-scroll-target="#include-the-initial-conditions"><span class="header-section-number">17.3.3</span> Include the initial conditions</a></li>
+  <li><a href="#load-the-netlist" id="toc-load-the-netlist" class="nav-link" data-scroll-target="#load-the-netlist"><span class="header-section-number">17.2.1</span> Load the netlist</a></li>
+  <li><a href="#transfer-function" id="toc-transfer-function" class="nav-link" data-scroll-target="#transfer-function"><span class="header-section-number">17.2.2</span> Transfer function</a></li>
+  <li><a href="#include-the-initial-conditions" id="toc-include-the-initial-conditions" class="nav-link" data-scroll-target="#include-the-initial-conditions"><span class="header-section-number">17.2.3</span> Include the initial conditions</a></li>
   </ul></li>
-  <li><a href="#initial-conditions-with-component-values" id="toc-initial-conditions-with-component-values" class="nav-link" data-scroll-target="#initial-conditions-with-component-values"><span class="header-section-number">17.4</span> Initial conditions with component values</a></li>
-  <li><a href="#node-2-voltage" id="toc-node-2-voltage" class="nav-link" data-scroll-target="#node-2-voltage"><span class="header-section-number">17.5</span> Node 2 voltage</a></li>
-  <li><a href="#node-3-voltage" id="toc-node-3-voltage" class="nav-link" data-scroll-target="#node-3-voltage"><span class="header-section-number">17.6</span> Node 3 voltage</a></li>
-  <li><a href="#ltspice-solution" id="toc-ltspice-solution" class="nav-link" data-scroll-target="#ltspice-solution"><span class="header-section-number">17.7</span> LTSpice Solution</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">17.8</span> Summary</a></li>
+  <li><a href="#initial-conditions-with-component-values" id="toc-initial-conditions-with-component-values" class="nav-link" data-scroll-target="#initial-conditions-with-component-values"><span class="header-section-number">17.3</span> Initial conditions with component values</a></li>
+  <li><a href="#node-2-voltage" id="toc-node-2-voltage" class="nav-link" data-scroll-target="#node-2-voltage"><span class="header-section-number">17.4</span> Node 2 voltage</a></li>
+  <li><a href="#node-3-voltage" id="toc-node-3-voltage" class="nav-link" data-scroll-target="#node-3-voltage"><span class="header-section-number">17.5</span> Node 3 voltage</a></li>
+  <li><a href="#ltspice-solution" id="toc-ltspice-solution" class="nav-link" data-scroll-target="#ltspice-solution"><span class="header-section-number">17.6</span> LTSpice Solution</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">17.7</span> Summary</a></li>
   </ul>
 </nav>
     </div>
@@ -618,21 +617,18 @@ Figure&nbsp;17.1: Schematic for the Bridge-T circuit
 </figcaption>
 </figure>
 </div>
-<section id="introduction" class="level2" data-number="17.1">
-<h2 data-number="17.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">17.1</span> Introduction</h2>
 <p>A question posted on <a href="https://electronics.stackexchange.com/">electronics stackexchange</a> by <span class="citation" data-cites="lees2023">Lees (<a href="References.html#ref-lees2023" role="doc-biblioref">2023</a>)</span> asked:</p>
 <blockquote class="blockquote">
 <p>I’m trying to figure out how to formulate and solve some differential equations for this circuit. … I run into an issue with the voltage/capacitor loop comprising Vin VC1 VC2 VC3 as I cannot arbitrarily assign an initial value to the voltage across C3.</p>
 </blockquote>
 <p><a href="#fig-bridge-t" class="quarto-xref">Figure&nbsp;<span>17.1</span></a> shows that the independent source V1 is connected to ground by the series connection of C1, C2 and C3. <span class="citation" data-cites="lees2023">Lees (<a href="References.html#ref-lees2023" role="doc-biblioref">2023</a>)</span> asked if the initial voltage on the capacitors, C1, C2 and C3 could violate <a href="https://en.wikipedia.org/wiki/Kirchhoff%27s_circuit_laws">Kirchhoff’s circuit laws</a> by leading to a situation where the initial voltage on the capacitors do not sum to a value equal to V1. For example, if V1 is equal to 1 volt and the initial voltage on the capacitors are each equal to one volt, the sum of the three initial voltages on the capacitors would be 3 volts and not sum to zero around the loop. <span class="citation" data-cites="lees2023">Lees (<a href="References.html#ref-lees2023" role="doc-biblioref">2023</a>)</span> provided some analysis in his question and discussed the voltage across C3 and stated that he needed to add a small series resistor to V1.</p>
 <p>There were four answers provided by the comunity. The answer provided by <span class="citation" data-cites="user347817">Franc (<a href="References.html#ref-user347817" role="doc-biblioref">2023</a>)</span> is long and detailed and in part 3 of his answer he adress the non zero initial condition and the transfer function at node 2.</p>
-</section>
-<section id="circuit-description" class="level2" data-number="17.2">
-<h2 data-number="17.2" class="anchored" data-anchor-id="circuit-description"><span class="header-section-number">17.2</span> Circuit description</h2>
+<section id="circuit-description" class="level2" data-number="17.1">
+<h2 data-number="17.1" class="anchored" data-anchor-id="circuit-description"><span class="header-section-number">17.1</span> Circuit description</h2>
 <p>The circuit shown in <a href="#fig-bridge-t" class="quarto-xref">Figure&nbsp;<span>17.1</span></a> has six branches and three nodes. The circuit has a three capacitor path from the independent source, V1 to ground. The circuit posted by <span class="citation" data-cites="lees2023">Lees (<a href="References.html#ref-lees2023" role="doc-biblioref">2023</a>)</span> didn’t have any values for the components, so I’m going use values that are all set to one. The initial voltages on the capacitor can be set to any abritrairy value or left defaulted to zero volts. As described below, the circuit needs to be modified for the MNA.</p>
 </section>
-<section id="circuit-analysis" class="level2" data-number="17.3">
-<h2 data-number="17.3" class="anchored" data-anchor-id="circuit-analysis"><span class="header-section-number">17.3</span> Circuit analysis</h2>
+<section id="circuit-analysis" class="level2" data-number="17.2">
+<h2 data-number="17.2" class="anchored" data-anchor-id="circuit-analysis"><span class="header-section-number">17.2</span> Circuit analysis</h2>
 <p><span class="citation" data-cites="lees2023">Lees (<a href="References.html#ref-lees2023" role="doc-biblioref">2023</a>)</span> asked for differential equations, but since this analysis is about using MNA, a frequency domain analysis will be presented. So I’m not going to derive the differential equations for the circuit.</p>
 <ul>
 <li>transfer function at nodes 2 and 3</li>
@@ -675,8 +671,8 @@ V4 3 5 1</code></pre>
 <div id="413f58c8-bbdc-4d91-95bd-cdfa34f7c6fd" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> symbols(<span class="st">'t'</span>,positive<span class="op">=</span><span class="va">True</span>)  <span class="co"># t &gt; 0</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<section id="load-the-netlist" class="level3" data-number="17.3.1">
-<h3 data-number="17.3.1" class="anchored" data-anchor-id="load-the-netlist"><span class="header-section-number">17.3.1</span> Load the netlist</h3>
+<section id="load-the-netlist" class="level3" data-number="17.2.1">
+<h3 data-number="17.2.1" class="anchored" data-anchor-id="load-the-netlist"><span class="header-section-number">17.2.1</span> Load the netlist</h3>
 <p>The netlist for <a href="#fig-bridge-t" class="quarto-xref">Figure&nbsp;<span>17.1</span></a> is pasted into the cell below and some edits were made to remove the inductor series resistance.</p>
 <div id="9bc88603-ab2d-4363-a07c-4d85f2c45c4f" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>net_list <span class="op">=</span> <span class="st">'''</span></span>
@@ -718,8 +714,8 @@ V4 3 5 1</code></pre>
 </div>
 <p>As shown above MNA generated many equations and these would be difficult to solve by hand and a symbolic soultion would take a lot of computing time. The equations are displace in matrix notation.</p>
 </section>
-<section id="transfer-function" class="level3" data-number="17.3.2">
-<h3 data-number="17.3.2" class="anchored" data-anchor-id="transfer-function"><span class="header-section-number">17.3.2</span> Transfer function</h3>
+<section id="transfer-function" class="level3" data-number="17.2.2">
+<h3 data-number="17.2.2" class="anchored" data-anchor-id="transfer-function"><span class="header-section-number">17.2.2</span> Transfer function</h3>
 <p>Solving for the transfer function at node 2. Transfer functions are normally presented in the frequency domain and are steady state responses.</p>
 <div id="731a6ada-9381-46c6-a0f5-899be0c5c368" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>U_sym <span class="op">=</span> solve(NE_sym,X)</span>
@@ -795,8 +791,8 @@ V4 3 5 1</code></pre>
 </div>
 </div>
 </section>
-<section id="include-the-initial-conditions" class="level3" data-number="17.3.3">
-<h3 data-number="17.3.3" class="anchored" data-anchor-id="include-the-initial-conditions"><span class="header-section-number">17.3.3</span> Include the initial conditions</h3>
+<section id="include-the-initial-conditions" class="level3" data-number="17.2.3">
+<h3 data-number="17.2.3" class="anchored" data-anchor-id="include-the-initial-conditions"><span class="header-section-number">17.2.3</span> Include the initial conditions</h3>
 <p>Set initial conditions for C1, C2 and C3 by including independent voltage sources, V2, V3 and V4, and appling SymPy Heaveside function. The independent voltage source, V1 is a also a step function. Since V2, V3 and V4 are in series with capacitors, the steady state value of these sources is blocked and only the transient response is present. The netlist for <a href="#fig-bridge-t-smna" class="quarto-xref">Figure&nbsp;<span>17.2</span></a> is pasted into the cell below and some edits were made to remove the inductor series resistance and the independent sources are set to their DC values.</p>
 <div id="14683d94-0186-48dd-b070-4c9bb8d4d427" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>net_list <span class="op">=</span> <span class="st">'''</span></span>
@@ -859,8 +855,8 @@ V4 3 5 1</code></pre>
 <p>Network equations and solution in symbolic form are seaily obtained. These equations are in the frequency domain and if transformed back to the time domain, they would be differential equations. But not necessarily in the form of state equations. In this case the equations are a little too long to provide any insight into the operation of the circuit.</p>
 </section>
 </section>
-<section id="initial-conditions-with-component-values" class="level2" data-number="17.4">
-<h2 data-number="17.4" class="anchored" data-anchor-id="initial-conditions-with-component-values"><span class="header-section-number">17.4</span> Initial conditions with component values</h2>
+<section id="initial-conditions-with-component-values" class="level2" data-number="17.3">
+<h2 data-number="17.3" class="anchored" data-anchor-id="initial-conditions-with-component-values"><span class="header-section-number">17.3</span> Initial conditions with component values</h2>
 <p>As describe above, the orginal question didn’t have values associated with the components, so I’m using a value of one for all the values.</p>
 <div id="9ae2fe71-f2d0-49aa-b441-7f0a5304936e" class="cell" data-execution_count="21">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>NE_ic <span class="op">=</span> NE_ic_sym.subs(element_values)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -879,8 +875,8 @@ V4 3 5 1</code></pre>
 </div>
 </div>
 </section>
-<section id="node-2-voltage" class="level2" data-number="17.5">
-<h2 data-number="17.5" class="anchored" data-anchor-id="node-2-voltage"><span class="header-section-number">17.5</span> Node 2 voltage</h2>
+<section id="node-2-voltage" class="level2" data-number="17.4">
+<h2 data-number="17.4" class="anchored" data-anchor-id="node-2-voltage"><span class="header-section-number">17.4</span> Node 2 voltage</h2>
 <div id="0750165d-7abd-426d-aba7-6d0d86d23a62" class="cell" data-execution_count="23">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>node2 <span class="op">=</span> U_ic[v2].nsimplify().simplify().expand().together()</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>node2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -972,8 +968,8 @@ V4 3 5 1</code></pre>
 </div>
 </div>
 </section>
-<section id="node-3-voltage" class="level2" data-number="17.6">
-<h2 data-number="17.6" class="anchored" data-anchor-id="node-3-voltage"><span class="header-section-number">17.6</span> Node 3 voltage</h2>
+<section id="node-3-voltage" class="level2" data-number="17.5">
+<h2 data-number="17.5" class="anchored" data-anchor-id="node-3-voltage"><span class="header-section-number">17.5</span> Node 3 voltage</h2>
 <p>The voltage on node 3 is symplified with the chain of operators applied to the expression; <a href="https://docs.sympy.org/latest/modules/simplify/simplify.html#sympy.simplify.simplify.nsimplify">nsimplify()</a>, <a href="https://docs.sympy.org/latest/modules/simplify/simplify.html#simplify">simplify()</a>, <a href="https://docs.sympy.org/latest/modules/core.html#sympy.core.function.expand">expand()</a> and <a href="https://docs.sympy.org/latest/modules/polys/reference.html#sympy.polys.rationaltools.together">together()</a>. This helps SymPy solve the inverse Laplace transform.</p>
 <div id="91f96a12-7dd7-434d-ba81-bad92f1bfa69" class="cell" data-execution_count="30">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>node3 <span class="op">=</span> U_ic[v3].nsimplify().simplify().expand().together()</span>
@@ -1054,8 +1050,8 @@ V4 3 5 1</code></pre>
 </div>
 </div>
 </section>
-<section id="ltspice-solution" class="level2" data-number="17.7">
-<h2 data-number="17.7" class="anchored" data-anchor-id="ltspice-solution"><span class="header-section-number">17.7</span> LTSpice Solution</h2>
+<section id="ltspice-solution" class="level2" data-number="17.6">
+<h2 data-number="17.6" class="anchored" data-anchor-id="ltspice-solution"><span class="header-section-number">17.6</span> LTSpice Solution</h2>
 <p>To chech the Python results the circuit was simulated in LTSpice. The following schematice was used and the LTSpice results are also shown below.</p>
 <div id="fig-bridge-LTPpice" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -1125,8 +1121,8 @@ Figure&nbsp;17.4: Plot from LTSpice of node voltages
 </div>
 <p>As shown in the plot above, the curves superimpose.</p>
 </section>
-<section id="summary" class="level2" data-number="17.8">
-<h2 data-number="17.8" class="anchored" data-anchor-id="summary"><span class="header-section-number">17.8</span> Summary</h2>
+<section id="summary" class="level2" data-number="17.7">
+<h2 data-number="17.7" class="anchored" data-anchor-id="summary"><span class="header-section-number">17.7</span> Summary</h2>
 <p>In this notebook, newtork equations were solved which had initial conditions. The independent voltage source, V1 was modeled as a step function. The initial voltages on each of the capacitors were also modeled as step functions equal to the initial voltage. The network equations were generated with MNA and SymPy was used to solve the system of equations. The results were compared to results from LTSpice and the curves superimpose.</p>
 <p>The MNA procedure and LTSpice didn’t have any issues with initial conditions. At t=0, all the voltages and currents in the circuit comply with Kirchhoff’s circuit laws (KCL) since the Heavyside function at t=0 is zero. At t=0+, where the + indicates the next infinitesimal instant in time, the voltages and currents would comply with KCL and result in large current flows to accomidate the solution for the voltages. Both Python and LTSpice step through time in discreate amounts, and at each step time KCL is satisified. I don’t think this was explained in any of the answers provided.</p>
 <p>The answers provide by <span class="citation" data-cites="user347817">Franc (<a href="References.html#ref-user347817" role="doc-biblioref">2023</a>)</span> are different from the results I obtained and he did not provide a time domain solution and plots of the node voltages.</p>
