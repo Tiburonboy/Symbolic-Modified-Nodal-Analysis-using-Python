@@ -14,7 +14,7 @@
     "href": "index.html#sec-source_code",
     "title": "Symbolic Modified Nodal Analysisusing Python",
     "section": "Source Code",
-    "text": "Source Code\nThe source code for this project can be found on GitHub. Here you will find markdown files, JupyterLab notebooks, LTSpice schematics and image files. I will do my best to keep these files current. All the source code is subject to the license stated in License.",
+    "text": "Source Code\nArchived source code for this project can be found on GitHub. Here you will find markdown files, JupyterLab notebooks, LTSpice schematics and image files. I will do my best to keep these files current. All the source code is subject to the license stated in License.",
     "crumbs": [
       "Welcome"
     ]
