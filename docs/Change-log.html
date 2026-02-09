@@ -736,7 +736,7 @@ Table&nbsp;B.2: Book project change log
 </tr>
 <tr class="even">
 <td style="text-align: left;">12/26/2025</td>
-<td style="text-align: left;">* Reorganized the project. Prior version archived with date 20_dec_2025 in <a href="https://github.com/Tiburonboy/Symbolic-modified-nodal-analysis/tree/master/book_backup">book_backup</a> folder.<br>* Rewrite of Preface, Introduction<br>* Changed About to Welcome with rewrite of index.qmd<br>* Added chapters: Basic Concepts, Modified Nodal Analysis, SMNA Code, Resistive Networks, RLC Networks, Transfer Function, Transient Analysis, Mutual Inductance, Initial Conditions and History of Electric Circuit Analysis.<br>* Removed chapters: Transient circuit, Transistor circuit, Boost converter, Phasor analysis<br>* Added <a href="#tbl-embedded-links" class="quarto-xref">Table&nbsp;<span>B.3</span></a>.<br>* Fixed outer loop index for calculation of inverse Laplace in Transient_analysis.ipynb.<br>* Updates to state space narrative in state variable filter.<br>* Moved validation tests to after example problems.<br>* Updated <a href="MNA_with_python.html" class="quarto-xref"><span>Chapter 4</span></a> matrix generation description.<br>* Updating numerious chapters to add clarification and fix typos.<br>* Project updates now being pushed to GitHub pages by git. Small incremental changes will not be documented in this table.</td>
+<td style="text-align: left;">* Reorganized the project. Prior version archived with date 20_dec_2025 in <a href="https://github.com/Tiburonboy/Symbolic-modified-nodal-analysis/tree/master/book_backup">book_backup</a> folder.<br>* Rewrite of Preface, Introduction<br>* Changed About to Welcome with rewrite of index.qmd<br>* Added chapters: Basic Concepts, Modified Nodal Analysis, SMNA Code, Resistive Networks, RLC Networks, Transfer Function, Transient Analysis, Mutual Inductance, Initial Conditions and History of Electric Circuit Analysis.<br>* Removed chapters: Transient circuit, Transistor circuit, Boost converter, Phasor analysis<br>* Added <a href="#tbl-embedded-links" class="quarto-xref">Table&nbsp;<span>B.3</span></a> to change log.<br>* Fixed outer loop index for calculation of inverse Laplace in Transient_analysis.ipynb.<br>* Updates to state space narrative in state variable filter.<br>* Moved validation tests to after example problems.<br>* Updated <a href="MNA_with_python.html" class="quarto-xref"><span>Chapter 4</span></a> matrix generation description.<br>* Updating numerious chapters to add clarification and fix typos.<br>* Project updates now being pushed to GitHub pages by git. Small incremental changes will not be documented in this table.</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">1/14/2026</td>
@@ -750,8 +750,8 @@ Table&nbsp;B.2: Book project change log
 </section>
 <section id="verification-of-embedded-links" class="level2" data-number="B.3">
 <h2 data-number="B.3" class="anchored" data-anchor-id="verification-of-embedded-links"><span class="header-section-number">B.3</span> Verification of Embedded Links</h2>
-<p>The following is a table of embedded links. External links can break and this table shows the last date accessed. (This table is incomplete and for now just a place holder.)</p>
-<div id="tbl-embedded-links" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[20,10,50,20]">
+<p>A Python script was written to scan the source files used in this project for URL’s. After extracting the hyperlinks, the script validates the links and automatically saves the results to a file. The date listed below is the dates of last access.</p>
+<div id="tbl-embedded-links" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[20,80]">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-embedded-links-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;B.3: Embedded links
@@ -760,21 +760,18 @@ Table&nbsp;B.3: Embedded links
 <table class="caption-top table">
 <colgroup>
 <col style="width: 20%">
-<col style="width: 10%">
-<col style="width: 50%">
+<col style="width: 80%">
 </colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: left;">Document</th>
-<th style="text-align: left;">Inline Link</th>
-<th style="text-align: left;">Last Access</th>
+<th style="text-align: left;">Last Accessed</th>
+<th style="text-align: left;">Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">index.qmd</td>
-<td style="text-align: left;"><a href="https://en.wikipedia.org/wiki/Python_(programming_language)">Python</a></td>
-<td style="text-align: left;">9/25/2025</td>
+<td style="text-align: left;">2/9/2026</td>
+<td style="text-align: left;">URLs are upto date</td>
 </tr>
 </tbody>
 </table>
@@ -782,6 +779,15 @@ Table&nbsp;B.3: Embedded links
 </figure>
 </div>
 <!--
+The following is a table of embedded links. External links can break and this table shows the last date accessed. (This table is incomplete and for now just a place holder.)   
+
+| Document | Inline Link | Last Access |
+|:--|:--|:--|
+| index.qmd | [Python](https://en.wikipedia.org/wiki/Python_(programming_language)) | 9/25/2025 |
+
+: Embedded links {#tbl-embedded-links} {tbl-colwidths="[20,10,50,20]"}
+
+
 Think about moving validation tests to after problems
 
 write some python code to extract embedded links from the book files and generate this table
