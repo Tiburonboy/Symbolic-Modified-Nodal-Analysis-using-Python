@@ -618,7 +618,7 @@ window.Quarto = {
 <li>Protection: Diodes can protect circuits from reverse polarity or voltage spikes.</li>
 </ul>
 <p>The following Python modules are used:</p>
-<div id="36d5fd68-781d-4a6e-bee0-26bb85d38bec" class="cell" data-execution_count="29">
+<div id="36d5fd68-781d-4a6e-bee0-26bb85d38bec" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sympy <span class="im">import</span> <span class="op">*</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> signal</span>
@@ -631,14 +631,14 @@ window.Quarto = {
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>init_printing()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The <code>scipy.optimize.fsolve</code> function is a core tool in the SciPy library for root finding of non-linear equations. It numerically finds the input values (roots) where a given function or system of non-linear equations equals zero.</p>
-<div id="95e9ccf4-c2d5-4cac-b919-7f7e0cc6ebca" class="cell" data-execution_count="30">
+<div id="95e9ccf4-c2d5-4cac-b919-7f7e0cc6ebca" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> fsolve</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="the-ideal-diode-equation" class="level2" data-number="29.1">
 <h2 data-number="29.1" class="anchored" data-anchor-id="the-ideal-diode-equation"><span class="header-section-number">29.1</span> The Ideal Diode Equation</h2>
 <p>The ideal diode equation is plotted below.</p>
-<div id="78c13732-6246-452d-8470-4bfa86c9e555" class="cell" data-execution_count="31">
+<div id="78c13732-6246-452d-8470-4bfa86c9e555" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Constants for the Diode Equation</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>I_s <span class="op">=</span> <span class="fl">1e-12</span> <span class="co"># Saturation current (Is) in Amperes. This value can vary widely.</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="fl">1.2</span> <span class="co"># Ideality factor (n). Typically between 1 and 2 for silicon diodes.</span></span>
@@ -647,7 +647,7 @@ window.Quarto = {
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> <span class="dv">300</span> <span class="co"># Temperature in Kelvin (room temperature is approximately 300K)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The ideal diode equation i splotted below with a range of values for the diode voltage ranging from -0.2 volts to 1.0 volts.</p>
-<div id="de5cbf79-bff8-4127-a3b8-5df3f36707f6" class="cell" data-execution_count="32">
+<div id="de5cbf79-bff8-4127-a3b8-5df3f36707f6" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a range of diode voltage values to plot</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>V_D_values <span class="op">=</span> np.linspace(<span class="op">-</span><span class="fl">0.2</span>, <span class="dv">1</span>, <span class="dv">500</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -695,7 +695,7 @@ Figure&nbsp;29.1: Diode circuit with current limiting resistor.
 </figure>
 </div>
 <p><span class="math inline">\(D_1\)</span> in <a href="#fig-Diode_circuit" class="quarto-xref">Figure&nbsp;<span>29.1</span></a> can be replaced with a current source as shown in the netlist below.</p>
-<div id="a6bbc5cf-f544-4e09-8932-37ac99361ef6" class="cell" data-execution_count="33">
+<div id="a6bbc5cf-f544-4e09-8932-37ac99361ef6" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>Diode_as_current_source_net_list <span class="op">=</span> <span class="st">'''</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="st">* Diode_as_current_source.asc</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="st">R1 2 1 1e3</span></span>
@@ -704,11 +704,11 @@ Figure&nbsp;29.1: Diode circuit with current limiting resistor.
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="st">'''</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The MNA equations are generated from the function <code>SymMNA.smna</code>.</p>
-<div id="91bff46a-e7f3-4332-9d5a-c55d9bda59da" class="cell" data-execution_count="34">
+<div id="91bff46a-e7f3-4332-9d5a-c55d9bda59da" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>report, network_df, i_unk_df, A, X, Z <span class="op">=</span> SymMNA.smna(Diode_as_current_source_net_list)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The code below assembles the network equations from the MNA matrices and displays the equations.</p>
-<div id="d2441924-2cb1-4542-abe2-319372727fbb" class="cell" data-execution_count="35">
+<div id="d2441924-2cb1-4542-abe2-319372727fbb" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Put matrices into SymPy </span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> Matrix(X)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>Z <span class="op">=</span> Matrix(Z)</span>
@@ -720,17 +720,17 @@ Figure&nbsp;29.1: Diode circuit with current limiting resistor.
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(shape(NE_sym.lhs)[<span class="dv">0</span>]):</span>
 <span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st"> = </span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(NE_sym.rhs[i]),latex(NE_sym.lhs[i]))</span>
 <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="35">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="7">
 <p><span class="math inline">\(0 = I_{V1} + \frac{v_{1}}{R_{1}} - \frac{v_{2}}{R_{1}}\)</span><br><span class="math inline">\(- I_{1} = - \frac{v_{1}}{R_{1}} + \frac{v_{2}}{R_{1}}\)</span><br><span class="math inline">\(V_{1} = v_{1}\)</span><br></p>
 </div>
 </div>
 <p>The free symbols are entered as SymPy variables and the element values are put into a dictionary.</p>
-<div id="77948c92-d6a0-4e55-880c-a074d228e65a" class="cell" data-execution_count="36">
+<div id="77948c92-d6a0-4e55-880c-a074d228e65a" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>var(<span class="bu">str</span>(NE_sym.free_symbols).replace(<span class="st">'{'</span>,<span class="st">''</span>).replace(<span class="st">'}'</span>,<span class="st">''</span>))</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>element_values <span class="op">=</span> SymMNA.get_part_values(network_df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The network equations for the netlist can be solved symbolically and the node voltages and dependent currents are diesplayed using symbolic notation.</p>
-<div id="55b1caaf-7ee9-4f39-98af-a2b06eecec79" class="cell" data-execution_count="37">
+<div id="55b1caaf-7ee9-4f39-98af-a2b06eecec79" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>U_sym <span class="op">=</span> solve(NE_sym,X)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
@@ -738,36 +738,36 @@ Figure&nbsp;29.1: Diode circuit with current limiting resistor.
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st"> = </span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(i),latex(U_sym[i]))</span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="37">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="9">
 <p><span class="math inline">\(v_{1} = V_{1}\)</span><br><span class="math inline">\(v_{2} = - I_{1} R_{1} + V_{1}\)</span><br><span class="math inline">\(I_{V1} = - I_{1}\)</span><br></p>
 </div>
 </div>
 <p>I1 is the current of the 1N914 and the following expression for the diode current can be developed from the equation:</p>
 <p><span class="math inline">\(I_{1N914} = I_S \left( e^{\frac{qv2}{nkT}} - 1 \right)\)</span></p>
 <p>The expression for the current in <span class="math inline">\(D_1\)</span> in terms of <span class="math inline">\(v_2\)</span> is shown below.</p>
-<div id="43f705c9-6d6a-467b-abc1-843501868ca2" class="cell" data-execution_count="38">
+<div id="43f705c9-6d6a-467b-abc1-843501868ca2" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>I_s, n <span class="op">=</span> symbols(<span class="st">'I_s n'</span>)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>I_1n914 <span class="op">=</span> (I_s<span class="op">*</span>(exp(v2<span class="op">*</span>q<span class="op">/</span>(n<span class="op">*</span>k<span class="op">*</span>T))<span class="op">-</span><span class="dv">1</span>)).subs({I_s:<span class="fl">2.52e-9</span>, n:<span class="fl">1.752</span>})</span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>I_1n914</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="38">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="10">
 <p><span class="math inline">\(\displaystyle 2.52 \cdot 10^{-9} e^{22.0786113423708 v_{2}} - 2.52 \cdot 10^{-9}\)</span></p>
 </div>
 </div>
 <p>In the expression for <span class="math inline">\(v_2\)</span>, the diode equation is substituted for <span class="math inline">\(I_1\)</span> along with other component values and saved as <code>eq1</code>.</p>
-<div id="97c46d96-e847-47ed-a42d-9f4e88bd4842" class="cell" data-execution_count="39">
+<div id="97c46d96-e847-47ed-a42d-9f4e88bd4842" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>eq1 <span class="op">=</span> U_sym[v2].subs({I1:I_1n914, V1:<span class="dv">5</span>, R1:<span class="fl">1e3</span>})</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>eq1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="39">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="11">
 <p><span class="math inline">\(\displaystyle 5.00000252 - 2.52 \cdot 10^{-6} e^{22.0786113423708 v_{2}}\)</span></p>
 </div>
 </div>
 <p>We want to find the value of <span class="math inline">\(v_2\)</span> for which <code>eq1</code> equals <span class="math inline">\(v_2\)</span> and we can create a function that expresses this relation.</p>
-<div id="36960ab0-8e09-4688-8299-29f31a37be22" class="cell" data-execution_count="40">
+<div id="36960ab0-8e09-4688-8299-29f31a37be22" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>lam_f <span class="op">=</span> lambdify(v2, eq1<span class="op">-</span>v2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Using the <code>fsolve</code> function, an initial guess of 0.55 and asking for a solution with a tolerance of <span class="math inline">\(10^{-6}\)</span>, we can get the diode voltage which is calculated and printed below.</p>
-<div id="3e3a68e2-8a3f-4459-abdd-cad7eec4fe20" class="cell" data-execution_count="41">
+<div id="3e3a68e2-8a3f-4459-abdd-cad7eec4fe20" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'The diode voltage is: </span><span class="sc">{</span>fsolve(lam_f, <span class="fl">0.55</span>, xtol<span class="op">=</span><span class="fl">1e-6</span>)[<span class="dv">0</span>]<span class="sc">:0.3f}</span><span class="ss">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>The diode voltage is: 0.650</code></pre>
@@ -792,7 +792,7 @@ Figure&nbsp;29.2: Schematic of a circuit containing two diodes.
 <section id="load-the-net-list" class="level2" data-number="29.4">
 <h2 data-number="29.4" class="anchored" data-anchor-id="load-the-net-list"><span class="header-section-number">29.4</span> Load the net list</h2>
 <p>The netlist for <a href="#fig-Diode_circuit_2" class="quarto-xref">Figure&nbsp;<span>29.2</span></a> with current sources <span class="math inline">\(I_1\)</span> and <span class="math inline">\(I_2\)</span> replacing the diodes.</p>
-<div id="ee3efcab-0d48-43dd-a887-056ebd98d8e9" class="cell" data-execution_count="42">
+<div id="ee3efcab-0d48-43dd-a887-056ebd98d8e9" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>Diode_circuit_2_net_list <span class="op">=</span> <span class="st">'''</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="st">I1 2 0 1</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="st">R1 2 1 500</span></span>
@@ -802,11 +802,11 @@ Figure&nbsp;29.2: Schematic of a circuit containing two diodes.
 <span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="st">'''</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The MNA equations are generated from the function <code>SymMNA.smna</code>.</p>
-<div id="66875e48-5909-4ec9-9180-d3d906600e20" class="cell" data-execution_count="43">
+<div id="66875e48-5909-4ec9-9180-d3d906600e20" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>report, network_df, i_unk_df, A, X, Z <span class="op">=</span> SymMNA.smna(Diode_circuit_2_net_list)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The code below assembles the network equations from the MNA matrices and displays the equations.</p>
-<div id="db05025c-7d01-4948-8586-706c143b8df4" class="cell" data-execution_count="44">
+<div id="db05025c-7d01-4948-8586-706c143b8df4" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Put matrices into SymPy </span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> Matrix(X)</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>Z <span class="op">=</span> Matrix(Z)</span>
@@ -818,17 +818,17 @@ Figure&nbsp;29.2: Schematic of a circuit containing two diodes.
 <span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(shape(NE_sym.lhs)[<span class="dv">0</span>]):</span>
 <span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st"> = </span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(NE_sym.rhs[i]),latex(NE_sym.lhs[i]))</span>
 <span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="44">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="16">
 <p><span class="math inline">\(0 = I_{V1} + \frac{v_{1}}{R_{1}} - \frac{v_{2}}{R_{1}}\)</span><br><span class="math inline">\(- I_{1} = v_{2} \cdot \left(\frac{1}{R_{2}} + \frac{1}{R_{1}}\right) - \frac{v_{3}}{R_{2}} - \frac{v_{1}}{R_{1}}\)</span><br><span class="math inline">\(- I_{2} = - \frac{v_{2}}{R_{2}} + \frac{v_{3}}{R_{2}}\)</span><br><span class="math inline">\(V_{1} = v_{1}\)</span><br></p>
 </div>
 </div>
 <p>The free symbols are entered as SymPy variables and the element values are put into a dictionary.</p>
-<div id="3927c563-d719-473f-9cde-4433b685ade1" class="cell" data-execution_count="45">
+<div id="3927c563-d719-473f-9cde-4433b685ade1" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>var(<span class="bu">str</span>(NE_sym.free_symbols).replace(<span class="st">'{'</span>,<span class="st">''</span>).replace(<span class="st">'}'</span>,<span class="st">''</span>))</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>element_values <span class="op">=</span> SymMNA.get_part_values(network_df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The network equations for the netlist can be solved symbolically and the node voltages and dependent currents are diesplayed using symbolic notation.</p>
-<div id="88704c0a-6f1e-4bf9-9332-5b57f0feb0cb" class="cell" data-execution_count="46">
+<div id="88704c0a-6f1e-4bf9-9332-5b57f0feb0cb" class="cell" data-execution_count="18">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>U_sym <span class="op">=</span> solve(NE_sym,X)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
@@ -836,45 +836,45 @@ Figure&nbsp;29.2: Schematic of a circuit containing two diodes.
 <span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st"> = </span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(i),latex(U_sym[i]))</span>
 <span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="46">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="18">
 <p><span class="math inline">\(v_{1} = V_{1}\)</span><br><span class="math inline">\(v_{2} = - I_{1} R_{1} - I_{2} R_{1} + V_{1}\)</span><br><span class="math inline">\(v_{3} = - I_{1} R_{1} - I_{2} R_{1} - I_{2} R_{2} + V_{1}\)</span><br><span class="math inline">\(I_{V1} = - I_{1} - I_{2}\)</span><br></p>
 </div>
 </div>
 <p>The schematic shown in <a href="#fig-Diode_circuit_2" class="quarto-xref">Figure&nbsp;<span>29.2</span></a> has a <a href="https://en.wikipedia.org/wiki/1N58xx_Schottky_diodes">1N5817</a> diode with resistor <span class="math inline">\(R_2\)</span> acting as a current limiter. The <a href="https://www.diodes.com/assets/Datasheets/1N5817-1N5819.pdf">1N5817 datasheet</a> from Diodes Incorporated provides the device specifications. The 1N5817 model parameters used in LTspice are:<br>
 <code>.model 1N5817 D(Is=31.7u Rs=.051 N=1.373 Cjo=190p M=.3 Eg=.69 Xti=2 Iave=1 Vpk=20 mfg=OnSemi type=Schottky)</code></p>
-<div id="679ce7d3-0ca5-4a2d-b6f2-d08adccebf06" class="cell" data-execution_count="47">
+<div id="679ce7d3-0ca5-4a2d-b6f2-d08adccebf06" class="cell" data-execution_count="19">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>I_1n5817 <span class="op">=</span> (I_s<span class="op">*</span>(exp(v3<span class="op">*</span>q<span class="op">/</span>(n<span class="op">*</span>k<span class="op">*</span>T))<span class="op">-</span><span class="dv">1</span>)).subs({I_s:<span class="fl">31.7e-6</span>, n:<span class="fl">1.373</span>})</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>I_1n5817</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="47">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="19">
 <p><span class="math inline">\(\displaystyle 3.17 \cdot 10^{-5} e^{28.1731442620784 v_{3}} - 3.17 \cdot 10^{-5}\)</span></p>
 </div>
 </div>
 <p>The code below creates a new equation, <code>eq1</code>, by substituting the diode equations for <span class="math inline">\(I_1\)</span> and <span class="math inline">\(I_2\)</span>. The element values for <span class="math inline">\(R_1\)</span>, <span class="math inline">\(R_2\)</span> and <span class="math inline">\(V_1\)</span> are also put into the equation.</p>
-<div id="1a3191df-761a-4788-ad41-a7aa32d9200f" class="cell" data-execution_count="48">
+<div id="1a3191df-761a-4788-ad41-a7aa32d9200f" class="cell" data-execution_count="20">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>eq1 <span class="op">=</span> U_sym[v2].subs({I1:I_1n914, I2:I_1n5817}).subs({R1:<span class="dv">500</span>,R2:<span class="dv">500</span>,V1:<span class="dv">5</span>})</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>eq1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="48">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="20">
 <p><span class="math inline">\(\displaystyle - 1.26 \cdot 10^{-6} e^{22.0786113423708 v_{2}} - 0.01585 e^{28.1731442620784 v_{3}} + 5.01585126\)</span></p>
 </div>
 </div>
 <p>The equation, <code>eq1</code> minus <span class="math inline">\(v_2\)</span>, is converted to a function by using the lamdify operation.</p>
-<div id="14e9e306-e945-4190-85f5-db74d4f600ce" class="cell" data-execution_count="49">
+<div id="14e9e306-e945-4190-85f5-db74d4f600ce" class="cell" data-execution_count="21">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>eq1_lam <span class="op">=</span> lambdify([v2,v3], eq1<span class="op">-</span>v2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The code below creates a new equation, <code>eq2</code>, by substituting the diode equations for <span class="math inline">\(I_1\)</span> and <span class="math inline">\(I_2\)</span>. The element values for <span class="math inline">\(R_1\)</span>, <span class="math inline">\(R_2\)</span> and <span class="math inline">\(V_1\)</span> are also put into the equation.</p>
-<div id="decedb13-41db-4399-8629-61f704b47388" class="cell" data-execution_count="50">
+<div id="decedb13-41db-4399-8629-61f704b47388" class="cell" data-execution_count="22">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>eq2 <span class="op">=</span> U_sym[v3].subs({I1:I_1n914, I2:I_1n5817}).subs({R1:<span class="dv">500</span>,R2:<span class="dv">500</span>,V1:<span class="dv">5</span>})</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>eq2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="50">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="22">
 <p><span class="math inline">\(\displaystyle - 1.26 \cdot 10^{-6} e^{22.0786113423708 v_{2}} - 0.0317 e^{28.1731442620784 v_{3}} + 5.03170126\)</span></p>
 </div>
 </div>
 <p>The equation, <code>eq2</code> minus <span class="math inline">\(v_3\)</span>, is converted to a function by using the lamdify operation.</p>
-<div id="abd82895-dce1-4fa5-bf7f-065f9a475726" class="cell" data-execution_count="51">
+<div id="abd82895-dce1-4fa5-bf7f-065f9a475726" class="cell" data-execution_count="23">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>eq2_lam <span class="op">=</span> lambdify([v2,v3], eq2<span class="op">-</span>v3)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>A function called <code>func4</code> is created so that it can be used as an argument to the <code>fsolve</code> function.</p>
-<div id="f26c9e14-6d8f-49f3-b7ad-ae98bc53cc37" class="cell" data-execution_count="52">
+<div id="f26c9e14-6d8f-49f3-b7ad-ae98bc53cc37" class="cell" data-execution_count="24">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> func4(<span class="bu">vars</span>):</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    v2, v3 <span class="op">=</span> <span class="bu">vars</span></span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [eq1_lam(v2,v3), eq2_lam(v2,v3)]</span>
@@ -902,6 +902,323 @@ I(V1):   -0.00864007     device_current
 <section id="summary" class="level2" data-number="29.5">
 <h2 data-number="29.5" class="anchored" data-anchor-id="summary"><span class="header-section-number">29.5</span> Summary</h2>
 <p>This chapter focused on integrating the nonlinear diode equation into standard circuit network analysis, demonstrating how to use techniques like nodal analysis to solve for unknown node voltages in diode circuits. The methodology was introduced by first analyzing a fundamental circuit consisting of a single resistor and a single diode, establishing the core steps for solving such nonlinear equations by using SymPy’s <code>fsolve</code> function. This process was then scaled up and successfully applied to a more complex network configuration featuring two diodes and two resistors.</p>
+<!--
+
+## Diode Circuit 3
+Update: 22 Feb 2026  
+
+Status: results not agreeing with LTSpice.
+
+Example problem: [Multi-diode circuits and finding transfer characteristics](https://electronics.stackexchange.com/questions/761066/multi-diode-circuits-and-finding-transfer-characteristics)
+
+Question is to plot $V_{out}$ vs $V_{in}$
+
+---
+
+Netlist:
+
+- C:\users\jeff32\My Documents\Solving Electrical Engineering Problems with Python Blog\MNA Problem Circuits\Diode_circuit\Diode_circuit_3.asc
+
+
+
+![](Diode_circuit_3.png)
+
+Replacing diodes with current sources ...
+
+::: {#f17f3b20-92b2-4ab4-92d7-c55d0f1f3ab7 .cell execution_count=40}
+``` {.python .cell-code}
+Diode_circuit_3_net_list = '''
+V1 1 0 1
+R1 3 1 500
+I1 2 3 1
+I2 5 2 1
+V2 5 0 5
+R2 4 2 9.5e3
+V3 4 0 10
+'''
+```
+:::
+
+
+The MNA equations are generated from the function `SymMNA.smna`.
+
+::: {#42b8b7bc-b5f9-4357-acfe-685d808a831c .cell execution_count=41}
+``` {.python .cell-code}
+report, network_df, i_unk_df, A, X, Z = SymMNA.smna(Diode_circuit_3_net_list)
+```
+:::
+
+
+The code below assembles the network equations from the MNA matrices and displays the equations.
+
+::: {#a49a3d64-015f-48cf-b6e1-bd4bdde972ea .cell execution_count=42}
+``` {.python .cell-code}
+# Put matrices into SymPy 
+X = Matrix(X)
+Z = Matrix(Z)
+
+NE_sym = Eq(A*X,Z)
+
+# display the equations
+temp = ''
+for i in range(shape(NE_sym.lhs)[0]):
+    temp += '${:s} = {:s}$<br>'.format(latex(NE_sym.rhs[i]),latex(NE_sym.lhs[i]))
+Markdown(temp)
+```
+
+::: {.cell-output .cell-output-display .cell-output-markdown execution_count=42}
+$0 = I_{V1} + \frac{v_{1}}{R_{1}} - \frac{v_{3}}{R_{1}}$<br>$- I_{1} + I_{2} = \frac{v_{2}}{R_{2}} - \frac{v_{4}}{R_{2}}$<br>$I_{1} = - \frac{v_{1}}{R_{1}} + \frac{v_{3}}{R_{1}}$<br>$0 = I_{V3} - \frac{v_{2}}{R_{2}} + \frac{v_{4}}{R_{2}}$<br>$- I_{2} = I_{V2}$<br>$V_{1} = v_{1}$<br>$V_{2} = v_{5}$<br>$V_{3} = v_{4}$<br>
+:::
+:::
+
+
+The free symbols are entered as SymPy variables and the element values are put into a dictionary.
+
+::: {#c7087605-1771-4259-8be3-3a5a60b191c1 .cell execution_count=43}
+``` {.python .cell-code}
+var(str(NE_sym.free_symbols).replace('{','').replace('}',''))
+element_values = SymMNA.get_part_values(network_df)
+```
+:::
+
+
+The network equations for the netlist can be solved symbolically and the node voltages and dependent currents are diesplayed using symbolic notation. 
+
+::: {#ab994ee4-4ff7-457b-91b5-14b5ee655778 .cell execution_count=44}
+``` {.python .cell-code}
+U_sym = solve(NE_sym,X)
+
+temp = ''
+for i in U_sym.keys():
+    temp += '${:s} = {:s}$<br>'.format(latex(i),latex(U_sym[i]))
+
+Markdown(temp)
+```
+
+::: {.cell-output .cell-output-display .cell-output-markdown execution_count=44}
+$v_{1} = V_{1}$<br>$v_{3} = I_{1} R_{1} + V_{1}$<br>$I_{V1} = I_{1}$<br>$v_{2} = - I_{1} R_{2} + I_{2} R_{2} + V_{3}$<br>$v_{4} = V_{3}$<br>$I_{V3} = - I_{1} + I_{2}$<br>$I_{V2} = - I_{2}$<br>$v_{5} = V_{2}$<br>
+:::
+:::
+
+
+::: {#8bc127eb-8088-4430-be35-3b33348a4d23 .cell execution_count=45}
+``` {.python .cell-code}
+str(U_sym)
+```
+
+::: {.cell-output .cell-output-display execution_count=45}
+```
+'{v1: V1, v3: I1*R1 + V1, I_V1: I1, v2: -I1*R2 + I2*R2 + V3, v4: V3, I_V3: -I1 + I2, I_V2: -I2, v5: V2}'
+```
+:::
+:::
+
+
+Modify diode equations for voltage drop across the diode.
+
+$D_1$ is replaced by the current source $I_{D1}$
+
+::: {#665afc57-c3dd-4c87-a2d1-2cac09047d77 .cell execution_count=46}
+``` {.python .cell-code}
+I_s, n = symbols('I_s n')
+
+I_d1 = (I_s*(exp((v3-v2)*q/(n*k*T))-1)).subs({I_s:2.52e-9, n:1.752})
+I_d1
+```
+
+::: {.cell-output .cell-output-display .cell-output-markdown execution_count=46}
+$\displaystyle 2.52 \cdot 10^{-9} e^{- 22.0786113423708 v_{2} + 22.0786113423708 v_{3}} - 2.52 \cdot 10^{-9}$
+:::
+:::
+
+
+$D_2$ is replaced by the current source $I_2$
+
+The schematic shown in ?? has a [1N5817](https://en.wikipedia.org/wiki/1N58xx_Schottky_diodes) diode with resistor $R_?$ acting as a current limiter. 
+
+The [1N5817 datasheet](https://www.diodes.com/assets/Datasheets/1N5817-1N5819.pdf) from Diodes Incorporated provides the device specifications. 
+
+The 1N5817 model parameters used in LTspice are:  
+`.model 1N5817 D(Is=31.7u Rs=.051 N=1.373 Cjo=190p M=.3 Eg=.69 Xti=2 Iave=1 Vpk=20 mfg=OnSemi type=Schottky)`
+
+::: {#382a108d-5c02-468c-b13c-11c0cabb149c .cell execution_count=47}
+``` {.python .cell-code}
+I_d2 = (I_s*(exp((v2-v5)*q/(n*k*T))-1)).subs({I_s:31.7e-6, n:1.373})
+I_d2
+```
+
+::: {.cell-output .cell-output-display .cell-output-markdown execution_count=47}
+$\displaystyle 3.17 \cdot 10^{-5} e^{28.1731442620784 v_{2} - 28.1731442620784 v_{5}} - 3.17 \cdot 10^{-5}$
+:::
+:::
+
+
+The code below creates a new equation, `eq1`, by substituting the diode equations for $I_1$ and $I_2$. The element values for $R_1$, $R_2$ and $V_1$ are also put into the equation. 
+
+::: {#c942b62e-5272-442c-b720-791e8c298cc1 .cell execution_count=48}
+``` {.python .cell-code}
+U_sym[v2]
+```
+
+::: {.cell-output .cell-output-display .cell-output-markdown execution_count=48}
+$\displaystyle - I_{1} R_{2} + I_{2} R_{2} + V_{3}$
+:::
+:::
+
+
+::: {#ee110343-1ded-45fa-8bbb-2716b1547ed3 .cell execution_count=61}
+``` {.python .cell-code}
+eq1 = U_sym[v2].subs({I1:I_d1, I2:I_d2})
+eq1
+```
+
+::: {.cell-output .cell-output-display .cell-output-markdown execution_count=61}
+$\displaystyle - R_{2} \cdot \left(2.52 \cdot 10^{-9} e^{- 22.0786113423708 v_{2} + 22.0786113423708 v_{3}} - 2.52 \cdot 10^{-9}\right) + R_{2} \cdot \left(3.17 \cdot 10^{-5} e^{28.1731442620784 v_{2} - 28.1731442620784 v_{5}} - 3.17 \cdot 10^{-5}\right) + V_{3}$
+:::
+:::
+
+
+::: {#6d13fdda-ca90-49a4-ae85-0e047e409321 .cell execution_count=62}
+``` {.python .cell-code}
+eq1 = eq1.subs({R2:9.5e3,V3:10,v5:5})
+eq1
+```
+
+::: {.cell-output .cell-output-display .cell-output-markdown execution_count=62}
+$\displaystyle 2.00252253983866 \cdot 10^{-62} e^{28.1731442620784 v_{2}} - 2.394 \cdot 10^{-5} e^{- 22.0786113423708 v_{2} + 22.0786113423708 v_{3}} + 9.69887394$
+:::
+:::
+
+
+The equation, `eq1` minus $v_2$, is converted to a function by using the lamdify operation.
+
+::: {#79e8e88c-9cc2-4112-b23a-06e825644132 .cell execution_count=63}
+``` {.python .cell-code}
+eq1_lam = lambdify([v2,v3], eq1-v2)
+```
+:::
+
+
+::: {#75bc9b31-ecf2-4379-9e53-975aba3cbc0a .cell execution_count=80}
+``` {.python .cell-code}
+eq1_lam(0.1,0.1)
+```
+
+::: {.cell-output .cell-output-display .cell-output-markdown execution_count=80}
+$\displaystyle 9.59885$
+:::
+:::
+
+
+::: {#08db1844-55c5-46c5-886d-643cb1dcbb1b .cell execution_count=81}
+``` {.python .cell-code}
+eq1_lam(1,1)
+```
+
+::: {.cell-output .cell-output-display .cell-output-markdown execution_count=81}
+$\displaystyle 8.69885$
+:::
+:::
+
+
+The code below creates a new equation, `eq2`, by substituting the diode equations for $I_1$ and $I_2$. The element values for $R_1$, $R_2$ and $V_1$ are also put into the equation. 
+
+::: {#4f08df61-63da-4d57-aafb-538bc34a9439 .cell execution_count=64}
+``` {.python .cell-code}
+U_sym[v3]
+```
+
+::: {.cell-output .cell-output-display .cell-output-markdown execution_count=64}
+$\displaystyle I_{1} R_{1} + V_{1}$
+:::
+:::
+
+
+::: {#fcca59b4-28b2-4f96-bcb6-188b9b42a149 .cell execution_count=65}
+``` {.python .cell-code}
+eq2 = U_sym[v3].subs({I1:I_d1})
+eq2
+```
+
+::: {.cell-output .cell-output-display .cell-output-markdown execution_count=65}
+$\displaystyle R_{1} \cdot \left(2.52 \cdot 10^{-9} e^{- 22.0786113423708 v_{2} + 22.0786113423708 v_{3}} - 2.52 \cdot 10^{-9}\right) + V_{1}$
+:::
+:::
+
+
+::: {#c115e5db-daba-4155-83b8-330ce8ddb583 .cell execution_count=66}
+``` {.python .cell-code}
+eq2 = eq2.subs({I1:I_d1}).subs({R1:500,V1:1})
+eq2
+```
+
+::: {.cell-output .cell-output-display .cell-output-markdown execution_count=66}
+$\displaystyle 1.26 \cdot 10^{-6} e^{- 22.0786113423708 v_{2} + 22.0786113423708 v_{3}} + 0.99999874$
+:::
+:::
+
+
+The equation, `eq2` minus $v_3$, is converted to a function by using the lamdify operation.
+
+::: {#6fcc7e67-ea13-4e66-b422-38d7d10180f5 .cell execution_count=67}
+``` {.python .cell-code}
+eq2_lam = lambdify([v2,v3], eq2-v3)
+```
+:::
+
+
+::: {#6305da38-28c6-4e96-bb64-1a0760b2e531 .cell execution_count=73}
+``` {.python .cell-code}
+eq2_lam(0.1,0.1)
+```
+
+::: {.cell-output .cell-output-display .cell-output-markdown execution_count=73}
+$\displaystyle 0.9$
+:::
+:::
+
+
+A function called `func4` is created so that it can be used as an argument to the `fsolve` function.
+
+::: {#22e00817-6b3f-4255-bf6f-76f2b41ba9c8 .cell execution_count=72}
+``` {.python .cell-code}
+def func4(vars):
+    v2, v3 = vars
+    return [eq1_lam(v2,v3), eq2_lam(v2,v3)]
+
+node_v2, node_v3 = fsolve(func4, [2, 2], xtol=1e-6)
+
+print(f'The voltage at node 2 is: {node_v2:0.3f} and the voltage at node 3 is: {node_v3:0.3f}')
+```
+
+::: {.cell-output .cell-output-stdout}
+```
+The voltage at node 2 is: 2.000 and the voltage at node 3 is: 2.000
+```
+:::
+:::
+
+
+LTSpice solution
+
+```
+       --- Operating Point ---
+
+V(1):    1   voltage
+V(3):    4.14381     voltage
+V(2):    4.81487     voltage
+V(5):    5   voltage
+V(4):    10  voltage
+I(D1):   0.00628763  device_current
+I(D2):   0.00574183  device_current
+I(R1):   0.00628763  device_current
+I(R2):   0.000545803     device_current
+I(V1):   0.00628763  device_current
+I(V2):   -0.00574183     device_current
+I(V3):   -0.000545803    device_current
+```
+
+-->
 
 
 </section>
