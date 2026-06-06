@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Tiburonboy">
-<meta name="dcterms.date" content="2026-03-02">
+<meta name="dcterms.date" content="2026-06-06">
 
 <title>Symbolic Modified Nodal Analysis using Python</title>
 <style>
@@ -21,6 +21,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -72,6 +107,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -483,6 +547,8 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#welcome" id="toc-welcome" class="nav-link active" data-scroll-target="#welcome">Welcome</a>
   <ul class="collapse">
+  <li><a href="#quick-example" id="toc-quick-example" class="nav-link" data-scroll-target="#quick-example">Quick Example</a></li>
+  <li><a href="#colophon" id="toc-colophon" class="nav-link" data-scroll-target="#colophon">Colophon</a></li>
   <li><a href="#sec-source_code" id="toc-sec-source_code" class="nav-link" data-scroll-target="#sec-source_code">Source Code</a></li>
   <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a></li>
   <li><a href="#about-the-author" id="toc-about-the-author" class="nav-link" data-scroll-target="#about-the-author">About the Author</a></li>
@@ -517,7 +583,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2 March 2026</p>
+      <p class="date">6 June 2026</p>
     </div>
   </div>
   
@@ -551,10 +617,79 @@ Note
 <h1 class="unnumbered">Welcome</h1>
 <p>Welcome to <strong><em>Symbolic Modified Nodal Analysis using Python</em></strong>. This book is personal project that is being made available online during the development of the book.</p>
 <p>The Python code presented in this book will allow students and professionals to automatically generate symbolic network equations from a circuit’s netlist. Then using the power of SymPy, NumPy and SciPy those equations can be symbolically or numerically solved. The JupyterLab notebooks presented in this book can be used as templates to analyze almost any linear electrical circuit.</p>
+<section id="quick-example" class="level2">
+<h2 class="anchored" data-anchor-id="quick-example">Quick Example</h2>
+<p>Consider the schematic shown in <a href="#fig-SMNA_welcome_page_sch" class="quarto-xref">Figure&nbsp;<span>1</span></a>. This is the type of circuit that you might find as a homework or example problem in an engineering circuit analysis textbook, where the student might be asked to find the steady state voltage at one of the circuit nodes as a function of <span class="math inline">\(s=j\omega\)</span>.</p>
+<div id="fig-SMNA_welcome_page_sch" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-SMNA_welcome_page_sch-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="SMNA_welcome_page_sch.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-SMNA_welcome_page_sch-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Quick example schematic.
+</figcaption>
+</figure>
+</div>
+<p>This circuit has two resistors, three capacitors, two inductors and two independent voltage sources. Each of the nodes are labeled along with the reference node. The schematic above was drawn using LTSpice and the netlist was obtained and copied below. The nodes were numbered in no particular order and the reference node is indicated by the ground symbol.</p>
+<div id="49bd49be" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>netlist <span class="op">=</span> <span class="st">'''</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="st">R1 2 0 2</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="st">C1 0 2 0.5</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="st">L1 1 2 3</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="st">V1 1 0 1</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="st">R2 3 2 1</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="st">L2 3 4 1</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="st">C2 3 1 0.25</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="st">V2 4 0 2</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="st">C3 4 3 3</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="st">'''</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The symbolic modified nodal analysis function, <code>SymMNA.smna(netlist)</code> is called to generate network equations from the netlist.</p>
+<div id="44739a53" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>report, network_df, df2, A, X, Z <span class="op">=</span> SymMNA.smna(netlist)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The internals of this function are explained in chapter <a href="MNA_with_python.html" class="quarto-xref"><span>4&nbsp; MNA with Python</span></a>. Several parameters are returned by the function, but only the matrix <span class="math inline">\(A\)</span> and vectors <span class="math inline">\(X\)</span> and <span class="math inline">\(Z\)</span> are used in this example. The formulation of these parameters are describe in the paragraph, <a href="Modified_Nodal_Analysis.html#sec-sys_matrix_description" class="quarto-xref"><span>Detailed Structure of the System Matrix</span></a>. The <span class="math inline">\(A\)</span> matrix is called the system matrix. The vector <span class="math inline">\(X\)</span> contains the symbols for the unknown node voltages and the currents. The <span class="math inline">\(Z\)</span> vector contains the symbols for the newtork Knowns.</p>
+<p>The network equations for the circuit can be obtained from the <span class="math inline">\(A\)</span>, <span class="math inline">\(X\)</span> and <span class="math inline">\(Z\)</span> parameters returned from the SMNA function and these are formulated into equations and displayed below. Markdown is an IPython function and latex is a SymPy printing function.</p>
+<div id="a2bad5b4" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Put matrices into SymPy</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> Matrix(X)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>Z <span class="op">=</span> Matrix(Z)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># formulate the network equations</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>NE_sym <span class="op">=</span> Eq(A<span class="op">*</span>X,Z)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># display the equations with markdown</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(X)):</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(Eq((A<span class="op">*</span>X)[i:i<span class="op">+</span><span class="dv">1</span>][<span class="dv">0</span>],Z[i])))</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="4">
+<p><span class="math inline">\(C_{2} s v_{1} - C_{2} s v_{3} + I_{L1} + I_{V1} = 0\)</span><br><span class="math inline">\(- I_{L1} + v_{2} \left(C_{1} s + \frac{1}{R_{2}} + \frac{1}{R_{1}}\right) - \frac{v_{3}}{R_{2}} = 0\)</span><br><span class="math inline">\(- C_{2} s v_{1} - C_{3} s v_{4} + I_{L2} + v_{3} \left(C_{2} s + C_{3} s + \frac{1}{R_{2}}\right) - \frac{v_{2}}{R_{2}} = 0\)</span><br><span class="math inline">\(- C_{3} s v_{3} + C_{3} s v_{4} - I_{L2} + I_{V2} = 0\)</span><br><span class="math inline">\(v_{1} = V_{1}\)</span><br><span class="math inline">\(v_{4} = V_{2}\)</span><br><span class="math inline">\(- I_{L1} L_{1} s + v_{1} - v_{2} = 0\)</span><br><span class="math inline">\(- I_{L2} L_{2} s + v_{3} - v_{4} = 0\)</span><br></p>
+</div>
+</div>
+<p>The network equations for the netlist can be solved symbolically using the SymPy function <code>solve</code> and the node voltages and dependent currents are displayed using symbolic notation.</p>
+<div id="168ee3da" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>U_sym <span class="op">=</span> solve(NE_sym,X)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> U_sym.keys():</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">+=</span> <span class="st">'$</span><span class="sc">{:s}</span><span class="st"> = </span><span class="sc">{:s}</span><span class="st">$&lt;br&gt;'</span>.<span class="bu">format</span>(latex(i),latex(U_sym[i]))</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>Markdown(temp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="5">
+<p><span class="math inline">\(v_{1} = V_{1}\)</span><br><span class="math inline">\(v_{2} = \frac{C_{2} L_{1} L_{2} R_{1} V_{1} s^{3} + C_{2} L_{2} R_{1} R_{2} V_{1} s^{2} + C_{3} L_{1} L_{2} R_{1} V_{2} s^{3} + C_{3} L_{2} R_{1} R_{2} V_{1} s^{2} + L_{1} R_{1} V_{2} s + L_{2} R_{1} V_{1} s + R_{1} R_{2} V_{1}}{C_{1} C_{2} L_{1} L_{2} R_{1} R_{2} s^{4} + C_{1} C_{3} L_{1} L_{2} R_{1} R_{2} s^{4} + C_{1} L_{1} L_{2} R_{1} s^{3} + C_{1} L_{1} R_{1} R_{2} s^{2} + C_{2} L_{1} L_{2} R_{1} s^{3} + C_{2} L_{1} L_{2} R_{2} s^{3} + C_{2} L_{2} R_{1} R_{2} s^{2} + C_{3} L_{1} L_{2} R_{1} s^{3} + C_{3} L_{1} L_{2} R_{2} s^{3} + C_{3} L_{2} R_{1} R_{2} s^{2} + L_{1} L_{2} s^{2} + L_{1} R_{1} s + L_{1} R_{2} s + L_{2} R_{1} s + R_{1} R_{2}}\)</span><br><span class="math inline">\(v_{3} = \frac{C_{1} C_{2} L_{1} L_{2} R_{1} R_{2} V_{1} s^{4} + C_{1} C_{3} L_{1} L_{2} R_{1} R_{2} V_{2} s^{4} + C_{1} L_{1} R_{1} R_{2} V_{2} s^{2} + C_{2} L_{1} L_{2} R_{1} V_{1} s^{3} + C_{2} L_{1} L_{2} R_{2} V_{1} s^{3} + C_{2} L_{2} R_{1} R_{2} V_{1} s^{2} + C_{3} L_{1} L_{2} R_{1} V_{2} s^{3} + C_{3} L_{1} L_{2} R_{2} V_{2} s^{3} + C_{3} L_{2} R_{1} R_{2} V_{2} s^{2} + L_{1} R_{1} V_{2} s + L_{1} R_{2} V_{2} s + L_{2} R_{1} V_{1} s + R_{1} R_{2} V_{2}}{C_{1} C_{2} L_{1} L_{2} R_{1} R_{2} s^{4} + C_{1} C_{3} L_{1} L_{2} R_{1} R_{2} s^{4} + C_{1} L_{1} L_{2} R_{1} s^{3} + C_{1} L_{1} R_{1} R_{2} s^{2} + C_{2} L_{1} L_{2} R_{1} s^{3} + C_{2} L_{1} L_{2} R_{2} s^{3} + C_{2} L_{2} R_{1} R_{2} s^{2} + C_{3} L_{1} L_{2} R_{1} s^{3} + C_{3} L_{1} L_{2} R_{2} s^{3} + C_{3} L_{2} R_{1} R_{2} s^{2} + L_{1} L_{2} s^{2} + L_{1} R_{1} s + L_{1} R_{2} s + L_{2} R_{1} s + R_{1} R_{2}}\)</span><br><span class="math inline">\(v_{4} = V_{2}\)</span><br><span class="math inline">\(I_{V1} = \frac{- C_{1} C_{2} C_{3} L_{1} L_{2} R_{1} R_{2} V_{1} s^{5} + C_{1} C_{2} C_{3} L_{1} L_{2} R_{1} R_{2} V_{2} s^{5} - C_{1} C_{2} L_{1} L_{2} R_{1} V_{1} s^{4} - C_{1} C_{2} L_{1} R_{1} R_{2} V_{1} s^{3} + C_{1} C_{2} L_{1} R_{1} R_{2} V_{2} s^{3} - C_{1} C_{2} L_{2} R_{1} R_{2} V_{1} s^{3} - C_{1} C_{3} L_{2} R_{1} R_{2} V_{1} s^{3} - C_{1} L_{2} R_{1} V_{1} s^{2} - C_{1} R_{1} R_{2} V_{1} s - C_{2} C_{3} L_{1} L_{2} R_{1} V_{1} s^{4} + C_{2} C_{3} L_{1} L_{2} R_{1} V_{2} s^{4} - C_{2} C_{3} L_{1} L_{2} R_{2} V_{1} s^{4} + C_{2} C_{3} L_{1} L_{2} R_{2} V_{2} s^{4} - C_{2} C_{3} L_{2} R_{1} R_{2} V_{1} s^{3} + C_{2} C_{3} L_{2} R_{1} R_{2} V_{2} s^{3} - C_{2} L_{1} L_{2} V_{1} s^{3} - C_{2} L_{1} R_{1} V_{1} s^{2} + C_{2} L_{1} R_{1} V_{2} s^{2} - C_{2} L_{1} R_{2} V_{1} s^{2} + C_{2} L_{1} R_{2} V_{2} s^{2} - C_{2} L_{2} R_{2} V_{1} s^{2} - C_{2} R_{1} R_{2} V_{1} s + C_{2} R_{1} R_{2} V_{2} s - C_{3} L_{2} R_{1} V_{1} s^{2} + C_{3} L_{2} R_{1} V_{2} s^{2} - C_{3} L_{2} R_{2} V_{1} s^{2} - L_{2} V_{1} s - R_{1} V_{1} + R_{1} V_{2} - R_{2} V_{1}}{C_{1} C_{2} L_{1} L_{2} R_{1} R_{2} s^{4} + C_{1} C_{3} L_{1} L_{2} R_{1} R_{2} s^{4} + C_{1} L_{1} L_{2} R_{1} s^{3} + C_{1} L_{1} R_{1} R_{2} s^{2} + C_{2} L_{1} L_{2} R_{1} s^{3} + C_{2} L_{1} L_{2} R_{2} s^{3} + C_{2} L_{2} R_{1} R_{2} s^{2} + C_{3} L_{1} L_{2} R_{1} s^{3} + C_{3} L_{1} L_{2} R_{2} s^{3} + C_{3} L_{2} R_{1} R_{2} s^{2} + L_{1} L_{2} s^{2} + L_{1} R_{1} s + L_{1} R_{2} s + L_{2} R_{1} s + R_{1} R_{2}}\)</span><br><span class="math inline">\(I_{V2} = \frac{C_{1} C_{2} C_{3} L_{1} L_{2} R_{1} R_{2} V_{1} s^{5} - C_{1} C_{2} C_{3} L_{1} L_{2} R_{1} R_{2} V_{2} s^{5} + C_{1} C_{2} L_{1} R_{1} R_{2} V_{1} s^{3} - C_{1} C_{2} L_{1} R_{1} R_{2} V_{2} s^{3} - C_{1} C_{3} L_{1} L_{2} R_{1} V_{2} s^{4} - C_{1} L_{1} R_{1} V_{2} s^{2} + C_{2} C_{3} L_{1} L_{2} R_{1} V_{1} s^{4} - C_{2} C_{3} L_{1} L_{2} R_{1} V_{2} s^{4} + C_{2} C_{3} L_{1} L_{2} R_{2} V_{1} s^{4} - C_{2} C_{3} L_{1} L_{2} R_{2} V_{2} s^{4} + C_{2} C_{3} L_{2} R_{1} R_{2} V_{1} s^{3} - C_{2} C_{3} L_{2} R_{1} R_{2} V_{2} s^{3} + C_{2} L_{1} R_{1} V_{1} s^{2} - C_{2} L_{1} R_{1} V_{2} s^{2} + C_{2} L_{1} R_{2} V_{1} s^{2} - C_{2} L_{1} R_{2} V_{2} s^{2} + C_{2} R_{1} R_{2} V_{1} s - C_{2} R_{1} R_{2} V_{2} s - C_{3} L_{1} L_{2} V_{2} s^{3} + C_{3} L_{2} R_{1} V_{1} s^{2} - C_{3} L_{2} R_{1} V_{2} s^{2} - L_{1} V_{2} s + R_{1} V_{1} - R_{1} V_{2}}{C_{1} C_{2} L_{1} L_{2} R_{1} R_{2} s^{4} + C_{1} C_{3} L_{1} L_{2} R_{1} R_{2} s^{4} + C_{1} L_{1} L_{2} R_{1} s^{3} + C_{1} L_{1} R_{1} R_{2} s^{2} + C_{2} L_{1} L_{2} R_{1} s^{3} + C_{2} L_{1} L_{2} R_{2} s^{3} + C_{2} L_{2} R_{1} R_{2} s^{2} + C_{3} L_{1} L_{2} R_{1} s^{3} + C_{3} L_{1} L_{2} R_{2} s^{3} + C_{3} L_{2} R_{1} R_{2} s^{2} + L_{1} L_{2} s^{2} + L_{1} R_{1} s + L_{1} R_{2} s + L_{2} R_{1} s + R_{1} R_{2}}\)</span><br><span class="math inline">\(I_{L1} = \frac{C_{1} C_{2} L_{2} R_{1} R_{2} V_{1} s^{3} + C_{1} C_{3} L_{2} R_{1} R_{2} V_{1} s^{3} + C_{1} L_{2} R_{1} V_{1} s^{2} + C_{1} R_{1} R_{2} V_{1} s + C_{2} L_{2} R_{2} V_{1} s^{2} + C_{3} L_{2} R_{1} V_{1} s^{2} - C_{3} L_{2} R_{1} V_{2} s^{2} + C_{3} L_{2} R_{2} V_{1} s^{2} + L_{2} V_{1} s + R_{1} V_{1} - R_{1} V_{2} + R_{2} V_{1}}{C_{1} C_{2} L_{1} L_{2} R_{1} R_{2} s^{4} + C_{1} C_{3} L_{1} L_{2} R_{1} R_{2} s^{4} + C_{1} L_{1} L_{2} R_{1} s^{3} + C_{1} L_{1} R_{1} R_{2} s^{2} + C_{2} L_{1} L_{2} R_{1} s^{3} + C_{2} L_{1} L_{2} R_{2} s^{3} + C_{2} L_{2} R_{1} R_{2} s^{2} + C_{3} L_{1} L_{2} R_{1} s^{3} + C_{3} L_{1} L_{2} R_{2} s^{3} + C_{3} L_{2} R_{1} R_{2} s^{2} + L_{1} L_{2} s^{2} + L_{1} R_{1} s + L_{1} R_{2} s + L_{2} R_{1} s + R_{1} R_{2}}\)</span><br><span class="math inline">\(I_{L2} = \frac{C_{1} C_{2} L_{1} R_{1} R_{2} V_{1} s^{3} - C_{1} C_{2} L_{1} R_{1} R_{2} V_{2} s^{3} - C_{1} L_{1} R_{1} V_{2} s^{2} + C_{2} L_{1} R_{1} V_{1} s^{2} - C_{2} L_{1} R_{1} V_{2} s^{2} + C_{2} L_{1} R_{2} V_{1} s^{2} - C_{2} L_{1} R_{2} V_{2} s^{2} + C_{2} R_{1} R_{2} V_{1} s - C_{2} R_{1} R_{2} V_{2} s - L_{1} V_{2} s + R_{1} V_{1} - R_{1} V_{2}}{C_{1} C_{2} L_{1} L_{2} R_{1} R_{2} s^{4} + C_{1} C_{3} L_{1} L_{2} R_{1} R_{2} s^{4} + C_{1} L_{1} L_{2} R_{1} s^{3} + C_{1} L_{1} R_{1} R_{2} s^{2} + C_{2} L_{1} L_{2} R_{1} s^{3} + C_{2} L_{1} L_{2} R_{2} s^{3} + C_{2} L_{2} R_{1} R_{2} s^{2} + C_{3} L_{1} L_{2} R_{1} s^{3} + C_{3} L_{1} L_{2} R_{2} s^{3} + C_{3} L_{2} R_{1} R_{2} s^{2} + L_{1} L_{2} s^{2} + L_{1} R_{1} s + L_{1} R_{2} s + L_{2} R_{1} s + R_{1} R_{2}}\)</span><br></p>
+</div>
+</div>
+<p>As you can see in this example, generating a set of network equations from a schematic’s netlist is rather easy with the help of Python. Then SymPy can be used to solve the network equations, if the system of equations is not too large. The symbolic solutions for the node voltages and unknown currents in this example have rather long expressions. The slider bar can be used to view the expressions which extend beyond the margins of the book’s page. Generating and solving the network equations took less than one second on my i3 desktop computer. Numerical values can be substituted for the symbolic values and NumPy can used to obtain a solution, even for relatively large networks.</p>
+</section>
+<section id="colophon" class="level2">
+<h2 class="anchored" data-anchor-id="colophon">Colophon</h2>
 <p>This book was written in <a href="https://rmarkdown.rstudio.com/">R MarkDown</a> using plain text files and <a href="https://jupyter.org/">JupyterLab</a> notebooks. The source files were rendered into an HTML book using <a href="https://quarto.org/">Quarto</a>, an open-source scientific and technical publishing system. HTML books are actually just a special type of Quarto Website. Quarto does a good job of formatting the documents into web pages for a book. Some of the lines of code and mathematical expressions are wider than the page and Quarto inserts a slider bar in the code or equation windows. Chapter and paragraph numbering are automatically generated by Quarto as well as the numbering of figures and tables.</p>
 <p>I don’t have a proof reader or professional editors for this project. Instead, I’m relying on the LibreOffice spell checker and the grammar and spell checker of Google Docs to help me with the proof reading part of the writing process. Employing professional editors to work on this project may happen in the future.</p>
 <p>Some sections of this work were developed with the assistance of Gemini, an artificial intelligence developed by Google. While this technology was utilized to draft some of the initial content, second and subsequent draft versions have been meticulously reviewed by the author. Every Gemini assisted section has been reworded for style and fact-checked for accuracy.</p>
 <p>Python code contained in this book can run in a browser-based environment, see <a href="Google Colab.html" class="quarto-xref"><span>Appendix C — Google Colab</span></a>. Additionally, online schematics editors are available, see <a href="EasyEDA_schematic_editor.html" class="quarto-xref"><span>Appendix E — EasyEDA</span></a>. By using web based tools, the reader is not required to install any programs.</p>
+</section>
 <section id="sec-source_code" class="level2">
 <h2 class="anchored" data-anchor-id="sec-source_code">Source Code</h2>
 <p>Archived source code for this project can be found on <a href="https://github.com/Tiburonboy/Symbolic-modified-nodal-analysis/tree/master/book_backup">GitHub</a>. Here you will find markdown files, JupyterLab notebooks, LTSpice schematics and image files. I will do my best to keep these files current. All the source code is subject to the license stated in <a href="#sec-license" class="quarto-xref"><span>License</span></a>.</p>
@@ -662,7 +797,7 @@ Table&nbsp;1: Library versions
 </section>
 <section id="revision-history" class="level2">
 <h2 class="anchored" data-anchor-id="revision-history">Revision History</h2>
-<p>This book will be updated occasionally to update content and fix spelling and grammar mistakes - see <a href="Change-log.html#tbl-book-change-log" class="quarto-xref">Table&nbsp;<span>B.2</span></a>. Additionally, new content will be added as new chapters in the <em>Example Problems</em> section.</p>
+<p>This book will be updated occasionally to update content and fix spelling and grammar mistakes - see <a href="Change-log.html#tbl-book-change-log" class="quarto-xref">Table&nbsp;<span>B.2</span></a>. Additionally, new content will be added as new chapters in the <em>Example Problems</em> section. The published date at the top of this page is the date of last revision.</p>
 </section>
 <section id="sec-license" class="level2">
 <h2 class="anchored" data-anchor-id="sec-license">License</h2>
