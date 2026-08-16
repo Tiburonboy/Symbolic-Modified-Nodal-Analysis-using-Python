@@ -815,8 +815,8 @@ Figure&nbsp;8.2: Circuit schematic
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>U_sym <span class="op">=</span> solve(NE_sym,X)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>CPU times: user 79.3 ms, sys: 0 ns, total: 79.3 ms
-Wall time: 79.6 ms</code></pre>
+<pre><code>CPU times: user 86.6 ms, sys: 0 ns, total: 86.6 ms
+Wall time: 86.1 ms</code></pre>
 </div>
 </div>
 <p>Display the symbolic solution</p>
@@ -926,8 +926,8 @@ Wall time: 79.6 ms</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>U_trans <span class="op">=</span> solve(NE_trans,X)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>CPU times: user 2.35 s, sys: 0 ns, total: 2.35 s
-Wall time: 2.35 s</code></pre>
+<pre><code>CPU times: user 2.27 s, sys: 0 ns, total: 2.27 s
+Wall time: 2.27 s</code></pre>
 </div>
 </div>
 <div id="86c255b7-6912-4423-81c3-a1b7af45f9f6" class="cell" data-execution_count="19">
@@ -969,8 +969,12 @@ Wall time: 2.35 s</code></pre>
 </div>
 <p>Each of the numerator terms can be put over the common denominator.</p>
 <div id="8e9ffb82-a1d4-4fc4-a3e2-afd706511ec4" class="cell" data-execution_count="22">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>terms <span class="op">=</span> [a <span class="op">/</span> d <span class="cf">for</span> a <span class="kw">in</span> n.args]</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>display(terms)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">len</span>(Add.make_args(n)) <span class="op">&gt;</span> <span class="dv">1</span>: <span class="co"># check for the number of additive terms in the numerator</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    terms <span class="op">=</span> [a <span class="op">/</span> d <span class="cf">for</span> a <span class="kw">in</span> n.args]</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    terms <span class="op">=</span> [n<span class="op">/</span>d]</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>display(terms)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display cell-output-markdown">
 <p><span class="math inline">\(\displaystyle \left[ - \frac{250000000000 e^{- 5 s}}{s \left(7224395229 s^{3} + 26828647800 s^{2} + 270940000000 s + 500000000000\right)}, \  - \frac{1254498900 s e^{- 5 s}}{7224395229 s^{3} + 26828647800 s^{2} + 270940000000 s + 500000000000}, \  \frac{250000000000}{s \left(7224395229 s^{3} + 26828647800 s^{2} + 270940000000 s + 500000000000\right)}, \  \frac{1254498900 s}{7224395229 s^{3} + 26828647800 s^{2} + 270940000000 s + 500000000000}\right]\)</span></p>
 </div>
@@ -1014,7 +1018,7 @@ Wall time: 2.35 s</code></pre>
 <div id="d8629696-9b3c-49ca-886e-fda8cc4f03eb" class="cell" data-execution_count="24">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>time_delay</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="24">
-<p><span class="math inline">\(\displaystyle \left[ -5, \  -5, \  0, \  0\right]\)</span></p>
+<p><span class="math inline">\(\displaystyle \left[ s, \  s, \  0, \  0\right]\)</span></p>
 </div>
 </div>
 <p>The time domain version of each of the terms is displayed below.</p>
